@@ -1,0 +1,49 @@
+% -*-cap1.tex-*-
+% Este fichero es parte de la plantilla LaTeX para
+% la realización de Proyectos Final de Carrera, protejido
+% bajo los términos de la licencia GFDL.
+% Para más información, la licencia completa viene incluida en el
+% fichero fdl-1.3.tex
+
+% Copyright (C) 2009 Pablo Recio Quijano 
+
+\section{Introducción}
+La motivación para la realización de este proyecto viene a raíz de descubrir a principios del 2011 la plataforma Arduino. Hasta entonces todo lo que había programado antes tenía como objetivo mostrar un resultado de algún tipo en la pantalla de un ordenador, mientras que con Arduino tenía una manera sencilla de programar con resultados físicos más allá de la modificación del estado de unos píxeles en el monitor de mi PC. Gracias a su sencilla biblioteca es posible crear desde un pequeño programa que encienda y apague un LED con apenas nueve líneas y sabiendo solamente a que pin del procesador se encuentra conectado el LED hasta impresoras 3D\footnote{\url{http://reprapbook.appspot.com/}}.\\
+
+Además, el hardware y software de Arduino es libre. Cualquiera puede descargarse los esquemáticos para ensamblar o modificar su propia placa y tiene acceso al código fuente de la biblioteca. También, el diseño de las placas Arduino (y ChipKit) facilita la creación de circuitos impresos que se pueden poner encima de la placa para añadir funcionalidades extra, como conexión Ethernet o control de motores.\\
+
+Para la realización de este proyecto se ha optado por utilizar el entorno ChipKit, que es compatible con Arduino. La elección de esta plataforma tiene varios motivos, el primero es que posee la misma estructura de programa y mismas bibliotecas que cualquier placa Arduino. Otro motivo es el rendimiento que ChipKit ofrece y la memoria disponible con este entorno. Como se puede observar en la tabla~\ref{tab:arduino} la solución que nos ofrece Digilent (empresa que produce ChipKit) dispone de un procesador que funciona a cinco veces más frecuencia que su versión de Arduino y (comparando el Arduino Mega frente a Chipkit Max32) el doble de memoria flash, y 16 veces mas SRAM.
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{| c || c | c | c |}
+    \hline
+    Modelo & Frecuencia Reloj & Memoria Flash & SRAM\\
+    \hline
+    Arduino Uno   & 16MHz & 32KB  & 2KB   \\
+    \hline
+    Arduino MEGA  & 16MHz & 256KB & 8KB   \\
+    \hline
+    Chipkit Uno32 & 80MHz & 128KB & 16KB  \\
+    \hline
+    Chipkit Max32 & 80MHz & 512KB & 128KB \\
+    \hline
+  \end{tabular}
+\end{center}
+\caption{Comparación de modelos equivalentes Arduino y Chipkit}
+\label{tab:arduino}
+\end{table}
+
+Chipkit, además, utiliza un chip PIC32 de Microchip (Max32 usa 32MX795F512L) con arquitectura MIPS de 32 bits, frente a la arquitectura AVR de 8 bits que podemos encontrar en las placas Arduino con chips ATMEL. Recientemente Arduino ha sacado al mercado una placa con chip basado en ARM Cortex-M (Arduino Due\footnote{\url{http://arduino.cc/en/Main/ArduinoBoardDue}}) para solucionar el problema de rendimiento, pero esto se sale fuera del objetivo de este proyecto. ChipKit también ofrece la posibilidad de utilizar herramientas de depuración, con las que podemos ejecutar el programa paso a paso, ver el estado de registros y memoria, etc. Para poder realizar el proceso de depuración se hará uso del ChipKit PGM, un depurador diseñado y construido expresamente para la plataforma ChipKit.
+
+\section{Objetivos}
+Podemos dividir los objetivos de la siguiente forma:
+\begin{enumerate}
+    \item Describir el proceso de compilación del IDE de ChipKit. Trataremos de describir como MPIDE lleva acabo la compilación del programa y su posterior carga en el microcontrolador.
+    \item Proponer alternativa al IDE de ChipKit. Sabiendo como realiza la compilación el IDE de ChipKit intentaremos proponer una alternativa basada en el uso de archivos Makefile que nos facilitaran la labor de automatización de todo el proceso.
+    \item Analizar las optimizaciones que lleva acabo el compilador según el nivel de optimización. Veremos que optimizaciones se llevan a cabo y cual es la finalidad de cada una de ellas.
+    \item Escribir un programa con el que podamos llevar acabo los siguientes puntos. Escribiremos un programa que tendrá funciones compiladas con diferentes niveles de optimización.
+    \item Comparar los efectos de las diferentes optimizaciones en el código ensamblador. Usando un desensamblador veremos los efectos que han tenido las optimizaciones en el lenguaje ensamblador de las funciones del programa.
+    \item Medir las diferencias de las distintas optimizaciones en aplicaciones reales. Usaremos diferentes métodos de profiling para medir el efecto de las optimizaciones en la aplicación.
+    \item Comparar la biblioteca Arduino con el uso de las bibliotecas de microchip de más bajo nivel. La biblioteca Arduino es una que está por encima de las bibliotecas que provee Microchip y que simplifica su uso. Veremos cual es la diferencia en rendimiento si usamos las funciones de la biblioteca de Microchip directamente frente a las proporcionadas por la biblioteca Arduino.
+\end{enumerate}
