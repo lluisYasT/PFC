@@ -9,6 +9,7 @@
 
 \section{Hardware}
 En esta sección se describirán los dispositivos que van a ser utilizados para la realización del proyecto.
+
 \subsection{ChipKIT Max32}
 El microcontrolador elegido para el proyecto es un ChipKIT Max32. Es el modelo más avanzado de la familia Chipkit, que se compone además del Uno32, uC32 y DP32.
 
@@ -20,7 +21,14 @@ Este dispositivo, al igual que el resto de microcontroladores de la familia Chip
 
 Podemos encontrar más información además de esquemáticos y manuales en la página de información del ChipKIT Max32\cite{website:max32}.
 
+
 \subsection{ChipKIT Network Shield}
+
+El ChipKIT Network Shield es, como su nombre indica, un shield para el ChipKIT Max32 (No sirve para el ChipKIT Uno32) que se coloca encima del microcontrolador tal y como lo hace cualquier shield de Arduino.
+
+\figura{chipKIT-NetworkShield.jpg}{scale=0.6}{Chipkit Max32}{max32}{h}
+
+Este shield nos proporciona las conexiones necesarias para poder hacer uso del controlador Ethernet y USB que lleva el Max32 integrado y a los buses CAN. Además de esto también tiene integrado un oscilador de 32.768 KHz que nos permite hacer uso del RTC que también tiene integrado el Max32 y una memoria EEPROM de 256Kb a la que podemos acceder mediante I2C. En la página web del Network Shield\cite{website:network_shield} podemos encontrar las bibliotecas que nos sirven para hacer uso de sus características, en el entorno ChipKIT.
 \subsection{ChipKIT I/O Shield}
 \section{Software}
 \subsection{MPIDE}
