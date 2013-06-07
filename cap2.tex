@@ -13,23 +13,87 @@ En esta sección se describirán los dispositivos que van a ser utilizados para 
 \subsection{ChipKIT Max32}
 El microcontrolador elegido para el proyecto es un ChipKIT Max32. Es el modelo más avanzado de la familia Chipkit, que se compone además del Uno32, uC32 y DP32.
 
-\figura{chipKIT-Max32.jpg}{scale=0.6}{Chipkit Max32}{max32}{h}
+\figura{chipKIT-Max32.jpg}{scale=0.6}{Chipkit Max32}{max32}{H}
 
 En el centro del Max32 encontramos como microcontrolador un Microchip PIC32MX795F12L que funciona a 80MHz y con el que disponemos de 512KB de memoria flash y 128KB de memoria RAM. El Max32 tiene 83 puertos de entrada/salida además de otros dispositivos como UART, SPI e I2C. Dieciséis de los 83 puertos puede ser usados como entradas analógicas o como entradas/salidas digitales. A diferencia de su equivalente Arduino (Mega), el ChipKIT Max32 también tiene integrado en el chip 10/100 Ethernet, un controlador USB 2.0 y dos controladores CAN, aunque para hacer uso de estos dispositivos necesitaremos el ChipKIT Network Shield.\\
 
 Este dispositivo, al igual que el resto de microcontroladores de la familia ChipKIT, funciona con un voltaje lógico de 3.3V frente a los microcontroladores Arduino como el Uno o el Mega. Es importante tener este dato en cuenta a la hora de usar shields o dispositivos pensados para placas Arduino.\\
 
-Podemos encontrar más información además de esquemáticos y manuales en la página de información del ChipKIT Max32\cite{website:max32}.
+Podemos encontrar más información además de esquemáticos y manuales en la página de información del ChipKIT Max32\cite{website:max32}.\\
 
+Características del ChipKIT Max32:
+\begin{itemize}
+	\item Procesador Microchip PIC32MX795F512L
+		\begin{itemize}
+			\item 80MHz 32-bit MIPS
+			\item 512KB FLash, 128KB RAM
+			\item Controlador USB 2.0 OTG
+			\item 10/100 Ethernet MAC
+			\item Dos controladores CAN
+		\end{itemize}
+	\item Proporciona memoria adicional (con respecto al Uno32) y periféricos de comunicación avanzados
+	\item Compatible con gran parte del código existente de ejemplo para Arduino, así como con materiales de referencia y otros recursos.
+	\item Puede ser programado usando Microchip MPLAB, mediante un programador gracias a su interfaz JTAG.
+	\item Mismo tamaño y formato que el Arduino Mega
+	\item 83 pines de entrada/salida
+	\item LED de usuario (Pin 13)
+	\item Se conecta a un PC usando un cable USB A -> mini B
+\end{itemize}
+
+\subsubsection{Chipkit PGM}
+Para la depuración de los programas con MPLAB usaremos el programador chipKIT PGM\cite{website:pgm}, con el que podremos usar el puerto JTAG del Max32. Este programador está diseñado para ser usado exclusivamente con la familia de dispositivos chipKIT, a diferencia de picKIT3\cite{website:pickit} que puede ser usado con todos los microcontroladores de Microchip.
+
+\figura{chipKIT-PGM.png}{scale=0.3}{ChipKIT PGM}{pgm}{H}
+
+\newpage
 
 \subsection{ChipKIT Network Shield}
 
-El ChipKIT Network Shield es, como su nombre indica, un shield para el ChipKIT Max32 (No sirve para el ChipKIT Uno32) que se coloca encima del microcontrolador tal y como lo hace cualquier shield de Arduino.
+El ChipKIT Network Shield es, como su nombre indica, un shield para el ChipKIT Max32. Cabe destacar que este shield no sirve para el ChipKIT Uno32 puesto que este microcontrolador no dispone de las características de las que hace uso este shield, como Ethernet y host USB.Se coloca encima del microcontrolador tal y como lo hace cualquier shield de Arduino.
 
-\figura{chipKIT-NetworkShield.jpg}{scale=0.6}{Chipkit Max32}{max32}{h}
+\figura{chipKIT-NetworkShield.jpg}{scale=0.5}{Chipkit Network Shield}{networkshield}{H}
 
-Este shield nos proporciona las conexiones necesarias para poder hacer uso del controlador Ethernet y USB que lleva el Max32 integrado y a los buses CAN. Además de esto también tiene integrado un oscilador de 32.768 KHz que nos permite hacer uso del RTC que también tiene integrado el Max32 y una memoria EEPROM de 256Kb a la que podemos acceder mediante I2C. En la página web del Network Shield\cite{website:network_shield} podemos encontrar las bibliotecas que nos sirven para hacer uso de sus características, en el entorno ChipKIT.
-\subsection{ChipKIT I/O Shield}
+Este shield nos proporciona las conexiones necesarias para poder hacer uso del controlador Ethernet y USB que lleva el Max32 integrado y a los buses CAN. Además de esto también tiene integrado un oscilador de 32.768 KHz que nos permite hacer uso del RTC que también tiene integrado el Max32 y una memoria EEPROM de 256Kb a la que podemos acceder mediante I2C. En la página web del Network Shield\cite{website:network_shield} podemos encontrar las bibliotecas que nos sirven para hacer uso de sus características, en el entorno ChipKIT.\\
+
+Características del ChipKIT Network Shield:
+\begin{itemize}
+	\item Puede ser usado con el Max32
+	\item SMSC LAN8720 10/100 Ethernet PHY
+	\item Conector RJ45
+	\item Dispositivo USB y conectores Host
+	\item Dos transceptores CAN MCP2551
+	\item Dos conectores de 12 pines para los buses CAN
+	\item Dos conectores para cadena margarita (daisy chain) I2C
+	\item EEPROM de 256Kbits con interfaz I2C
+	\item Oscilador a 32.768 KHz
+\end{itemize}
+
+\newpage
+
+
+\subsection{ChipKIT Basic I/O Shield}
+El otro shield que usaremos será el ChipKIT Basic I/O Shield que nos servirá para interactuar físicamente con el microcontrolador ya que este shield nos proporciona diferentes métodos de entrada y salida de información.
+
+\figura{chipKIT-BasicIOShield.jpg}{scale=0.5}{ChipKIT Basic I/O Shield}{ioshield}{H}
+
+El ChipKIT Basic I/O shield dispone de los siguientes dispositivos:
+\begin{itemize}
+	\item EEPROM de 256Kbits con interfaz I2C
+	\item Pantalla OLED de 128x32 píxeles
+	\item Sensor de temperatura con interfaz I2C
+	\item Conector para cadena margarita (daisy chain) I2C
+	\item Cuatro drivers FET de colector abierto
+	\item Potenciometro analógico
+	\item Cuatro pulsadores y cuatro interuptores
+	\item Ocho LEDs
+\end{itemize}
+
+Este shield está inicialmente pensado para ser usado en un chipKIT Uno32, pero podemos conectarlo al Max32 sin ningún problema ya que comparten el mismo esquema de pines (aunque el Max32 tiene 83 pines frente a los 42 del Uno32). También es posible conectarlo al Network Shield y este a su vez al Max32, teniendo en cuenta la posibilidad de que algunas funciones en los dos shields puedan compartir pines.\\
+
+Igual que el Network Shield, el Basic I/O Shield también dispone de una página web\cite{website:io_shield} en la que podemos encontrar su manual, esquemáticos y las librerias necesarias para usarlas en el entorno ChipKIT.
+
+\newpage
+
 \section{Software}
 \subsection{MPIDE}
 \subsection{MPLAB X}
