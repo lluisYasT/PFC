@@ -107,3 +107,37 @@ MPLAB X\cite{website:mplab} es la última versión del entorno de desarrollo int
 
 Como se aprecia en la Figura \ref{mplab} MPLAB X nos ofrece mucha más información y posibilidades que MPIDE. En esta figura vemos a MPLAB X en mitad de la depuración del programa Blink, que fue compilado usando MPIDE.\\
 Con este entorno de desarrollo veremos más adelante los diferentes efectos de que los distintos niveles de optimización tienen en nuestro programa y podremos usarla para hacer profiling.
+
+
+\section{Estructura de un programa Arduino}
+En cualquier programa para Chipkit o Arduino podemos encontrar tres grupos principales de código fuente. Para empezar, tenemos los archivos que formarán parte de la biblioteca ``Core'' a la hora de la compilación, que vienen incluidos con MPIDE y los podemos encontrar en el directorio en el que tengamos instalado MPIDE, en la subcarpeta:\\
+\comando{hardware/pic32/cores/pic32}
+En esta biblioteca está ya definida la función main de nuestro programa y tiene el siguiente aspecto:
+%\lstinputlisting{codigo/main.cpp}
+\begin{lstlisting}
+#define OPT_SYSTEM_INTERNAL
+#include <System_Defs.h>
+
+#if (ARDUINO >= 100)
+	#include <Arduino.h>
+#else
+	#include <WProgram.h>
+#endif
+
+int main(void)
+{
+	init();
+	setup();
+	
+	while(1)
+	{
+		_scheduleTask();
+		loop();
+	}
+	return 0;
+}
+\end{lstlisting}
+Cuando escribimos un programa usando MPIDE, lo que realmente hacemos es definir las funciones setup y loop.
+\section{Proceso de compilación de MPIDE}
+En este apartado trataremos de describir el proceso que sigue MPIDE para la compilación y posterior carga en el microcontrolador del programa creado en MPIDE.  
+
