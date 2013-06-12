@@ -168,7 +168,7 @@ void loop(void);
 
 Como se puede apreciar en la declaración de ambas funciones, estas no esperan ni devuelven ningún valor.\\
 \lstinputlisting[language=C++, caption=Sketch básico ("BareMinimum.pde")]{codigo_fuente/BareMinimum.pde}
-En setup() colocaremos el código para la inicialización de nuestro programa. Es el lugar donde debemos configurar el puerto serie, por ejemplo o definir como se comportaran los pines (entrada o salida), entre otras cosas.\\
+En setup() colocaremos el código para la inicialización de nuestro programa. Es el lugar donde podemos configurar el puerto serie, por ejemplo, o definir como se comportarán los pines (entrada o salida), entre otras cosas. En definitiva, es el lugar donde debemos colocar el código que queramos que se ejecuta una vez al inicio del programa y que no vuelva a ejecutarse más.\\
 En loop() pondremos el código que se ejecutara de forma cíclica indefinidamente ya que, como podemos observar en main.cpp, la función loop() se encuentra dentro de un bucle infinito.\\
 
 Veamos como ejemplo el sketch Blink:
