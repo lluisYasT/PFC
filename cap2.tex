@@ -110,11 +110,32 @@ Con este entorno de desarrollo veremos más adelante los diferentes efectos de q
 
 
 \section{Estructura de un programa Arduino}
-En cualquier programa para Chipkit o Arduino podemos encontrar tres grupos principales de código fuente. Para empezar, tenemos los archivos que formarán parte de la biblioteca ``Core'' a la hora de la compilación, que vienen incluidos con MPIDE y los podemos encontrar en el directorio en el que tengamos instalado MPIDE, en la subcarpeta:\\
+En cualquier programa para Chipkit o Arduino podemos encontrar tres grupos principales de código fuente.
+\subsection{Core}
+Para empezar, tenemos los archivos que formarán parte de la biblioteca ``Core'' a la hora de la compilación. Estos archivos vienen incluidos con MPIDE y los podemos encontrar en el directorio en el que tengamos instalado MPIDE, en la subcarpeta:\\
 \comando{hardware/pic32/cores/pic32}
-En esta biblioteca está ya definida la función main de nuestro programa y tiene el siguiente aspecto:
-%\lstinputlisting{codigo/main.cpp}
-\begin{lstlisting}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{| c || c |}
+    \hline
+    Sistema Operativo & Ruta\\
+    \hline
+    \hline
+    Linux & /opt/mpide/hardware/pic32/cores/pic32\\
+    \hline
+    Mac OSX & /Applications/Mpide.app/Contents/Resources/Java/hardware/pic32/cores/pic32\\
+    \hline
+    Windows & C:\textbackslash Archivos de Programa\textbackslash MPIDE\textbackslash hardware\textbackslash pic32\textbackslash cores\textbackslash pic32\\
+    \hline
+  \end{tabular}
+\end{center}
+\caption{Ruta de la biblioteca Core}
+\label{tab:core_path}
+\end{table}
+En esta biblioteca tenemos ya definidas las funciones que necesitamos para interactuar con los dispositivos que están integrados en la placa (en nuestro caso ChipKIT Max32). Para más información acerca de estas funciones y como utilizarlas podemos acudir a la página de referencia de Arduino\cite{website:arduino_funcs}.
+Además, en esta biblioteca está ya definida la función main de nuestro programa y tiene el siguiente aspecto:
+\lstset{language=C++}
+\begin{lstlisting}[caption=main.cpp]
 #define OPT_SYSTEM_INTERNAL
 #include <System_Defs.h>
 
@@ -137,7 +158,20 @@ int main(void)
 	return 0;
 }
 \end{lstlisting}
-Cuando escribimos un programa usando MPIDE, lo que realmente hacemos es definir las funciones setup y loop.
+
+\subsection{Sketch}
+Los programas que escribimos usando MPIDE (o el IDE de Arduino) se llaman sketches. En realidad, no escribimos un programa completo porque, como acabamos de ver el programa en sí ya está escrito en la biblioteca Core. Nuestro objetivo es implementar dos funciones: setup() y loop(), que ya están declaradas en el archivo de cabecera wiring.h.\\
+\begin{lstlisting}[caption=Sección de wiring.h]
+void setup(void);
+void loop(void);
+\end{lstlisting}
+
+Como se puede apreciar en la declaración de ambas funciones, estas no esperan ni devuelven ningún valor.\\
+En setup() colocaremos el código para la inicialización de nuestro programa. Es el lugar donde debemos configurar el puerto serie, por ejemplo o definir como se comportaran los pines (entrada o salida), entre otras cosas.\\
+En loop() pondremos el código que se ejecutara de forma cíclica indefinidamente ya que, como podemos observar en main.cpp, la función loop() se encuentra dentro de un bucle infinito.
+
+\subsection{Bibliotecas de terceros}
+
 \section{Proceso de compilación de MPIDE}
 En este apartado trataremos de describir el proceso que sigue MPIDE para la compilación y posterior carga en el microcontrolador del programa creado en MPIDE.  
 
