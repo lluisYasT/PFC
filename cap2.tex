@@ -167,8 +167,14 @@ void loop(void);
 \end{lstlisting}
 
 Como se puede apreciar en la declaración de ambas funciones, estas no esperan ni devuelven ningún valor.\\
+\lstinputlisting[language=C++, caption=Sketch básico ("BareMinimum.pde")]{codigo_fuente/BareMinimum.pde}
 En setup() colocaremos el código para la inicialización de nuestro programa. Es el lugar donde debemos configurar el puerto serie, por ejemplo o definir como se comportaran los pines (entrada o salida), entre otras cosas.\\
-En loop() pondremos el código que se ejecutara de forma cíclica indefinidamente ya que, como podemos observar en main.cpp, la función loop() se encuentra dentro de un bucle infinito.
+En loop() pondremos el código que se ejecutara de forma cíclica indefinidamente ya que, como podemos observar en main.cpp, la función loop() se encuentra dentro de un bucle infinito.\\
+
+Veamos como ejemplo el sketch Blink:
+\lstinputlisting[language=C++, caption=Blink.pde]{codigo_fuente/Blink.pde}
+
+En este sketch utilizamos las funciones de Arduino pinMode,digitalWrite y delay. En la función setup inicializamos el puerto al que está conectado el LED como una salida\footnote{PIN\_LED1 está definido en el archivo de cabecera Board\_Defs.h que depende del modelo de microcontrolador que estemos usando}, mientras que en loop encendemos y apagamos el LED con retardos de un segundo.
 
 \subsection{Bibliotecas de terceros}
 
