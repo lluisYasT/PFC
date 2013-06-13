@@ -196,5 +196,33 @@ Cuando trabajamos con \programa{MPIDE} podemos encontrar las bibliotecas en dos 
 Con las bibliotecas instaladas en uno de los dos directorios podremos añadirlas a nuestro programa de dos formas diferentes. Podemos añadirlas usando el menú de MPIDE, pudiéndolas encontrar en \comando{Sketch > Import Library}. También es posible usar la directiva \comando{\#include <[Archivo De Cabezera].h>} como haríamos en cualquier programa escrito en C/C++. \programa{MPIDE} se encargará de compilar las bibliotecas y enlazarlas con nuestro programa.
 
 \section{Proceso de compilación de \programa{MPIDE}}
-En este apartado trataremos de describir el proceso que sigue \programa{MPIDE} para la compilación y posterior carga en el microcontrolador del programa creado en \programa{MPIDE}.  
+En este apartado trataremos de describir el proceso que sigue \programa{MPIDE} para la compilación y posterior carga en el microcontrolador del programa creado en \programa{MPIDE}. Nuestro objetivo será saber que programas y opciones de compilación usa el IDE de ChipKIT.\\
+También es interesante conocer que archivos genera \programa{MPIDE} a lo largo de la compilación, pero estos archivos son borrados una vez termina la compilación del programa por lo que tendremos que cambiar este comportamiento. Para ello acudiremos al archivo de configuración \comando{preferences.txt} cuya localización varía según el sistema operativo empleado.
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{| c || c |}
+    \hline
+    Sistema Operativo & Ruta\\
+    \hline
+    \hline
+    Linux & /opt/mpide/hardware/pic32/cores/pic32\\
+    \hline
+    Mac OSX & /Users/[nombre de usuario]/Library/mpide/preferences.txt\\
+    \hline
+    Windows & C:\textbackslash Archivos de Programa\textbackslash \programa{MPIDE}\textbackslash hardware\textbackslash pic32\textbackslash cores\textbackslash pic32\\
+    \hline
+  \end{tabular}
+\end{center}
+\caption{Ruta del archivo \comando{preferences.txt}}
+\label{tab:preferences_path}
+\end{table}
+
+El archivo \comando{preferences.txt} contiene toda la configuración de MPIDE a excepción de la configuración del compilador, pero nosotros estamos interesados en la línea 75:
+\begin{lstlisting}
+preproc.save_build_files=false
+\end{lstlisting}
+
+Cambiando el valor a \comando{true} MPIDE guardará los archivos temporales de la compilación.\\
+
 
