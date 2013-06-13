@@ -94,25 +94,39 @@ Igual que el Network Shield, el Basic I/O Shield también dispone de una página
 
 \newpage
 
-\section{Software}
-A lo largo del proyecto utilizaremos dos entornos de desarrollo integrado: MPIDE y MPLAB X.
-\subsection{MPIDE}
-MPIDE\cite{website:mpide} es el IDE creado por Digilent para el entorno ChipKIT. Su diseño es idéntico al IDE de Arduino, variando solamente el color y el compilador usado.
-\figura{mpide.jpg}{scale=0.6}{MPIDE}{mpide}{H}
-MPIDE es un entorno de desarrollo sencillo y con unas características muy básicas y limitadas. Con él podremos escribir nuestro programa, compilarlo y cargarlo en nuestro microcontrolador sin necesidad de ninguna otra aplicación, siempre y cuando hayamos seleccionado el modelo adecuado y el puerto serie en las opciones del programa. \\
-Al igual que el entorno de Arduino, no es posible depurar programas, para eso usaremos MPLAB X. También dispone de un monitor para el puerto serie, con el que podemos leer lo que el microcontrolador envía a través de este puerto y enviar información al microcontrolador.
-\subsection{MPLAB X}
-MPLAB X\cite{website:mplab} es la última versión del entorno de desarrollo integrado de Microchip. A diferencia de MPIDE, este programa es un IDE completo, basado en Netbeans. Está pensado para ser utilizado con toda su gama de microcontroladores y, con la ayuda de un depurador/programador como el chipKIT PGM podremos depurar nuestros programas. Si queremos, también podemos usar los productos chipKIT como cualquier otro microcontrolador de Microchip, escribiendo los programas en este IDE y compilándolos con el compilador que tiene Microchip disponible en su página web, C32\cite{website:c32}.
-\figura{mplab.jpg}{scale=0.35}{MPLAB X Depurando}{mplab}{H}
+\section{Software} A lo largo del proyecto utilizaremos dos entornos de
+desarrollo integrado: \programa{MPIDE} y \programa{MPLAB X}.
+\subsection{\programa{MPIDE}} \programa{MPIDE}\cite{website:mpide} es el IDE
+creado por Digilent para el entorno ChipKIT. Su diseño es idéntico al IDE de
+Arduino, variando solamente el color y el compilador usado.
+\figura{mpide.jpg}{scale=0.6}{\programa{MPIDE}}{mpide}{H} \programa{MPIDE} es
+un entorno de desarrollo sencillo y con unas características muy básicas y
+limitadas. Con él podremos escribir nuestro programa, compilarlo y cargarlo en
+nuestro microcontrolador sin necesidad de ninguna otra aplicación, siempre y
+cuando hayamos seleccionado el modelo adecuado y el puerto serie en las
+opciones del programa. \\ Al igual que el entorno de Arduino, no es posible
+depurar programas, para eso usaremos \programa{MPLAB X}. También dispone de un monitor
+para el puerto serie, con el que podemos leer lo que el microcontrolador envía
+a través de este puerto y enviar información al microcontrolador.
+\subsection{\programa{MPLAB X}} \programa{MPLAB X}\cite{website:mplab} es la última versión del
+entorno de desarrollo integrado de Microchip. A diferencia de
+\programa{MPIDE}, este programa es un IDE completo, basado en Netbeans. Está
+pensado para ser utilizado con toda su gama de microcontroladores y, con la
+ayuda de un depurador/programador como el chipKIT PGM podremos depurar
+nuestros programas. Si queremos, también podemos usar los productos chipKIT
+como cualquier otro microcontrolador de Microchip, escribiendo los programas
+en este IDE y compilándolos con el compilador que tiene Microchip disponible
+en su página web, C32\cite{website:c32}. \figura{mplab.jpg}{scale=0.35}{MPLAB
+X Depurando}{mplab}{H}
 
-Como se aprecia en la Figura \ref{mplab} MPLAB X nos ofrece mucha más información y posibilidades que MPIDE. En esta figura vemos a MPLAB X en mitad de la depuración del programa Blink, que fue compilado usando MPIDE.\\
+Como se aprecia en la Figura \ref{mplab} \programa{MPLAB X} nos ofrece mucha más información y posibilidades que \programa{MPIDE}. En esta figura vemos a \programa{MPLAB X} en mitad de la depuración del programa Blink, que fue compilado usando \programa{MPIDE}.\\
 Con este entorno de desarrollo veremos más adelante los diferentes efectos de que los distintos niveles de optimización tienen en nuestro programa y podremos usarla para hacer profiling.
 
 
 \section{Estructura de un programa Arduino}
 En cualquier programa para Chipkit o Arduino podemos encontrar tres grupos principales de código fuente.
 \subsection{Core}
-Para empezar, tenemos los archivos que formarán parte de la biblioteca ``Core'' a la hora de la compilación. Estos archivos vienen incluidos con MPIDE y los podemos encontrar en el directorio en el que tengamos instalado MPIDE, en la subcarpeta:\\
+Para empezar, tenemos los archivos que formarán parte de la biblioteca ``Core'' a la hora de la compilación. Estos archivos vienen incluidos con \programa{MPIDE} y los podemos encontrar en el directorio en el que tengamos instalado \programa{MPIDE}, en la subcarpeta:\\
 \comando{hardware/pic32/cores/pic32}
 \begin{table}[H]
 \begin{center}
@@ -125,7 +139,7 @@ Para empezar, tenemos los archivos que formarán parte de la biblioteca ``Core''
     \hline
     Mac OSX & /Applications/Mpide.app/Contents/Resources/Java/hardware/pic32/cores/pic32\\
     \hline
-    Windows & C:\textbackslash Archivos de Programa\textbackslash MPIDE\textbackslash hardware\textbackslash pic32\textbackslash cores\textbackslash pic32\\
+    Windows & C:\textbackslash Archivos de Programa\textbackslash \programa{MPIDE}\textbackslash hardware\textbackslash pic32\textbackslash cores\textbackslash pic32\\
     \hline
   \end{tabular}
 \end{center}
@@ -160,7 +174,7 @@ int main(void)
 \end{lstlisting}
 
 \subsection{Sketch}
-Los programas que escribimos usando MPIDE (o el IDE de Arduino) se llaman sketches. En realidad, no escribimos un programa completo porque, como acabamos de ver el programa en sí ya está escrito en la biblioteca Core. Nuestro objetivo es implementar dos funciones: setup() y loop(), que ya están declaradas en el archivo de cabecera wiring.h.\\
+Los programas que escribimos usando \programa{MPIDE} (o el IDE de Arduino) se llaman sketches. En realidad, no escribimos un programa completo porque, como acabamos de ver, el programa en sí ya está escrito en la biblioteca Core. Nuestro objetivo es implementar dos funciones: \comando{setup()} y \comando{loop()}, que ya están declaradas en el archivo de cabecera wiring.h.\\
 \begin{lstlisting}[caption=Sección de wiring.h]
 void setup(void);
 void loop(void);
@@ -168,16 +182,18 @@ void loop(void);
 
 Como se puede apreciar en la declaración de ambas funciones, estas no esperan ni devuelven ningún valor.\\
 \lstinputlisting[language=C++, caption=Sketch básico ("BareMinimum.pde")]{codigo_fuente/BareMinimum.pde}
-En setup() colocaremos el código para la inicialización de nuestro programa. Es el lugar donde podemos configurar el puerto serie, por ejemplo, o definir como se comportarán los pines (entrada o salida), entre otras cosas. En definitiva, es el lugar donde debemos colocar el código que queramos que se ejecuta una vez al inicio del programa y que no vuelva a ejecutarse más.\\
-En loop() pondremos el código que se ejecutara de forma cíclica indefinidamente ya que, como podemos observar en main.cpp, la función loop() se encuentra dentro de un bucle infinito.\\
+En \comando{setup()} colocaremos el código para la inicialización de nuestro programa. Es el lugar donde podemos configurar el puerto serie, por ejemplo, o definir como se comportarán los pines (entrada o salida), entre otras cosas. En definitiva, es el lugar donde debemos colocar el código que queramos que se ejecuta una vez al inicio del programa y que no vuelva a ejecutarse más.\\
+En \comando{loop()} pondremos el código que se ejecutara de forma cíclica indefinidamente ya que, como podemos observar en main.cpp, la función \comando{loop()} se encuentra dentro de un bucle infinito.\\
 
 Veamos como ejemplo el sketch Blink:
 \lstinputlisting[language=C++, caption=Blink.pde]{codigo_fuente/Blink.pde}
 
-En este sketch utilizamos las funciones de Arduino pinMode,digitalWrite y delay. En la función setup inicializamos el puerto al que está conectado el LED como una salida\footnote{PIN\_LED1 está definido en el archivo de cabecera Board\_Defs.h que depende del modelo de microcontrolador que estemos usando}, mientras que en loop encendemos y apagamos el LED con retardos de un segundo.
+En este sketch utilizamos las funciones de Arduino pinMode,digitalWrite y delay. En la función \comando{setup()} inicializamos el puerto al que está conectado el LED como una salida\footnote{PIN\_LED1 está definido en el archivo de cabecera Board\_Defs.h que depende del modelo de microcontrolador que estemos usando}, mientras que en \comando{loop()} encendemos y apagamos el LED con retardos de un segundo.
 
 \subsection{Bibliotecas de terceros}
+A parte del código de Arduino y del que creemos nosotros, también es posible añadir bibliotecas de terceros. Gracias a la amplia comunidad detrás de Arduino podemos encontrar cientos de ellas. A la hora de usar una biblioteca de Arduino en ChipKIT tendremos que asegurarnos de que no haga uso de funciones específicas de los procesadores Atmel que encontramos en las placas Arduino, ya que no funcionarán en PIC32.\\
+Cuando trabajamos con \programa{MPIDE} podemos encontrar las bibliotecas en dos sitios diferentes. \programa{MPIDE} tiene incluidas varias bibliotecas que podemos encontrar en el directorio ``libraries'' dentro de la carpeta en la que esté instalado \programa{MPIDE}. A parte de estas bibliotecas podemos instalar bibliotecas que descarguemos de Internet o que creemos nosotros dentro de la carpeta ``libraries'' en el directorio ``sketchbook''\footnote{La carpeta ``libraries'' no existe. Es neciesario crearla dentro del directorio ``sketchbook''.} que MPIDE habrá creado la primera vez que lo ejecutemos.
 
-\section{Proceso de compilación de MPIDE}
-En este apartado trataremos de describir el proceso que sigue MPIDE para la compilación y posterior carga en el microcontrolador del programa creado en MPIDE.  
+\section{Proceso de compilación de \programa{MPIDE}}
+En este apartado trataremos de describir el proceso que sigue \programa{MPIDE} para la compilación y posterior carga en el microcontrolador del programa creado en \programa{MPIDE}.  
 
