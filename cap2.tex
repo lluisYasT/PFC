@@ -186,7 +186,7 @@ En \comando{setup()} colocaremos el código para la inicialización de nuestro p
 En \comando{loop()} pondremos el código que se ejecutara de forma cíclica indefinidamente ya que, como podemos observar en main.cpp, la función \comando{loop()} se encuentra dentro de un bucle infinito.\\
 
 Veamos como ejemplo el sketch Blink:
-\lstinputlisting[language=C++, caption=Blink.pde]{codigo_fuente/Blink.pde}
+\lstinputlisting[language=C++, caption=Blink.pde, label=code:blink]{codigo_fuente/Blink.pde}
 
 En este sketch utilizamos las funciones de Arduino pinMode,digitalWrite y delay. En la función \comando{setup()} inicializamos el puerto al que está conectado el LED como una salida\footnote{PIN\_LED1 está definido en el archivo de cabecera Board\_Defs.h que depende del modelo de microcontrolador que estemos usando}, mientras que en \comando{loop()} encendemos y apagamos el LED con retardos de un segundo.
 
@@ -223,6 +223,8 @@ El archivo \comando{preferences.txt} contiene toda la configuración de MPIDE a 
 preproc.save_build_files=false
 \end{lstlisting}
 
-Cambiando el valor a \comando{true} MPIDE guardará los archivos temporales de la compilación.\\
+Cambiando el valor a \comando{true} \programa{MPIDE} guardará los archivos temporales de la compilación.\\
+Para ver como funciona el proceso de compilación en \programa{MPIDE} usaremos el sketch Blink (\ref{code:blink}).\\
+Para ver que se ejecuta cuando compilamos nuestro programa en \programa{MPIDE} podemos mantaner pulsado la tecla \comando{Mayus} mientras pulsamos el botón de compilar. De esta forma \programa{MPIDE} nos mostrará todos los comandos que ejecute, en el terminal.
 
-
+\figura{mpide_compilado.jpg}{scale=0.6}{MPIDE después de compilar}{mpide_compilado}{H}
