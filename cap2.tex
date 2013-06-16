@@ -126,7 +126,7 @@ Con este entorno de desarrollo veremos más adelante los diferentes efectos de q
 \section{Estructura de un programa Arduino}
 En cualquier programa para Chipkit o Arduino podemos encontrar tres grupos principales de código fuente.
 \subsection{Core}
-Para empezar, tenemos los archivos que formarán parte de la biblioteca ``Core'' a la hora de la compilación. Estos archivos vienen incluidos con \programa{MPIDE} y los podemos encontrar en el directorio en el que tengamos instalado \programa{MPIDE}, en la subcarpeta:\\
+Para empezar, tenemos los archivos que formarán parte de la biblioteca ``Core'' a la hora de la compilación. Estos archivos vienen incluidos con \programa{MPIDE} y los podemos encontrar en el directorio en el que tengamos instalado \programa{MPIDE}\footnote{La carpeta de \programa{MPIDE} la podemos colocar donde queramos, pues no requiere de instalación}, en la subcarpeta:\\
 \comando{hardware/pic32/cores/pic32}
 \begin{table}[H]
 \begin{center}
@@ -135,7 +135,7 @@ Para empezar, tenemos los archivos que formarán parte de la biblioteca ``Core''
     Sistema Operativo & Ruta\\
     \hline
     \hline
-    Linux & /opt/mpide/hardware/pic32/cores/pic32\\
+    Linux & /home/lluis/mpide/hardware/pic32/cores/pic32\\
     \hline
     Mac OSX & /Applications/Mpide.app/Contents/Resources/Java/hardware/pic32/cores/pic32\\
     \hline
@@ -206,7 +206,7 @@ También es interesante conocer que archivos genera \programa{MPIDE} a lo largo 
     Sistema Operativo & Ruta\\
     \hline
     \hline
-    Linux & /opt/mpide/hardware/pic32/cores/pic32\\
+    Linux & /home/[nombre de usuario]/.mpide/preferences.txt\\
     \hline
     Mac OSX & /Users/[nombre de usuario]/Library/mpide/preferences.txt\\
     \hline
@@ -234,7 +234,7 @@ El proceso completo de compilación (lo que se muestra en el terminal) está en 
 Veamos que pasos sigue \programa{MPIDE} durante la compilación y ensamblado de nuestro programa:
 \begin{enumerate}
 	\item Compila, usando \programa{pic32-g++} (sin enlazar) Blink.cpp (este archivo es una copia de nuestro sketch, Blink.pde).
-\item Compila y comprime la biblioteca ``Core'' usando \programa{pic32-g++} (o \programa{pic32-gcc} según el caso) y \programa{pic32-ar}.
+	\item Compila y comprime la biblioteca ``Core'' usando \programa{pic32-g++} (o \programa{pic32-gcc} según el caso) y \programa{pic32-ar}.
 	\item Enlaza el programa usando un script de enlazado específico para cada microcontrolador. En nuestro caso usa ``chipKIT-application-32MX795F12.ld''.
 \end{enumerate}
 
