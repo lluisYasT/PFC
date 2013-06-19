@@ -292,4 +292,23 @@ Una vez sabemos como funciona \programa{MPIDE} y el proceso que sigue para la co
 De esta forma es posible usar el editor de textos que queramos para generar nuestro código (por ejemplo \programa{VIM}), modificar las opciones de compilación, enlazado y carga de una forma rápida y sencilla\footnote{Podemos cambiar las opciones de compilación y enlazado en \programa{MPIDE}, pero requiere la modificación de un archivo de configuración del programa (platforms.txt) y reiniciar \programa{MPIDE} para que los cambios tengan efecto}.\\
 Para esto vamos a crear una carpeta a modo de plantilla para los proyectos que hagamos. Dentro de esta carpeta tendremos diferentes subdirectorios que serviran para almacenar diferentes tipos de archivos que necesita nuestro programa.\\
 La estructura de la plantilla es la siguiente:
+\begin{lstlisting}
+chipkit_template
+	+- bin
+	+- core
+	    |
+	    +- variants
+	+- lib
+	+- src
+\end{lstlisting}
 
+Función de cada carpeta:
+\begin{itemize}
+	\item \negrita{bin}. Aquí se guardarán el programa compilado y enlazado.
+	\item \negrita{core}. Aquí está la biblioteca Arduino junto con los archivos de cabecera de las diferentes placas disponibles, en la carpeta ``variants''
+	\item \negrita{lib}. Aquí se colocarán las bibliotecas de terceros de la misma forma que en MPIDE: copiando la carpeta de la biblioteca en este directorio.
+	\item \negrita{src}. Aquí estará el código fuente del programa que hayamos creado.
+\end{itemize}
+Tanto en la carpeta principal como en \programa{core} y \programa{lib} tendremos un archivo Makefile para la automatización de los procesos de compilación, ensablado y posterior carga de nuestro programa.\\
+Makefile principal:
+\lstinputlisting[language=make, caption=Makefile Principal, label=code:makefile_principal, basicstyle=\tiny, breaklines=true]{codigo_fuente/Makefile_principal}
