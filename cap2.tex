@@ -271,3 +271,15 @@ Veamos que pasos sigue \programa{MPIDE} durante la compilación y ensamblado de 
 			\item \negrita{-T}. Con esta opción podemos especificar un script de enlazado. Se usa dos veces: Una para el script ``chipKIT-application-COMMON.ld'' y otra para ``chipKIT-application-32MX795F512.ld''.
 		\end{itemize}
 \end{itemize}
+
+Una vez el programa está compilado y enlazado\footnote{Suponemos que el nombre del archivo ejecutable es sketch.elf (como ejemplo)} es necesario generar el archivo ejecutable con extensión `.hex' que cargaremos en el microcontrolador. Esto lo consigue \programa{MPIDE} usando los programas \programa{pic32-objcopy} y \programa{pic32-bin2hex}.
+\begin{lstlisting}[breaklines=true]
+pic32-objcopy -O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-change-warnings --change-section-lma .eeprom=0 sketch.elf sketch.eep
+pic32-bin2hex -a sketch.elf
+\end{lstlisting}
+
+El resultado de ejecutar estos dos comandos es el archivo ``sketch.hex'' que ya podrá ser cargado al microcontrolador.
+Para este último paso será necesario usar el programa \programa{avrdude}, bien el que viene incluido con \programa{MPIDE} o el que tengamos instalado en nuestro sistema.
+\begin{lstlisting}[breaklines=true]
+avrdude -C[Directorio MPIDE]/hardware/tools/avrdude.conf -c stk500v2 -p pic32 -P /dev/ttyUSB0 -b 115200 -v -U
+\end{lstlisting}\footnote{/dev/ttyUSB0 es el puerto serie en el que se encuentra el microcontrolador. Puede cambiar según el sistema o el número de dispositivos serie conectados.}
