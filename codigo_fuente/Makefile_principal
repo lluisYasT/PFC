@@ -24,16 +24,12 @@ LDSCRIPT=core/chipKIT-application-32MX795F512.ld
 
 LDFLAGS=-Os -Wl,--gc-sections -mdebugger -mprocessor=$(CPUTYPE)
 
-CFLAGS=-O0 -mno-smart-io -w -fno-exceptions -ffunction-sections -fdata-sections \
+CFLAGS=-O2 -c -mno-smart-io -w -fno-exceptions -ffunction-sections -fdata-sections \
 			 -g -mdebugger -Wcast-align -fno-short-double -mprocessor=$(CPUTYPE) \
-			 -DF_CPU=80000000L -DARDUINO=23 -D_BOARD_MEGA_ -DMPIDEVER=00x01000305 \
-			 -DMPIDE=23 -Icore -Icore/variants/$(VARIANT) -Isrc
+			 -DF_CPU=80000000L -DARDUINO=23 -D_BOARD_MEGA_ -DMPIDEVER=0x01000305 \
+			 -DMPIDE=23 -Icore -Icore/variants/$(VARIANT) -Isrc  -Ilib/chipKITEthernet
 
-# for library in `ls -d lib/*/` ; do \
-# 	CFLAGS+=-I$library ; \
-# done
-
-LIBS=$(shell ls -d lib/*/)
+LIBS=$(shell ls -d lib/**/**/)
 
 CFLAGS+=$(patsubst %,-I%,$(LIBS))
 
@@ -46,37 +42,30 @@ OBJ_C=$(patsubst %.c,%.o,$(SRC_C))
 OBJ_CPP=$(patsubst %.cpp,%.o,$(SRC_CPP))
 OBJ_S=$(patsubst %.S,%.o,$(SRC_S))
 
+LIB_C=$(shell find lib/ -name "*.c")
+LIB_CPP=$(shell find lib/ -name "*.cpp")
+LIB_S=$(shell find lib/ -name "*.S")
+
+LIB_OBJ_C=$(patsubst %.c,%.o,$(LIB_C))
+LIB_OBJ_CPP=$(patsubst %.cpp,%.o,$(LIB_CPP))
+LIB_OBJ_S=$(patsubst %.S,%.o,$(LIB_C))
+
 all: hex
 
-core:
+core/core.a:
 	$(MAKE) -C core
-
-lib:
-	$(MAKE) -C lib
 
 %.o: %.S
-	$(CXX) $(CFLAGS) -c $< -o $@
+	$(CXX) $(CFLAGS) $< -o $@
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $< -o $@
 
 %.o: %.cpp
-	$(CXX) $(CFLAGS) -c $< -o $@
+	$(CXX) $(CFLAGS) $< -o $@
 
-%.S: %.cpp
-	$(CXX) $(CFLAGS) -S $< -o $@
-
-%.ii: %.cpp
-	$(CXX) $(CFLAGS) -E $< -o $@
-
-%.i: %.c
-	$(CC) $(CFLAGS) -E $< -o $@
-
-link: $(OBJ_S) $(OBJ_C) $(OBJ_CPP)
-	$(MAKE) -C core
-	$(MAKE) -C lib
-	$(LD) $(LDFLAGS) -o bin/main.elf $(OBJ_S) $(OBJ_C) $(OBJ_CPP) \
-		core/core.a lib/libs.a -Lcore -lm -T $(LDSCRIPT) -T$(LDSCRIPT_COMMON) 
+link: core/core.a $(LIB_OBJ_CPP) $(LIB_OBJ_C) $(OBJ_S) $(OBJ_C) $(OBJ_CPP)
+	$(LD) $(LDFLAGS) -o bin/main.elf $(OBJ_CPP) $(LIB_OBJ_CPP) $(LIB_OBJ_C) core/core.a -lm -T $(LDSCRIPT) -T$(LDSCRIPT_COMMON) 
 hex: link
 	$(OBJCPY) -O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load \
 		--no-change-warnings --change-section-lma .eeprom=0 bin/main.elf bin/main.eep
@@ -90,4 +79,3 @@ clean:
 	-rm src/*.o
 	-rm bin/*
 	$(MAKE) -C core clean
-	$(MAKE) -C lib clean
