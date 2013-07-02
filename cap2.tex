@@ -313,3 +313,10 @@ Tanto en la carpeta principal como en \programa{core} tendremos un archivo Makef
 El Makefile principal se encarga de compilar, enlazar y comprimir la biblioteca core en el archivo \programa{core.a} usando el Makefile que se encuentra dentro de esa carpeta y luego compila todos los archivos en la carpeta \programa{lib} y la carpeta{src}. Una vez enlazado podemos usar la orden \programa{make load} para cargar el programa en la placa:
 \newpage
 \lstinputlisting[language=make, caption=Makefile Principal, label=code:makefile_principal, basicstyle=\tiny, breaklines=true]{codigo_fuente/Makefile_principal}
+\newpage
+Analicemos el funcionamiento de nuestro Makefile:\\
+\lstinputlisting[language=make, , basicstyle=\small, firstline=0, lastline=9 breaklines=true]{codigo_fuente/Makefile_principal}
+Empezamos declarando la localización de \programa{MPIDE} junto con la `toolchain' que viene incluida con este. La localización de \programa{MPIDE} en este caso es la carpeta \$HOME de mi PC (Es necesario modificar este valor dependiendo de la localización de \programa{MPIDE}). Las utilidades de la `toolchain' que viene incluida con \programa{MPIDE} se encuentran siempre en la misma subcarpeta, que en el Makefile es la variable `TOOLCHAIN_PREFIX', independientemente del sistema operativo empleado.\\
+
+\lstinputlisting[language=make, , basicstyle=\small, firstline=11, lastline=16 breaklines=true]{codigo_fuente/Makefile_principal}
+Definimos el puerto serie en el que está conectado el microcontrolador. En Linux suele estar en `/dev/ttyUSBx' mientras que en Windows es `COMx' (sustituyendo `x' por el valor del puerto). También definimos la localización de \programa{avrdude} junto con su archivo de configuración y sus opciones, que usaremos para cargar el programa en la placa y que viene incluido con \programa{MPIDE}.
