@@ -10,7 +10,7 @@ BIN2HEX=$(TOOLCHAIN_PREFIX)/bin/pic32-bin2hex
 
 SERIAL_PORT=/dev/ttyUSB0
 
-AVRDUDE=/usr/bin/avrdude
+AVRDUDE=$(MPIDE)/hardware/tools/avrdude
 AVRDUDECONF=$(MPIDE)/hardware/tools/avrdude.conf
 AVRDUDEFLAGS=-C$(AVRDUDECONF) -c stk500v2 -p pic32 -P $(SERIAL_PORT) -b 115200 -v -U
 
