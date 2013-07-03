@@ -315,8 +315,14 @@ El Makefile principal se encarga de compilar, enlazar y comprimir la biblioteca 
 \lstinputlisting[language=make, caption=Makefile Principal, label=code:makefile_principal, basicstyle=\tiny, breaklines=true]{codigo_fuente/Makefile_principal}
 \newpage
 Analicemos el funcionamiento de nuestro Makefile:\\
-\lstinputlisting[language=make, , basicstyle=\small, firstline=0, lastline=9 breaklines=true]{codigo_fuente/Makefile_principal}
-Empezamos declarando la localización de \programa{MPIDE} junto con la `toolchain' que viene incluida con este. La localización de \programa{MPIDE} en este caso es la carpeta \$HOME de mi PC (Es necesario modificar este valor dependiendo de la localización de \programa{MPIDE}). Las utilidades de la `toolchain' que viene incluida con \programa{MPIDE} se encuentran siempre en la misma subcarpeta, que en el Makefile es la variable `TOOLCHAIN_PREFIX', independientemente del sistema operativo empleado.\\
+\lstinputlisting[language=make, , basicstyle=\small, firstline=0, lastline=9, breaklines=true]{codigo_fuente/Makefile_principal}
+Empezamos declarando la localización de \programa{MPIDE} junto con la `toolchain' que viene incluida con este. La localización de \programa{MPIDE} en este caso es la carpeta \$HOME de mi PC (Es necesario modificar este valor dependiendo de la localización de \programa{MPIDE}). Las utilidades de la `toolchain' que viene incluida con \programa{MPIDE} se encuentran siempre en la misma subcarpeta, que en el Makefile es la variable `TOOLCHAIN\_PREFIX', independientemente del sistema operativo empleado.\\
 
-\lstinputlisting[language=make, , basicstyle=\small, firstline=11, lastline=16 breaklines=true]{codigo_fuente/Makefile_principal}
-Definimos el puerto serie en el que está conectado el microcontrolador. En Linux suele estar en `/dev/ttyUSBx' mientras que en Windows es `COMx' (sustituyendo `x' por el valor del puerto). También definimos la localización de \programa{avrdude} junto con su archivo de configuración y sus opciones, que usaremos para cargar el programa en la placa y que viene incluido con \programa{MPIDE}.
+\lstinputlisting[language=make, , basicstyle=\small, firstline=11, lastline=16, breaklines=true]{codigo_fuente/Makefile_principal}
+Definimos el puerto serie en el que está conectado el microcontrolador. En Linux suele estar en `/dev/ttyUSBx' mientras que en Windows es `COMx' (sustituyendo `x' por el valor del puerto). También definimos la localización de \programa{avrdude} junto con su archivo de configuración y sus opciones, que usaremos para cargar el programa en la placa y que viene incluido con \programa{MPIDE}.\\
+
+\lstinputlisting[language=make, , basicstyle=\small, firstline=17, lastline=20, breaklines=true]{codigo_fuente/Makefile_principal}
+Definimos la CPU que lleva nuestra placa, que en este caso corresponde con el Modelo Microchip 32MX975F12L. También declaramos que placa es, para luego poder usar el archivo de cabecera correspondiente a dicha placa. Estas dos variables las exportamos para que sean accesibles también desde el Makefile que hay en la carpeta `core' y no sea necesario volverlas a definir ahí (hacemos lo mismo con la variable \$MPIDE).\\
+
+\lstinputlisting[language=make, , basicstyle=\small, firstline=22, lastline=23, breaklines=true]{codigo_fuente/Makefile_principal}
+El enlazador utiliza dos scripts para el correcto enlazado del programa: uno común a todas las placas chipKIT (chipKIT\-application\-COMMON.ld) y uno específico según el modelo que usemos.
