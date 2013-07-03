@@ -24,12 +24,12 @@ LDSCRIPT=core/chipKIT-application-32MX795F512.ld
 
 LDFLAGS=-Os -Wl,--gc-sections -mdebugger -mprocessor=$(CPUTYPE)
 
-CFLAGS=-O2 -c -mno-smart-io -w -fno-exceptions -ffunction-sections -fdata-sections \
+CFLAGS=-O2 -mno-smart-io -w -fno-exceptions -ffunction-sections -fdata-sections \
 			 -g -mdebugger -Wcast-align -fno-short-double -mprocessor=$(CPUTYPE) \
 			 -DF_CPU=80000000L -DARDUINO=23 -D_BOARD_MEGA_ -DMPIDEVER=0x01000305 \
-			 -DMPIDE=23 -Icore -Icore/variants/$(VARIANT) -Isrc  -Ilib/chipKITEthernet
+			 -DMPIDE=23 -Icore -Icore/variants/$(VARIANT) -Isrc
 
-LIBS=$(shell ls -d lib/**/**/)
+LIBS := $(sort ${dir ${wildcard ./lib/*/ ./lib/*/*/ ./lib/*/*/*/}})
 
 CFLAGS+=$(patsubst %,-I%,$(LIBS))
 
@@ -55,6 +55,7 @@ all: hex
 core/core.a:
 	$(MAKE) -C core
 
+%.o: CFLAGS := -c $(CFLAGS)
 %.o: %.S
 	$(CXX) $(CFLAGS) $< -o $@
 
@@ -62,6 +63,22 @@ core/core.a:
 	$(CC) $(CFLAGS) $< -o $@
 
 %.o: %.cpp
+	$(CXX) $(CFLAGS) $< -o $@
+
+
+#Compilamos pero no ensamblamos
+%.s: CFLAGS := -S $(CFLAGS)
+%.s: %.c
+	$(CXX) $(CFLAGS) $< -o $@
+%.s: %.cpp
+	$(CXX) $(CFLAGS) $< -o $@
+
+#Solo preprocesamos
+%.ii: CFLAGS := -E $(CFLAGS)
+%.ii: %.cpp
+	$(CXX) $(CFLAGS) $< -o $@
+%.i: CFLAGS := -E $(CFLAGS)
+%.i: %.c
 	$(CXX) $(CFLAGS) $< -o $@
 
 link: core/core.a $(LIB_OBJ_CPP) $(LIB_OBJ_C) $(OBJ_S) $(OBJ_C) $(OBJ_CPP)
@@ -78,4 +95,5 @@ load: hex
 clean:
 	-rm src/*.o
 	-rm bin/*
+	-rm $(shell find lib/ -name "*.o")
 	$(MAKE) -C core clean
