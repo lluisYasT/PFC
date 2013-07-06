@@ -382,9 +382,9 @@ Durante la compilación es posible especificar, mediante la opción `-O' diferen
     \hline
     -O2 & Optimiza más todavía. GCC realiza casi todas la optimizaciones que no impliquen aumento de la velocidad a costa de un mayor tamaño del programa.\\
     \hline
-    -O3 & Optimiza todavía más que -O2.
+    -O3 & Optimiza todavía más que -O2.\\
     \hline
-    -Os & Optimiza el tamaño del programa. Habilita todas las optimizaciones de -O2 que normalmente no aumenten el tamaño del código y realiza más optimizaciones destinadas a reducir el tamaño del programa.
+    -Os & Optimiza el tamaño del programa. Habilita todas las optimizaciones de -O2 que normalmente no aumenten el tamaño del código y realiza más optimizaciones destinadas a reducir el tamaño del programa.\\
     \hline
   \end{tabularx}
 \end{center}
@@ -392,3 +392,147 @@ Durante la compilación es posible especificar, mediante la opción `-O' diferen
 \label{tab:optimizacionx}
 \end{table}
 
+Cada uno de estos niveles (a excepción de `Os') añade una serie de optimizaciones sobre el nivel inicial `O0'.\\
+Veamos que optimizaciones lleva a cabo cada nivel. Esto podemos verlo usando el comando ``\programa{pic32-gcc -Ox -Q --help=optimizers | grep enabled}''.\\
+\newline
+Optimizaciones del nivel 0:
+\begin{multicols}{2}
+\begin{itemize}[noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt]
+	\item -falign-loops
+	\item -fargumnt-alias
+	\item -fbranch-count-reg
+	\item -fcommon
+	\item -fdata-sections
+	\item -fdce
+	\item -fdelete-null-pointer-checks
+	\item -fdse
+	\item -fearly-inlining
+	\item -fgcse-lm
+	\item -finline-functions-called-once
+	\item -fivopts
+	\item -fjump-tables
+	\item -fmath-errno
+	\item -fmove-loop-invariants
+	\item -fpeephole
+	\item -frename-registers
+	\item -fsched-critical-path-heuristic
+	\item -fsched-dep-count-heuristic
+	\item -fsched-group-heurisitc
+	\item -fsched-interblock
+	\item -fsched-last-insn-heuristic
+	\item -fsched-spec
+	\item -fsched-spec-insn-heuristic
+	\item -fsched-stalled-insns-dep
+	\item -fsigned-zeros
+	\item -fsplit-ivs-in-unroller
+	\item -ftoplevel-reorder
+	\item -ftrapping-math
+	\item -ftree-cselim
+	\item -ftree-forwprop
+	\item -ftree-loop-im
+	\item -ftree-loop-ivcanon
+	\item -ftree-loop-optimize
+	\item -ftree-phiprop
+	\item -ftree-pta
+	\item -ftree-reassoc
+	\item -ftree-scev-cprop
+	\item -ftree-slp-vectorize
+	\item -ftree-vect-loop-version
+	\item -funit-at-a-time
+	\item -fvar-tracking
+	\item -fvar-tracking-assignments
+	\item -fweb
+\end{itemize}
+\end{multicols}
+
+Optimizaciones que añade el nivel `O1' al nivel `O0':
+
+\begin{multicols}{2}
+\begin{itemize}[noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt]
+	\item -fcprop-registers
+	\item -fdefer-pop
+	\item -fdelayed-branch
+	\item -fforward-propagate
+	\item -fguess-branch-probability
+	\item -fif-conversion
+	\item -fif-conversion2
+	\item -fipa-pure-const
+	\item -fipa-reference
+	\item -fmerge-constants
+	\item -fomit-frame-pointer
+	\item -fsplit-wide-types
+	\item -ftree-ccp
+	\item -ftree-ch
+	\item -ftree-copy-prop
+	\item -ftree-copyrename
+	\item -ftree-dce
+	\item -ftree-dominator-opts
+	\item -ftree-dse
+	\item -ftree-fre
+	\item -ftree-sink
+	\item -ftree-sra
+	\item -ftree-ter
+\end{itemize}
+\end{multicols}
+
+Optimizaciones que añade el nivel `O2' al nivel `O1':
+
+\begin{multicols}{2}
+\begin{itemize}[noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt]
+	\item -falign-functions
+	\item -falign-jumps
+	\item -falign-labels
+	\item -fcaller-saves
+	\item -fcrossjumping
+	\item -fcse-follow-jumps
+	\item -fexpensive-optimizations
+	\item -fgcse
+	\item -finline-small-functions
+	\item -fipa-cp
+	\item -fipa-sra
+	\item -foptimize-register-move
+	\item -foptimize-sibling-calls
+	\item -fpeephole2
+	\item -fregmove
+	\item -fremove-local-statics
+	\item -freorder-blocks
+	\item -freorder-functions
+	\item -frerun-cse-after-loop
+	\item -fschedule-insns
+	\item -fschedule-insns2
+	\item -fstrict-aliasing
+	\item -fthread-jumps
+	\item -ftree-builtin-call-dce
+	\item -ftree-pre
+	\item -ftree-switch-conversion
+	\item -ftree-vrp
+\end{itemize}
+\end{multicols}
+
+Optimizaciones que añade el nivel `O3' al nivel `O2':
+
+\begin{multicols}{2}
+\begin{itemize}[noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt]
+	\item -fgcse-after-reload
+	\item -finline-functions
+	\item -fipa-cp-clone
+	\item -fpredictive-commoning
+	\item -ftree-pre-partial-partial
+	\item -ftree-vectorize
+	\item -funswitch-loops
+\end{itemize}
+\end{multicols}
+
+El nivel `Os' realiza las mismas optimizaciones que `O2' menos las siguientes:
+\begin{multicols}{2}
+\begin{itemize}[noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt]
+	\item -falign-functions
+	\item -falign-jumps
+	\item -falign-loops
+	\item -falign-labels
+	\item -freorder-blocks
+	\item -freorder-blocks-and-partition
+	\item -fprefetch-loop-arrays
+	\item -ftree-vect-loop-version
+\end{itemize}
+\end{multicols}
