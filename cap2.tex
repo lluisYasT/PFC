@@ -365,3 +365,30 @@ Este es el objetivo que hemos definido antes como el objetivo por defecto. Es el
 
 \lstinputlisting[language=make, firstline=94, lastline=99, breaklines=true]{codigo_fuente/Makefile_principal}
 Por último, el objetivo `clean' nos permitirá eliminar todos los archivos creados durante el proceso de compilación, enlazado y carga.
+
+\section{Niveles de optimización}
+Durante la compilación es posible especificar, mediante la opción `-O' diferentes niveles de optimización. Estos niveles agrupan una serie de optimizaciones.
+
+\begin{table}[H]
+\begin{center}
+\begin{tabularx}{\textwidth}{|l|X|}
+    \hline
+    Nivel de optimización & Descripción\\
+    \hline
+    \hline
+   	-O0 & Opción por defecto. Reduce el tiempo de compilación y facilita la depuración.\\
+    \hline
+    -O1 & Optimiza, pero aumenta el tiempo de compilación y la memoria empleada.\\
+    \hline
+    -O2 & Optimiza más todavía. GCC realiza casi todas la optimizaciones que no impliquen aumento de la velocidad a costa de un mayor tamaño del programa.\\
+    \hline
+    -O3 & Optimiza todavía más que -O2.
+    \hline
+    -Os & Optimiza el tamaño del programa. Habilita todas las optimizaciones de -O2 que normalmente no aumenten el tamaño del código y realiza más optimizaciones destinadas a reducir el tamaño del programa.
+    \hline
+  \end{tabularx}
+\end{center}
+\caption{Niveles de optimización}
+\label{tab:optimizacionx}
+\end{table}
+
