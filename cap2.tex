@@ -540,3 +540,18 @@ El nivel `Os' realiza las mismas optimizaciones que `O2' menos las siguientes:
 Las optimizaciones que comienzan con `fsched' se usan para reordenar las instrucciones. También hay varias optimizaciones que afectan a objetos `tree' que, de acuerdo a la documentación de GCC\footnote{http://gcc.gnu.org/onlinedocs/gccint/Tree-overview.html} son estructuras centrales de datos usadas para la representación interna. Un `tree' es un tipo de puntero que puede apuntar a dataos de diferente tipo.\\
 Las optimizaciones `finline-functions-called-once', `finline-functions' y `finline-small-functions' sustituyen la llamada a la función por el código de la misma. La primera de ellas está habilitada en todos los niveles de optimización y sustituye, como su nombre indica, todas las funciones que sean llamadas una sola vez. `finline-small-functions' realiza la sustitución solo si su tamaño es menor quelas instrucciones necesarias para llamar a la función, en ensamblador. Estas dos optimizaciones hacen posible escribir pequeñas funciones auxiliares que puedan facilitar tanto la escritura como la lectura de nuestro programa sin suponer una disminución del rendimiento. La última de estas optimizaciones, `finline-functions', considera todas las funciones para sustituir su llamada por el código.\\
 En el caso de las optimizaciones que comienzan por `falign' \programa{gcc} se encarga de alinear los elementos especificados en cada una de estas optimizaciones para reducir los accesos a memoria a cambio de ocupar más espacio. Es por esto que en el nivel `Os' se desactivan estas, entre otras.
+
+\newpage
+\section{Aplicación para ChipKIT}
+
+En esta sección vamos a ver el programa que emplearemos para observar y analizar los diferentes niveles de optimización que lleva acabo \programa{gcc}. Se trata de un terminal remoto al que nos conectamos a través del puerto 23 con el protocolo TCP. Una vez conectados disponemos de varios comandos para ordenar un array que pasaremos como parámetro. Los comandos disponibles son los siguientes:
+
+\begin{itemize}
+	\item bubble0, bubble1, bubble2, bubble3. Ordenan los números usando el algoritmo `Bubble Sort'.
+	\item quick0, quick1, quick2, quick3. Ordenan los números usando el algoritmo `Quick Sort'.
+	\item tim0, tim1, tim2, tim3. Ordenan los números usando el algoritmo `Tim Sort'.
+	\item help. Muestra los comandos disponibles.
+	\item exit. Cierra la conexión.
+\end{itemize}
+
+El número que acompaña a cada uno de los comandos es el nivel de optimización con el que han sido compilados. El resultado que devuelve cada una de las órdenes es la lista ordenada y el tiempo de ejecución.
