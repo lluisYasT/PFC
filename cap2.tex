@@ -564,3 +564,11 @@ Definimos el tamaño máximo del mensaje, esto es, la máxima longitud de la lí
 
 \lstinputlisting[firstline=6, lastline=9]{codigo_fuente/sketch.cpp}
 Esta parte está inalterada con respecto al ejemplo que viene con la biblioteca Ethernet. Aquí declaramos la dirección física que queramos que tenga nuestro dispositivo. Si la inicializamos a 0 la dirección física que se usará será la del propio dispositivo. En el caso de elegir un valor diferente será este el que se use\footnote{En algunas aplicaciones puede ser interesante modificar este valor para enmascarar la identidad del dispositivo o para suplantar la de otro, pero esto se sale del objetivo de este proyecto.}.
+
+\lstinputlisting[firstline=11, lastline=17]{codigo_fuente/sketch.cpp}
+Ahora declaramos la dirección de red (IP) de nuestro dispositivo\footnote{Se ha elegido esta en concreto (10.0.0.8) porque durante el desarrollo del programa el dispositivo se encontraba conectado a la red 10.0.0.0/24}. Es posible no declarar la dirección IP del dispositivo para usar DHCP. También declaramos la puerta de enlace predeterminada y la máscara de subred\footnote{Estos dos parámetros son opcionales si, como es este el caso, la red tiene una máscara de subred de valor 24 (255.255.255.0)}.
+
+\lstinputlisting[firstline=19, lastline=20]{codigo_fuente/sketch.cpp}
+Creamos una instancia de la clase Server, con nombre `server' en el puerto 23. Es posible elegir otros puertos, pero se ha elegido este por ser el que usa el servicio de terminal remoto Telnet.
+
+\lstinputlisting[firstline=22, lastline=38]{codigo_fuente/sketch.cpp}
