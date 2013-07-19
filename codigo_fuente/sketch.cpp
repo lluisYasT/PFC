@@ -18,7 +18,6 @@ byte subnet[] = { 255, 255, 255, 0 };
 
 // telnet defaults to port 23
 Server server(23);
-boolean gotAMessage = false; // whether or not you got a message from the client yet
 
 typedef enum comandos {
 	NOP,
