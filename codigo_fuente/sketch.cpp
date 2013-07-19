@@ -97,16 +97,6 @@ void loop()
 				}
 			} while(c != '\n');
 			
-
-			//Serial.println((char *) message);
-
-			//message_size = strlen((char *) message);
-			/*if (m > 0 && m < MESSAGE_SIZE - 1)
-			{
-				message[m] = '\n';
-				message_size = m + 1;
-			}
-			*/
 			message_size = m;
 			Serial.print("Message size: ");
 			Serial.println(message_size);
@@ -114,7 +104,7 @@ void loop()
 			for (int i = 0; i < message_size; ++i)
 			{
 				//message[i] = client.read();
-				if(message[i] == ' ' || message[i] == '\r' || message[i] == '\n')
+				if(message[i] == ' ' || message[i] == ',' || message[i] == '\t' || message[i] == '\r' || message[i] == '\n')
 				{
 					if(cantidad_num == 0)
 					{
