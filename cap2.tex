@@ -560,7 +560,7 @@ Para la realización del programa se ha usado el ejemplo del servidor Telnet que
 Comenzamos incluyendo la biblioteca del shield Ethernet y el archivo de cabecera `funciones.h' que contiene los diferentes algoritmos de ordenación que usaremos en los comandos expuestos anteriormente.\\
 
 \lstinputlisting[firstline=4, lastline=5]{codigo_fuente/sketch.cpp}
-Definimos el tamaño máximo del mensaje, esto es, la máxima longitud de la línea que podemos envíar a nuestro programa, esto incluye el comando seguido por el array. También definimos el tamaño máximo del array que acepta el programa, siendo este la mitad que el mensaje. Esta longitud debería ser suficiente ya que, con números de un solo dígito (o caracter en este caso), no es posible superar este tamaño ya que por cada uno de estos numeros deberemos añadir un separador, lo que implica un mínimo de dos caracteres por dígito, sin contar el comando.
+Definimos el tamaño máximo del mensaje, esto es, la máxima longitud de la línea que podemos envíar a nuestro programa, esto incluye el comando seguido por el array. También definimos el tamaño máximo del array que acepta el programa, siendo este la mitad que el mensaje. Esta longitud debería ser suficiente ya que, con números de un solo dígito (o carácter en este caso), no es posible superar este tamaño ya que por cada uno de estos numeros deberemos añadir un separador, lo que implica un mínimo de dos caracteres por dígito, sin contar el comando.
 
 \lstinputlisting[firstline=6, lastline=9]{codigo_fuente/sketch.cpp}
 Esta parte está inalterada con respecto al ejemplo que viene con la biblioteca Ethernet. Aquí declaramos la dirección física que queramos que tenga nuestro dispositivo. Si la inicializamos a 0 la dirección física que se usará será la del propio dispositivo. En el caso de elegir un valor diferente será este el que se use\footnote{En algunas aplicaciones puede ser interesante modificar este valor para enmascarar la identidad del dispositivo o para suplantar la de otro, pero esto se sale del objetivo de este proyecto.}.
@@ -572,3 +572,18 @@ Ahora declaramos la dirección de red (IP) de nuestro dispositivo\footnote{Se ha
 Creamos una instancia de la clase Server, con nombre `server' en el puerto 23. Es posible elegir otros puertos, pero se ha elegido este por ser el que usa el servicio de terminal remoto Telnet.
 
 \lstinputlisting[firstline=22, lastline=38]{codigo_fuente/sketch.cpp}
+Creamos un nuevo tipo de dato llamado `comandos'. Se trata de un `enum' que contiene todos los comandos a los que tendremos acceso durante la ejecución del programa.
+
+\lstinputlisting[firstline=40, lastline=43]{codigo_fuente/sketch.cpp}
+Declaramos funciones auxiliares que se utilizarán a lo largo del programa.
+\begin{itemize}
+	\item `print\_array' es una función que imprime un array tanto por el puerto serie como al cliente.
+	\item `copia\_a\_resultado' copia el contenido de la variable array a resultado, para que las funciones de ordenación modifiquen solamente esta última variable.
+	\item `deco\_comando' devuelve el comando (un dato de tipo `comandos') en función del array `comando' que contiene el comando extraído directamente del mensaje.
+	\item `ejecuta\_comando' ejecuta el comando seleccionado anteriormente.
+\end{itemize}
+
+\lstinputlisting[firstline=45, lastline=54]{codigo_fuente/sketch.cpp}
+Función `setup()' en la que inicializamos el shield ethernet con la función `Ethernet.begin(mac, ip)'\footnote{Si quisiéramos usar DHCP en lugar de una IP fija podemos llamar a la función `Ethernet.begin(mac)'.}, inicializamos el servidor para que comience a escuchar a la espera de nuevos clientes e inicializamos el puerto serie. Este último se usa principalmente para facilitar la depuración del programa, puesto que el acceso será via Telnet no por el puerto serie.
+
+\lstinputlisting[firstline=56, lastline=59]{codigo_fuente/sketch.cpp}
