@@ -557,4 +557,10 @@ En esta sección vamos a ver el programa que emplearemos para observar y analiza
 El número que acompaña a cada uno de los comandos es el nivel de optimización con el que han sido compilados. El resultado que devuelve cada una de las órdenes es la lista ordenada y el tiempo de ejecución.\\
 Para la realización del programa se ha usado el ejemplo del servidor Telnet que viene incluido con la biblioteca `chipKITEthernet'. Veamos la estructura y funcionamiento de nuestro `sketch'\footnote{Archivo donde definimos las funciones `setup' y `loop'}.\\
 \lstinputlisting[firstline=1, lastline=2, breaklines=true]{codigo_fuente/sketch.cpp}
+Comenzamos incluyendo la biblioteca del shield Ethernet y el archivo de cabecera `funciones.h' que contiene los diferentes algoritmos de ordenación que usaremos en los comandos expuestos anteriormente.\\
 
+\lstinputlisting[firstline=4, lastline=5]{codigo_fuente/sketch.cpp}
+Definimos el tamaño máximo del mensaje, esto es, la máxima longitud de la línea que podemos envíar a nuestro programa, esto incluye el comando seguido por el array. También definimos el tamaño máximo del array que acepta el programa, siendo este la mitad que el mensaje. Esta longitud debería ser suficiente ya que, con números de un solo dígito (o caracter en este caso), no es posible superar este tamaño ya que por cada uno de estos numeros deberemos añadir un separador, lo que implica un mínimo de dos caracteres por dígito, sin contar el comando.
+
+\lstinputlisting[firstline=6, lastline=9]{codigo_fuente/sketch.cpp}
+Esta parte está inalterada con respecto al ejemplo que viene con la biblioteca Ethernet. Aquí declaramos la dirección física que queramos que tenga nuestro dispositivo. Si la inicializamos a 0 la dirección física que se usará será la del propio dispositivo. En el caso de elegir un valor diferente será este el que se use\footnote{En algunas aplicaciones puede ser interesante modificar este valor para enmascarar la identidad del dispositivo o para suplantar la de otro, pero esto se sale del objetivo de este proyecto.}.
