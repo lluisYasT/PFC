@@ -146,7 +146,7 @@ void loop()
 
 			if(cantidad_num > 0){
 				size = n;
-				Serial.print("Tamaño del array: ");
+				Serial.print("Tamano del array: ");
 				Serial.println(size);
 			}
 
