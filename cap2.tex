@@ -609,14 +609,14 @@ Comprobamos que hemos recibido algún número y guardamos la cantidad de número
 \newline
 Veamos el resto de funciones que podemos encontrar en el archivo `sketch.cpp' y que hemos utilizado en la función `loop()'.\\
 
-\lstipnutlisting[firstline=166, lastline=177, breaklines=true]{codigo_fuente/sketch.cpp}
+\lstinputlisting[firstline=166, lastline=177, breaklines=true]{codigo_fuente/sketch.cpp}
 Está función tiene como único objetivo envíar al cliente y por puerto serie el array que pasemos como parametro, para poder visualizarlo.
 
-\lstipnutlisting[firstline=179, lastline=187, breaklines=true]{codigo_fuente/sketch.cpp}
+\lstinputlisting[firstline=179, lastline=187, breaklines=true]{codigo_fuente/sketch.cpp}
 Nuestras funciones de ordenación, modifican el array que se les pasa como parámetro (el array es pasado por referencia), por lo que está función copia el array `number\_array' a `resultado' y será este último el que modifiquemos. Esto lo hacemos por si fuera necesario disponer del array original para comparar u otras funciones.
 
-\lstipnutlisting[firstline=189, lastline=236, breaklines=true]{codigo_fuente/sketch.cpp}
+\lstinputlisting[firstline=189, lastline=236, breaklines=true]{codigo_fuente/sketch.cpp}
 Está función compara la cadena de caracteres `comando' con los diferentes comandos disponibles y devuelve el código del comando al que corresponda. Si no corresponde a ningún comando devolvemos el comando especial `NOP'.
 
-\lstipnutlisting[firstline=238, breaklines=true]{codigo_fuente/sketch.cpp}
+\lstinputlisting[firstline=238, breaklines=true]{codigo_fuente/sketch.cpp}
 Por último, esta función ejecuta las subrutinas asociadas al comando que le pasamos como parámetro. Vemos que cuando la función que se ejecuta es alguno de los algoritmos de ordenación medimos su duración usando tanto la función `micros()' como la función `millis()', que devuelven el tiempo en microsegundos y milisegundos respectivamente. Esto es necesario ya que si el array es muy pequeño, `millis()' no dispondrá de la precisión necesaria para realizar una medida adecuada, mientras que si el array es muy grande es posible que el contador del que hace uso `micros()' desborde y obtengamos una medida inválida. Una vez ejecutado el algoritmo de ordenación envíamos al cliente el tiempo que ha tardado en ejecutarse. Además, disponemos del comando `HELP' que indica al cliente los comandos que tiene a su disposición, además del comando `EXIT' que termina la conexión con el cliente. Si el comando no corresponde a ninguno de los anteriores, es decir, se trata del comando `NOP' se le indicará al cliente que el comando es inválido.
