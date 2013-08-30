@@ -416,11 +416,11 @@ void ejecuta_comando(Client *client, comandos comando, int size)
 
 		case EXIT:
 			(*client).stop();
+			Serial.println("Cliente desconectado");
 			break;
 
 		default:
 			(*client).println("Comando invalido");
-			Serial.println("Cliente desconectado");
 			break;
 
 	}
