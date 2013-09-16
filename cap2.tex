@@ -233,6 +233,8 @@ El proceso completo de compilación (lo que se muestra en el terminal) está en 
 
 Veamos que pasos sigue \programa{MPIDE} durante la compilación y ensamblado de nuestro programa:
 \begin{enumerate}
+	\item MPIDE comienza copiando nuestro sketch y las bibliotecas que hayamos incluído a una carpeta temporal en la que se realizará el proceso de compilación y ensamblado.
+	\item Añade al sketch la extensión `.cpp' para compilarlo. Además, si hemos escrito alguna función a parte de \programa{loop()} y \programa{setup()} se encargará de declararla por nosotros e incluirá el archivo de cabecera \programa{WProgram.h}.
 	\item Compila, usando \programa{pic32-g++} (sin enlazar) Blink.cpp (este archivo es una copia de nuestro sketch, Blink.pde).
 	\item Compila y comprime la biblioteca ``Core'' usando \programa{pic32-g++} (o \programa{pic32-gcc} según el caso) y \programa{pic32-ar}.
 	\item Enlaza el programa usando un script de enlazado común a todos las diferentes placas chipKIT: ``chipKIT-application-COMMON.ld'', y uno específico para cada microcontrolador. En nuestro caso usa ``chipKIT-application-32MX795F12.ld''.
