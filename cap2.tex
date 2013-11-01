@@ -309,7 +309,7 @@ Función de cada carpeta:
 	\item \negrita{bin}. Aquí se guardará el programa compilado y enlazado. En esta carpeta estará el archivo final con extensión `.hex' que será el que carguemos en la placa.
 	\item \negrita{core}. Aquí está la biblioteca Arduino (core) junto con los archivos de cabecera de las diferentes placas disponibles. Estos últimos archivos los encontramos en la carpeta ``variants'' y definen las constantes que dependen de la placa que estemos usando tales como, por ejemplo, la ubicación de los pines de entrada/salida.
 	\item \negrita{lib}. Aquí se colocarán las bibliotecas de terceros de la misma forma que en MPIDE: copiando la carpeta de la biblioteca en este directorio. Usando el archivo Makefile compilaremos todas las bibliotecas y luego las enlazaremos con nuestro programa y la biblioteca core.
-	\item \negrita{src}. Aquí estará el código fuente del programa que hayamos creado. Será el lugar en el que se encuentre el archivo de código fuente \programa{sketch.cpp} que contiene las definiciones de las funciones \programa{setup} y \programa{loop}. Además, si necesitamos crear nuestras propias bibliotecas (archivos .h + .c o .cpp) podemos crearlos tanto en en esta carpeta o en \programa{lib}.
+	\item \negrita{src}. Aquí estará el código fuente del programa que hayamos creado. Será el lugar en el que se encuentre el archivo de código fuente \programa{sketch.cpp} que contiene las definiciones de las funciones \programa{setup} y \programa{loop}. Además, si necesitamos crear nuestras propias bibliotecas (archivos .h + .c o .cpp) podemos crearlos tanto en esta carpeta o en \programa{lib}.
 \end{itemize}
 Tanto en la carpeta principal como en \programa{core} tendremos un archivo Makefile para la automatización de los procesos de compilación, ensamblado y posterior carga de nuestro programa.\\
 El Makefile principal se encarga de compilar, enlazar y comprimir la biblioteca core en el archivo \programa{core.a} usando el Makefile que se encuentra dentro de esa carpeta y luego compila todos los archivos en la carpeta \programa{lib} y la carpeta{src}. Una vez enlazado podemos usar la orden \programa{make load} para cargar el programa en la placa:
@@ -319,7 +319,7 @@ El Makefile principal se encarga de compilar, enlazar y comprimir la biblioteca 
 Analicemos el funcionamiento de nuestro Makefile:\\
 \lstinputlisting[language=make, firstline=0, lastline=9, breaklines=true]{codigo_fuente/Makefile_principal}
 Empezamos declarando la localización de \programa{MPIDE} junto con la `toolchain' que viene incluida con este. La localización de \programa{MPIDE} en este caso es la carpeta \$HOME de mi PC (Es necesario modificar este valor dependiendo de la localización de \programa{MPIDE}). Las utilidades de la `toolchain' que viene incluida con \programa{MPIDE} se encuentran siempre en la misma subcarpeta, que en el Makefile es la variable `TOOLCHAIN\_PREFIX', independientemente del sistema operativo empleado.\\
-
+rc
 \lstinputlisting[language=make, firstline=11, lastline=16, breaklines=true]{codigo_fuente/Makefile_principal}
 Definimos el puerto serie en el que está conectado el microcontrolador. En Linux suele estar en `/dev/ttyUSBx' mientras que en Windows es `COMx' (sustituyendo `x' por el valor del puerto). También definimos la localización de \programa{avrdude} junto con su archivo de configuración y sus opciones, que usaremos para cargar el programa en la placa y que viene incluido con \programa{MPIDE}.\\
 
