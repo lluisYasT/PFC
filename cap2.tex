@@ -234,7 +234,7 @@ El proceso completo de compilación (lo que se muestra en el terminal) está en 
 Veamos que pasos sigue \programa{MPIDE} durante la compilación y ensamblado de nuestro programa:
 \begin{enumerate}
 	\item MPIDE comienza copiando nuestro sketch y las bibliotecas que hayamos incluído a una carpeta temporal en la que se realizará el proceso de compilación y ensamblado.
-	\item Añade al sketch la extensión `.cpp' para compilarlo. Además, si hemos escrito alguna función a parte de \programa{loop()} y \programa{setup()} se encargará de declararla por nosotros e incluirá el archivo de cabecera \programa{WProgram.h}.
+	\item Añade al sketch la extensión `.cpp' para compilarlo. Además, si hemos escrito alguna función a parte de \comando{loop()} y \comando{setup()} se encargará de declararla por nosotros e incluirá el archivo de cabecera \programa{WProgram.h}.
 	\item Compila, usando \programa{pic32-g++} (sin enlazar) Blink.cpp (este archivo es una copia de nuestro sketch, Blink.pde).
 	\item Compila y comprime la biblioteca ``Core'' usando \programa{pic32-g++} (o \programa{pic32-gcc} según el caso) y \programa{pic32-ar}.
 	\item Enlaza el programa usando un script de enlazado común a todos las diferentes placas chipKIT: ``chipKIT-application-COMMON.ld'', y uno específico para cada microcontrolador. En nuestro caso usa ``chipKIT-application-32MX795F12.ld''.
@@ -245,15 +245,15 @@ Veamos que pasos sigue \programa{MPIDE} durante la compilación y ensamblado de 
 
 \begin{itemize}
 	\item \negrita{-ON}. Nivel de optimización. El valor ``N'' varía entre 0 y 3 para optimizaciones generales. Si su valor es ``s'' optimizamos para reducir el espacio que ocupa el programa.
-	\item \negrita{-mno-smart-io}. Esta opción deshabilita el análisis estadístico de las cadenas con format que son pasadas a \programa{printf} o \programa{scanf} y a las variaciones `f' y `v' de estas funciones.
+	\item \negrita{-mno-smart-io}. Esta opción deshabilita el análisis estadístico de las cadenas con format que son pasadas a \comando{printf} o \comando{scanf} y a las variaciones `f' y `v' de estas funciones.
 	\item \negrita{-w}. Esta opción deshabilitia todos los mensajes de advertencia.
 	\item \negrita{-fno-exceptions}. Esta opción deshabilita el manejo de excepciones.
 	\item \negrita{-ffunction-sections}. Con esta opción cada función se coloca en su propia sección en el archivo de salida.
 	\item \negrita{-fdata-sections}.Con esta opción cada dato se coloca en su propia sección en el archivo de salida.
 	\item \negrita{-g}. Produce información para la depuración
 	\item \negrita{-mdebugger}. Esta opción define el símbolo ``\_DEBUGGER'', lo que reservara espacio en una sección del archivo de salida (.DBG\_EXCPT) para los vectores de excepción de depuración.
-	\item \negrita{-Wcast-align}. Está opción hace que el compilador lance una advertencia cuando a un puntero se le ha hecho un cast. Por ejemplo, advierte si \programa{const char *} se convierte en \programa{int *}.
-	\item \negrita{-fno-short-double}. Esta opción hace que el tipo de variable \programa{double} sea equivalente a \programa{long double} en vez de a \programa{float}, que es la opción por defecto.
+	\item \negrita{-Wcast-align}. Está opción hace que el compilador lance una advertencia cuando a un puntero se le ha hecho un cast. Por ejemplo, advierte si \comando{const char *} se convierte en \comando{int *}.
+	\item \negrita{-fno-short-double}. Esta opción hace que el tipo de variable \comando{double} sea equivalente a \comando{long double} en vez de a \comando{float}, que es la opción por defecto.
 	\item \negrita{-mprocessor=?}. Esta opción indica al compilador cual es el procesador objetivo. En nuestro caso particular se trata de ``32MX795F512L''.
 	\item Definiciones de macros para el preprocesador.
 	\begin{itemize}
