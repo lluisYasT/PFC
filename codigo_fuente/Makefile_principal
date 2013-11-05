@@ -1,4 +1,15 @@
-MPIDE:=/home/lluis/mpide
+UNAME=$(shell uname)
+ifeq ($(UNAME),Darwin)
+	MPIDE:=/Applications/Mpide.app/Contents/Resources/Java
+	AVRDUDE=$(MPIDE)/hardware/tools/avr/bin/avrdude
+	AVRDUDECONF=$(MPIDE)/hardware/tools/avr/etc/avrdude.conf
+	SERIAL_PORT=/dev/tty.usbserial-A6009W3L
+else
+	MPIDE:=/home/lluis/mpide
+	AVRDUDE=$(MPIDE)/hardware/tools/avrdude
+	AVRDUDECONF=$(MPIDE)/hardware/tools/avrdude.conf
+	SERIAL_PORT=/dev/ttyUSB0
+endif
 export MPIDE
 TOOLCHAIN_PREFIX=$(MPIDE)/hardware/pic32/compiler/pic32-tools
 CC=$(TOOLCHAIN_PREFIX)/bin/pic32-gcc
@@ -8,10 +19,6 @@ LD=$(CXX)
 OBJCPY=$(TOOLCHAIN_PREFIX)/bin/pic32-objcopy
 BIN2HEX=$(TOOLCHAIN_PREFIX)/bin/pic32-bin2hex
 
-SERIAL_PORT=/dev/ttyUSB0
-
-AVRDUDE=$(MPIDE)/hardware/tools/avrdude
-AVRDUDECONF=$(MPIDE)/hardware/tools/avrdude.conf
 AVRDUDEFLAGS=-C$(AVRDUDECONF) -c stk500v2 -p pic32 -P $(SERIAL_PORT) -b 115200 -v -U
 
 CPUTYPE:=32MX795F512L
