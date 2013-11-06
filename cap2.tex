@@ -584,19 +584,20 @@ Esta parte está inalterada con respecto al ejemplo que viene con la biblioteca 
 Ahora declaramos la dirección de red (IP) de nuestro dispositivo\footnote{Se ha elegido esta en concreto (10.0.0.8) porque durante el desarrollo del programa el dispositivo se encontraba conectado a la red 10.0.0.0/24}. Es posible no declarar la dirección IP del dispositivo para usar DHCP.
 
 \lstinputlisting[firstline=52, lastline=55]{codigo_fuente/sketch.cpp}
-Creamos una instancia de la clase Server, con nombre `server' en el puerto 23. Es posible elegir otros puertos, pero se ha elegido este por ser el que usa el servicio de terminal remoto Telnet.
+Creamos una instancia de la clase Server, con nombre \comando{server} en el puerto 23. Es posible elegir otros puertos, pero se ha elegido este por ser el que usa el servicio de terminal remoto Telnet.
 
-\lstinputlisting[firstline=40, lastline=43]{codigo_fuente/sketch.cpp}
+\lstinputlisting[firstline=57, lastline=61]{codigo_fuente/sketch.cpp}
 Declaramos funciones auxiliares que se utilizarán a lo largo del programa.
 \begin{itemize}
 	\item \comando{print\_array} es una función que imprime un array tanto por el puerto serie como al cliente.
-	\item \comando{copia\_a\_resultado} copia el contenido de la variable array a resultado, para que las funciones de ordenación modifiquen solamente esta última variable.
-	\item \comando{deco\_comando} devuelve el comando (un dato de tipo `comandos') en función del array \comando{comando} que contiene el comando extraído directamente del mensaje.
-	\item \comando{ejecuta\_comando} ejecuta el comando seleccionado anteriormente.
+	\item \comando{selecciona\_comando} se encarga de llamar a la función \comando{ejecuta\_comando} pasándole como parámetro el númor de comando adecuado, el array a ordenar y la longitud de dicho array.
+	\item \comando{array\_aleatorio} genera un array de números aleatorio de longitud \comando{MAX\_LONG\_ARRAY}.
+	\item \comando{ejecuta\_comando} ejecuta el comando cuyo índice le pasemos como parámetro.
+	\item \comando{compara} llama a \comando{ejecuta\_comando} para cada función de ordenación que tengamos, pasándole como parámetro el mismo array de números aleatorios a todas.
 \end{itemize}
 
-\lstinputlisting[firstline=45, lastline=54]{codigo_fuente/sketch.cpp}
-Función \comando{setup()} en la que inicializamos el shield ethernet con la función \comando{Ethernet.begin(mac, ip)}\footnote{Si quisiéramos usar DHCP en lugar de una IP fija podemos llamar a la función \comando{Ethernet.begin(mac)}.}, inicializamos el servidor para que comience a escuchar a la espera de nuevos clientes e inicializamos el puerto serie. Este último se usa principalmente para facilitar la depuración del programa, puesto que el acceso será via Telnet no por el puerto serie.
+\lstinputlisting[firstline=63, lastline=77]{codigo_fuente/sketch.cpp}
+Función \comando{setup()} en la que inicializamos el shield ethernet con la función \comando{Ethernet.begin(mac, ip)}\footnote{Si quisiéramos usar DHCP en lugar de una IP fija podemos llamar a la función \comando{Ethernet.begin(mac)}.}, inicializamos el servidor para que comience a escuchar a la espera de nuevos clientes e inicializamos el puerto serie. Este último se usa principalmente para facilitar la depuración del programa, puesto que el acceso será via Telnet no por el puerto serie. Además inicializaremos la pantalla oled del IO Shield y mostraremos en ella el nombre del programa.
 
 \lstinputlisting[firstline=73, lastline=76]{codigo_fuente/sketch.cpp}
 Si se conecta un cliente, nos aseguramos de que el contenido del mensaje, el comando y el array de números es nulo.
