@@ -357,7 +357,7 @@ Llamamos al Makefile que se encuentra en la carpeta `core' para obtener la bibli
 Estas son las reglas que utilizamos para generar los ficheros con extensión `.o' a partir de su correspondiente archivo de código fuente.
 
 \lstinputlisting[language=make, firstline=76, lastline=89, breaklines=true]{codigo_fuente/Makefile_principal}
-Estas reglas las utilizaremos en el caso de querer generar archivos que hayan sido solo preprocesados o preprocesados y compilados sin ser ensamblados. Para usarlas habrá que indicar explícitamente que archivo queremos generar, por ejemplo \programa{make src/sketch.s} para obtener el archivo en ensamblador a partir de nuestro código C++ de `sketch.cpp'.
+Estas reglas las utilizaremos en el caso de querer generar archivos que hayan sido solo preprocesados o preprocesados y compilados sin ser ensamblados. Para usarlas habrá que indicar explícitamente que archivo queremos generar, por ejemplo \comando{make src/sketch.s} para obtener el archivo en ensamblador a partir de nuestro código C++ de `sketch.cpp'.
 
 \lstinputlisting[language=make, firstline=91, lastline=93, breaklines=true]{codigo_fuente/Makefile_principal}
 Con este objetivo realizamos el enlazado de los archivos compilados para generear el ejecutable. En las dependencias se encuentran todos los archivos y reglas necesarias para llevar acabo el enlazado.
@@ -366,16 +366,16 @@ Con este objetivo realizamos el enlazado de los archivos compilados para generea
 Este objetivo tiene la finalidad de enlazar el programa usando un script de enlazado diferente, que no inserta un bootloader. De esta forma podremos crear un ejecutable que puede ser usado en \programa{MPLAB X} para depuración.
 
 \lstinputlisting[language=make, firstline=100, lastline=103, breaklines=true]{codigo_fuente/Makefile_principal}
-De la misma forma que lo hace \programa{MPIDE} creamos el archivo con extensión `.hex', que cargaremos mas tarde en el microcontrolador. Este objetivo depende del objetivo `link', ya que necesitamos el programa enlazado.
+De la misma forma que lo hace \programa{MPIDE} creamos el archivo con extensión `.hex', que cargaremos mas tarde en el microcontrolador. Este objetivo depende del objetivo \comando{link}, ya que necesitamos el programa enlazado.
 
 \lstinputlisting[language=make, firstline=105, lastline=106, breaklines=true]{codigo_fuente/Makefile_principal}
 Este es el objetivo que hemos definido antes como el objetivo por defecto. Es el que se encarga de invocar a \programa{avrdude} que cargará nuestro programa en la placa.
 
 \lstinputlisting[language=make, firstline=108, lastline=113, breaklines=true]{codigo_fuente/Makefile_principal}
-Por último, el objetivo `clean' nos permitirá eliminar todos los archivos creados durante el proceso de compilación, enlazado y carga.
+Por último, el objetivo \comando{clean} nos permitirá eliminar todos los archivos creados durante el proceso de compilación, enlazado y carga.
 
 \section{Niveles de optimización}
-Durante la compilación es posible especificar, mediante la opción `-O' diferentes niveles de optimización. Estos niveles agrupan una serie de optimizaciones.
+Durante la compilación es posible especificar, mediante la opción \comando{-O} diferentes niveles de optimización. Estos niveles agrupan una serie de optimizaciones.
 
 \begin{table}[H]
 \begin{center}
@@ -384,15 +384,15 @@ Durante la compilación es posible especificar, mediante la opción `-O' diferen
     Nivel de optimización & Descripción\\
     \hline
     \hline
-   	-O0 & Opción por defecto. Reduce el tiempo de compilación y facilita la depuración.\\
+   	\comando{-O0} & Opción por defecto. Reduce el tiempo de compilación y facilita la depuración.\\
     \hline
-    -O1 & Optimiza, pero aumenta el tiempo de compilación y la memoria empleada.\\
+    \comando{-O1} & Optimiza, pero aumenta el tiempo de compilación y la memoria empleada.\\
     \hline
-    -O2 & Optimiza más todavía. GCC realiza casi todas la optimizaciones que no impliquen aumento de la velocidad a costa de un mayor tamaño del programa.\\
+    \comando{-O2} & Optimiza más todavía. \programa{GCC} realiza casi todas la optimizaciones que no impliquen aumento de la velocidad a costa de un mayor tamaño del programa.\\
     \hline
-    -O3 & Optimiza todavía más que -O2.\\
+    \comando{-O3} & Optimiza todavía más que \comando{-O2}, incluyendo las optimizaciones que aumenten el tamaño del ejecutable.\\
     \hline
-    -Os & Optimiza el tamaño del programa. Habilita todas las optimizaciones de -O2 que normalmente no aumenten el tamaño del código y realiza más optimizaciones destinadas a reducir el tamaño del programa.\\
+    \comando{-Os} & Optimiza el tamaño del programa. Habilita todas las optimizaciones de \comando{-O2} que normalmente no aumenten el tamaño del código y realiza más optimizaciones destinadas a reducir el tamaño del programa.\\
     \hline
   \end{tabularx}
 \end{center}
@@ -400,7 +400,7 @@ Durante la compilación es posible especificar, mediante la opción `-O' diferen
 \label{tab:optimizacionx}
 \end{table}
 
-Cada uno de estos niveles (a excepción de `Os') añade una serie de optimizaciones sobre el nivel inicial `O0'.\\
+Cada uno de estos niveles (a excepción de \comando{-Os}) añade una serie de optimizaciones sobre el nivel inicial \comando{-O0}.\\
 Veamos que optimizaciones lleva a cabo cada nivel. Esto podemos verlo usando el comando ``\comando{pic32-gcc -Ox -Q --help=optimizers | grep enabled}''.\\
 \newline
 Optimizaciones del nivel 0:
@@ -587,7 +587,7 @@ Ahora declaramos la dirección de red (IP) de nuestro dispositivo\footnote{Se ha
 Creamos una instancia de la clase Server, con nombre \comando{server} en el puerto 23. Es posible elegir otros puertos, pero se ha elegido este por ser el que usa el servicio de terminal remoto Telnet.
 
 \lstinputlisting[firstline=57, lastline=61]{codigo_fuente/sketch.cpp}
-Declaramos funciones auxiliares que se utilizarán a lo largo del programa.
+Declaramos funciones auxiliares que se utilizarán a lo largo del programa:
 \begin{description}
 	\item[\comando{print\_array}] es una función que imprime un array tanto por el puerto serie como al cliente.
 	\item[\comando{selecciona\_comando}] se encarga de llamar a la función \comando{ejecuta\_comando} pasándole como parámetro el númor de comando adecuado, el array a ordenar y la longitud de dicho array.
