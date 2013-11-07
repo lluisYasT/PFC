@@ -554,14 +554,14 @@ En el caso de las optimizaciones que comienzan por `falign' \programa{gcc} se en
 
 En esta sección vamos a ver el programa que emplearemos para observar y analizar los diferentes niveles de optimización que lleva acabo \comando{gcc}. Se trata de un terminal remoto al que nos conectamos a través del puerto 23 con el protocolo TCP. Una vez conectados disponemos de varios comandos para ordenar un array que pasaremos como parámetro. Los comandos disponibles son los siguientes:
 
-\begin{itemize}
-	\item \comando{bubble0}, \comando{bubble1}, \comando{bubble2}, \comando{bubble3}. Ordenan los números usando el algoritmo `Bubble Sort'.
-	\item \comando{quick0}, \comando{quick1}, \comando{quick2}, \comando{quick3}. Ordenan los números usando el algoritmo `Quick Sort'.
-	\item \comando{sel0}, \comando{sel1}, \comando{sel2}, \comando{sel3}. Ordenan los números usando el algoritmo `Selection Sort'.
-	\item \comando{comparar}. Reordena un array de números aleatorios usando todos los algoritmos anteriores.
-	\item \comando{help}. Muestra los comandos disponibles.
-	\item \comando{exit}. Cierra la conexión.
-\end{itemize}
+\begin{description}
+	\item[\comando{bubble0}, \comando{bubble1}, \comando{bubble2}, \comando{bubble3}] Ordenan los números usando el algoritmo `Bubble Sort'.
+	\item[\comando{quick0}, \comando{quick1}, \comando{quick2}, \comando{quick3}] Ordenan los números usando el algoritmo `Quick Sort'.
+	\item[\comando{sel0}, \comando{sel1}, \comando{sel2}, \comando{sel3}] Ordenan los números usando el algoritmo `Selection Sort'.
+	\item[\comando{comparar}] Reordena un array de números aleatorios usando todos los algoritmos anteriores.
+	\item[\comando{help}] Muestra los comandos disponibles.
+	\item[\comando{exit}] Cierra la conexión.
+\end{description}
 
 El número que acompaña a cada uno de los comandos es el nivel de optimización con el que han sido compilados. El resultado que devuelve cada una de las órdenes es la lista ordenada y el tiempo de ejecución, esto último se muestra también en la pantalla OLED del chipKIT IO Shield.\\
 Para la realización del programa se ha usado como base el ejemplo del servidor Telnet que viene incluido con la biblioteca `chipKITEthernet'. Veamos la estructura y funcionamiento de nuestro `sketch'\footnote{Archivo donde definimos las funciones \comando{setup()} y \comando{loop()}}.\\
@@ -588,13 +588,13 @@ Creamos una instancia de la clase Server, con nombre \comando{server} en el puer
 
 \lstinputlisting[firstline=57, lastline=61]{codigo_fuente/sketch.cpp}
 Declaramos funciones auxiliares que se utilizarán a lo largo del programa.
-\begin{itemize}
-	\item \comando{print\_array} es una función que imprime un array tanto por el puerto serie como al cliente.
-	\item \comando{selecciona\_comando} se encarga de llamar a la función \comando{ejecuta\_comando} pasándole como parámetro el númor de comando adecuado, el array a ordenar y la longitud de dicho array.
-	\item \comando{array\_aleatorio} genera un array de números aleatorio de longitud \comando{MAX\_LONG\_ARRAY}.
-	\item \comando{ejecuta\_comando} ejecuta el comando cuyo índice le pasemos como parámetro.
-	\item \comando{compara} llama a \comando{ejecuta\_comando} para cada función de ordenación que tengamos, pasándole como parámetro el mismo array de números aleatorios a todas.
-\end{itemize}
+\begin{description}
+	\item[\comando{print\_array}] es una función que imprime un array tanto por el puerto serie como al cliente.
+	\item[\comando{selecciona\_comando}] se encarga de llamar a la función \comando{ejecuta\_comando} pasándole como parámetro el númor de comando adecuado, el array a ordenar y la longitud de dicho array.
+	\item[\comando{array\_aleatorio}] genera un array de números aleatorio de longitud \comando{MAX\_LONG\_ARRAY}.
+	\item[\comando{ejecuta\_comando}] ejecuta el comando cuyo índice le pasemos como parámetro.
+	\item[\comando{compara}] llama a \comando{ejecuta\_comando} para cada función de ordenación que tengamos, pasándole como parámetro el mismo array de números aleatorios a todas.
+\end{description}
 
 \lstinputlisting[firstline=63, lastline=77]{codigo_fuente/sketch.cpp}
 Función \comando{setup()} en la que inicializamos el shield ethernet con la función \comando{Ethernet.begin(mac, ip)}\footnote{Si quisiéramos usar DHCP en lugar de una IP fija podemos llamar a la función \comando{Ethernet.begin(mac)}.}, inicializamos el servidor para que comience a escuchar a la espera de nuevos clientes e inicializamos el puerto serie. Este último se usa principalmente para facilitar la depuración del programa, puesto que el acceso será via Telnet no por el puerto serie. Además inicializaremos la pantalla oled del IO Shield y mostraremos en ella el nombre del programa.
