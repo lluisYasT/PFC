@@ -311,11 +311,10 @@ Función de cada carpeta:
 	\item \negrita{lib}. Aquí se colocarán las bibliotecas de terceros de la misma forma que en MPIDE: copiando la carpeta de la biblioteca en este directorio. Usando el archivo Makefile compilaremos todas las bibliotecas y luego las enlazaremos con nuestro programa y la biblioteca core.
 	\item \negrita{src}. Aquí estará el código fuente del programa que hayamos creado. Será el lugar en el que se encuentre el archivo de código fuente \programa{sketch.cpp} que contiene las definiciones de las funciones \comando{setup()} y \comando{loop()}. Además, si necesitamos crear nuestras propias bibliotecas (archivos .h + .c o .cpp) podemos crearlos tanto en esta carpeta o en \programa{lib}.
 \end{itemize}
+
 Tanto en la carpeta principal como en \programa{core} tendremos un archivo Makefile para la automatización de los procesos de compilación, ensamblado y posterior carga de nuestro programa.\\
-El Makefile principal se encarga de compilar, enlazar y comprimir la biblioteca core en el archivo \programa{core.a} usando el Makefile que se encuentra dentro de esa carpeta y luego compila todos los archivos en la carpeta \programa{lib} y la carpeta{src}. Una vez enlazado podemos usar la orden \comando{make load} para cargar el programa en la placa:
-\newpage
-\lstinputlisting[language=make, caption=Makefile Principal, label=code:makefile_principal, basicstyle=\tiny, breaklines=true]{codigo_fuente/Makefile_principal}
-\newpage
+El Makefile principal\ref{chap:apendice2} se encarga de compilar, enlazar y comprimir la biblioteca core en el archivo \programa{core.a} usando el Makefile que se encuentra dentro de esa carpeta y luego compila todos los archivos en la carpeta \programa{lib} y la carpeta{src}. Una vez enlazado podemos usar la orden \comando{make load} para cargar el programa en la placa.
+
 Analicemos el funcionamiento de nuestro Makefile:\\
 \lstinputlisting[language=make, firstline=1, lastline=13, breaklines=true]{codigo_fuente/Makefile_principal}
 Comenzamos definiendo la localización de \programa{MPIDE}, \programa{avrdude} y el puerto serie. Esto lo hacemos de forma diferente dependiendo de si nos encontremos en Mac OS on en GNU/Linux\footnote{En el caso de Windows el puerto serie suele tener un nombre de la forma COMx, cambiando x por el número de puerto.}. También definimos la localización en la que normalmente podremos encontrar el puerto serie del microcontrolador.
