@@ -17,7 +17,19 @@ struct  algoritmo {
   void (*funcion)(int *, int);
 };
 
-struct algoritmo funcion_ordenar[N_ORDENAR] =  { {"Bubble0", &bubble0}, {"Bubble1", &bubble1}, {"Bubble2", &bubble2}, {"Bubble3", &bubble3}, {"Quick0", &quick0}, {"Quick1", &quick1}, {"Quick2", &quick2}, {"Quick3", &quick3}, {"Selection0", &selection0}, {"Selection1", &selection1}, {"Selection2", &selection2}, {"Selection3", &selection3}
+struct algoritmo funcion_ordenar[N_ORDENAR] =  { 
+	{"Bubble0", &bubble0}, 
+	{"Bubble1", &bubble1}, 
+	{"Bubble2", &bubble2}, 
+	{"Bubble3", &bubble3}, 
+	{"Quick0", &quick0}, 
+	{"Quick1", &quick1}, 
+	{"Quick2", &quick2}, 
+	{"Quick3", &quick3}, 
+	{"Selection0", &selection0}, 
+	{"Selection1", &selection1}, 
+	{"Selection2", &selection2}, 
+	{"Selection3", &selection3}
   };
 
 // Direccion MAC. Todo 0 indica que se use la del propio ChipKIT
