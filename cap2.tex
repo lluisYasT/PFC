@@ -620,10 +620,10 @@ Por si acaso, vacíamos el buffer de recepción con \comando{cliente.flush\(\)}.
 Veamos el resto de funciones que podemos encontrar en el archivo `sketch.cpp' y que hemos utilizado en la función \comando{loop()}.
 
 \lstinputlisting[firstline=173, lastline=182, breaklines=true]{codigo_fuente/sketch.cpp}
-Está función tiene como único objetivo envíar al cliente y por puerto serie el array que pasemos como parametro, para poder visualizarlo.
+Está función tiene como único objetivo envíar al cliente y por puerto serie el array que pasemos como parámetro, para poder visualizarlo.
 
-\lstinputlisting[firstline=179, lastline=187, breaklines=true]{codigo_fuente/sketch.cpp}
-Nuestras funciones de ordenación, modifican el array que se les pasa como parámetro (el array es pasado por referencia), por lo que está función copia el array \comando{array\_numeros} a \comando{resultado} y será este último el que modifiquemos. Esto lo hacemos por si fuera necesario disponer del array original para comparar u otras funciones.
+\lstinputlisting[firstline=188, lastline=247, breaklines=true]{codigo_fuente/sketch.cpp}
+\comando{selecciona_comando} recibe como parámetros el array \comando{comando} y la longitud de \comando{array\_numeros}. En base al contenido de \comando{comando} llamará a \comando{ejecuta\_comando} con el número de comando adecuado o realizará las operaciones necesarias. Para el caso del comando \comando{help} enviará al cliente una lista con los camndos disponibles. Si el comando es \comando{compara} llamará a la función del mismo nombre. Si el comando es \comando{exit} mostrará al cliente que se está desconectando, se desconectará indicándolo por el puerto serie y cambiará el valor de la variable \comando{primer\_mensaje} además de reiniciar la pantalla OLED del IO Shield. Si el contenido de \comando{comando} no coincide con ninguno de los comandos disponibles se le indicará al cliente.
 
 \lstinputlisting[firstline=189, lastline=236, breaklines=true]{codigo_fuente/sketch.cpp}
 Está función compara la cadena de caracteres \comando{comando} con los diferentes comandos disponibles y devuelve el código del comando al que corresponda. Si no corresponde a ningún comando devolvemos el comando especial \comando{NOP}.
