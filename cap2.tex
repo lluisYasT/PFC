@@ -575,10 +575,10 @@ Estos son los arrays que usaremos para guardar el mensaje recibido del cliente, 
 \lstinputlisting[firstline=15, lastline=33]{codigo_fuente/sketch.cpp}
 Creamos la estructura algoritmo con la que podremos asociar cómodamente el nombre en forma de cadena de caracteres de la función con su nombre. Justo después declaramos un array de estructuras algoritmo que contiene esta información. Se usará a la hora de mostrar los resultados de los algoritmos de ordenación.
 
-\lstinputlisting[firstline=36, lastline=47]{codigo_fuente/sketch.cpp}
+\lstinputlisting[firstline=36, lastline=37]{codigo_fuente/sketch.cpp}
 Aquí declaramos la dirección física que queramos que tenga nuestro dispositivo. Si la inicializamos a 0 la dirección física que se usará será la del propio dispositivo. En el caso de elegir un valor diferente será este el que se use\protect\footnote{En algunas aplicaciones puede ser interesante modificar este valor para enmascarar la identidad del dispositivo o para suplantar la de otro, pero esto se sale del objetivo de este proyecto.}.
 
-\lstinputlisting[firstline=41, lastline=44]{codigo_fuente/sketch.cpp}
+\lstinputlisting[firstline=40, lastline=41]{codigo_fuente/sketch.cpp}
 Ahora declaramos la dirección de red (IP) de nuestro dispositivo\protect\footnote{Se ha elegido esta en concreto (10.0.0.8) porque durante el desarrollo del programa el dispositivo se encontraba conectado a la red 10.0.0.0/24}. Es posible no declarar la dirección IP del dispositivo para usar DHCP.
 
 \lstinputlisting[firstline=52, lastline=54]{codigo_fuente/sketch.cpp}
@@ -615,11 +615,11 @@ En el caso de que el mensaje fuera correcto, al terminar este bucle tendremos el
 Si \comando{cantidad\_num} es mayor que 0, es decir, el mensaje no contenía solo el comando, guardamos la longitud de \comando{array\_numeros} en \comando{longitud} y envíamos por puerto serie tanto la longitud de este array como el comando que se ha extraído del mensaje.
 
 \lstinputlisting[firstline=160, lastline=168, breaklines=true]{codigo_fuente/sketch.cpp}
-Comprobamos que hemos recibido algún número y guardamos la cantidad de números en \comando{array\_numeros} en la variable \comando{size}. Imprimimos el tamaño del array y el comando por el puerto serie para depuración. Borramos lo que pueda haber en el buffer de recepción con \comando{client.flush\(\);}. Por último llamamos a la función ejecuta\_comando, a la que le pasamos una referencia al cliente, el número del comando y la cantidad de números que componen \comando{array\_numeros}\protect\footnote{No le pasamos \comando{array\_numeros} ya que es una variable global.}. Cuando ha acabado envíamos al cliente e imprimimos por el puerto serie el resultado de la ejecución del comando, que debería ser (en caso de ejecutar alguno de los comandos de ordenación) \comando{array\_numeros} ordenado.
-\newline
-Veamos el resto de funciones que podemos encontrar en el archivo `sketch.cpp' y que hemos utilizado en la función \comando{loop()}.\\
+Por si acaso, vacíamos el buffer de recepción con \comando{cliente.flush\(\)}. Llamamos a la función \comando{selecciona\_comando} que se encargará de obtener el número de comando a partir del array \comando{comando} y mostramos al cliente y por el puerto serie el contenido de \comando{array\_numeros} que debería estar ya ordenado.
 
-\lstinputlisting[firstline=166, lastline=177, breaklines=true]{codigo_fuente/sketch.cpp}
+Veamos el resto de funciones que podemos encontrar en el archivo `sketch.cpp' y que hemos utilizado en la función \comando{loop()}.
+
+\lstinputlisting[firstline=173, lastline=182, breaklines=true]{codigo_fuente/sketch.cpp}
 Está función tiene como único objetivo envíar al cliente y por puerto serie el array que pasemos como parametro, para poder visualizarlo.
 
 \lstinputlisting[firstline=179, lastline=187, breaklines=true]{codigo_fuente/sketch.cpp}
