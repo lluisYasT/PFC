@@ -635,3 +635,6 @@ Está función tiene como único objetivo envíar al cliente y por puerto serie 
 
 \lstinputlisting[firstline=298, breaklines=true]{codigo_fuente/sketch.cpp}
 En \comando{compara} generamos un array con números aleatorios con la función \comando{array\_aleatorio} y ejecutamos todos los algoritmos de ordenación sobre el mismo array. Debido a que los comandos de ordenación modifican el array cuya dirección pasamos como parámetro, es necesario realizar una copia usando la función \comando{memcpy} a un array auxiliar para que todos ordenen el mismo array de números. De esta forma podemos compararlos con un solo comando.
+
+\subsection{Funciones de ordenación}
+Las funciones de ordenación que hemos comentado anteriormente, las que usa el programa par ordenar el array que le envíamos, se encuentran declaradas en el archivo \programa{funciones.h} y definidas en \programa{funciones.c}.
