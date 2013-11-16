@@ -638,6 +638,7 @@ En \comando{compara} generamos un array con números aleatorios con la función 
 Las funciones de ordenación que hemos comentado anteriormente, las que usa el programa par ordenar el array que le envíamos, se encuentran declaradas en el archivo \programa{funciones.h} y definidas en \programa{funciones.c}.
 
 \subsubsection{Bubble Sort}
+Este es el algoritmo más sencillo de los tres implementados. Recorremos el array comparando un elemento con el siguiente e intercambiándolos en el caso de que el primero sea mayor que el segundo. Para completar el ordenamiento es necesario recorrer el array varias veces.
 \begin{lstlisting}[caption=Implementación de Bubble Sort]
 void bubble0(int * array, int len) {
   int c, d, swap;
