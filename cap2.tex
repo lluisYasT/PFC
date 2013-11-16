@@ -656,6 +656,7 @@ void bubble0(int * array, int len) {
 \end{lstlisting}\label{Implementación de Bubble Sort en nuestro programa}
 
 \subsubsection{Quick Sort}
+En el algoritmo de ordenamiento rápido, se elige un elemento del array que denominaremos pivote. A la izquierda del pivote se colocan los elementos menores a él, mientras que a la derecha colocaremos los elementos mayores. De esta forma el elemnto `pivote' ocupará su posición final de la misma. Se repite el procedimiento de forma recursiva con los sub-arrays que quedan a la izquierda y a la derecha del pivote, hasta que todo el array esté ordenado.
 \begin{lstlisting}[caption=Implementación de Quick Sort]
 void quicksort0(int *v, int b, int t) {
   if(b < t) {
