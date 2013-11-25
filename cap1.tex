@@ -16,29 +16,29 @@ El hardware y el software de Arduino son abiertos. Es posible obtener los esquem
 \section{Objetivos}
 Podemos dividir los objetivos de la siguiente forma:
 
-\subsection{Proceso de compilación}
+\subsubsection{Proceso de compilación}
 Lo primero que realizaré será un análisis del proceso que se sigue en el entorno de desarrollo de ChipKIT desde que escribimos el programa hasta que este esté funcionando en la placa microcontroladora.  Esto incluye todos los comandos o programas que intervengan en este proceso y sus respectivas opciones, además de los ficheros involucrados.\\
 Para lograr flexibilidad en este proceso, propondré una alternativa al IDE que hará uso de Makefiles y me permitirá realizar todo el proceso anterior con un solo comando. También podré generar resultados intermedios, como por ejemplo el código compilado, pero no ensamblado, y podré modificar las opciones de cada uno de los comandos.
 
-\subsection{Niveles de optimización}
+\subsubsection{Niveles de optimización}
 El compilador ofrece diferentes niveles de optimización y según el nivel se llevan a cabo unas u otras optimizaciones. Uno de los objetivos será identificar estas optimizaciones y ver su efecto en el código. Usando una aplicación desarrollada para el microcontrolador pondré de manifiesto las diferencias entre los distintos niveles de optimización, que ventajas y que desventajas tienen cada uno de ellos.
 
-\subsection{Limitaciones de la biblioteca Arduino}
-La biblioteca Arduino nos ofrece simplicidad a la hora de llevar acabo operaciones sencillas, es una capa de abstracción sobre las funciones específicas del microcontrolador. Comprobaré la diferencia entre usar esta biblioteca o acudir a las bibliotecas del fabricante, en este caso Microchip.
+\subsubsection{Limitaciones de la biblioteca Arduino}
+La biblioteca Arduino nos ofrece una capa de abstracción sobre las funciones específicas del microcontrolador pero que tiene limitaciones. Comprobaré la diferencia entre usar esta biblioteca o acudir a las bibliotecas del fabricante, en este caso Microchip.
 
-\subsection{Desarrollo de una aplicación enfocada en el ámbito de las telecomunicaciones}
+\subsubsection{Desarrollo de una aplicación enfocada en el ámbito de las telecomunicaciones}
 Desarrollaré una aplicación en la que se pondrán en práctica conceptos relacionados con las telecomunicaciones, aprendidos durante la carrera. La función de la aplicación será detectar tonos mediante el uso del algoritmo de Goertzel.
 
 \section{Estructura de la memoria}
 Este trabajo se organiza en diferentes capítulos en los que trataré temas específicos.
 
-\subsection{Arduino y ChipKIT}
+\subsubsection{Arduino y ChipKIT}
 En esta sección describiré y compararé las características de Arduino y ChipKIT y el motivo de haber elegido el segundo. Más concretamente me centraré en el Arduino Mega ADK y el ChipKIT MAX32. Este último es el que se usa a lo largo del trabajo mientras que el primero es su equivalente Arduino.
 
-\subsection{Entorno de desarrollo}
+\subsubsection{Entorno de desarrollo}
 Aquí hablaré del entorno de desarrollo de Arduino y de chipKIT, viendo las diferencias entre ellos y como funcionan internamente. Veremos que programas usan para compilar, ensamblar, enlazar y cargar los programas en la placa. Con esta información propondré una alternativa que me permita automatizar y modificar este proceso.
 
-\subsection{Ejemplos de utilización}
+\subsubsection{Ejemplos de utilización}
 Al compilar un programa tenemos la posibilidad de elegir diferentes niveles de optimización. Analizaré cuales son, que beneficios aportan y que desventajas tienen. Mediré las diferencias entre los distintos niveles en dos aplicaciones que crearé para tal propósito. La segunda de las aplicaciones estará relacionada con el ámbito de la carrera y tendrá como objetivo el procesamiento de señales, haciendo las funciones de un DSP.
 
-\subsection{Conclusiones}
+\subsubsection{Conclusiones}
