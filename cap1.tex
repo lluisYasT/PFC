@@ -12,7 +12,7 @@ A lo largo de la carrera he aprendido a programar diferentes dispositivos y arqu
 
 Un año más tarde conocí la plataforma Arduino, a raíz de la presentación del Arduino ADK. Se trata de una placa con un microcontrolador Atmel2560 de 8 bits de un tamaño reducido en comparación a los kits que había usado antes a lo largo de la carrera. Uno de los aspectos más importantes de Arduino es que se puede programar usando C o C++ y además, en el entorno de desarrollo, hay disponibles múltiples funciones que hacen posible programar a un nivel más alto que al que se haría si usaramos las herramientas que proporciona Atmel para sus microcontroladores. No es necesario conocer el microcontrolador para llevar a cabo proyectos en Arduino. Por ejemplo, para programar el parpadeo de un LED todo lo que hay que saber es a que pin (numerados en la placa) está conectado el diodo LED.
 
-El hardware y el software de Arduino son abiertos. Es posible obtener los esquemáticos de cualquier placa Arduino desde su página web y la biblioteca principal (en la que se basa cualquier proyecto Arduino) viene incluida con el entorno de programación como código fuente. Con Arduino existe la posibilidad de comprar una placa oficial a través de su tienda o algún distribuido, pero también es posible construirla uno mismo. Es posible también encontrar placas personalizadas a través de Internet, que lleven caracterísiticas no incluidas en las oficiales o que sean más baratas.
+El hardware y el software de Arduino son abiertos. Es posible obtener los esquemáticos de cualquier placa Arduino desde su página web y la biblioteca principal (en la que se basa cualquier proyecto Arduino) viene incluida con el entorno de programación como código fuente. Con Arduino existe la posibilidad de comprar una placa oficial a través de su tienda o algún distribuido, pero también es posible construirla uno mismo. Es posible también encontrar placas personalizadas a través de Internet, que lleven caracterísiticas no incluidas en las oficiales o que sean más baratas.k
 \section{Objetivos}
 Podemos dividir los objetivos de la siguiente forma:
 
@@ -30,3 +30,15 @@ La biblioteca Arduino nos ofrece simplicidad a la hora de llevar acabo operacion
 Desarrollaré una aplicación en la que se pondrán en práctica conceptos relacionados con las telecomunicaciones, aprendidos durante la carrera. La función de la aplicación será detectar tonos mediante el uso del algoritmo de Goertzel.
 
 \section{Estructura de la memoria}
+Este trabajo se organiza en diferentes capítulos en los que trataré temas específicos.
+
+\subsection{Arduino y ChipKIT}
+En esta sección describiré y compararé las características de Arduino y ChipKIT y el motivo de haber elegido el segundo. Más concretamente me centraré en el Arduino Mega ADK y el ChipKIT MAX32. Este último es el que se usa a lo largo del trabajo mientras que el primero es su equivalente Arduino.
+
+\subsection{Entorno de desarrollo}
+Aquí hablaré del entorno de desarrollo de Arduino y de chipKIT, viendo las diferencias entre ellos y como funcionan internamente. Veremos que programas usan para compilar, ensamblar, enlazar y cargar los programas en la placa. Con esta información propondré una alternativa que me permita automatizar y modificar este proceso.
+
+\subsection{Ejemplos de utilización}
+Al compilar un programa tenemos la posibilidad de elegir diferentes niveles de optimización. Analizaré cuales son, que beneficios aportan y que desventajas tienen. Mediré las diferencias entre los distintos niveles en dos aplicaciones que crearé para tal propósito. La segunda de las aplicaciones estará relacionada con el ámbito de la carrera y tendrá como objetivo el procesamiento de señales, haciendo las funciones de un DSP.
+
+\subsection{Conclusiones}
