@@ -1,0 +1,336 @@
+\section{Niveles de optimización}
+Durante la compilación es posible especificar, mediante la opción \comando{-O} diferentes niveles de optimización. Estos niveles agrupan una serie de optimizaciones.
+
+\begin{table}[H]
+\begin{center}
+\begin{tabularx}{\textwidth}{|l|X|}
+    \hline
+    Nivel de optimización & Descripción\\
+    \hline
+    \hline
+   	\comando{-O0} & Opción por defecto. Reduce el tiempo de compilación y facilita la depuración.\\
+    \hline
+    \comando{-O1} & Optimiza, pero aumenta el tiempo de compilación y la memoria empleada.\\
+    \hline
+    \comando{-O2} & Optimiza más todavía. \programa{GCC} realiza casi todas la optimizaciones que no impliquen aumento de la velocidad a costa de un mayor tamaño del programa.\\
+    \hline
+    \comando{-O3} & Optimiza todavía más que \comando{-O2}, incluyendo las optimizaciones que aumenten el tamaño del ejecutable.\\
+    \hline
+    \comando{-Os} & Optimiza el tamaño del programa. Habilita todas las optimizaciones de \comando{-O2} que normalmente no aumenten el tamaño del código y realiza más optimizaciones destinadas a reducir el tamaño del programa.\\
+    \hline
+  \end{tabularx}
+\end{center}
+\caption{Niveles de optimización}
+\label{tab:optimizacionx}
+\end{table}
+
+Cada uno de estos niveles (a excepción de \comando{-Os}) añade una serie de optimizaciones sobre el nivel inicial \comando{-O0}.\\
+Veamos que optimizaciones lleva a cabo cada nivel. Esto podemos verlo usando el comando ``\comando{pic32-gcc -Ox -Q --help=optimizers | grep enabled}''.\\
+\newline
+Optimizaciones del nivel 0:
+\begin{multicols}{2}
+\begin{itemize}[noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt]
+	\item -falign-loops
+	\item -fargumnt-alias
+	\item -fbranch-count-reg
+	\item -fcommon
+	\item -fdata-sections
+	\item -fdce
+	\item -fdelete-null-pointer-checks
+	\item -fdse
+	\item -fearly-inlining
+	\item -fgcse-lm
+	\item -finline-functions-called-once
+	\item -fivopts
+	\item -fjump-tables
+	\item -fmath-errno
+	\item -fmove-loop-invariants
+	\item -fpeephole
+	\item -frename-registers
+	\item -fsched-critical-path-heuristic
+	\item -fsched-dep-count-heuristic
+	\item -fsched-group-heurisitc
+	\item -fsched-interblock
+	\item -fsched-last-insn-heuristic
+	\item -fsched-spec
+	\item -fsched-spec-insn-heuristic
+	\item -fsched-stalled-insns-dep
+	\item -fsigned-zeros
+	\item -fsplit-ivs-in-unroller
+	\item -ftoplevel-reorder
+	\item -ftrapping-math
+	\item -ftree-cselim
+	\item -ftree-forwprop
+	\item -ftree-loop-im
+	\item -ftree-loop-ivcanon
+	\item -ftree-loop-optimize
+	\item -ftree-phiprop
+	\item -ftree-pta
+	\item -ftree-reassoc
+	\item -ftree-scev-cprop
+	\item -ftree-slp-vectorize
+	\item -ftree-vect-loop-version
+	\item -funit-at-a-time
+	\item -fvar-tracking
+	\item -fvar-tracking-assignments
+	\item -fweb
+\end{itemize}
+\end{multicols}
+
+Optimizaciones que añade el nivel `O1' al nivel `O0':
+
+\begin{multicols}{2}
+\begin{itemize}[noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt]
+	\item -fcprop-registers
+	\item -fdefer-pop
+	\item -fdelayed-branch
+	\item -fforward-propagate
+	\item -fguess-branch-probability
+	\item -fif-conversion
+	\item -fif-conversion2
+	\item -fipa-pure-const
+	\item -fipa-reference
+	\item -fmerge-constants
+	\item -fomit-frame-pointer
+	\item -fsplit-wide-types
+	\item -ftree-ccp
+	\item -ftree-ch
+	\item -ftree-copy-prop
+	\item -ftree-copyrename
+	\item -ftree-dce
+	\item -ftree-dominator-opts
+	\item -ftree-dse
+	\item -ftree-fre
+	\item -ftree-sink
+	\item -ftree-sra
+	\item -ftree-ter
+\end{itemize}
+\end{multicols}
+
+Optimizaciones que añade el nivel `O2' al nivel `O1':
+
+\begin{multicols}{2}
+\begin{itemize}[noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt]
+	\item -falign-functions
+	\item -falign-jumps
+	\item -falign-labels
+	\item -fcaller-saves
+	\item -fcrossjumping
+	\item -fcse-follow-jumps
+	\item -fexpensive-optimizations
+	\item -fgcse
+	\item -finline-small-functions
+	\item -fipa-cp
+	\item -fipa-sra
+	\item -foptimize-register-move
+	\item -foptimize-sibling-calls
+	\item -fpeephole2
+	\item -fregmove
+	\item -fremove-local-statics
+	\item -freorder-blocks
+	\item -freorder-functions
+	\item -frerun-cse-after-loop
+	\item -fschedule-insns
+	\item -fschedule-insns2
+	\item -fstrict-aliasing
+	\item -fthread-jumps
+	\item -ftree-builtin-call-dce
+	\item -ftree-pre
+	\item -ftree-switch-conversion
+	\item -ftree-vrp
+\end{itemize}
+\end{multicols}
+
+Optimizaciones que añade el nivel `O3' al nivel `O2':
+
+\begin{multicols}{2}
+\begin{itemize}[noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt]
+	\item -fgcse-after-reload
+	\item -finline-functions
+	\item -fipa-cp-clone
+	\item -fpredictive-commoning
+	\item -ftree-pre-partial-partial
+	\item -ftree-vectorize
+	\item -funswitch-loops
+\end{itemize}
+\end{multicols}
+
+El nivel `Os' realiza las mismas optimizaciones que `O2' menos las siguientes:
+\begin{multicols}{2}
+\begin{itemize}[noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt]
+	\item -falign-functions
+	\item -falign-jumps
+	\item -falign-loops
+	\item -falign-labels
+	\item -freorder-blocks
+	\item -freorder-blocks-and-partition
+	\item -fprefetch-loop-arrays
+	\item -ftree-vect-loop-version
+\end{itemize}
+\end{multicols}
+
+Las optimizaciones que comienzan con `fsched' se usan para reordenar las instrucciones. También hay varias optimizaciones que afectan a objetos `tree' que, de acuerdo a la documentación de GCC\protect\footnote{http://gcc.gnu.org/onlinedocs/gccint/Tree-overview.html} son estructuras centrales de datos usadas para la representación interna. Un `tree' es un tipo de puntero que puede apuntar a dataos de diferente tipo.\\
+Las optimizaciones `finline-functions-called-once', `finline-functions' y `finline-small-functions' sustituyen la llamada a la función por el código de la misma. La primera de ellas está habilitada en todos los niveles de optimización y sustituye, como su nombre indica, todas las funciones que sean llamadas una sola vez. `finline-small-functions' realiza la sustitución solo si su tamaño es menor quelas instrucciones necesarias para llamar a la función, en ensamblador. Estas dos optimizaciones hacen posible escribir pequeñas funciones auxiliares que puedan facilitar tanto la escritura como la lectura de nuestro programa sin suponer una disminución del rendimiento. La última de estas optimizaciones, `finline-functions', considera todas las funciones para sustituir su llamada por el código.\\
+En el caso de las optimizaciones que comienzan por `falign' \programa{gcc} se encarga de alinear los elementos especificados en cada una de estas optimizaciones para reducir los accesos a memoria a cambio de ocupar más espacio. Es por esto que en el nivel `Os' se desactivan estas, entre otras.
+
+\section{Aplicación para ChipKIT}
+
+En esta sección vamos a ver el programa que emplearemos para observar y analizar los diferentes niveles de optimización que lleva acabo \comando{gcc}. Se trata de un terminal remoto al que nos conectamos a través del puerto 23 con el protocolo TCP. Una vez conectados disponemos de varios comandos para ordenar un array que pasaremos como parámetro. Los comandos disponibles son los siguientes:
+
+\begin{description}
+	\item[\comando{bubble0}, \comando{bubble1}, \comando{bubble2}, \comando{bubble3}] Ordenan los números usando el algoritmo `Bubble Sort'.
+	\item[\comando{quick0}, \comando{quick1}, \comando{quick2}, \comando{quick3}] Ordenan los números usando el algoritmo `Quick Sort'.
+	\item[\comando{sel0}, \comando{sel1}, \comando{sel2}, \comando{sel3}] Ordenan los números usando el algoritmo `Selection Sort'.
+	\item[\comando{comparar}] Reordena un array de números aleatorios usando todos los algoritmos anteriores.
+	\item[\comando{help}] Muestra los comandos disponibles.
+	\item[\comando{exit}] Cierra la conexión.
+\end{description}
+
+El número que acompaña a cada uno de los comandos es el nivel de optimización con el que han sido compilados. El resultado que devuelve cada una de las órdenes es la lista ordenada y el tiempo de ejecución, esto último se muestra también en la pantalla OLED del chipKIT IO Shield.\\
+Para la realización del programa se ha usado como base el ejemplo del servidor Telnet que viene incluido con la biblioteca `chipKITEthernet'. Veamos la estructura y funcionamiento de nuestro `sketch'\protect\footnote{Archivo donde definimos las funciones \comando{setup()} y \comando{loop()}}.\\
+\lstinputlisting[firstline=1, lastline=3, breaklines=true]{codigo_fuente/sketch.cpp}
+Comenzamos incluyendo la biblioteca del Shield Ethernet, IO Shield y el archivo de cabecera \programa{funciones.h} que contiene la declaración de los diferentes algoritmos de ordenación que usaremos en los comandos expuestos anteriormente.\\
+
+\lstinputlisting[firstline=5, lastline=6]{codigo_fuente/sketch.cpp}
+Definimos el tamaño máximo del mensaje, esto es, la máxima longitud de la línea que el cliente puede envíar a nuestro programa, esto incluye el comando seguido por el array. También definimos el tamaño máximo del array que acepta el programa, siendo este la mitad que el mensaje. Esta longitud debería ser suficiente ya que, con números de un solo dígito (o carácter en este caso), no es posible superar este tamaño ya que por cada uno de estos numeros deberemos añadir un separador\protect\footnote{El caracter que separe los números puede ser tanto un espacio una coma o tabulador.}, lo que implica un mínimo de dos caracteres por dígito, sin contar el comando.
+
+\lstinputlisting[firstline=8, lastline=11]{codigo_fuente/sketch.cpp}
+Estos son los arrays que usaremos para guardar el mensaje recibido del cliente, el comando extraído de ese mensaje, el array de números que pueda haber en el mensaje y si es o no el primer mensaje que recibimos del cliente.\protect\footnote{El protocolo telnet suele enviar ciertos caracteres al iniciar una conexión que descartamos.}
+
+\lstinputlisting[firstline=15, lastline=33]{codigo_fuente/sketch.cpp}
+Creamos la estructura algoritmo con la que podremos asociar cómodamente el nombre en forma de cadena de caracteres de la función con su nombre. Justo después declaramos un array de estructuras algoritmo que contiene esta información. Se usará a la hora de mostrar los resultados de los algoritmos de ordenación.
+
+\lstinputlisting[firstline=36, lastline=37]{codigo_fuente/sketch.cpp}
+Aquí declaramos la dirección física que queramos que tenga nuestro dispositivo. Si la inicializamos a 0 la dirección física que se usará será la del propio dispositivo. En el caso de elegir un valor diferente será este el que se use\protect\footnote{En algunas aplicaciones puede ser interesante modificar este valor para enmascarar la identidad del dispositivo o para suplantar la de otro, pero esto se sale del objetivo de este proyecto.}.
+
+\lstinputlisting[firstline=40, lastline=41]{codigo_fuente/sketch.cpp}
+Ahora declaramos la dirección de red (IP) de nuestro dispositivo\protect\footnote{Se ha elegido esta en concreto (10.0.0.8) porque durante el desarrollo del programa el dispositivo se encontraba conectado a la red 10.0.0.0/24}. Es posible no declarar la dirección IP del dispositivo para usar DHCP.
+
+\lstinputlisting[firstline=52, lastline=54]{codigo_fuente/sketch.cpp}
+Creamos una instancia de la clase Server, con nombre \comando{server} en el puerto 23. Es posible elegir otros puertos, pero se ha elegido este por ser el que usa el servicio de terminal remoto Telnet.
+
+\lstinputlisting[firstline=56, lastline=60]{codigo_fuente/sketch.cpp}
+Declaramos funciones auxiliares que se utilizarán a lo largo del programa:
+\begin{description}
+	\item[\comando{print\_array}] es una función que imprime un array tanto por el puerto serie como al cliente.
+	\item[\comando{selecciona\_comando}] se encarga de llamar a la función \comando{ejecuta\_comando} pasándole como parámetro el númor de comando adecuado, el array a ordenar y la longitud de dicho array.
+	\item[\comando{array\_aleatorio}] genera un array de números aleatorio de longitud \comando{MAX\_LONG\_ARRAY}.
+	\item[\comando{ejecuta\_comando}] ejecuta el comando cuyo índice le pasemos como parámetro.
+	\item[\comando{compara}] llama a \comando{ejecuta\_comando} para cada función de ordenación que tengamos, pasándole como parámetro el mismo array de números aleatorios a todas.
+\end{description}
+
+\lstinputlisting[firstline=62, lastline=75]{codigo_fuente/sketch.cpp}
+Función \comando{setup()} en la que inicializamos el shield ethernet con la función \comando{Ethernet.begin(mac, ip)}\protect\footnote{Si quisiéramos usar DHCP en lugar de una IP fija podemos llamar a la función \comando{Ethernet.begin(mac)}.}, inicializamos el servidor para que comience a escuchar a la espera de nuevos clientes e inicializamos el puerto serie. Este último se usa principalmente para facilitar la depuración del programa, puesto que el acceso será via Telnet no por el puerto serie. Además inicializaremos la pantalla oled del IO Shield y mostraremos en ella el nombre del programa.
+
+\lstinputlisting[firstline=77, lastline=82]{codigo_fuente/sketch.cpp}
+Comienza la función \comando{loop()}. Lo primero que hace es inicializar la variable cliente, tomando el resultado de \comando{server.available()}. Declaramos e inicializamos las variables que necesitaremos a lo largo de \comando{loop()}.
+
+\lstinputlisting[firstline=84, lastline=90, breaklines=true]{codigo_fuente/sketch.cpp}
+Si \comando{cliente} no es nulo significa que un cliente se ha conectado. Si este es el primer mensaje del cliente lo descartamos, ya que Telnet envía caracteres al iniciar la conexión. Inicializamos a \comando{0} todos los arrays que usaremos para guardar el mensaje, comando y números una vez hayan sido convertidos.
+
+\lstinputlisting[firstline=92, lastline=111, breaklines=true]{codigo_fuente/sketch.cpp}
+El método \comando{client.available()} devuelve la cantidad de bytes que hay disponible en el buffer de recepción mientras que \comando{client.read()} nos permite leerlos uno a uno (cada vez que llamamos a este método sin argumentos lee el siguiente byte hasta terminar el buffer). Cuando ya hemos leído todo el buffer, que debido a su implementación está limitado a 1000 bytes, \comando{client.read()} devolverá \comando{-1}. Cuando esto ocurre nos aseguramos de no guardar este valor y mientras siga devolviendo esto, lo ignoramos. Cada vez que leemos un byte aumentamos la variable \comando{long\_mensaje} asegurándonos de no superar el tamaño máximo de mensaje. Seguimos leyendo hasta que recibamos el carácter \comando{\textbackslash n} (retorno de carro) que guardaremos en el mensaje y en este momento dejaremos de leer del buffer de recepción.
+
+\lstinputlisting[firstline=116, lastline=149, breaklines=true, resetmargins=true]{codigo_fuente/sketch.cpp}
+Una vez tenemos guardado el mensaje en el array \comando{message}, procedemos dividirlo en el comando y el array de números que ordenaremos más tarde. Para realizar la división buscamos en el array los separadores, esto lo hacemos en el primer \comando{if} que hay nada más comenzar una iteración. En este caso los separadores pueden ser espacios, comas, tabuladores y retorno de carro\protect\footnote{Están incluídos tanto \textbackslash r como \textbackslash n para que funcione con cualquier tipo de retorno de carro, ya sea CR o LF. De está forma podemos conectarnos mediante telnet, que finaliza las líneas con \textbackslash r\textbackslash n o directamente mediante TCP usando, por ejemplo \programa{netcat} o una función dentro de algún programa.}. Utilizamos la variable \comando{cantidad\_num} para identificar el comando y para conocer la cantidad de números que hay en el mensaje. Cada vez que encontremos uno de los separadores esta variable se incrementa. La primera vez que encontramos un separador y, por lo tanto, la variable \comando{cantidad\_num} es nula, sabemos que se trata del comando, ya que este debe ser el primer elemento del mensaje. En este momento y copiamos el contenido del mensaje hasta el índice actual a la variable comando (comprobando antes la longitud del array a copiar para evitar desbordamientos).\\
+A partir de aquí, todo lo que debe preceder al comando deben ser números. Antes de convertir los números a enteros, los extraemos, guardándolos en un array temporal llamado \comando{numero}. Para hacer esto usamos un nuevo índice (\comando{j}) que indicará la posición dentro del array \comando{numero}. Este índice se reinicia cada vez que encontramos un separador, mientras que aumenta en cada iteración cuando no lo encotremos. De está forma podemos copiar los números contenidos entre dos separadores al array \comando{numero}. Cada vez que encontremos un separador intaremos convertir \comando{numero} a un entero que guardaremos en el array de enteros \comando{array\_numeros}. En el caso de no ser válido, indicamos por el puerto serie que ha habido un error al convertir.\\
+En el caso de que el mensaje fuera correcto, al terminar este bucle tendremos el array \comando{array\_numeros} que contiene todos los números yla variable \comando{cantidad\_num} que indica la cantidad de números en dicho array\protect\footnote{Esta variable es necesaria puesto que generalmente no se llenará el array al completo.}. 
+
+\lstinputlisting[firstline=151, lastline=158, breaklines=true]{codigo_fuente/sketch.cpp}
+Si \comando{cantidad\_num} es mayor que 0, es decir, el mensaje no contenía solo el comando, guardamos la longitud de \comando{array\_numeros} en \comando{longitud} y envíamos por puerto serie tanto la longitud de este array como el comando que se ha extraído del mensaje.
+
+\lstinputlisting[firstline=160, lastline=168, breaklines=true]{codigo_fuente/sketch.cpp}
+Por si acaso, vacíamos el buffer de recepción con \comando{cliente.flush\(\)}. Llamamos a la función \comando{selecciona\_comando} que se encargará de obtener el número de comando a partir del array \comando{comando} y mostramos al cliente y por el puerto serie el contenido de \comando{array\_numeros} que debería estar ya ordenado.
+
+Veamos el resto de funciones que podemos encontrar en el archivo `sketch.cpp' y que hemos utilizado en la función \comando{loop()}.
+
+\lstinputlisting[firstline=173, lastline=182, breaklines=true]{codigo_fuente/sketch.cpp}
+Está función tiene como único objetivo envíar al cliente y por puerto serie el array que pasemos como parámetro, para poder visualizarlo.
+
+\lstinputlisting[firstline=188, lastline=215, breaklines=true]{codigo_fuente/sketch.cpp}
+\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}
+\lstinputlisting[firstline=231, lastline=247, breaklines=true]{codigo_fuente/sketch.cpp}
+\comando{selecciona\_comando} recibe como parámetros el array \comando{comando} y la longitud de \comando{array\_numeros}. En base al contenido de \comando{comando} llamará a \comando{ejecuta\_comando} con el número de comando adecuado o realizará las operaciones necesarias. Para el caso del comando \comando{help} enviará al cliente una lista con los camndos disponibles.\footnote{Se ha omitido el contenido de \comando{help} para reducir el tamaño.} Si el comando es \comando{compara} llamará a la función del mismo nombre. Si el comando es \comando{exit} mostrará al cliente que se está desconectando, se desconectará indicándolo por el puerto serie y cambiará el valor de la variable \comando{primer\_mensaje} además de reiniciar la pantalla OLED del IO Shield. Si el contenido de \comando{comando} no coincide con ninguno de los comandos disponibles se le indicará al cliente.
+
+\lstinputlisting[firstline=249, lastline=283, breaklines=true]{codigo_fuente/sketch.cpp}
+\comando{ejecuta\_comando} se encarga, como su nombre indica, de ejecutar el comando cuyo índice se haya pasado como parámetro. A parte de ejecutar el algoritmo de ordenación adecuado, \comando{ejecuta\_comando} mide también el tiempo que tarda en ejecutarse dicho algoritmo, usando para ello las funciones \comando{millis\(\)} y \comando{micros\(\)} que nos permiten medir el tiempo en milisegundos y microsegundos respectivamente\footnote{Usamos ambas ya que si la duración de la ejecución del algoritmo es alta el contador que usa la funcion \comando{micros\(\)} desbordará, sin embargo, si la duración es muy baja, con \comando{millis\(\)} no tendremos suficiente precisión.}. Como alternativa esta función también se encarga de poner a nivel alto el pin 70 del ChipKIT MAX32, que corresponde al LED LD1 de IO Shield, justo antes de ejecutar el comando y luego cambia su nivel a bajo otra vez, lo que nos permite, por ejemplo, medir la duración con un osciloscopio y tener un cierto `feedback' cuando se está ejecutando un algoritmo.\footnote{El encendido y apagado del LED lo hacemos usando directamente los registros del microcontrolador, evitando la función que nos ofrece la biblioteca Core: \comando{digitalWrite\(\)}, de forma que es lo más rápido posible.} Una vez ha terminado la ejecución mostramos al cliente a través de la conexión Telnet y en la pantalla OLED del IO Shield el tiempo que ha tardado en ejecutarse.
+
+\lstinputlisting[firstline=288, lastline=292, breaklines=true]{codigo_fuente/sketch.cpp}
+\comando{array\_aleatorio} simplemente rellena \comando{array\_numeros} con números aleatorios entre 0 y \(2^{31}\). Genera un array de tamaño máximo, es decir, \comando{MAX\_LONG\_ARRAY}.
+
+\lstinputlisting[firstline=298, breaklines=true]{codigo_fuente/sketch.cpp}
+En \comando{compara} generamos un array con números aleatorios con la función \comando{array\_aleatorio} y ejecutamos todos los algoritmos de ordenación sobre el mismo array. Debido a que los comandos de ordenación modifican el array cuya dirección pasamos como parámetro, es necesario realizar una copia usando la función \comando{memcpy} a un array auxiliar para que todos ordenen el mismo array de números. De esta forma podemos compararlos con un solo comando.
+
+\subsection{Funciones de ordenación}
+Las funciones de ordenación que hemos comentado anteriormente, las que usa el programa par ordenar el array que le envíamos, se encuentran declaradas en el archivo \programa{funciones.h} y definidas en \programa{funciones.c}.
+
+\subsubsection{Bubble Sort}
+Este es el algoritmo más sencillo de los tres implementados. Recorremos el array comparando un elemento con el siguiente e intercambiándolos en el caso de que el primero sea mayor que el segundo. Para completar el ordenamiento es necesario recorrer el array varias veces.
+\begin{lstlisting}[caption=Implementación de Bubble Sort]
+void bubble0(int * array, int len) {
+  int c, d, swap;
+
+  for (c = 0; c < len; c++) {
+    for (d = 0; d < (len - c - 1); d++) {
+      if(array[d] > array[d+1]) {
+        swap = array[d];
+        array[d] = array[d+1];
+        array[d+1] = swap;
+      }
+    }
+  }
+}  
+\end{lstlisting}\label{Implementación de Bubble Sort en nuestro programa}
+
+\subsubsection{Quick Sort}
+En el algoritmo de ordenamiento rápido, se elige un elemento del array que denominaremos pivote. A la izquierda del pivote se colocan los elementos menores a él, mientras que a la derecha colocaremos los elementos mayores. De esta forma el elemnto `pivote' ocupará su posición final de la misma. Se repite el procedimiento de forma recursiva con los sub-arrays que quedan a la izquierda y a la derecha del pivote, hasta que todo el array esté ordenado. En el programa se ha optado por elegir como elemento `pivote' el primero del array.
+\begin{lstlisting}[caption=Implementación de Quick Sort]
+void quicksort0(int *v, int b, int t) {
+  if(b < t) {
+    int pivote = colocar0(v, b, t);
+    quicksort0(v, b, pivote - 1);
+    quicksort0(v, pivote + 1, t);
+  }
+}
+
+int colocar0(int *v, int b, int t) {
+  int i;
+  int pivote, valor_pivote;
+  int temp;
+
+  pivote = b;
+  valor_pivote = v[pivote];
+  for (i = b + 1; i <= t; i++) {
+    if (v[i] < valor_pivote) {
+      pivote++;
+      temp = v[i];
+      v[i] = v[pivote];
+      v[pivote] = temp;
+    }
+  }
+  temp = v[b];
+  v[b] = v[pivote];
+  v[pivote] = temp;
+
+  return pivote;
+}
+\end{lstlisting}
+
+\subsubsection{Selection Sort}
+El tercer algoritmo implementado en el programa es Selection Sort. Su funcionamiento consiste en recorrer el array, almacenándose el elemento de menor valor. Este elemento se extrae del array y se coloca al principio para, a continuación, volver a hacer lo mismo con el resto del array, hasta que esté ordenado.
+
+\begin{lstlisting}[caption=Implementación de Selection Sort]
+void selection0(int *array, int len) {
+  for (int i = 0; i < len; ++i) {
+    int index_of_min = i;
+    for (int j = i; j < len; ++j) {
+      if (array[index_of_min] > array[j]) {
+        index_of_min = j;
+      }
+    }
+    int temp = array[i];
+    array[i] = array[index_of_min];
+    array[index_of_min] = temp;
+  }
+}
+\end{lstlisting}
