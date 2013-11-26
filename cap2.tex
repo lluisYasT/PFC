@@ -7,10 +7,38 @@
 
 % Copyright (C) 2009 Pablo Recio Quijano 
 
-\section{Hardware}
-En esta sección se describirán los dispositivos que van a ser utilizados para la realización del proyecto.
+En este capitulo analizaré las características del Arduino Mega 2560\footnote{En la introducción menciono el Arduino Mega ADK, pero la única diferencia entre ambos es que este último puede hacer de Host USB para poder conectar un teléfono móvil Android.} y del ChipKIT MAX32, que es el equivalente en chipKIT tanto en formato y dimensiones, como en precio.
 
-\subsection{ChipKIT Max32}
+\section{Arduino Mega 2560}
+La familia Arduino se compone de multitud de placas microcontroladoras con características diferentes pero hay dos que se pueden destacar sobre las demas debido a que son las más utilizadas.  Estas dos placas son la Arduino Uno y Arduino Mega 2560. La placa Arduino Uno es la más básica y económica, con un formato reducido, mientras que la Mega 2560 tiene un precio superior y mejores características.
+
+Arduino Mega 2560 es una placa microcontroladora basada en el chip ATmega2560 que fue introducida al mercado durante el último trimestre de 2010.  Es una actualización del Arduino Mega, basada en el chip ATmega1280.  Dispone de 54 pines de entrada/salida (14 de estos pines pueden ser usado como salidas PWM), 16 entradas analógicas, 4 UARTs (puertos serie que se pueden usar para conectar la placa al ordenador, a periféricos o a otra placa microcontroladora), un oscilador de cristal de 16 MHz, un conector de alimentación, un botón de reinicio y un conector ICSP.
+
+\begin{table}
+\begin{center}
+\begin{tabular}{| l | c |}
+\hline
+Microcontrolador 						& ATmega2560 \\
+Voltaje									& 5V \\
+Voltaje de alimentación (recomendado) 	& 7-12V \\
+Voltaje de alimentación (límites) 		& 6-20V \\
+Pines Entrada/Salida digitales			& 54 (14 salidas PWM) \\
+Pines de entrada analógicos				& 16 \\
+Corriente por cada pin entrada/salida 	& 40 mA \\
+Corriente en el pin de 3.3V				& 50 mA \\
+Memoria Flash 							& 256 kB (8 kB usados por el bootloader) \\
+SRAM									& 8 kB \\
+EEPROM									& 4 kB \\
+Frecuencia del reloj					& 16 MHz \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Esepcificaciones de Arduino Mega 2560}
+\label{tab:mega2560_specs}
+\end{table}
+
+
+\section{ChipKIT Max32}
 El microcontrolador elegido para el proyecto es un ChipKIT Max32. Es el modelo más avanzado de la familia Chipkit, que se compone además del Uno32, uC32 y DP32.
 
 \figura{chipKIT-Max32.jpg}{scale=0.6}{Chipkit Max32}{max32}{H}
