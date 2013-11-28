@@ -10,7 +10,9 @@
 En este capitulo analizaré las características del Arduino Mega 2560\footnote{En la introducción menciono el Arduino Mega ADK, pero la única diferencia entre ambos es que este último puede hacer de Host USB para poder conectar un teléfono móvil Android.} y del ChipKIT MAX32, que es el equivalente en chipKIT tanto en formato y dimensiones, como en precio.
 
 \section{Arduino Mega 2560}
-La familia Arduino se compone de multitud de placas microcontroladoras con características diferentes pero hay dos que se pueden destacar sobre las demas debido a que son las más utilizadas.  Estas dos placas son la Arduino Uno y Arduino Mega 2560. La placa Arduino Uno es la más básica y económica, con un formato reducido, mientras que la Mega 2560 tiene un precio superior y mejores características.
+La familia Arduino se compone de multitud de placas microcontroladoras con características diferentes pero hay dos que se pueden destacar sobre las demas debido a que son las más utilizadas.  Estas dos placas son la Arduino Uno y Arduino Mega 2560. La placa Arduino Uno es la más básica y económica, con un formato reducido, mientras que la segunda tiene un precio superior y mejores características.
+
+\figura{ArduinoMega2560_R3_Front.jpg}{scale=0.1}{Arduino Mega 2560}{mega2560}{H}
 
 Arduino Mega 2560 es una placa microcontroladora basada en el chip ATmega2560 que fue introducida al mercado durante el último trimestre de 2010.  Es una actualización del Arduino Mega, basada en el chip ATmega1280.  Dispone de 54 pines de entrada/salida (14 de estos pines pueden ser usado como salidas PWM), 16 entradas analógicas, 4 UARTs (puertos serie que se pueden usar para conectar la placa al ordenador, a periféricos o a otra placa microcontroladora), un oscilador de cristal de 16 MHz, un conector de alimentación, un botón de reinicio y un conector ICSP.
 
@@ -63,10 +65,10 @@ El núcleo del Atmega 2560 está basado en una arquitectura AVR de 8 bits. AVR u
 % 32 Registros
 % No MMU
 \figura{atmel2560_diagrama.jpg}{scale=0.7}{Diagrama de la arquitectura AVR}{atmel2560}{H}
-
+Como se puede ver en la figura \ref{atmel2560} el núncleo AVR consta de 32 registros de 8 bits de propósito general en los que se almacenan los datos que serán procesados en la unidad aritmético-lógica (ALU) que hay. Esta unidad soporta operaciones aritméticas y lógicas entre registros o entre un registro y una constante guardando el resultado de nuevo en los registros, en un solo ciclo. Estas operaciones son llevadas a cabo sobre operandos de 8 bits (el tamaño de cada registro) por lo que cualquier operación sobre números enteros de 32 bits (operación más habitual en programas) se requerirá más ciclos. Las operaciones aritméticas que puede realizar esta ALU son suma, resta y multiplicación de números de coma fija, sin embargo no dispone de una instrucción de división, por lo que es necesario usar una que funcione mediante software. Tampoco tiene una unidad de coma flotante (FPU) por lo que estamos limitados a números enteros o a la emulación de coma flotante a través de bibliotecas, que es lo que sucede cuando usamos variables de tipo `float' durante el desarrollo de una aplicación para Arduino.
 
 \section{ChipKIT Max32}
-El microcontrolador elegido para el proyecto es un ChipKIT Max32. Es el modelo más avanzado de la familia Chipkit, que se compone además del Uno32, uC32 y DP32.
+El microcontrolador elegido para el trabajo es un ChipKIT Max32. Es el modelo más avanzado de la familia Chipkit, que se compone además del Uno32, uC32 y DP32.
 
 \figura{chipKIT-Max32.jpg}{scale=0.6}{Chipkit Max32}{max32}{H}
 
