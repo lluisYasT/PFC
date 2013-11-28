@@ -37,14 +37,22 @@ Frecuencia del reloj					& 16 MHz \\
 \label{tab:mega2560_specs}
 \end{table}
 % Cosas que mencionar
-% Frecuencia de reloj
 % Cantidad de memoria
 % Voltaje (5V)
 % JTAG Pero en las lineas de los ADC
 % ADC (pag 275 datasheet) 'solo' 15ksps
+Una de las carácterísticas de las placas Arduino es su voltaje de funcionamiento de 5V. Este voltaje se puede obtener desde la conexión USB al PC ya que la línea de alimentación de este es también de 5V o se puede usar una fuente de alimentación externa con un voltaje de entre 7V y 12V.
 
-\subsection*{Atmega2560}
+El Arduino Mega 2560 dispone de 256kB de memoria flash.\footnote{En los microcontroladores de Atmel esto viene indicado en el propio nombre, en este caso 2560 hace referencia a sus 256kB de memoria Flash.} Esta cantidad es suficiente para la mayoría de proyectos a los que estaría destinada esta placa. Por otro lado su memoria SRAM es de tan solo 8kB, lo que puede ser el factor limitante en algunos proyectos.
+
+Esta placa tiene también la posibilidad de depurar sus programas a través del puerto JTAG del Atmega 2560. En lugar de tener una conexión dedicada, los pines del puerto JTAG están situados en los mismos dedicados a las entradas analógicas, lo que dificulta la depuración de código que haga uso de estas entradas.
+
+Otra característica que se puede destacar de este Arduino son los convertidores analógico-digital que tiene incorporados el microcontrolador. Hay dos ADCs en los que podemos encontrar 8 pines de entrada multiplexados en cada uno. Su resolución es de 10 bits y su máxima frecuencia de muestreo (con toda la resolución) es de 15ksps. Como veremos después, este valor es bajo y puede resultar determinante dependiendo del proyecto en que se vaya a usar. Es posible obtener una mayor frecuencia de muestreo, pero a cambio de reducir la resolución.
+
+\subsection*{Atmega 2560}
+
 % Cosas para mencionar
+% Frecuencia de reloj
 % 8 Bits
 % Arquitectura AVR
 % Pipeline de 2 fases
