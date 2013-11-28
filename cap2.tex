@@ -65,7 +65,7 @@ El núcleo del Atmega 2560 está basado en una arquitectura AVR de 8 bits. AVR u
 % 32 Registros
 % No MMU
 \figura{atmel2560_diagrama.jpg}{scale=0.7}{Diagrama de la arquitectura AVR}{atmel2560}{H}
-Como se puede ver en la figura \ref{atmel2560} el núncleo AVR consta de 32 registros de 8 bits de propósito general en los que se almacenan los datos que serán procesados en la unidad aritmético-lógica (ALU) que hay. Esta unidad soporta operaciones aritméticas y lógicas entre registros o entre un registro y una constante guardando el resultado de nuevo en los registros, en un solo ciclo. Estas operaciones son llevadas a cabo sobre operandos de 8 bits (el tamaño de cada registro) por lo que cualquier operación sobre números enteros de 32 bits (operación más habitual en programas) se requerirá más ciclos. Las operaciones aritméticas que puede realizar esta ALU son suma, resta y multiplicación de números de coma fija, sin embargo no dispone de una instrucción de división, por lo que es necesario usar una que funcione mediante software. Tampoco tiene una unidad de coma flotante (FPU) por lo que estamos limitados a números enteros o a la emulación de coma flotante a través de bibliotecas, que es lo que sucede cuando usamos variables de tipo `float' durante el desarrollo de una aplicación para Arduino.
+Como se puede ver en la figura \ref{atmel2560} el núncleo AVR consta de 32 registros de 8 bits de propósito general en los que se almacenan los datos que serán procesados en la unidad aritmético-lógica (ALU) que hay. Esta unidad soporta operaciones aritméticas y lógicas entre registros o entre un registro y una constante guardando el resultado de nuevo en los registros, en un solo ciclo. Estas operaciones son llevadas a cabo sobre operandos de 8 bits (el tamaño de cada registro) por lo que cualquier operación sobre números enteros de 32 bits (operación más habitual en programas) se requerirá más ciclos. Las operaciones aritméticas que puede realizar esta ALU son suma, resta y multiplicación de números de coma fija, sin embargo no dispone de una instrucción de división, por lo que es necesario usar una que funcione mediante software. Tampoco tiene una unidad de coma flotante (FPU) por lo que estamos limitados a números en coma fija o a la emulación de coma flotante a través de bibliotecas, que es lo que sucede cuando usamos variables de tipo `float' durante el desarrollo de una aplicación para Arduino.
 
 \section{ChipKIT Max32}
 El microcontrolador elegido para el trabajo es un ChipKIT Max32. Es el modelo más avanzado de la familia Chipkit, que se compone además del Uno32, uC32 y DP32.
@@ -102,7 +102,6 @@ Para la depuración de los programas con MPLAB usaremos el programador chipKIT P
 
 \figura{chipKIT-PGM.png}{scale=0.3}{ChipKIT PGM}{pgm}{H}
 
-\newpage
 
 \subsection{ChipKIT Network Shield}
 
