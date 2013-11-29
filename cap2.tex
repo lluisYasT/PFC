@@ -72,25 +72,37 @@ La placa microcontroladora elegida para el trabajo es una ChipKIT Max32 de Digil
 
 \figura{chipKIT-Max32.jpg}{scale=0.6}{Chipkit Max32}{max32}{H}
 
-En el centro del Max32 encontramos como microcontrolador un Microchip PIC32MX795F12L que funciona a 80MHz y con el que disponemos de 512KB de memoria flash y 128KB de memoria RAM. El Max32 tiene 83 puertos de entrada/salida además de otros dispositivos como UART, SPI e I2C. Dieciséis de los 83 puertos puede ser usados como entradas analógicas o como entradas/salidas digitales. A diferencia de su equivalente Arduino (Mega), el ChipKIT Max32 también tiene integrado en el chip 10/100 Ethernet, un controlador USB 2.0 y dos controladores CAN, aunque para hacer uso de estos dispositivos necesitaremos el ChipKIT Network Shield.
+En el centro del Max32 encontramos como microcontrolador un Microchip PIC32MX795F12L que funciona a 80MHz y con el que disponemos de 512KB de memoria flash y 128KB de memoria RAM. El Max32 tiene 83 puertos de entrada/salida además de otros dispositivos como UART, SPI e I2C. Dieciséis de los 83 puertos puede ser usados como entradas analógicas o como entradas/salidas digitales. A diferencia de su equivalente Arduino (Mega), el ChipKIT Max32 también tiene integrado en su MCU un módulo 10/100 Ethernet, un controlador USB 2.0 y dos controladores CAN, aunque para hacer uso de estos dispositivos necesitaremos el ChipKIT Network Shield ya que es en esta placa donde están los conectores. Al igual que el Arduino Mega 2560, el microcontrolador de esta placa también tiene un RTC (Real Time Clock) que nos permita mantener la hora actual siempre que esté conectado a alguna fuente de alimentación. Para poder usar esta característica es necesario conectar un cristal de cuarzo que funcione a 32.768kHz al puerto adecuado, que con el Network Shield viene ya incluido.
 
-Este dispositivo, al igual que el resto de microcontroladores de la familia ChipKIT, funciona con un voltaje lógico de 3.3V frente a los microcontroladores Arduino como el Uno o el Mega que usan un voltaje de 5V. Es importante tener este dato en cuenta a la hora de usar shields o dispositivos pensados para placas Arduino ya que están diseñandos para 5V y es posible que no reciban bien los datos desde el Max32 por no superar en alguna ocasión el umbral de detección lógico, es decir, el voltaje a partir del cual se determina que el bit recibido es un `1'.
+\begin{table}
+\begin{center}
+\begin{tabular}{| l | c |}
+\hline
+Microcontrolador 						& Microchip PIC32MX795F512L \\
+Voltaje									& 3.3V \\
+Voltaje de alimentación (recomendado) 	& 7-15V \\
+Voltaje de alimentación (límites) 		& 6-20V \\
+Pines Entrada/Salida digitales			& 83 (14 salidas PWM) \\
+Pines de entrada analógicos				& 16 \\
+Corriente por cada pin entrada/salida 	& 18 mA \\
+Corriente en el pin de 3.3V				& N/A  \\
+Memoria Flash 							& 512 kB (8 kB usados por el bootloader) \\
+SRAM									& 128 kB \\
+EEPROM									& NO \\
+Frecuencia del reloj					& 80 MHz \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Especificaciones de ChipKIT MAX32.}
+\label{tab:max32_specs}
+\end{table}
 
-Podemos encontrar más información además de esquemáticos y manuales en la página de información del ChipKIT Max32\cite{website:max32}.
+Este dispositivo, al igual que el resto de microcontroladores de la familia ChipKIT, funciona con un voltaje lógico de 3.3V frente a los microcontroladores Arduino como el Uno o el Mega que usan un voltaje de 5V. Es importante tener este dato en cuenta a la hora de usar shields o dispositivos pensados para placas Arduino ya que están diseñandos para 5V y es posible que no reciban bien los datos desde el Max32 por no superar en alguna ocasión el umbral de detección lógico, es decir, el voltaje a partir del cual se determina que el bit recibido es un `1'. Por otro lado esta placa puede recibir señales con voltaje de 5V sin dañarse por lo que no supone ningún peligro conectar shields pensados para placas Arduino.
 
-Características del ChipKIT Max32:
-\begin{itemize}
-	\item Procesador Microchip PIC32MX795F512L
-	\item Proporciona memoria adicional (con respecto al Uno32) y periféricos de comunicación avanzados
-	\item Compatible con gran parte del código existente de ejemplo para Arduino, así como con materiales de referencia y otros recursos.
-	\item Puede ser programado usando Microchip MPLAB, mediante un programador gracias a su interfaz JTAG.
-	\item Mismo tamaño y formato que el Arduino Mega 2560
-	\item 83 pines de entrada/salida
-	\item LED de usuario (Pin 13)
-	\item Se conecta a un PC usando un cable USB A -> mini B
-\end{itemize}
+Podemos encontrar más información además de esquemáticos y manuales en la página de información del ChipKIT Max32.\cite{website:max32}
 
 \subsection*{Microchip PIC32MX795F512L}
+Este microcontrolador es el modelo más avanzado de la familia PIC32MX de Microchip. Como su nombre indica, se trata de un procesador de 32 bits, frente a los 8 del Atmel. Su arquitectura, aunque también basada en Harvard, es completamente diferente al Atmega. Se trata de la arquitectura MIPS en su versión M4K.
 
 \section{Accesorios}
 Durante el trabajo utilizaré varios accesorios junto con el ChipKIT MAX32 que me permiten depurar programas, conectar la placa a la red Ethernet y me proporcionan algunos elementos de entrada-salida como LEDs, botones o una pantalla OLED.
@@ -98,7 +110,6 @@ Durante el trabajo utilizaré varios accesorios junto con el ChipKIT MAX32 que m
 Para la depuración de los programas con MPLAB usaremos el programador chipKIT PGM\cite{website:pgm}, con el que podremos usar el puerto JTAG del Max32. Este programador está diseñado para ser usado exclusivamente con la familia de dispositivos chipKIT, a diferencia de picKIT3\cite{website:pickit} que puede ser usado con todos los microcontroladores de Microchip.
 
 \figura{chipKIT-PGM.png}{scale=0.3}{ChipKIT PGM}{pgm}{H}
-
 
 \subsection{ChipKIT Network Shield}
 
