@@ -106,11 +106,14 @@ Este microcontrolador es el modelo más avanzado de la familia PIC32MX de Microc
 
 \figura{m4k_diagram.jpg}{scale=0.7}{Diagrama del Núcleo M4K}{m4kdiagrama}{H}
 
-Como se puede apreciar en la figura \ref{m4kdiagrama} este MCU cuenta con una MDU (unidad de multiplicación y división), un coprocesador y una unidad de administración de memoria (MMU). Ninguno de estas unidades podemos encontrarlas en el chip de Atmel. El MDU nos permite realizar multiplicaciónes entre operandos de 16 bits (o uno de 16 y otro de 32 bits) en un solo ciclo y entre dos operandos de 32 bits en dos o tres ciclos frente al ciclo que tarda la multiplicación de dos operandos de 8 bits en el núcleo AVR. Además, con esta unidad se pueden realizar divisiones mediante hardware, sin tener usar bibliotecas como pasa con el Atmega, y el tiempo de estas operaciones es de35 ciclos de reloj en el peor de los casos.
+Como se puede apreciar en la figura \ref{m4kdiagrama} este chip cuenta con una MDU (unidad de multiplicación y división), un coprocesador y una unidad de administración de memoria (MMU). Ninguno de estas unidades podemos encontrarlas en el chip de Atmel. El MDU nos permite realizar multiplicaciónes entre operandos de 16 bits (o uno de 16 y otro de 32 bits) en un solo ciclo y entre dos operandos de 32 bits en dos o tres ciclos frente al ciclo que tarda la multiplicación de dos operandos de 8 bits en el núcleo AVR. Además, con esta unidad se pueden realizar divisiones mediante hardware, sin tener usar bibliotecas como pasa con el Atmega, y el tiempo de estas operaciones es de35 ciclos de reloj en el peor de los casos.
+
+El coprocesador es una interfaz de registros que sirve para comunicar información de control y estado entre el programa y la CPU. A través del coprocesador tenemos acceso al `core timer', al control de interrupciones y excepciones, a la configuración de la memoria virtual, al control de los registros `shadow', a la identificación del procesador y al control de depuración.
+
+\figura{m4k_pipeline.jpg}{scale=0.7}{Segmentación (simplificada) en MIPS}{mipspipeline}{H}
 
 MIPS fue desarrollada por John L. Hennessy y su equipo como una arquitectura de tipo RISC de 32 bits. Al igual que AVR, MIPS cuenta con segmentación de instrucciones, pero dividido en cinco etapas mostradas en la figura \ref{mipspipeline}.
 
-\figura{m4k_pipeline.jpg}{scale=0.7}{Segmentación (simplificada) en MIPS}{mipspipeline}{H}
 
 \section{Accesorios}
 Durante el trabajo utilizaré varios accesorios junto con el ChipKIT MAX32 que me permiten depurar programas, conectar la placa a la red Ethernet y me proporcionan algunos elementos de entrada-salida como LEDs, botones o una pantalla OLED.
