@@ -72,9 +72,13 @@ La placa microcontroladora elegida para el trabajo es una ChipKIT Max32 de Digil
 
 \figura{chipKIT-Max32.jpg}{scale=0.6}{Chipkit Max32}{max32}{H}
 
-En el centro del Max32 encontramos como microcontrolador un Microchip PIC32MX795F12L que funciona a 80MHz y con el que disponemos de 512KB de memoria flash y 128KB de memoria RAM, sin embargo, a diferencia del Arduino Mega 2560, no incluye memoria EEPROM en el chip por lo que no podemos almacenar datos de forma no volátil. El Max32 tiene 83 puertos de entrada/salida además de otros dispositivos como UART, SPI e I2C. Dieciséis de los 83 puertos puede ser usados como entradas analógicas o como entradas/salidas digitales. A diferencia de su equivalente Arduino (Mega), el ChipKIT Max32 también tiene integrado en su MCU un módulo 10/100 Ethernet, un controlador USB 2.0 y dos controladores CAN, aunque para hacer uso de estos dispositivos necesitaremos el ChipKIT Network Shield ya que es en esta placa donde están los conectores. Al igual que el Arduino Mega 2560, el microcontrolador de esta placa también tiene un RTC (Real Time Clock) que nos permita mantener la hora actual siempre que esté conectado a alguna fuente de alimentación. Para poder usar esta característica es necesario conectar un cristal de cuarzo que funcione a 32.768kHz al puerto adecuado, que con el Network Shield viene ya incluido.
+En el centro del Max32 encontramos como microcontrolador un Microchip PIC32MX795F12L que funciona a 80MHz y con el que disponemos de 512KB de memoria flash y 128KB de memoria RAM, sin embargo, a diferencia del Arduino Mega 2560, no incluye memoria EEPROM en el chip por lo que no podemos almacenar datos de forma no volátil. 
 
-\begin{table}
+El Max32 tiene 83 puertos de entrada/salida además de otros dispositivos como UART, SPI e I2C. Dieciséis de los 83 puertos puede ser usados como entradas analógicas o como entradas/salidas digitales. A diferencia de su equivalente Arduino (Mega), el ChipKIT Max32 también tiene integrado en su MCU un módulo 10/100 Ethernet, un controlador USB 2.0 y dos controladores CAN, aunque para hacer uso de estos dispositivos necesitaremos el ChipKIT Network Shield ya que es en esta placa donde están los conectores. 
+
+Al igual que el Arduino Mega 2560, el microcontrolador de esta placa también tiene un RTC (Real Time Clock) que nos permita mantener la hora actual siempre que esté conectado a alguna fuente de alimentación. Para poder usar esta característica es necesario conectar un cristal de cuarzo que funcione a 32.768kHz al puerto adecuado, que con el Network Shield viene ya incluido.
+
+\begin{table}[H]
 \begin{center}
 \begin{tabular}{| l | c |}
 \hline
@@ -88,7 +92,7 @@ Corriente por cada pin entrada/salida 	& 18 mA \\
 Corriente en el pin de 3.3V				& N/A  \\
 Memoria Flash 							& 512 kB (8 kB usados por el bootloader) \\
 SRAM									& 128 kB \\
-EEPROM									& NO \\
+EEPROM									& No \\
 Frecuencia del reloj					& 80 MHz \\
 \hline
 \end{tabular}
