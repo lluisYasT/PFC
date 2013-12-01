@@ -116,7 +116,8 @@ El coprocesador es una interfaz de registros que sirve para comunicar informaci�
 
 \figura{m4k_pipeline.jpg}{scale=0.7}{Segmentación (simplificada) en MIPS}{mipspipeline}{H}
 
-MIPS fue desarrollada por John L. Hennessy y su equipo como una arquitectura de tipo RISC de 32 bits. Al igual que AVR, MIPS cuenta con segmentación de instrucciones, pero dividido en cinco etapas mostradas en la figura \ref{mipspipeline}.
+MIPS fue desarrollada por John L. Hennessy y su equipo como una arquitectura de tipo RISC de 32 bits. Al igual que AVR, MIPS cuenta con segmentación de instrucciones, pero dividido en cinco etapas mostradas en la figura \ref{mipspipeline}. Estas etapas son: Instruction Fetch, Execution, Memory Fetch, Align y Writeback. Podemos encontrar una descripción detallada de los procesos que se llevan a cabo en cada una de ellas en el apartado 2.3 del manual de referencia de PIC32MX accesible a través de la página web del PIC32MX795F512L \cite{website:pic32mx}.
+
 
 
 \section{Accesorios}
@@ -132,7 +133,7 @@ El ChipKIT Network Shield es, como su nombre indica, un shield para el ChipKIT M
 
 \figura{chipKIT-NetworkShield.jpg}{scale=0.5}{Chipkit Network Shield}{networkshield}{H}
 
-Este shield nos proporciona las conexiones necesarias para poder hacer uso del controlador Ethernet y USB que lleva el Max32 integrado y a los buses CAN. Además de esto también tiene integrado un oscilador de 32.768 KHz que nos permite hacer uso del RTC que también tiene integrado el Max32 y una memoria EEPROM de 256Kb a la que podemos acceder mediante I2C. En la página web del Network Shield\cite{website:network_shield} podemos encontrar las bibliotecas que nos sirven para hacer uso de sus características, en el entorno ChipKIT.\\
+Este shield nos proporciona las conexiones necesarias para poder hacer uso del controlador Ethernet y USB que lleva el Max32 integrado y a los buses CAN. Además de esto también tiene integrado un oscilador de 32.768 KHz que nos permite hacer uso del RTC que también tiene integrado el Max32 y una memoria EEPROM de 256Kb a la que podemos acceder mediante I2C. En la página web del Network Shield\cite{website:network_shield} podemos encontrar las bibliotecas que nos sirven para hacer uso de sus características, en el entorno ChipKIT.
 
 Características del ChipKIT Network Shield:
 \begin{itemize}
