@@ -24,7 +24,7 @@ Microcontrolador 						& ATmega2560 \\
 Voltaje									& 5V \\
 Voltaje de alimentación (recomendado) 	& 7-12V \\
 Voltaje de alimentación (límites) 		& 6-20V \\
-Pines Entrada/Salida digitales			& 54 (14 salidas PWM) \\
+Pines Entrada/Salida digitales			& 54 (15 salidas PWM) \\
 Pines de entrada analógicos				& 16 \\
 Corriente por cada pin entrada/salida 	& 40 mA \\
 Corriente en el pin de 3.3V				& 50 mA \\
@@ -67,6 +67,8 @@ El núcleo del Atmega 2560 está basado en una arquitectura AVR de 8 bits. AVR u
 \figura{atmel2560_diagrama.jpg}{scale=0.7}{Diagrama de la arquitectura AVR}{atmel2560}{H}
 Como se puede ver en la figura \ref{atmel2560} el núncleo AVR consta de 32 registros de 8 bits de propósito general en los que se almacenan los datos que serán procesados en la unidad aritmético-lógica (ALU) que hay. Esta unidad soporta operaciones aritméticas y lógicas entre registros o entre un registro y una constante guardando el resultado de nuevo en los registros, en un solo ciclo. Estas operaciones son llevadas a cabo sobre operandos de 8 bits (el tamaño de cada registro) por lo que cualquier operación sobre números enteros de 32 bits (operación más habitual en programas) se requerirá más ciclos. Las operaciones aritméticas que puede realizar esta ALU son suma, resta y multiplicación de números de coma fija, sin embargo no dispone de una instrucción de división, por lo que es necesario usar una que funcione mediante software. Tampoco tiene una unidad de coma flotante (FPU) por lo que estamos limitados a números en coma fija o a la emulación de coma flotante a través de bibliotecas, que es lo que sucede cuando usamos variables de tipo `float' durante el desarrollo de una aplicación para Arduino.
 
+Este microcontrolador incluye varios perífericos. Posee un total de seis temporizadores/contadores, dos de ellos de 8 bits y los otros 4 de 16 bits de resolución. También tiene un RTC (Real Time Counter) que permite llevar la cuenta del tiempo real con un oscilador externo conectado al pin TOSC1. Si observamos el esquemático del Arduino Mega 2560 vemos que ese pin no está conectado a nada, es decir, no contiene un oscilador y tampoco está asociado con alguno de los conectores disponibles en la placa, por lo que no podremos usar esta funcionalidad. Otros periféricos que encontramos en este chip son dos interfaces serie: SPI y 2-wire y un temporizador programable `watchdog' que requiere también un oscilador externo, por lo que tampoco podremos hacer uso de esta característica con la placa Arduino. Por último, también tiene la capacidad de generar interrupciones cuando algún pin cambia su valor, por lo que no será necesario estar activamente esperando durante la ejecución del programa.
+
 \section{ChipKIT Max32}
 La placa microcontroladora elegida para el trabajo es una ChipKIT Max32 de DigilentINC. Es el modelo más avanzado de la familia ChipKIT, que se compone además del Uno32, uC32 y DP32.
 
@@ -76,7 +78,7 @@ En el centro del Max32 encontramos como microcontrolador un Microchip PIC32MX795
 
 El Max32 tiene 83 puertos de entrada/salida además de otros dispositivos como UART, SPI e I2C. Dieciséis de los 83 puertos puede ser usados como entradas analógicas o como entradas/salidas digitales. A diferencia de su equivalente Arduino (Mega), el ChipKIT Max32 también tiene integrado en su MCU un módulo 10/100 Ethernet, un controlador USB 2.0 y dos controladores CAN, aunque para hacer uso de estos dispositivos necesitaremos el ChipKIT Network Shield ya que es en esta placa donde están los conectores. 
 
-Al igual que el Arduino Mega 2560, el microcontrolador de esta placa también tiene un RTC (Real Time Clock) que nos permita mantener la hora actual siempre que esté conectado a alguna fuente de alimentación. Para poder usar esta característica es necesario conectar un cristal de cuarzo que funcione a 32.768kHz al puerto adecuado, que con el Network Shield viene ya incluido.
+Al igual que el Arduino Mega 2560, el microcontrolador de esta placa también tiene un RTC (Real Time Clock) que nos permita mantener la hora actual siempre que esté conectado a alguna fuente de alimentación. Para poder usar esta característica es necesario conectar un cristal de cuarzo que funcione a 32.768kHz al pin correspondiente. En este caso, a diferencia del Arduino Mega 2560, el pin del oscilador se encuentra mapeado a uno de los pines de entrada/salida en los conectores de la placa por lo que podremos hacer uso de este periférico.\footnote{En el ChipKIT Uno32 podemos encontrar dos agujeros en la placa donde es posible soldar directamente un cristal para el RTC.}
 
 \begin{table}[H]
 \begin{center}
@@ -103,7 +105,7 @@ Frecuencia del reloj					& 80 MHz \\
 
 Este dispositivo, al igual que el resto de microcontroladores de la familia ChipKIT, funciona con un voltaje lógico de 3.3V frente a los microcontroladores Arduino como el Uno o el Mega que usan un voltaje de 5V. Es importante tener este dato en cuenta a la hora de usar shields o dispositivos pensados para placas Arduino ya que están diseñandos para 5V y es posible que no reciban bien los datos desde el Max32 por no superar en alguna ocasión el umbral de detección lógico, es decir, el voltaje a partir del cual se determina que el bit recibido es un `1'. Por otro lado esta placa puede recibir señales con voltaje de 5V sin dañarse por lo que no supone ningún peligro conectar shields pensados para placas Arduino.
 
-Podemos encontrar más información además de esquemáticos y manuales en la página de información del ChipKIT Max32.\cite{website:max32}
+Podemos encontrar más información, además de esquemáticos y manuales en la página de información del ChipKIT Max32 en la web de Digilent.\cite{website:max32}
 
 \subsection*{Microchip PIC32MX795F512L}
 Este microcontrolador es el modelo más avanzado de la familia PIC32MX de Microchip. Como su nombre indica, se trata de un procesador de 32 bits, frente a los 8 del Atmel. Su arquitectura, aunque también basada en Harvard, es completamente diferente al Atmega. Se trata de la arquitectura MIPS, en su versión M4K. Este núcleo consta de 32 registros de propósito general de 32 bits. También cuenta con otro juego de 32 registros (shadow registers) que usa durante interrupciones. De esta forma, cuando se produce alguna interrupción no es necesario guardar los registros principales por lo que la transición de un estado a otro es más rápida.
