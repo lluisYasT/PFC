@@ -1,29 +1,20 @@
-A lo largo del proyecto utilizaremos dos entornos de
-desarrollo integrado: \programa{MPIDE} y \programa{MPLAB X}.
-\subsection{\programa{MPIDE}} \programa{MPIDE}\cite{website:mpide} es el IDE
-creado por Digilent para el entorno ChipKIT. Su diseño es idéntico al IDE de
-Arduino, variando solamente el color y el compilador usado.
-\figura{mpide.jpg}{scale=0.6}{\programa{MPIDE}}{mpide}{H} \programa{MPIDE} es
-un entorno de desarrollo sencillo y con unas características muy básicas y
-limitadas. Con él podremos escribir nuestro programa, compilarlo y cargarlo en
-nuestro microcontrolador sin necesidad de ninguna otra aplicación, siempre y
-cuando hayamos seleccionado el modelo adecuado y el puerto serie en las
-opciones del programa. \\ Al igual que el entorno de Arduino, no es posible
-depurar programas, para eso usaremos \programa{MPLAB X}. También dispone de un monitor
-para el puerto serie, con el que podemos leer lo que el microcontrolador envía
-a través de este puerto y enviar información al microcontrolador.
-\subsection{\programa{MPLAB X}} \programa{MPLAB X}\cite{website:mplab} es la última versión del
-entorno de desarrollo integrado de Microchip. A diferencia de
-\programa{MPIDE}, este programa es un IDE completo, basado en Netbeans. Está
-pensado para ser utilizado con toda su gama de microcontroladores y, con la
-ayuda de un depurador/programador como el chipKIT PGM podremos depurar
-nuestros programas. Si queremos, también podemos usar los productos chipKIT
-como cualquier otro microcontrolador de Microchip, escribiendo los programas
-en este IDE y compilándolos con el compilador que tiene Microchip disponible
-en su página web, C32\cite{website:c32}. \figura{mplab.jpg}{scale=0.35}{MPLAB
-X Depurando}{mplab}{H}
+A lo largo del proyecto utilizaremos dos entornos de desarrollo integrado: \programa{MPIDE} y \programa{MPLAB X}.
 
-Como se aprecia en la Figura \ref{mplab} \programa{MPLAB X} nos ofrece mucha más información y posibilidades que \programa{MPIDE}. En esta figura vemos a \programa{MPLAB X} en mitad de la depuración del programa Blink, que fue compilado usando \programa{MPIDE}.\\
+\subsection{\programa{MPIDE}}
+\programa{MPIDE}\cite{website:mpide} es el IDE creado por Digilent para el entorno ChipKIT. Su diseño es idéntico al IDE de Arduino, variando solamente el color y el compilador usado.
+
+\figura{mpide.jpg}{scale=0.6}{\programa{MPIDE}}{mpide}{H} 
+\programa{MPIDE} es un entorno de desarrollo sencillo y con unas características muy básicas y limitadas. Con él podremos escribir nuestro programa, compilarlo y cargarlo en nuestro microcontrolador sin necesidad de ninguna otra aplicación, siempre y cuando hayamos seleccionado el modelo adecuado y el puerto serie en las opciones del programa.
+
+Al igual que el entorno de Arduino, no es posible depurar programas, para eso usaremos \programa{MPLAB X}. También dispone de un monitor para el puerto serie, con el que podemos leer lo que el microcontrolador envía a través de este puerto y enviar información al microcontrolador.
+
+\subsection{\programa{MPLAB X}} 
+\programa{MPLAB X}\cite{website:mplab} es la última versión del entorno de desarrollo integrado de Microchip. A diferencia de
+\programa{MPIDE}, este programa es un IDE completo, basado en Netbeans. Está pensado para ser utilizado con toda su gama de microcontroladores y, con la ayuda de un depurador/programador como el chipKIT PGM podremos depurar nuestros programas. Si queremos, también podemos usar los productos chipKIT como cualquier otro microcontrolador de Microchip, escribiendo los programas en este IDE y compilándolos con el compilador que tiene Microchip disponible en su página web, C32\cite{website:c32}. 
+\figura{mplab.jpg}{scale=0.35}{MPLABX Depurando}{mplab}{H}
+
+Como se aprecia en la Figura \ref{mplab} \programa{MPLAB X} nos ofrece mucha más información y posibilidades que \programa{MPIDE}. En esta figura vemos a \programa{MPLAB X} en mitad de la depuración del programa Blink, que fue compilado usando \programa{MPIDE}.
+
 Con este entorno de desarrollo veremos más adelante los diferentes efectos de que los distintos niveles de optimización tienen en nuestro programa y podremos usarla para hacer profiling.
 
 
