@@ -9,7 +9,48 @@ La programación en la plataforma arduino se hace mediante un entorno de desarro
 Para realizar proyectos en la plataforma Arduino es necesario disponer del entorno de desarrollo `Arduino IDE' que es posible encontrar en la página web de Arduino. Este programa está basado en Wiring\footnote{\url{http://wiring.org.co/}}, que a su vez nació a partir de Processing\footnote{\url{http://processing.org/}} por lo que el aspecto del mismo es prácticamente idéntico en todos ellos. Las diferencias radican en el funcionamiento interno. Arduino IDE tiene incluido todo lo necesario para poder escribir, compilar, ensablar, enlazar y cargar los programas a la placa Arduino por lo que el usuario solo debe abrir el IDE, escribir su programa y darle al botón de ejecución , el IDE se encargará de todo.
 
 Si accedemos a la carpeta de instalación de Arduino veremos diferentes subcarpetas, donde se guardan diferentes componentes necesarios para su funcionamiento.
-
+\begin{figure}[H]
+\begin{center}
+\tikzstyle{every node}=[draw=black,thick,anchor=west]
+\tikzstyle{selected}=[draw=red,fill=red!30]
+\tikzstyle{optional}=[dashed,fill=gray!50]
+\begin{tikzpicture}[%
+  grow via three points={one child at (0.5,-0.7) and
+  two children at (0.5,-0.7) and (0.5,-1.4)},
+  edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+	\node{Arduino}
+		child { node {examples}}
+		child { node {hardware}
+			child { node {arduino}
+				child { node {bootloaders}}
+				child { node {cores}}
+				child { node {firmwares}}
+				child { node {variants}}
+			}
+			child [missing] {}
+			child [missing] {}
+			child [missing] {}
+			child [missing] {}
+			child { node {tools}
+				child { node {avr}}
+			}
+			child [missing] {}
+		}
+		child [missing] {}
+		child [missing] {}
+		child [missing] {}
+		child [missing] {}
+		child [missing] {}
+		child [missing] {}
+		child [missing] {}
+		child { node {lib}}
+		child { node {libraries}}
+		child { node { reference}};
+\end{tikzpicture}
+\end{center}
+\end{figure}
+\captionof{figure}{Estructura de directorios de Arduino}
+\label{arduino_carpetas}
 \begin{description}
     \item \comando{examples}. El programa incluye algunos ejemplos que se pueden compilar y cargar sin modificarlos. 
     \item \comando{hardware}. En esta carpeta se guarda todo lo relacionado con el hardware, como su nombre indica. Aquí encontraremos la `toolchain' y las bibliotecas necesarias para la compilación y ensablado de los programas Arduino.
