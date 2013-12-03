@@ -1,6 +1,27 @@
 La programación en la plataforma arduino se hace mediante un entorno de desarrollo específico que podemos obtener a través de su página web. ChipKIT usa un entorno basado en el de Arduino, con algunas diferencias para poder compilar programas para PIC32 además de AVR.
 
-\subsection{\programa{Arduino} y \programa{MPIDE}}
+\subsection{\programa{Arduino}}
+% Wiring y processing
+% gcc
+% bibliotecas incluidas
+% Otros programas
+% Multiplataforma
+Para realizar proyectos en la plataforma Arduino es necesario disponer del entorno de desarrollo `Arduino IDE' que es posible encontrar en la página web de Arduino. Este programa está basado en Wiring\footnote{\url{http://wiring.org.co/}}, que a su vez nació a partir de Processing\footnote{\url{http://processing.org/}} por lo que el aspecto del mismo es prácticamente idéntico en todos ellos. Las diferencias radican en el funcionamiento interno. Arduino IDE tiene incluido todo lo necesario para poder escribir, compilar, ensablar, enlazar y cargar los programas a la placa Arduino por lo que el usuario solo debe abrir el IDE, escribir su programa y darle al botón de ejecución , el IDE se encargará de todo.
+
+Si accedemos a la carpeta de instalación de Arduino veremos diferentes subcarpetas, donde se guardan diferentes componentes necesarios para su funcionamiento.
+
+\begin{description}
+    \item \comando{examples}
+    \item \comando{hardware}
+    \item \comando{lib}
+    \item \comando{libraries}
+    \item \comando{reference}
+    \item \comando{tools}
+\end{description}
+
+\subsection{\programa{MPIDE}}
+% Igual que arduino
+% Gcc pic32
 \programa{MPIDE}\cite{website:mpide} es el IDE creado por Digilent para el entorno ChipKIT. Su diseño es idéntico al IDE de Arduino, variando solamente el color y el compilador usado.
 
 \figura{mpide.jpg}{scale=0.6}{\programa{MPIDE}}{mpide}{H} 
