@@ -68,7 +68,7 @@ En la carpeta \comando{hardware} encontramos otras dos carpetas: \comando{arduin
 
 \figura{mpide.jpg}{scale=0.6}{\programa{MPIDE}}{mpide}{H} 
 
-Si accedemos a la carpeta \comando{hardware} de este programa, encotramos otra carpeta además de \comando{arduino} y \comando{tools}: \comando{pic32}. La estructura es la misma que en la carpeta de Arduino. Aquí están todos las bibliotecas, firmwares y bootloaders para la plataforma chipKIT. También podemos encontrar aquí la `toolchain' \programa{GCC} para pic32.
+Si accedemos a la carpeta \comando{hardware} de este programa, encotramos otra carpeta además de \comando{arduino} y \comando{tools}: \comando{pic32}. La estructura es similar  que en la carpeta de Arduino. Aquí están todos las bibliotecas para la plataforma chipKIT. También podemos encontrar aquí la `toolchain' \programa{GCC} para pic32 en el directorio \comando{compiler}.
 
 \begin{figure}[H]
 \begin{center}
@@ -109,6 +109,8 @@ Si accedemos a la carpeta \comando{hardware} de este programa, encotramos otra c
 \end{figure}
 \captionof{figure}{Estructura de directorios de hardware en la carpeta de instalación de MPIDE}
 \label{mpide_carpetas}
+
+Estos entornos de desarrollo, tanto el de Arduino como el de chipKIT son sencillos de utilizar por su interfaz simple, pero carecen de muchas características de otros entornos como podrían ser Eclipse o incluso Vim con plugins. El editor no dispone de autocompletado ni de comando especiales para moverse por el archivo. Para configurar alguna opción, como la fuente empleada o su tamaño hay que recurrir a editar el archivo de configuración directamente.
 
 Al igual que el entorno de Arduino, no es posible depurar programas, para eso usaremos \programa{MPLAB X}. También dispone de un monitor para el puerto serie, con el que podemos leer lo que el microcontrolador envía a través de este puerto y enviar información al microcontrolador.
 
