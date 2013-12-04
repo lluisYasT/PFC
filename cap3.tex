@@ -70,7 +70,7 @@ En la carpeta \comando{hardware} encontramos otras dos carpetas: \comando{arduin
 
 Si accedemos a la carpeta \comando{hardware} de este programa, encotramos otra carpeta además de \comando{arduino} y \comando{tools}: \comando{pic32}. La estructura es similar  que en la carpeta de Arduino. Aquí están todos las bibliotecas para la plataforma chipKIT. También podemos encontrar aquí la `toolchain' \programa{GCC} para pic32 en el directorio \comando{compiler}.
 
-\begin{figure}[H]
+\begin{figure}
 \begin{center}
 \tikzstyle{every node}=[draw=black,thick,anchor=west]
 \tikzstyle{selected}=[draw=red,fill=red!30]
@@ -106,17 +106,19 @@ Si accedemos a la carpeta \comando{hardware} de este programa, encotramos otra c
 		child [missing] {};
 \end{tikzpicture}
 \end{center}
-\end{figure}
-\captionof{figure}{Estructura de directorios de hardware en la carpeta de instalación de MPIDE}
+\caption{Estructura de directorios de hardware en la carpeta de instalación de MPIDE}
 \label{mpide_carpetas}
+\end{figure}
 
 Estos entornos de desarrollo, tanto el de Arduino como el de chipKIT son sencillos de utilizar por su interfaz simple, pero carecen de muchas características de otros entornos como podrían ser Eclipse o incluso Vim con plugins. El editor no dispone de autocompletado ni de comando especiales para moverse por el archivo. Para configurar alguna opción, como la fuente empleada o su tamaño hay que recurrir a editar el archivo de configuración directamente.
 
-Al igual que el entorno de Arduino, no es posible depurar programas, para eso usaremos \programa{MPLAB X}. También dispone de un monitor para el puerto serie, con el que podemos leer lo que el microcontrolador envía a través de este puerto y enviar información al microcontrolador.
+Al igual que el entorno de Arduino, no es posible depurar programas.  No se puede hacer una ejecución paso a paso, ver el código ensablador producido o ver el contenido de la memoria y su estado.  Si queremos depurar el programa de forma rudimentaria es necesario, por ejemplo, envíar por el puerto serie los valores de las variables que queramos controlar o mensajes cuando algo no funciona como debe. Tampoco muestra por defecto el proceso que sigue para compilar el programa.
+
+En definitiva, ambos programas están pensados para proporcinar un entorno sencillo accesible para todo tipo de usuarios.
 
 \section{\programa{MPLAB X}} 
 \programa{MPLAB X}\cite{website:mplab} es la última versión del entorno de desarrollo integrado de Microchip. A diferencia de
-\programa{MPIDE}, este programa es un IDE completo, basado en Netbeans. Está pensado para ser utilizado con toda su gama de microcontroladores y, con la ayuda de un depurador/programador como el chipKIT PGM podremos depurar nuestros programas. Si queremos, también podemos usar los productos chipKIT como cualquier otro microcontrolador de Microchip, escribiendo los programas en este IDE y compilándolos con el compilador que tiene Microchip disponible en su página web, C32\cite{website:c32}. 
+\programa{MPIDE}, este programa es un IDE completo, basado en Netbeans.  Está pensado para ser utilizado con toda su gama de microcontroladores y, con la ayuda de un depurador/programador como el chipKIT PGM podremos depurar nuestros programas.  Si queremos, también podemos usar los productos chipKIT como cualquier otro microcontrolador de Microchip, escribiendo los programas en este IDE y compilándolos con el compilador que tiene Microchip disponible en su página web, C32\cite{website:c32}.  Otra alternativa es compilar el programa usando MPIDE y cargarlo a través de \programa{MPLAB X} con la ayuda del chipKIT PGM o Microchip Pickit.
 \figura{mplab.jpg}{scale=0.35}{MPLABX Depurando}{mplab}{H}
 
 Como se aprecia en la Figura \ref{mplab} \programa{MPLAB X} nos ofrece mucha más información y posibilidades que \programa{MPIDE}. En esta figura vemos a \programa{MPLAB X} en mitad de la depuración del programa Blink, que fue compilado usando \programa{MPIDE}.
