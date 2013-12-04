@@ -67,7 +67,48 @@ En la carpeta \comando{hardware} encontramos otras dos carpetas: \comando{arduin
 \programa{MPIDE}\cite{website:mpide} es el IDE creado por Digilent para el entorno ChipKIT. Su diseño es idéntico al IDE de Arduino, variando solamente el color y el compilador usado.
 
 \figura{mpide.jpg}{scale=0.6}{\programa{MPIDE}}{mpide}{H} 
-\programa{MPIDE} es un entorno de desarrollo sencillo y con unas características muy básicas y limitadas. Con él podremos escribir nuestro programa, compilarlo y cargarlo en nuestro microcontrolador sin necesidad de ninguna otra aplicación, siempre y cuando hayamos seleccionado el modelo adecuado y el puerto serie en las opciones del programa.
+
+Si accedemos a la carpeta \comando{hardware} de este programa, encotramos otra carpeta además de \comando{arduino} y \comando{tools}: \comando{pic32}. La estructura es la misma que en la carpeta de Arduino. Aquí están todos las bibliotecas, firmwares y bootloaders para la plataforma chipKIT. También podemos encontrar aquí la `toolchain' \programa{GCC} para pic32.
+
+\begin{figure}[H]
+\begin{center}
+\tikzstyle{every node}=[draw=black,thick,anchor=west]
+\tikzstyle{selected}=[draw=red,fill=red!30]
+\tikzstyle{optional}=[dashed,fill=gray!50]
+\begin{tikzpicture}[%
+  grow via three points={one child at (0.5,-0.7) and
+  two children at (0.5,-0.7) and (0.5,-1.4)},
+  edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+	\node{hardware}
+		child { node {arduino}
+			child { node {bootloaders}}
+			child { node {cores}}
+			child { node {firmwares}}
+			child { node {variants}}
+		}
+		child [missing] {}
+		child [missing] {}
+		child [missing] {}
+		child [missing] {}
+		child { node {pic32}
+			child { node {compiler}}
+			child { node {cores}}
+			child { node {libraries}}
+			child { node {variants}}
+		}
+		child [missing] {}
+		child [missing] {}
+		child [missing] {}
+		child [missing] {}
+		child { node {tools}
+			child { node {avr}}
+		}
+		child [missing] {};
+\end{tikzpicture}
+\end{center}
+\end{figure}
+\captionof{figure}{Estructura de directorios de hardware en la carpeta de instalación de MPIDE}
+\label{mpide_carpetas}
 
 Al igual que el entorno de Arduino, no es posible depurar programas, para eso usaremos \programa{MPLAB X}. También dispone de un monitor para el puerto serie, con el que podemos leer lo que el microcontrolador envía a través de este puerto y enviar información al microcontrolador.
 
