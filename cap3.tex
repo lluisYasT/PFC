@@ -52,11 +52,11 @@ Si accedemos a la carpeta de instalación de Arduino veremos diferentes subcarpe
 \captionof{figure}{Estructura de directorios de Arduino}
 \label{arduino_carpetas}
 \begin{description}
-    \item \comando{examples}. El programa incluye algunos ejemplos que se pueden compilar y cargar sin modificarlos. 
-    \item \comando{hardware}. En esta carpeta se guarda todo lo relacionado con el hardware, como su nombre indica. Aquí encontraremos la `toolchain' y las bibliotecas necesarias para la compilación y ensablado de los programas Arduino.
-    \item \comando{lib}. Contiene bibliotecas Java para el funcionamiento del entorno de desarrollo.
-    \item \comando{libraries}. El IDE incluye algunas bibliotecas de terceros que se pueden incluir en nuestros proyectos.
-    \item \comando{reference}. Contiene toda la documentación.
+    \item[\comando{examples}] El programa incluye algunos ejemplos que se pueden compilar y cargar sin modificarlos. 
+    \item[\comando{hardware}] En esta carpeta se guarda todo lo relacionado con el hardware, como su nombre indica. Aquí encontraremos la `toolchain' y las bibliotecas necesarias para la compilación y ensablado de los programas Arduino.
+    \item[\comando{lib}] Contiene bibliotecas Java para el funcionamiento del entorno de desarrollo.
+			\item[\comando{libraries}] El IDE incluye algunas bibliotecas de terceros que se pueden incluir en nuestros proyectos.
+			\item[\comando{reference}] Contiene toda la documentación.
 \end{description}
 
 En la carpeta \comando{hardware} encontramos otras dos carpetas: \comando{arduino} y \comando{tools}.  La primera contiene bootloaders, firmwares, la biblioteca `core' y, en el directorio \comando{variants}, en la que están los archivos de cabecera de cada placa microcontroladora en el que se especifica la posición de cada periférico y pin según el microcontrolador.  En \comando{tools} está avrdude (utilidad para cargar los programas en la placa) y su archivo de configuración junto con la `toolchain' \programa{GCC} para realizar la compilación cruzada de los programas.
