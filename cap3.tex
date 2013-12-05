@@ -175,13 +175,15 @@ int main(void) {
 \end{lstlisting}
 
 \subsection{Sketch}
-Los programas que escribimos usando \programa{MPIDE} (o el IDE de Arduino) se llaman sketches. En realidad, no escribimos un programa completo porque, como acabamos de ver, el programa en sí ya está escrito en la biblioteca Core. Nuestro objetivo es implementar dos funciones: \comando{setup()} y \comando{loop()}, que ya están declaradas en el archivo de cabecera wiring.h.\\
+Los programas que escribimos usando \programa{MPIDE} (o el IDE de Arduino) se llaman sketches. En realidad, no escribimos un programa completo porque, como acabamos de ver, el programa en sí ya está escrito en la biblioteca Core. Nuestro objetivo es implementar dos funciones: \comando{setup()} y \comando{loop()}, que ya están declaradas en el archivo de cabecera wiring.h.
+
 \begin{lstlisting}[caption=Sección de wiring.h]
 void setup(void);
 void loop(void);
 \end{lstlisting}
 
-Como se puede apreciar en la declaración de ambas funciones, estas no esperan ni devuelven ningún valor.\\
+Como se puede apreciar en la declaración de ambas funciones, estas no esperan ni devuelven ningún valor.
+
 \lstinputlisting[language=C++, caption=Sketch básico ("BareMinimum.pde")]{codigo_fuente/BareMinimum.pde}
 En \comando{setup()} colocaremos el código para la inicialización de nuestro programa. Es el lugar donde podemos configurar el puerto serie, por ejemplo, o definir como se comportarán los pines (entrada o salida), entre otras cosas. En definitiva, es el lugar donde debemos colocar el código que queramos que se ejecuta una vez al inicio del programa y que no vuelva a ejecutarse más.\\
 En \comando{loop()} pondremos el código que se ejecutara de forma cíclica indefinidamente ya que, como podemos observar en main.cpp, la función \comando{loop()} se encuentra dentro de un bucle infinito.\\
@@ -189,7 +191,7 @@ En \comando{loop()} pondremos el código que se ejecutara de forma cíclica inde
 Veamos como ejemplo el sketch Blink:
 \lstinputlisting[language=C++, caption=Blink.pde, label=code:blink]{codigo_fuente/Blink.pde}
 
-En este sketch utilizamos las funciones de Arduino pinMode,digitalWrite y delay. En la función \comando{setup()} inicializamos el puerto al que está conectado el LED como una salida\protect\footnote{PIN\_LED1 está definido en el archivo de cabecera Board\_Defs.h que depende del modelo de microcontrolador que estemos usando}, mientras que en \comando{loop()} encendemos y apagamos el LED con retardos de un segundo.
+En este sketch utilizamos las funciones de Arduino \comando{pinMode},\comando{digitalWrite} y \comando{delay}. En la función \comando{setup()} inicializamos el puerto al que está conectado el LED como una salida\protect\footnote{PIN\_LED1 está definido en el archivo de cabecera Board\_Defs.h que depende del modelo de microcontrolador que estemos usando. Generalmente este es el LED que se encuentra en la propia placa, conectado al pin 13.}, mientras que en \comando{loop()} encendemos y apagamos el LED con retardos de un segundo.
 
 \subsection{Bibliotecas de terceros}
 A parte del código de Arduino y del que creemos nosotros, también es posible añadir bibliotecas de terceros. Gracias a la amplia comunidad detrás de Arduino podemos encontrar cientos de ellas. A la hora de usar una biblioteca de Arduino en ChipKIT tendremos que asegurarnos de que no haga uso de funciones específicas de los procesadores Atmel que encontramos en las placas Arduino, ya que no funcionarán en PIC32.\\
@@ -224,15 +226,18 @@ El archivo \comando{preferences.txt} contiene toda la configuración de MPIDE a 
 preproc.save_build_files=false
 \end{lstlisting}
 
-Cambiando el valor a \comando{true} \programa{MPIDE} guardará los archivos temporales de la compilación.\\
-Para ver como funciona el proceso de compilación en \programa{MPIDE} usaremos el sketch Blink (\ref{code:blink}).\\
-Para ver que se ejecuta cuando compilamos nuestro programa en \programa{MPIDE} podemos mantaner pulsado la tecla \comando{Mayus} mientras pulsamos el botón de compilar. De esta forma \programa{MPIDE} nos mostrará todos los comandos que ejecute, en el terminal.
+Cambiando el valor a \comando{true} \programa{MPIDE} guardará los archivos temporales de la compilación.
+
+Para ver como funciona el proceso de compilación en \programa{MPIDE} usaremos el sketch Blink (\ref{code:blink}).
+
+Para poder observar las acciones que lleva acabo \programa{MPIDE} durante la compilación del programa podemos mantaner apretada la tecla \comando{Mayus} mientras pulsamos el botón de compilar. De esta forma \programa{MPIDE} nos mostrará todos los comandos que ejecute, en el terminal.
 
 \figura{mpide_compilado.jpg}{scale=0.6}{MPIDE después de compilar}{mpide_compilado}{H}
 
-El proceso completo de compilación (lo que se muestra en el terminal) está en el Apéndice \ref{chap:apendice1}\\
+El proceso completo de compilación (lo que se muestra en el terminal) está en el Apéndice \ref{chap:apendice1}.
 
-Veamos que pasos sigue \programa{MPIDE} durante la compilación y ensamblado de nuestro programa:
+\programa{MPIDE}
+
 \begin{enumerate}
     \item MPIDE comienza copiando nuestro sketch y las bibliotecas que hayamos incluído a una carpeta temporal en la que se realizará el proceso de compilación y ensamblado.
     \item Añade al sketch la extensión `.cpp' para compilarlo. Además, si hemos escrito alguna función a parte de \comando{loop()} y \comando{setup()} se encargará de declararla por nosotros e incluirá el archivo de cabecera \programa{WProgram.h}.
@@ -318,13 +323,13 @@ La estructura de la plantilla es la siguiente:
 
 Función de cada carpeta:
 \begin{description}
-	\item[bin] Aquí se guardará el programa compilado y enlazado. En esta carpeta estará el archivo final con extensión `.hex' que será el que carguemos en la placa.
-	\item[lib] Aquí se colocarán las bibliotecas de terceros de la misma forma que en MPIDE: copiando la carpeta de la biblioteca en este directorio. Usando el archivo Makefile compilaremos todas las bibliotecas y luego las enlazaremos con nuestro programa y la biblioteca core.
-	\item[src] Aquí estará el código fuente del programa que hayamos creado. Será el lugar en el que se encuentre el archivo de código fuente \programa{sketch.cpp} que contiene las definiciones de las funciones \comando{setup()} y \comando{loop()}. Además, si necesitamos crear nuestras propias bibliotecas (archivos .h + .c o .cpp) podemos crearlos tanto en esta carpeta o en \programa{lib}.
+	\item[src] Aquí estará el código fuente del programa que hayamos creado. Será el lugar en el que se encuentre el archivo de código fuente \programa{sketch.cpp} que contiene las definiciones de las funciones \comando{setup()} y \comando{loop()}. Además, si necesitamos crear nuestras propias bibliotecas (archivos .h junto con su correspondiente archivo .c o .cpp) podemos crearlos tanto en esta carpeta o en \programa{lib}.
+	\item[lib] Las bibliotecas de terceros se deben copiar a esta carpeta. Usando el archivo Makefile compilaremos todas las bibliotecas y luego las enlazaremos con nuestro programa y la biblioteca core.
+	\item[bin] Una vez el programa es enlazado, el arhivo con extensión `.elf' se guardará en esta carpeta. También se generará ahí el archivo final `.hex' que será el que se cargue en la placa microcontroladora.
 \end{description}
 
 Tanto en la carpeta principal como en \programa{core} tendremos un archivo Makefile para la automatización de los procesos de compilación, ensamblado y posterior carga de nuestro programa.\\
-El Makefile principal\ref{chap:apendice2} se encarga de compilar, enlazar y comprimir la biblioteca core en el archivo \programa{core.a} usando el Makefile que se encuentra dentro de esa carpeta y luego compila todos los archivos en la carpeta \programa{lib} y la carpeta{src}. Una vez enlazado podemos usar la orden \comando{make load} para cargar el programa en la placa.
+El Makefile se encarga de compilar, enlazar y empaquetar la biblioteca core en el archivo \programa{core.a} y luego compila todos los archivos en la carpeta \programa{lib} y la carpeta{src}. Una vez enlazado podemos usar la orden \comando{make load} para cargar el programa en la placa.
 
 % Analicemos el funcionamiento de nuestro Makefile:\\
 % \lstinputlisting[language=make, firstline=1, lastline=13, breaklines=true]{codigo_fuente/Makefile_principal}
