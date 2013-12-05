@@ -48,9 +48,10 @@ Si accedemos a la carpeta de instalación de Arduino veremos diferentes subcarpe
 		child { node { reference}};
 \end{tikzpicture}
 \end{center}
-\end{figure}
-\captionof{figure}{Estructura de directorios de Arduino}
+\caption{Estructura de directorios de Arduino}
 \label{arduino_carpetas}
+\end{figure}
+
 \begin{description}
     \item[\comando{examples}] El programa incluye algunos ejemplos que se pueden compilar y cargar sin modificarlos. 
     \item[\comando{hardware}] En esta carpeta se guarda todo lo relacionado con el hardware, como su nombre indica. Aquí encontraremos la `toolchain' y las bibliotecas necesarias para la compilación y ensablado de los programas Arduino.
@@ -236,10 +237,12 @@ Para poder observar las acciones que lleva acabo \programa{MPIDE} durante la com
 
 El proceso completo de compilación (lo que se muestra en el terminal) está en el Apéndice \ref{chap:apendice1}.
 
-\programa{MPIDE}
+\programa{MPIDE} comienza copiando nuestro sketch y las bibliotecas que hayamos incluído a una carpeta temporal en la que se realizará el proceso de compilación y ensamblado. Antes de comenzar la compilación, se cambia la extensión del sketch de `.pde'\footnote{En las últimas versiones de Arduino sería `.ino'.} a `.cpp'. Este archivo se escanea en busca de funciones y las que se encuentren (en \programa{MPIDE} se puede definir funciones sin declarlas) son declaradas al inicio del archivo de forma automática, junto con \verb|#include<WProgram.h>|. Esta declaración automática de funciones puede ocasionar errores durante la compilación si usamos una función que reciba un parámetro cuyo tipo sea uno creado con una declaración \verb|typedef| al comienzo del archivo, ya que esta función se declarará antes que el parámetro y ocasionará un error de compilación.
+
+Utilizando \comando{pic32-g++} se compila el sketch (con extensión `.cpp') a un archivo objeto `.o'. A continuación compila y, con \comando{pic32-ar} empaqueta en el archivo \comando{core.a} la biblioteca `Core', es decir, los archivos que se encuentran en la subcarpeta \verb|hardware/pic32/cores| en el direcotorio de instalación de \programa{MPIDE} de esta forma se facilita su manejo más adelante al ser muchos archivos. Si se han utilizado librerías de terceros se compilan.
 
 \begin{enumerate}
-    \item MPIDE comienza copiando nuestro sketch y las bibliotecas que hayamos incluído a una carpeta temporal en la que se realizará el proceso de compilación y ensamblado.
+    \item MPIDE 
     \item Añade al sketch la extensión `.cpp' para compilarlo. Además, si hemos escrito alguna función a parte de \comando{loop()} y \comando{setup()} se encargará de declararla por nosotros e incluirá el archivo de cabecera \programa{WProgram.h}.
     \item Compila, usando \programa{pic32-g++} (sin enlazar) Blink.cpp (este archivo es una copia de nuestro sketch, Blink.pde).
     \item Compila y comprime la biblioteca ``Core'' usando \programa{pic32-g++} (o \programa{pic32-gcc} según el caso) y \programa{pic32-ar}.
