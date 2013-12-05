@@ -237,23 +237,15 @@ Para poder observar las acciones que lleva acabo \programa{MPIDE} durante la com
 
 El proceso completo de compilación (lo que se muestra en el terminal) está en el Apéndice \ref{chap:apendice1}.
 
-\programa{MPIDE} comienza copiando nuestro sketch y las bibliotecas que hayamos incluído a una carpeta temporal en la que se realizará el proceso de compilación y ensamblado. Antes de comenzar la compilación, se cambia la extensión del sketch de `.pde'\footnote{En las últimas versiones de Arduino sería `.ino'.} a `.cpp'. Este archivo se escanea en busca de funciones y las que se encuentren (en \programa{MPIDE} se puede definir funciones sin declarlas) son declaradas al inicio del archivo de forma automática, junto con \verb|#include<WProgram.h>|. Esta declaración automática de funciones puede ocasionar errores durante la compilación si usamos una función que reciba un parámetro cuyo tipo sea uno creado con una declaración \verb|typedef| al comienzo del archivo, ya que esta función se declarará antes que el parámetro y ocasionará un error de compilación.
+\programa{MPIDE} comienza copiando nuestro sketch y las bibliotecas que hayamos incluído a una carpeta temporal en la que se realizará el proceso de compilación y ensamblado. Antes de comenzar la compilación, se cambia la extensión del sketch de `.pde'\footnote{En las últimas versiones de Arduino sería `.ino'.} a `.cpp'. Este archivo se escanea en busca de funciones y las que se encuentren (en \programa{MPIDE} se puede definir funciones sin declarlas) son declaradas al inicio del archivo de forma automática, incluyendo \comando{setup()} y \comando{loop()} a pesar de estar ya declaradas en el archivo \comando{main.cpp}, junto con \verb|#include<WProgram.h>|. Esta declaración automática de funciones puede ocasionar errores durante la compilación si usamos una función que reciba un parámetro cuyo tipo sea uno creado con una declaración \verb|typedef| al comienzo del archivo, ya que esta función se declarará antes que el parámetro y ocasionará un error de compilación.
 
-Utilizando \comando{pic32-g++} se compila el sketch (con extensión `.cpp') a un archivo objeto `.o'. A continuación compila y, con \comando{pic32-ar} empaqueta en el archivo \comando{core.a} la biblioteca `Core', es decir, los archivos que se encuentran en la subcarpeta \verb|hardware/pic32/cores| en el direcotorio de instalación de \programa{MPIDE} de esta forma se facilita su manejo más adelante al ser muchos archivos. Si se han utilizado librerías de terceros se compilan.
+Utilizando \comando{pic32-g++} se compila el sketch (con extensión `.cpp') a un archivo objeto `.o'. A continuación compila y, con \comando{pic32-ar} empaqueta en el archivo \comando{core.a} la biblioteca `Core', es decir, los archivos que se encuentran en la subcarpeta \verb|hardware/pic32/cores| en el direcotorio de instalación de \programa{MPIDE} de esta forma se facilita su manejo más adelante al ser muchos archivos. Si se han utilizado librerías de terceros se compilan. A continuación se enlazan todos los programas objeto produciendo un archivo ejecutable con extensión `.elf'. Para realizar el enlazado se pasa como parámetro al comando dos scripts de enlazado: uno cómun a todas las placas de la misma familia (\comando{chipKIT-application-common} y otroque depende de la placa microcontroladora a la que vaya destinado, en el caso de chipKIT Max32 es \comando{chipKIT-application-32MX795F512.ld}.
 
-\begin{enumerate}
-    \item MPIDE 
-    \item Añade al sketch la extensión `.cpp' para compilarlo. Además, si hemos escrito alguna función a parte de \comando{loop()} y \comando{setup()} se encargará de declararla por nosotros e incluirá el archivo de cabecera \programa{WProgram.h}.
-    \item Compila, usando \programa{pic32-g++} (sin enlazar) Blink.cpp (este archivo es una copia de nuestro sketch, Blink.pde).
-    \item Compila y comprime la biblioteca ``Core'' usando \programa{pic32-g++} (o \programa{pic32-gcc} según el caso) y \programa{pic32-ar}.
-    \item Enlaza el programa usando un script de enlazado común a todos las diferentes placas chipKIT: ``chipKIT-application-COMMON.ld'', y uno específico para cada microcontrolador. En nuestro caso usa ``chipKIT-application-32MX795F12.ld''.
-\end{enumerate}
 
-\subsection{Parámetros de compilación}
-\programa{MPIDE} utiliza diferentes parámetros a la hora de la compilación y posterior enlazado. Veamos cuales son:\\
+\programa{MPIDE} utiliza diferentes parámetros a la hora de la compilación y posterior enlazado, comunes a todos los archivos de código fuente, ya sean de la biblioteca `Core' o el sketch. Veamos cuales son:
 
 \begin{itemize}
-    \item \negrita{-ON}. Nivel de optimización. El valor ``N'' varía entre 0 y 3 para optimizaciones generales. Si su valor es ``s'' optimizamos para reducir el espacio que ocupa el programa.
+    \item \negrita{-ON}. Nivel de optimización. El valor ``N'' varía entre 0 y 3 para optimizaciones generales. Si su valor es ``s'' optimizamos para reducir el espacio que ocupa el programa. Por defecto el nivel de optimización es 2.
     \item \negrita{-mno-smart-io}. Esta opción deshabilita el análisis estadístico de las cadenas con format que son pasadas a \comando{printf} o \comando{scanf} y a las variaciones `f' y `v' de estas funciones.
     \item \negrita{-w}. Esta opción deshabilitia todos los mensajes de advertencia.
     \item \negrita{-fno-exceptions}. Esta opción deshabilita el manejo de excepciones.
@@ -289,13 +281,11 @@ pic32-objcopy -O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-cha
 pic32-bin2hex -a sketch.elf
 \end{lstlisting}
 
-El resultado de ejecutar estos dos comandos es el archivo ``sketch.hex'' que ya podrá ser cargado al microcontrolador.
+El resultado de ejecutar estos dos comandos es el archivo \comando{sketch.hex} que ya podrá ser cargado al microcontrolador.
 Para este último paso será necesario usar el programa \programa{avrdude}, bien el que viene incluido con \programa{MPIDE} o el que tengamos instalado en nuestro sistema.
 \begin{lstlisting}[breaklines=true]
 avrdude -C[Directorio MPIDE]/hardware/tools/avrdude.conf -c stk500v2 -p pic32 -P /dev/ttyUSB0 -b 115200 -v -U
 \end{lstlisting}\protect\footnote{/dev/ttyUSB0 es el puerto serie en el que se encuentra el microcontrolador. Puede cambiar según el sistema o el número de dispositivos serie conectados.}
-
-\newpage
 
 \section{Alternativa a \programa{MPIDE}}
 
