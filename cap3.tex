@@ -196,7 +196,7 @@ En este sketch utilizamos las funciones de Arduino \comando{pinMode},\comando{di
 
 \subsection{Bibliotecas de terceros}
 A parte del código de Arduino y del que creemos nosotros, también es posible añadir bibliotecas de terceros. Gracias a la amplia comunidad detrás de Arduino podemos encontrar cientos de ellas. A la hora de usar una biblioteca de Arduino en ChipKIT tendremos que asegurarnos de que no haga uso de funciones específicas de los procesadores Atmel que encontramos en las placas Arduino, ya que no funcionarán en PIC32.\\
-Cuando trabajamos con \programa{MPIDE} podemos encontrar las bibliotecas en dos sitios diferentes. \programa{MPIDE} tiene incluidas varias bibliotecas que podemos encontrar en el directorio ``libraries'' dentro de la carpeta en la que esté instalado \programa{MPIDE}. A parte de estas bibliotecas podemos instalar bibliotecas que descarguemos de Internet o que creemos nosotros dentro de la carpeta ``libraries'' en el directorio ``sketchbook''\protect\footnote{La carpeta ``libraries'' no existe. Es neciesario crearla dentro del directorio ``sketchbook''.} que \programa{MPIDE} habrá creado la primera vez que lo ejecutemos.\\
+Cuando trabajamos con \programa{MPIDE} podemos encontrar las bibliotecas en dos sitios diferentes. \programa{MPIDE} tiene incluidas varias bibliotecas que podemos encontrar en el directorio ``libraries'' dentro de la carpeta en la que esté instalado \programa{MPIDE}. A parte de estas bibliotecas podemos instalar bibliotecas que descarguemos de Internet o que creemos nosotros dentro de la carpeta ``libraries'' en el directorio \comando{sketchbook}\protect\footnote{La carpeta ``libraries'' no existe. Es neciesario crearla dentro del directorio \comando{sketchbook}.} que \programa{MPIDE} habrá creado la primera vez que lo ejecutemos.\\
 Con las bibliotecas instaladas en uno de los dos directorios podremos añadirlas a nuestro programa de dos formas diferentes. Podemos añadirlas usando el menú de MPIDE, pudiéndolas encontrar en \comando{Sketch > Import Library}. También es posible usar la directiva \comando{\#include <[Archivo De Cabezera].h>} como haríamos en cualquier programa escrito en C/C++. \programa{MPIDE} se encargará de compilar las bibliotecas y enlazarlas con nuestro programa.
 
 \section{Proceso de compilación de \programa{MPIDE}}
@@ -245,15 +245,15 @@ Utilizando \comando{pic32-g++} se compila el sketch (con extensión `.cpp') a un
 \programa{MPIDE} utiliza diferentes parámetros a la hora de la compilación y posterior enlazado, comunes a todos los archivos de código fuente, ya sean de la biblioteca `Core' o el sketch. Veamos cuales son:
 
 \begin{itemize}
-    \item \negrita{-ON}. Nivel de optimización. El valor ``N'' varía entre 0 y 3 para optimizaciones generales. Si su valor es ``s'' optimizamos para reducir el espacio que ocupa el programa. Por defecto el nivel de optimización es 2.
-    \item \negrita{-mno-smart-io}. Esta opción deshabilita el análisis estadístico de las cadenas con format que son pasadas a \comando{printf} o \comando{scanf} y a las variaciones `f' y `v' de estas funciones.
+    \item \negrita{-ON}. Nivel de optimización. El valor ``N'' varía entre 0 y 3 para optimizaciones generales. Si su valor es ``s'' optimizamos para reducir el espacio que ocupa el programa. Por defecto el nivel de optimización que utiliza \programa{MPIDE} es 2.
+    \item \negrita{-mno-smart-io}. Esta opción deshabilita el análisis estadístico de las cadenas con formato que son pasadas a \comando{printf} o \comando{scanf} y a las variaciones `f' y `v' de estas funciones.
     \item \negrita{-w}. Esta opción deshabilitia todos los mensajes de advertencia.
     \item \negrita{-fno-exceptions}. Esta opción deshabilita el manejo de excepciones.
     \item \negrita{-ffunction-sections}. Con esta opción cada función se coloca en su propia sección en el archivo de salida.
     \item \negrita{-fdata-sections}.Con esta opción cada dato se coloca en su propia sección en el archivo de salida.
-    \item \negrita{-g}. Produce información para la depuración
-    \item \negrita{-mdebugger}. Esta opción define el símbolo ``\_DEBUGGER'', lo que reservara espacio en una sección del archivo de salida (.DBG\_EXCPT) para los vectores de excepción de depuración.
-    \item \negrita{-Wcast-align}. Está opción hace que el compilador lance una advertencia cuando a un puntero se le ha hecho un cast. Por ejemplo, advierte si \comando{const char *} se convierte en \comando{int *}.
+    \item \negrita{-g}. Produce información para la depuración.
+    \item \negrita{-mdebugger}. Esta opción define el símbolo `\_DEBUGGER', lo que reservara espacio en una sección del archivo de salida (.DBG\_EXCPT) para los vectores de excepción de depuración.
+    \item \negrita{-Wcast-align}. Está opción hace que el compilador lance una advertencia cuando a un puntero se le ha hecho un cast, es decir, si cambia el tipo de dato al que estaba apuntando a uno que requiera un tamaño de alineamiento mayor. Por ejemplo, advierte si \comando{char *} se convierte en \comando{int *} en máquinas donde solo se puede acceder a datos de tipo\comando{int} cada dos o cuatro palabras.
     \item \negrita{-fno-short-double}. Esta opción hace que el tipo de variable \comando{double} sea equivalente a \comando{long double} en vez de a \comando{float}, que es la opción por defecto.
     \item \negrita{-mprocessor=?}. Esta opción indica al compilador cual es el procesador objetivo. En nuestro caso particular se trata de ``32MX795F512L''.
     \item Definiciones de macros para el preprocesador.
@@ -267,15 +267,15 @@ Utilizando \comando{pic32-g++} se compila el sketch (con extensión `.cpp') a un
     \item Parámetros de enlazado:
         \begin{itemize}
             \item \negrita{-Os}. Optimizamos para espacio.
-            \item \negrita{-Wl,--gc-sections}. Usando ``-Wl'' pasamos opciones al enlazador, separadas por comas. En este caso pasamos la opción ``--gc-sections'' que sirve para eliminar todo el código y datos que vayan a ser usados por el programa final.
+            \item \negrita{-Wl,--gc-sections}. Usando ``-Wl'' pasamos opciones al enlazador, separadas por comas. En este caso pasamos la opción ``--gc-sections'' que sirve para eliminar todo el código y datos que no vayan a ser usados por el programa final y, que por lo tanto no es necesario que se encuentren en él. De esta forma se reduce el tamaño del programa final.
             \item \negrita{-mdebugger}. Misma opción que antes.
             \item \negrita{-mprocessor=?}. Misma opción que antes.
-            \item \negrita{-lm}. Enlaza la librería ``math'' que nos proporciona funciones matemáticas\protect\footnote{http://en.wikipedia.org/wiki/C\_mathematical\_functions}
-            \item \negrita{-T}. Con esta opción podemos especificar un script de enlazado. Se usa dos veces: Una para el script ``chipKIT-application-COMMON.ld'' y otra para ``chipKIT-application-32MX795F512.ld''.
+            \item \negrita{-lm}. Enlaza la biblioteca estándar \programa{math} que nos proporciona funciones matemáticas\protect\footnote{http://en.wikipedia.org/wiki/C\_mathematical\_functions}
+            \item \negrita{-T}. Con esta opción podemos especificar un script de enlazado. Se usa dos veces: Una para el script \comando{chipKIT-application-COMMON.ld} y otra para\\ \comando{chipKIT-application-32MX795F512.ld}.
         \end{itemize}
 \end{itemize}
 
-Una vez el programa está compilado y enlazado\protect\footnote{Suponemos que el nombre del archivo ejecutable es sketch.elf (como ejemplo)} es necesario generar el archivo ejecutable con extensión `.hex' que cargaremos en el microcontrolador. Esto lo consigue \programa{MPIDE} usando los programas \programa{pic32-objcopy} y \programa{pic32-bin2hex}.
+Una vez el programa está compilado y enlazado\protect\footnote{Suponemos que el nombre del archivo ejecutable es sketch.elf (como ejemplo).} es necesario generar el archivo ejecutable con extensión `.hex' que cargaremos en el microcontrolador. Esto lo consigue \programa{MPIDE} usando los programas \programa{pic32-objcopy} y \programa{pic32-bin2hex}.
 \begin{lstlisting}[breaklines=true]
 pic32-objcopy -O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-change-warnings --change-section-lma .eeprom=0 sketch.elf sketch.eep
 pic32-bin2hex -a sketch.elf
