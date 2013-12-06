@@ -1,16 +1,15 @@
 UNAME=$(shell uname)
 ifeq ($(UNAME),Darwin)
-	MPIDE:=/Applications/Mpide.app/Contents/Resources/Java
+	MPIDE=/Applications/Mpide.app/Contents/Resources/Java
 	AVRDUDE=$(MPIDE)/hardware/tools/avr/bin/avrdude
 	AVRDUDECONF=$(MPIDE)/hardware/tools/avr/etc/avrdude.conf
 	SERIAL_PORT=/dev/tty.usbserial-A6009W3L
 else
-	MPIDE:=/home/lluis/mpide
+	MPIDE=/home/lluis/mpide
 	AVRDUDE=$(MPIDE)/hardware/tools/avrdude
 	AVRDUDECONF=$(MPIDE)/hardware/tools/avrdude.conf
 	SERIAL_PORT=/dev/ttyUSB0
 endif
-export MPIDE
 TOOLCHAIN_PREFIX=$(MPIDE)/hardware/pic32/compiler/pic32-tools
 CC=$(TOOLCHAIN_PREFIX)/bin/pic32-gcc
 CXX=$(TOOLCHAIN_PREFIX)/bin/pic32-g++
@@ -18,28 +17,37 @@ AR=$(TOOLCHAIN_PREFIX)/bin/pic32-ar
 LD=$(CXX)
 OBJCPY=$(TOOLCHAIN_PREFIX)/bin/pic32-objcopy
 BIN2HEX=$(TOOLCHAIN_PREFIX)/bin/pic32-bin2hex
+CORE=$(MPIDE)/hardware/pic32/cores/pic32
+VARIANTS=$(MPIDE)/hardware/pic32/variants
 
 AVRDUDEFLAGS=-C$(AVRDUDECONF) -c stk500v2 -p pic32 -P $(SERIAL_PORT) -b 115200 -v -U
 
-CPUTYPE:=32MX795F512L
-export CPUTYPE
-VARIANT:=Max32
-export VARIANT
+CPUTYPE=32MX795F512L
+VARIANT=Max32
+BOARD=_BOARD_MEGA_
 
-LDSCRIPT_COMMON=core/chipKIT-application-COMMON.ld
-LDSCRIPT=core/chipKIT-application-32MX795F512.ld
+LDSCRIPT_COMMON=$(CORE)/chipKIT-application-COMMON.ld
+LDSCRIPT=$(CORE)/chipKIT-application-32MX795F512.ld
 
 LDFLAGS=-Os -Wl,--gc-sections -mdebugger -mprocessor=$(CPUTYPE)
 
 CFLAGS=-O2 -mno-smart-io -w -fno-exceptions -ffunction-sections -fdata-sections \
 			 -mdebugger -Wcast-align -fno-short-double -mprocessor=$(CPUTYPE) \
-			 -DF_CPU=80000000L -DARDUINO=23 -D_BOARD_MEGA_ -DMPIDEVER=0x01000305 \
-			 -DMPIDE=23 -Icore -Icore/variants/$(VARIANT) -Isrc
+			 -DF_CPU=80000000L -DARDUINO=23 -D$(BOARD) -DMPIDEVER=0x01000308 \
+			 -DMPIDE=23 -I$(CORE) -I$(VARIANTS)/$(VARIANT) -Isrc
 
 LIBS := $(sort ${dir ${wildcard ./lib/*/ ./lib/*/*/ ./lib/*/*/*/}})
 
 CFLAGS+=$(patsubst %,-I%,$(LIBS))
 
+CORE_C=$(wildcard $(CORE)/*.c) 
+CORE_CPP=$(wildcard $(CORE)/*.cpp)
+CORE_S=$(wildcard $(CORE)/*.S)
+
+CORE_TMPDIR=/tmp/core
+CORE_OBJ_C=$(patsubst $(CORE)/%.c,$(CORE_TMPDIR)/%.o,$(CORE_C))
+CORE_OBJ_CPP=$(patsubst $(CORE)/%.cpp,$(CORE_TMPDIR)/%.o,$(CORE_CPP))
+CORE_OBJ_S=$(patsubst $(CORE)/%.S,$(CORE_TMPDIR)/%.o,$(CORE_S))
 
 SRC_C=$(wildcard src/*.c) 
 SRC_CPP=$(wildcard src/*.cpp)
@@ -55,13 +63,23 @@ LIB_S=$(shell find lib/ -name "*.S")
 
 LIB_OBJ_C=$(patsubst %.c,%.o,$(LIB_C))
 LIB_OBJ_CPP=$(patsubst %.cpp,%.o,$(LIB_CPP))
-LIB_OBJ_S=$(patsubst %.S,%.o,$(LIB_C))
+LIB_OBJ_S=$(patsubst %.S,%.o,$(LIB_S))
 
-all: load
+all: link
 
-core/core.a:
-	$(MAKE) -C core
+$(CORE_TMPDIR)/%.o: $(CORE)/%.c
+	$(CC) $(CFLAGS) $< -o $@
 
+$(CORE_TMPDIR)/%.o: $(CORE)/%.S
+	@ mkdir -p $(CORE_TMPDIR)
+	$(CC) $(CFLAGS) $< -o $@
+
+$(CORE_TMPDIR)/%.o: $(CORE)/%.cpp
+	$(CXX) $(CFLAGS) $< -o $@
+
+core.a: $(CORE_OBJ_S) $(CORE_OBJ_C) $(CORE_OBJ_CPP)
+	$(AR) rcs core.a $(CORE_TMPDIR)/*.o
+	
 %.o: CFLAGS := -c -g $(CFLAGS)
 %.o: %.S
 	$(CXX) $(CFLAGS) $< -o $@
@@ -88,12 +106,12 @@ core/core.a:
 %.i: %.c
 	$(CXX) $(CFLAGS) $< -o $@
 
-link: core/core.a $(LIB_OBJ_CPP) $(LIB_OBJ_C) $(OBJ_S) $(OBJ_C) $(OBJ_CPP)
+link: core.a $(LIB_OBJ_CPP) $(LIB_OBJ_C) $(OBJ_S) $(OBJ_C) $(OBJ_CPP)
 	- @if [[ ! -d bin ]]; then mkdir bin; fi
-	$(LD) $(LDFLAGS) -o bin/main.elf $(OBJ_CPP) $(LIB_OBJ_CPP) $(LIB_OBJ_C) core/core.a -lm -T $(LDSCRIPT) -T$(LDSCRIPT_COMMON) 
+	$(LD) $(LDFLAGS) -o bin/main.elf $(OBJ_CPP) $(LIB_OBJ_CPP) $(LIB_OBJ_C) core.a -lm -T $(LDSCRIPT) -T$(LDSCRIPT_COMMON) 
 
-link_nobootloader: LDSCRIPT=core/chipKIT-MAX32-application-32MX795F512L-nobootloader.ld
-link_nobootloader: core/core.a $(LIB_OBJ_CPP) $(LIB_OBJ_C) $(OBJ_S) $(OBJ_C) $(OBJ_CPP)
+link_nobootloader: LDSCRIPT=$(CORE)/chipKIT-MAX32-application-32MX795F512L-nobootloader.ld
+link_nobootloader: core.a $(LIB_OBJ_CPP) $(LIB_OBJ_C) $(OBJ_S) $(OBJ_C) $(OBJ_CPP)
 	- @if [[ ! -d bin ]]; then mkdir bin; fi
 	$(LD) $(LDFLAGS) -o bin/main_nobootloader.elf $(OBJ_CPP) $(LIB_OBJ_CPP) $(LIB_OBJ_C) core/core.a -lm -T $(LDSCRIPT) 
 
@@ -108,6 +126,9 @@ load: hex
 .PHONY: clean
 clean:
 	-rm src/*.o
-	-rm bin/*
-	-rm $(shell find lib/ -name "*.o")
-	$(MAKE) -C core clean
+	-rm --recursive bin
+	- @ if [[ -e "$(LIB_OBJ_C)" ]]; then rm $(LIB_OBJ_C); fi
+	- @ if [[ -e "$(LIB_OBJ_CPP)" ]]; then rm $(LIB_OBJ_CPP); fi
+	- @ if [[ -e "$(LIB_OBJ_S)" ]]; then rm $(LIB_OBJ_S); fi
+	-rm core.a
+	-rm --recursive $(CORE_TMPDIR)
