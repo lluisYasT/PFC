@@ -291,9 +291,10 @@ avrdude -C[Directorio MPIDE]/hardware/tools/avrdude.conf -c stk500v2 -p pic32 -P
 
 Ya hemos visto como el IDE genera y carga el sketch. El problema de este método es que no es posible modificar el proceso de una manera sencilla para adaptarlo a un programa en particular. Es posible ejecutar cada uno de los comandos en un terminal y obtener el mismo resultado que con \programa{MPIDE} pero, aunque esto nos permitiría modificar cada parte del proceso, también lo haría largo y tedioso. Por suerte, hay un programa que nos permite automatizar todo el proceso, manteniendo la posibilidad de modificarlo dependiendo de las necesidades de cada proyecto. Se trata de \programa{GNU make}, un programa muy polivalente que nos permite automatizar multitud de tareas.\footnote{De hecho, con la ayuda de \programa{make} se genera esta memoria en formato PDF a partir de archivos escritos en \LaTeX.}
 
-De esta forma es posible usar el editor de textos que queramos para generar nuestro código (por ejemplo \programa{VIM}), modificar las opciones de compilación, enlazado y carga de una forma rápida y sencilla.Podemos cambiar las opciones de compilación y enlazado en \programa{MPIDE}, mediante la  modificación de un archivo de configuración del programa (\comando{platforms.txt}) pero estos cambios afectarían a todos los programas compilados con \programa{MPIDE} y es necesario reiniciar el programa para que tengan efecto. 
+De esta forma es posible usar el editor de textos que queramos para generar nuestro código (por ejemplo \programa{VIM} o \programa{emacs}), modificar las opciones de compilación, enlazado y carga de una forma rápida y sencilla.Podemos cambiar las opciones de compilación y enlazado en \programa{MPIDE}, mediante la  modificación de un archivo de configuración del programa (\comando{platforms.txt}) pero estos cambios afectarían a todos los programas compilados con \programa{MPIDE} y es necesario reiniciar el programa para que tengan efecto. 
 
-Para esto vamos a crear una carpeta a modo de plantilla para los proyectos que hagamos. Dentro de esta carpeta tendremos diferentes subdirectorios que serviran para almacenar diferentes tipos de archivos que necesita nuestro programa.\\
+Para esto vamos a crear una carpeta a modo de plantilla para los proyectos que hagamos. Dentro de esta carpeta tendremos diferentes subdirectorios que serviran para almacenar diferentes tipos de archivos que necesita nuestro programa.
+
 La estructura de la plantilla es la siguiente:
 
 \begin{figure}[H]
@@ -322,8 +323,7 @@ Función de cada carpeta:
 	\item[bin] Una vez el programa es enlazado, el arhivo con extensión `.elf' se guardará en esta carpeta. También se generará ahí el archivo final `.hex' que será el que se cargue en la placa microcontroladora.
 \end{description}
 
-Tanto en la carpeta principal como en \programa{core} tendremos un archivo Makefile para la automatización de los procesos de compilación, ensamblado y posterior carga de nuestro programa.\\
-El Makefile se encarga de compilar, enlazar y empaquetar la biblioteca core en el archivo \programa{core.a} y luego compila todos los archivos en la carpeta \programa{lib} y la carpeta{src}. Una vez enlazado podemos usar la orden \comando{make load} para cargar el programa en la placa.
+Para poder realizar todo el proceso con \programa{make} se necesita un archivo \comando{Makefile} en el que se describe como llevarlo acabo. \programa{make}, siguiendo las instrucciones que se encuentran en el \comando{Makefile} se encarga de compilar, enlazar y empaquetar la biblioteca core en el archivo \comando{core.a} y luego compila todos los archivos en la carpeta \comando{lib} y la carpeta{src}. Es decir, realiza las mismas operaciones que \programa{MPIDE} a excepción de la primera de ellas (Buscar funciones en el sketch).\footnote{En la plantilla he incluido un script escrito en Perl para realizar esta función.} Una vez enlazado podemos usar la orden \comando{make load} para cargar el programa en la placa.
 
 % Analicemos el funcionamiento de nuestro Makefile:\\
 % \lstinputlisting[language=make, firstline=1, lastline=13, breaklines=true]{codigo_fuente/Makefile_principal}
