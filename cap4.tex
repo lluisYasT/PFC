@@ -24,14 +24,15 @@ Durante la compilación es posible especificar, mediante la opción \comando{-O}
 \label{tab:optimizacionx}
 \end{table}
 
-Cada uno de estos niveles (a excepción de \comando{-Os}) añade una serie de optimizaciones sobre el nivel inicial \comando{-O0}.\\
-Veamos que optimizaciones lleva a cabo cada nivel. Esto podemos verlo usando el comando ``\comando{pic32-gcc -Ox -Q --help=optimizers | grep enabled}''.\\
-\newline
+Cada uno de estos niveles (a excepción de \comando{-Os}) añade una serie de optimizaciones sobre el nivel inicial \comando{-O0}.
+
+Para poder averiguar que optimizaciones lleva acabo el compilador dependiendo del nivel podemos emplear el comando \comando{pic32-gcc -Ox -Q --help=optimizers | grep enabled} sustituyendo \comando{x} por el nivel que queramos. Esta orden muestra todos las posibles optimizaciones, indicando si están habilitadas o no y para ver solo las habilitadas pasamos el resultado a \comando{grep} para filtrarlas.
+
 Optimizaciones del nivel 0:
 \begin{multicols}{2}
 \begin{itemize}[noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt]
 	\item -falign-loops
-	\item -fargumnt-alias
+	\item -fargument-alias
 	\item -fbranch-count-reg
 	\item -fcommon
 	\item -fdata-sections
@@ -76,6 +77,9 @@ Optimizaciones del nivel 0:
 	\item -fweb
 \end{itemize}
 \end{multicols}
+
+En el nivel más bajo, \programa{gcc} ya realiza optimizaciones. Todas las optimizaciones que comienzan con \comando{-ftree} acectan al árbol sintáctico que utiliza \programa{gcc} como representación interna del programa. También se puede observar como una de las optimizaciones que incluye este nivel es \comando{-fdata-sections} y a pesar de esto \programa{MPIDE} la incluye explícitamente cuando ejecuta la compilación.
+
 
 Optimizaciones que añade el nivel `O1' al nivel `O0':
 
