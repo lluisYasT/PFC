@@ -78,8 +78,7 @@ Optimizaciones del nivel 0:
 \end{itemize}
 \end{multicols}
 
-En el nivel más bajo, \programa{gcc} ya realiza optimizaciones. Todas las optimizaciones que comienzan con \comando{-ftree} acectan al árbol sintáctico que utiliza \programa{gcc} como representación interna del programa. También se puede observar como una de las optimizaciones que incluye este nivel es \comando{-fdata-sections} y a pesar de esto \programa{MPIDE} la incluye explícitamente cuando ejecuta la compilación.
-
+En el nivel más bajo, \programa{gcc} ya realiza optimizaciones. Todas las optimizaciones que comienzan con \comando{-ftree} acectan al árbol sintáctico que utiliza \programa{gcc} como representación interna del programa. También se puede observar como una de las optimizaciones que incluye este nivel es \comando{-fdata-sections} y a pesar de esto \programa{MPIDE} la incluye explícitamente cuando ejecuta la compilación. Otro grupo de optimizaciones que ya aparecen en este nivel son las que comienzan \comando{-fsched} que afectan a la reordenación de instrucciones (en ensamblador) para aprovechar lo mejor posible la segmentación de instrucciones del procesador evitando ciclos de espera.
 
 Optimizaciones que añade el nivel `O1' al nivel `O0':
 
