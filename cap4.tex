@@ -114,6 +114,7 @@ En el nivel 1 se añaden más optimizaciones que afectan al arbol sintáctico, s
 \label{optimizaciones2}
 \end{table}
 
+El nivel 2 incluye muchas más optimizaciones. En este nivel encontramos las optimizaciones \comando{-falign} que se encargan de alinear el comienzo de funciones, saltos y etiquetas (\comando{-falign-functions},\comando{-falign-jumps} y \comando{-falign-labels}. Su alineamiento en memoria supone una carga más rápida en detrimento del tamaño de la aplicación final, ya que se necesita añadir \comando{nop}s.
 
 \begin{table}[H]
 \begin{center}
