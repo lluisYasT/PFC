@@ -78,7 +78,7 @@ Optimizaciones del nivel 0:
 \end{itemize}
 \end{multicols}
 
-En el nivel más bajo, \programa{gcc} ya realiza optimizaciones. Todas las optimizaciones que comienzan con \comando{-ftree} acectan al árbol sintáctico que utiliza \programa{gcc} como representación interna del programa. También se puede observar como una de las optimizaciones que incluye este nivel es \comando{-fdata-sections} y a pesar de esto \programa{MPIDE} la incluye explícitamente cuando ejecuta la compilación. Otro grupo de optimizaciones que ya aparecen en este nivel son las que comienzan \comando{-fsched} que afectan a la reordenación de instrucciones (en ensamblador) para aprovechar lo mejor posible la segmentación de instrucciones del procesador evitando ciclos de espera.
+En el nivel más bajo, \programa{gcc} ya realiza optimizaciones. Todas las optimizaciones que comienzan con \comando{-ftree} afectan al árbol sintáctico que utiliza \programa{gcc} como representación interna del programa. También se puede observar como una de las optimizaciones que incluye este nivel es \comando{-fdata-sections} y a pesar de esto \programa{MPIDE} la incluye explícitamente cuando ejecuta la compilación. Otro grupo de optimizaciones que ya aparecen en este nivel son las que comienzan \comando{-fsched} que afectan a la reordenación de instrucciones (en ensamblador) para aprovechar lo mejor posible la segmentación de instrucciones del procesador evitando ciclos de espera.
 
 Optimizaciones que añade el nivel `O1' al nivel `O0':
 
@@ -109,6 +109,8 @@ Optimizaciones que añade el nivel `O1' al nivel `O0':
 	\item -ftree-ter
 \end{itemize}
 \end{multicols}
+
+En este nivel se añaden más optimizaciones que afectan al arbol sintáctico, suponiendo estas casi la mitad de las nuevas optimizaciones. \comando{-fif-conversion} y \comando{-fif-conversion2} tienen como obejtivo tratar de transformar secciones de código donde se usan saltos condicionales para que no los requieran, reduciendo de esta forma el número de instrucciones. También encontramos aquí \comando{-fdelayed-branch} que intentará reordenar las instrucciones para aprovechar el tiempo que se pierde durante saltos condicionales. Si se produce una instrucción de salto condicional, no es posible saber cual es la instrucción que se debe ejecutar después hasta que acabe, por lo que normalmente la siguiente instrucción suele ser un \comando{nop}. Si el procesador lo soporta, se mueve una de las instrucciones anteriores a la instrucción de salto que no tenga ninguna dependencia con esta, para aprovechar el hueco libre.
 
 Optimizaciones que añade el nivel `O2' al nivel `O1':
 
