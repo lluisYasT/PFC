@@ -1,3 +1,4 @@
+En este capítulo hablaré sobre los diferentes niveles de optimización que se pueden seleccionar durante la compilación y sus consecuencias en el programa final. Para ver dichas consecuencias se propondrá un programa que se ejecute en la placa microcontroladora y con el que se podrán medir los efectos de las optimizaciones. Por último se creará un programa que muestra las limitaciones de la biblioteca Arduino y que, además, está relacionado con las telecomunicaciones.
 \section{Niveles de optimización}
 Durante la compilación es posible especificar, mediante la opción \comando{-O} diferentes niveles de optimización. Estos niveles agrupan una serie de optimizaciones.
 
@@ -61,8 +62,7 @@ Para poder averiguar que optimizaciones lleva acabo el compilador dependiendo de
 \label{opt0}
 \end{table}
 
-En el nivel más bajo, \programa{gcc} ya realiza optimizaciones. Todas las optimizaciones que comienzan con \comando{-ftree} afectan al árbol sintáctico que utiliza \programa{gcc} como representación interna del programa. También se puede observar como una de las optimizaciones que incluye este nivel es \comando{-fdata-sections} y a pesar de esto \programa{MPIDE} la incluye explícitamente cuando ejecuta la compilación. Otro grupo de optimizaciones que ya aparecen en este nivel son las que comienzan \comando{-fsched} que afectan a la reordenación de instrucciones (en ensamblador) para aprovechar lo mejor posible la segmentación de instrucciones del procesador evitando ciclos de espera.
-
+En el nivel más bajo, \programa{gcc} ya realiza optimizaciones. Todas las optimizaciones que comienzan con \comando{-ftree} afectan al árbol sintáctico que utiliza \programa{gcc} como representación interna del programa. También se puede observar como una de las optimizaciones que incluye este nivel es \comando{-fdata-sections} y a pesar de esto \programa{MPIDE} la incluye explícitamente cuando ejecuta la compilación. Otro grupo de optimizaciones que ya aparecen en este nivel son las que comienzan \comando{-fsched} que afectan a la reordenación de instrucciones (en ensamblador) para aprovechar lo mejor posible la segmentación de instrucciones del procesador evitando ciclos de espera. En este nivel, si el programa tiene una función que solo es llamada una vez, su llamada será sustituida por el contenido de la función, directamente, gracias a la opción \comando{-finline-functions-called-once}.
 
 \begin{table}[H]
 \begin{center}
@@ -131,6 +131,7 @@ El nivel 2 incluye muchas más optimizaciones. En este nivel encontramos las opt
 \label{optimizaciones3}
 \end{table}
 
+En el nivel más alto \programa{gcc} considera todas las funciones para que su contenido sustituya a las llamadas a las mismas, gracias a la opción \comando{-finline-functions}. Es decir, ya no se sustituyen solo las funciones cuyo contenido sea menor que la sobrecarga que supone la llamada a la función. La consecuencia directa de está optimización es un aumento considerable del programa final y aumento del rendimiento al eliminar el código de llamada y retorno de una función. 
 
 \begin{table}[H]
 \begin{center}
@@ -147,10 +148,11 @@ El nivel 2 incluye muchas más optimizaciones. En este nivel encontramos las opt
 \label{optimizaciones_s}
 \end{table}
 
-Las optimizaciones que comienzan con `fsched' se usan para reordenar las instrucciones. También hay varias optimizaciones que afectan a objetos `tree' que, de acuerdo a la documentación de GCC\protect\footnote{http://gcc.gnu.org/onlinedocs/gccint/Tree-overview.html} son estructuras centrales de datos usadas para la representación interna. Un `tree' es un tipo de puntero que puede apuntar a dataos de diferente tipo.\\
-Las optimizaciones `finline-functions-called-once', `finline-functions' y `finline-small-functions' sustituyen la llamada a la función por el código de la misma. La primera de ellas está habilitada en todos los niveles de optimización y sustituye, como su nombre indica, todas las funciones que sean llamadas una sola vez. `finline-small-functions' realiza la sustitución solo si su tamaño es menor quelas instrucciones necesarias para llamar a la función, en ensamblador. Estas dos optimizaciones hacen posible escribir pequeñas funciones auxiliares que puedan facilitar tanto la escritura como la lectura de nuestro programa sin suponer una disminución del rendimiento. La última de estas optimizaciones, `finline-functions', considera todas las funciones para sustituir su llamada por el código.\\
-En el caso de las optimizaciones que comienzan por `falign' \programa{gcc} se encarga de alinear los elementos especificados en cada una de estas optimizaciones para reducir los accesos a memoria a cambio de ocupar más espacio. Es por esto que en el nivel `Os' se desactivan estas, entre otras.
+Las optimizaciones que lleva acabo el compilador cuando se activa la opción \comando{-Os} (Optimizar para el tamaño) son las mismas que cuando se usa \comando{-O2} a excepción de las que se encuentran en la tabla \ref{optimizaciones_s}. Estas optimizaciones son las que, aumentando el rendimiento, mas aumentan el tamaño de la aplicación final.
 
+Cada nivel ofrece diferentes optimizaciones, aumentando el rendimiento con forme se aumenta el nivel. Es necesario valorar que nivel es el más adecuado para la aplicación. Por ejemplo, en un entorno empotrado (embedded) como sería el de un microcontrolador, debemos tener en cuenta la cantidad de memoria que tiene disponible al elegir la optimización del programa. Es posible elegir un nivel alto de optimización si el programa es pequeño y, por lo tanto, la memoria es suficiente. Si por el contrario la memoria es escasa se tendrá que elegir una optimización que no aumente el tamaño del programa. En el caso de depuración del código, el nivel más adecuado suele ser el más bajo ya que en este nivel, el compilador no modifica la estructura del programa, ni reordena instrucciones, haciendo más fácil la lectura del mismo en ensamblador.
+
+Por último, es importante mencionar que se puede elegir un nivel de los cuatro disponibles y añadir más optimizaciones o quitarlas en la línea de comandos. Por ejemplo, sería posible elegir el nivel 3 de optimización, sin usar \comando{-finline-functions} añadiendo como argumento \comando{-fno-inline-functions}. Todas las opciones mencionadas antes se pueden negar añadiendo `no' a la opción. También podemos añadir optimizaciones que no se encuentran en ninguno de estos niveles, como \comando{-funroll-loops}\footnote{Esta opción `desenrolla' bucles, repitiendo el bloque de ejecución y reduciendo las veces que se ejecuta.} en la línea de comandos.
 \section{Aplicación para ChipKIT}
 
 En esta sección vamos a ver el programa que emplearemos para observar y analizar los diferentes niveles de optimización que lleva acabo \comando{gcc}. Se trata de un terminal remoto al que nos conectamos a través del puerto 23 con el protocolo TCP. Una vez conectados disponemos de varios comandos para ordenar un array que pasaremos como parámetro. Los comandos disponibles son los siguientes:
