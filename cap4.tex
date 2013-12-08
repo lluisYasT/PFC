@@ -28,151 +28,123 @@ Cada uno de estos niveles (a excepción de \comando{-Os}) añade una serie de op
 
 Para poder averiguar que optimizaciones lleva acabo el compilador dependiendo del nivel podemos emplear el comando \comando{pic32-gcc -Ox -Q --help=optimizers | grep enabled} sustituyendo \comando{x} por el nivel que queramos. Esta orden muestra todos las posibles optimizaciones, indicando si están habilitadas o no y para ver solo las habilitadas pasamos el resultado a \comando{grep} para filtrarlas.
 
-Optimizaciones del nivel 0:
-\begin{multicols}{2}
-\begin{itemize}[noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt]
-	\item -falign-loops
-	\item -fargument-alias
-	\item -fbranch-count-reg
-	\item -fcommon
-	\item -fdata-sections
-	\item -fdce
-	\item -fdelete-null-pointer-checks
-	\item -fdse
-	\item -fearly-inlining
-	\item -fgcse-lm
-	\item -finline-functions-called-once
-	\item -fivopts
-	\item -fjump-tables
-	\item -fmath-errno
-	\item -fmove-loop-invariants
-	\item -fpeephole
-	\item -frename-registers
-	\item -fsched-critical-path-heuristic
-	\item -fsched-dep-count-heuristic
-	\item -fsched-group-heurisitc
-	\item -fsched-interblock
-	\item -fsched-last-insn-heuristic
-	\item -fsched-spec
-	\item -fsched-spec-insn-heuristic
-	\item -fsched-stalled-insns-dep
-	\item -fsigned-zeros
-	\item -fsplit-ivs-in-unroller
-	\item -ftoplevel-reorder
-	\item -ftrapping-math
-	\item -ftree-cselim
-	\item -ftree-forwprop
-	\item -ftree-loop-im
-	\item -ftree-loop-ivcanon
-	\item -ftree-loop-optimize
-	\item -ftree-phiprop
-	\item -ftree-pta
-	\item -ftree-reassoc
-	\item -ftree-scev-cprop
-	\item -ftree-slp-vectorize
-	\item -ftree-vect-loop-version
-	\item -funit-at-a-time
-	\item -fvar-tracking
-	\item -fvar-tracking-assignments
-	\item -fweb
-\end{itemize}
-\end{multicols}
+\begin{table}[H]
+\begin{center}
+	\begin{tabular}{|ll|}
+		\hline
+		-falign-loops & -fargument-alias\\
+		-fbranch-count-reg & -fcommon\\
+		-fdata-sections & -fdce\\
+		-fdelete-null-pointer-checks & -fdse\\
+		-fearly-inlining & -fgcse-lm\\
+		-finline-functions-called-once & -fivopts\\
+		-fjump-tables & -fmath-errno\\
+		-fmove-loop-invariants & -fpeephole\\
+		-frename-registers & -fsched-critical-path-heuristic\\
+		-fsched-dep-count-heuristic & -fsched-group-heurisitc\\
+		-fsched-interblock & -fsched-last-insn-heuristic\\
+		-fsched-spec & -fsched-spec-insn-heuristic\\
+		-fsched-stalled-insns-dep & -fsigned-zeros\\
+		-fsplit-ivs-in-unroller & -ftoplevel-reorder\\
+		-ftrapping-math & -ftree-cselim\\
+		-ftree-forwprop & -ftree-loop-im\\
+		-ftree-loop-ivcanon & -ftree-loop-optimize\\
+		-ftree-phiprop & -ftree-pta\\
+		-ftree-reassoc & -ftree-scev-cprop\\
+		-ftree-slp-vectorize & -ftree-vect-loop-version\\
+		-funit-at-a-time & -fvar-tracking\\
+		-fvar-tracking-assignments & -fweb\\
+		\hline
+	\end{tabular}
+\end{center}
+\caption{Optimizaciones del nivel 0.}
+\label{opt0}
+\end{table}
 
 En el nivel más bajo, \programa{gcc} ya realiza optimizaciones. Todas las optimizaciones que comienzan con \comando{-ftree} afectan al árbol sintáctico que utiliza \programa{gcc} como representación interna del programa. También se puede observar como una de las optimizaciones que incluye este nivel es \comando{-fdata-sections} y a pesar de esto \programa{MPIDE} la incluye explícitamente cuando ejecuta la compilación. Otro grupo de optimizaciones que ya aparecen en este nivel son las que comienzan \comando{-fsched} que afectan a la reordenación de instrucciones (en ensamblador) para aprovechar lo mejor posible la segmentación de instrucciones del procesador evitando ciclos de espera.
 
-Optimizaciones que añade el nivel `O1' al nivel `O0':
 
-\begin{multicols}{2}
-\begin{itemize}[noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt]
-	\item -fcprop-registers
-	\item -fdefer-pop
-	\item -fdelayed-branch
-	\item -fforward-propagate
-	\item -fguess-branch-probability
-	\item -fif-conversion
-	\item -fif-conversion2
-	\item -fipa-pure-const
-	\item -fipa-reference
-	\item -fmerge-constants
-	\item -fomit-frame-pointer
-	\item -fsplit-wide-types
-	\item -ftree-ccp
-	\item -ftree-ch
-	\item -ftree-copy-prop
-	\item -ftree-copyrename
-	\item -ftree-dce
-	\item -ftree-dominator-opts
-	\item -ftree-dse
-	\item -ftree-fre
-	\item -ftree-sink
-	\item -ftree-sra
-	\item -ftree-ter
-\end{itemize}
-\end{multicols}
+\begin{table}[H]
+\begin{center}
+	\begin{tabular}{|ll|}
+		\hline
+		-fcprop-registers & -fdefer-pop\\
+		-fdelayed-branch & -fforward-propagate\\
+		-fguess-branch-probability &-fif-conversion\\
+		-fif-conversion2 & -fipa-pure-const\\
+		-fipa-reference & -fmerge-constants\\
+		-fomit-frame-pointer & -fsplit-wide-types\\
+		-ftree-ccp & -ftree-ch\\
+		-ftree-copy-prop & -ftree-copyrename\\
+		-ftree-dce & -ftree-dominator-opts\\
+		-ftree-dse & -ftree-fre\\
+		-ftree-sink & -ftree-sra\\
+		-ftree-ter & \\
+		\hline
+	\end{tabular}
+\end{center}
+\caption{Optimizaciones que añade el nivel `O1' al nivel `O0'.}
+\label{optimizaciones1}
+\end{table}
 
-En este nivel se añaden más optimizaciones que afectan al arbol sintáctico, suponiendo estas casi la mitad de las nuevas optimizaciones. \comando{-fif-conversion} y \comando{-fif-conversion2} tienen como obejtivo tratar de transformar secciones de código donde se usan saltos condicionales para que no los requieran, reduciendo de esta forma el número de instrucciones. También encontramos aquí \comando{-fdelayed-branch} que intentará reordenar las instrucciones para aprovechar el tiempo que se pierde durante saltos condicionales. Si se produce una instrucción de salto condicional, no es posible saber cual es la instrucción que se debe ejecutar después hasta que acabe, por lo que normalmente la siguiente instrucción suele ser un \comando{nop}. Si el procesador lo soporta, se mueve una de las instrucciones anteriores a la instrucción de salto que no tenga ninguna dependencia con esta, para aprovechar el hueco libre.
+En el nivel 1 se añaden más optimizaciones que afectan al arbol sintáctico, suponiendo estas casi la mitad de las nuevas optimizaciones. \comando{-fif-conversion} y \comando{-fif-conversion2} tienen como obejtivo tratar de transformar secciones de código donde se usan saltos condicionales para que no los requieran, reduciendo de esta forma el número de instrucciones. También encontramos aquí \comando{-fdelayed-branch} que intentará reordenar las instrucciones para aprovechar el tiempo que se pierde durante saltos condicionales. Si se produce una instrucción de salto condicional, no es posible saber cual es la instrucción que se debe ejecutar después hasta que acabe, por lo que normalmente la siguiente instrucción suele ser un \comando{nop}. Si el procesador lo soporta, se mueve una de las instrucciones anteriores a la instrucción de salto que no tenga ninguna dependencia con esta, para aprovechar el hueco libre. En lugar de colocar después del salto, una instrucción anterior, \programa{gcc} también trata de predecir, con la opción \comando{-fguess-branch-probability}, que se ejecutará despues por lo que este lugar lo ocupará la primera instrucción de uno de los destinos. Si la predicción resulta erronea, se descartará esta instrucción.
 
-Optimizaciones que añade el nivel `O2' al nivel `O1':
+\begin{table}[H]
+\begin{center}
+	\begin{tabular}{|ll|}
+		\hline
+		-falign-functions & -falign-jumps\\
+		-falign-labels & -fcaller-saves\\
+		-fcrossjumping & -fcse-follow-jumps\\
+		-fexpensive-optimizations & -fgcse\\
+		-finline-small-functions & -fipa-cp\\
+		-fipa-sra & -foptimize-register-move\\
+		-foptimize-sibling-calls & -fpeephole2\\
+		-fregmove & -fremove-local-statics\\
+		-freorder-blocks & -freorder-functions\\
+		-frerun-cse-after-loop & -fschedule-insns\\
+		-fschedule-insns2 & -fstrict-aliasing\\
+		-fthread-jumps & -ftree-builtin-call-dce\\
+		-ftree-pre & -ftree-switch-conversion\\
+		-ftree-vrp & \\
+		\hline
+	\end{tabular}
+\end{center}
+\caption{Optimizaciones que añade el nivel `O2' al nivel `O1'.}
+\label{optimizaciones2}
+\end{table}
 
-\begin{multicols}{2}
-\begin{itemize}[noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt]
-	\item -falign-functions
-	\item -falign-jumps
-	\item -falign-labels
-	\item -fcaller-saves
-	\item -fcrossjumping
-	\item -fcse-follow-jumps
-	\item -fexpensive-optimizations
-	\item -fgcse
-	\item -finline-small-functions
-	\item -fipa-cp
-	\item -fipa-sra
-	\item -foptimize-register-move
-	\item -foptimize-sibling-calls
-	\item -fpeephole2
-	\item -fregmove
-	\item -fremove-local-statics
-	\item -freorder-blocks
-	\item -freorder-functions
-	\item -frerun-cse-after-loop
-	\item -fschedule-insns
-	\item -fschedule-insns2
-	\item -fstrict-aliasing
-	\item -fthread-jumps
-	\item -ftree-builtin-call-dce
-	\item -ftree-pre
-	\item -ftree-switch-conversion
-	\item -ftree-vrp
-\end{itemize}
-\end{multicols}
 
-Optimizaciones que añade el nivel `O3' al nivel `O2':
+\begin{table}[H]
+\begin{center}
+	\begin{tabular}{|ll|}
+		\hline
+		-fgcse-after-reload & -finline-functions\\
+		-fipa-cp-clone & -fpredictive-commoning\\
+		-ftree-pre-partial-partial & -ftree-vectorize\\
+		-funswitch-loops & \\
+		\hline
+	\end{tabular}
+\end{center}
+\caption{Optimizaciones que añade el nivel `O3' al nivel `O2'.}
+\label{optimizaciones3}
+\end{table}
 
-\begin{multicols}{2}
-\begin{itemize}[noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt]
-	\item -fgcse-after-reload
-	\item -finline-functions
-	\item -fipa-cp-clone
-	\item -fpredictive-commoning
-	\item -ftree-pre-partial-partial
-	\item -ftree-vectorize
-	\item -funswitch-loops
-\end{itemize}
-\end{multicols}
 
-El nivel `Os' realiza las mismas optimizaciones que `O2' menos las siguientes:
-\begin{multicols}{2}
-\begin{itemize}[noitemsep, topsep=0pt, parsep=0pt, partopsep=0pt]
-	\item -falign-functions
-	\item -falign-jumps
-	\item -falign-loops
-	\item -falign-labels
-	\item -freorder-blocks
-	\item -freorder-blocks-and-partition
-	\item -fprefetch-loop-arrays
-	\item -ftree-vect-loop-version
-\end{itemize}
-\end{multicols}
+\begin{table}[H]
+\begin{center}
+	\begin{tabular}{|ll|}
+		\hline
+		-falign-functions & -falign-jumps\\
+		-falign-loops & -falign-labels\\
+		-freorder-blocks & -freorder-blocks-and-partition\\
+		-fprefetch-loop-arrays & -ftree-vect-loop-version\\
+		\hline
+\end{tabular}
+\end{center}
+\caption{Optimizaciones del nivel `O2' que no se realizan en el nivel `Os'.}
+\label{optimizaciones_s}
+\end{table}
 
 Las optimizaciones que comienzan con `fsched' se usan para reordenar las instrucciones. También hay varias optimizaciones que afectan a objetos `tree' que, de acuerdo a la documentación de GCC\protect\footnote{http://gcc.gnu.org/onlinedocs/gccint/Tree-overview.html} son estructuras centrales de datos usadas para la representación interna. Un `tree' es un tipo de puntero que puede apuntar a dataos de diferente tipo.\\
 Las optimizaciones `finline-functions-called-once', `finline-functions' y `finline-small-functions' sustituyen la llamada a la función por el código de la misma. La primera de ellas está habilitada en todos los niveles de optimización y sustituye, como su nombre indica, todas las funciones que sean llamadas una sola vez. `finline-small-functions' realiza la sustitución solo si su tamaño es menor quelas instrucciones necesarias para llamar a la función, en ensamblador. Estas dos optimizaciones hacen posible escribir pequeñas funciones auxiliares que puedan facilitar tanto la escritura como la lectura de nuestro programa sin suponer una disminución del rendimiento. La última de estas optimizaciones, `finline-functions', considera todas las funciones para sustituir su llamada por el código.\\
