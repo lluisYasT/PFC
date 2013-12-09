@@ -183,7 +183,7 @@ En el apéndice \ref{chap:apendice3} se encuentra una descripción detallada del
 Las funciones de ordenación que hemos comentado anteriormente, las que usa el programa par ordenar el array que le envíamos, se encuentran declaradas en el archivo \programa{funciones.h} y definidas en \programa{funciones.c}.
 
 \subsubsection{Bubble Sort}
-Este es el algoritmo más sencillo de los tres implementados. Recorremos el array comparando un elemento con el siguiente e intercambiándolos en el caso de que el primero sea mayor que el segundo. Para completar el ordenamiento es necesario recorrer el array varias veces.
+Este es el algoritmo más sencillo de los tres implementados. Se recorre el array comparando un elemento con el siguiente e intercambiándolos en el caso de que el primero sea mayor que el segundo. Para completar el ordenamiento es necesario recorrer el array varias veces.
 \begin{lstlisting}[caption=Implementación de Bubble Sort]
 void bubble0(int * array, int len) {
   int c, d, swap;
@@ -252,3 +252,133 @@ void selection0(int *array, int len) {
   }
 }
 \end{lstlisting}
+
+\subsection{Análisis estático de la optimización en los algoritmos de ordenación.}
+Una vez visto como están implementados los algoritmos de ordenación en C, podemos ver su aspecto una vez compilados y comparar entre los diferentes niveles de optimización y como afectan a estas funciones.
+
+Comenzando con el algoritmo `Bubble Sort', tenemos en la figura \ref{bubble} el código de sus cuatro versiones para compararlas entre ellas.
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{c c}
+	\begin{minipage}[t]{.5\textwidth}
+		\begin{lstlisting}[caption=bubble0,basicstyle=\ttfamily\scriptsize, tabsize=2]
+00000000 <_Z7bubble0Pii>:
+   0:	18a00015 	blez	a1,58 <_Z7bubble0Pii+0x58>
+   4:	24a5ffff 	addiu	a1,a1,-1
+   8:	08000011 	j	44 <_Z7bubble0Pii+0x44>
+   c:	240affff 	li	t2,-1
+  10:	8c460000 	lw	a2,0(v0)
+  14:	8c470004 	lw	a3,4(v0)
+  18:	00e6402a 	slt	t0,a3,a2
+  1c:	11000003 	beqz	t0,2c <_Z7bubble0Pii+0x2c>
+  20:	24630001 	addiu	v1,v1,1
+  24:	ac470000 	sw	a3,0(v0)
+  28:	ac460004 	sw	a2,4(v0)
+  2c:	0069302a 	slt	a2,v1,t1
+  30:	14c0fff7 	bnez	a2,10 <_Z7bubble0Pii+0x10>
+  34:	24420004 	addiu	v0,v0,4
+  38:	24a5ffff 	addiu	a1,a1,-1
+  3c:	10aa0006 	beq	a1,t2,58 <_Z7bubble0Pii+0x58>
+  40:	00000000 	nop
+  44:	18a0fffc 	blez	a1,38 <_Z7bubble0Pii+0x38>
+  48:	00a04821 	move	t1,a1
+  4c:	00801021 	move	v0,a0
+  50:	08000004 	j	10 <_Z7bubble0Pii+0x10>
+  54:	00001821 	move	v1,zero
+  58:	03e00008 	jr	ra
+  5c:	00000000 	nop
+		\end{lstlisting}
+	\end{minipage} 
+	&
+	\begin{minipage}[t]{.5\textwidth}
+		\begin{lstlisting}[caption=bubble1, basicstyle=\ttfamily\scriptsize, tabsize=2]
+00000000 <_Z7bubble1Pii>:
+   0:	18a00015 	blez	a1,58 <_Z7bubble1Pii+0x58>
+   4:	24a5ffff 	addiu	a1,a1,-1
+   8:	08000011 	j	44 <_Z7bubble1Pii+0x44>
+   c:	240affff 	li	t2,-1
+  10:	8c460000 	lw	a2,0(v0)
+  14:	8c470004 	lw	a3,4(v0)
+  18:	00e6402a 	slt	t0,a3,a2
+  1c:	11000003 	beqz	t0,2c <_Z7bubble1Pii+0x2c>
+  20:	24630001 	addiu	v1,v1,1
+  24:	ac470000 	sw	a3,0(v0)
+  28:	ac460004 	sw	a2,4(v0)
+  2c:	0069302a 	slt	a2,v1,t1
+  30:	14c0fff7 	bnez	a2,10 <_Z7bubble1Pii+0x10>
+  34:	24420004 	addiu	v0,v0,4
+  38:	24a5ffff 	addiu	a1,a1,-1
+  3c:	10aa0006 	beq	a1,t2,58 <_Z7bubble1Pii+0x58>
+  40:	00000000 	nop
+  44:	18a0fffc 	blez	a1,38 <_Z7bubble1Pii+0x38>
+  48:	00a04821 	move	t1,a1
+  4c:	00801021 	move	v0,a0
+  50:	08000004 	j	10 <_Z7bubble1Pii+0x10>
+  54:	00001821 	move	v1,zero
+  58:	03e00008 	jr	ra
+  5c:	00000000 	nop
+		\end{lstlisting}
+	\end{minipage} \\
+
+	\begin{minipage}[t]{.5\textwidth}
+		\begin{lstlisting}[caption=bubble2, basicstyle=\ttfamily\scriptsize, tabsize=2]
+00000000 <_Z7bubble2Pii>:
+   0:	18a00013 	blez	a1,50 <_Z7bubble2Pii+0x50>
+   4:	24a5ffff 	addiu	a1,a1,-1
+   8:	240affff 	li	t2,-1
+   c:	58a0000e 	blezl	a1,48 <_Z7bubble2Pii+0x48>
+  10:	24a5ffff 	addiu	a1,a1,-1
+  14:	00801021 	move	v0,a0
+  18:	00001821 	move	v1,zero
+  1c:	8c460000 	lw	a2,0(v0)
+  20:	8c470004 	lw	a3,4(v0)
+  24:	24630001 	addiu	v1,v1,1
+  28:	00e6482a 	slt	t1,a3,a2
+  2c:	11200003 	beqz	t1,3c <_Z7bubble2Pii+0x3c>
+  30:	0065402a 	slt	t0,v1,a1
+  34:	ac470000 	sw	a3,0(v0)
+  38:	ac460004 	sw	a2,4(v0)
+  3c:	1500fff7 	bnez	t0,1c <_Z7bubble2Pii+0x1c>
+  40:	24420004 	addiu	v0,v0,4
+  44:	24a5ffff 	addiu	a1,a1,-1
+  48:	14aafff0 	bne	a1,t2,c <_Z7bubble2Pii+0xc>
+  4c:	00000000 	nop
+  50:	03e00008 	jr	ra
+  54:	00000000 	nop
+		\end{lstlisting}
+	\end{minipage}
+	&
+	\begin{minipage}[t]{.5\textwidth}
+		\begin{lstlisting}[caption=bubble3, basicstyle=\ttfamily\scriptsize, tabsize=2]
+00000000 <_Z7bubble3Pii>:
+   0:	18a00013 	blez	a1,50 <_Z7bubble3Pii+0x50>
+   4:	24a5ffff 	addiu	a1,a1,-1
+   8:	240affff 	li	t2,-1
+   c:	58a0000e 	blezl	a1,48 <_Z7bubble3Pii+0x48>
+  10:	24a5ffff 	addiu	a1,a1,-1
+  14:	00801021 	move	v0,a0
+  18:	00001821 	move	v1,zero
+  1c:	8c460000 	lw	a2,0(v0)
+  20:	8c470004 	lw	a3,4(v0)
+  24:	24630001 	addiu	v1,v1,1
+  28:	00e6482a 	slt	t1,a3,a2
+  2c:	11200003 	beqz	t1,3c <_Z7bubble3Pii+0x3c>
+  30:	0065402a 	slt	t0,v1,a1
+  34:	ac470000 	sw	a3,0(v0)
+  38:	ac460004 	sw	a2,4(v0)
+  3c:	1500fff7 	bnez	t0,1c <_Z7bubble3Pii+0x1c>
+  40:	24420004 	addiu	v0,v0,4
+  44:	24a5ffff 	addiu	a1,a1,-1
+  48:	14aafff0 	bne	a1,t2,c <_Z7bubble3Pii+0xc>
+  4c:	00000000 	nop
+  50:	03e00008 	jr	ra
+  54:	00000000 	nop
+		\end{lstlisting}
+	\end{minipage} \\
+\end{tabular}
+\label{bubble}
+\end{center}
+\caption{Implementaciones de `Bubble Sort' en ensamblador}
+\end{figure}
+
