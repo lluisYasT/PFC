@@ -431,21 +431,148 @@ Comenzando con el algoritmo `Bubble Sort', tenemos en la figura \ref{bubble} el 
 \begin{center}
 \begin{tabular}{c c}
 	\begin{minipage}[t]{.4\textwidth}
-		\begin{lstlisting}[language={[mips]Assembler},caption=quick0,basicstyle=\ttfamily\tiny, tabsize=2]
+		\begin{lstlisting}[language={[mips]Assembler},caption=colocar0,basicstyle=\ttfamily\tiny, tabsize=2]
+00000000 <_Z8colocar0Piii>:
+   0:	27bdffe8 	addiu	sp,sp,-24
+   4:	afbe0014 	sw	s8,20(sp)
+   8:	03a0f021 	move	s8,sp
+   c:	afc40018 	sw	a0,24(s8)
+  10:	afc5001c 	sw	a1,28(s8)
+  14:	afc60020 	sw	a2,32(s8)
+  18:	8fc2001c 	lw	v0,28(s8)
+  1c:	afc20004 	sw	v0,4(s8)
+  20:	8fc20004 	lw	v0,4(s8)
+  24:	00021080 	sll	v0,v0,0x2
+  28:	8fc30018 	lw	v1,24(s8)
+  2c:	00621021 	addu	v0,v1,v0
+  30:	8c420000 	lw	v0,0(v0)
+  34:	afc20008 	sw	v0,8(s8)
+  38:	8fc2001c 	lw	v0,28(s8)
+  3c:	24420001 	addiu	v0,v0,1
+  40:	afc20000 	sw	v0,0(s8)
+  44:	08000038 	j	e0 <_Z8colocar0Piii+0xe0>
+  48:	00000000 	nop
+  4c:	8fc20000 	lw	v0,0(s8)
+  50:	00021080 	sll	v0,v0,0x2
+  54:	8fc30018 	lw	v1,24(s8)
+  58:	00621021 	addu	v0,v1,v0
+  5c:	8c430000 	lw	v1,0(v0)
+  60:	8fc20008 	lw	v0,8(s8)
+  64:	0062102a 	slt	v0,v1,v0
+  68:	1040001a 	beqz	v0,d4 <_Z8colocar0Piii+0xd4>
+  6c:	00000000 	nop
+  70:	8fc20004 	lw	v0,4(s8)
+  74:	24420001 	addiu	v0,v0,1
+  78:	afc20004 	sw	v0,4(s8)
+  7c:	8fc20000 	lw	v0,0(s8)
+  80:	00021080 	sll	v0,v0,0x2
+  84:	8fc30018 	lw	v1,24(s8)
+  88:	00621021 	addu	v0,v1,v0
+  8c:	8c420000 	lw	v0,0(v0)
+  90:	afc2000c 	sw	v0,12(s8)
+  94:	8fc20000 	lw	v0,0(s8)
+  98:	00021080 	sll	v0,v0,0x2
+  9c:	8fc30018 	lw	v1,24(s8)
+  a0:	00621021 	addu	v0,v1,v0
+  a4:	8fc30004 	lw	v1,4(s8)
+  a8:	00031880 	sll	v1,v1,0x2
+  ac:	8fc40018 	lw	a0,24(s8)
+  b0:	00831821 	addu	v1,a0,v1
+  b4:	8c630000 	lw	v1,0(v1)
+  b8:	ac430000 	sw	v1,0(v0)
+  bc:	8fc20004 	lw	v0,4(s8)
+  c0:	00021080 	sll	v0,v0,0x2
+  c4:	8fc30018 	lw	v1,24(s8)
+  c8:	00621021 	addu	v0,v1,v0
+  cc:	8fc3000c 	lw	v1,12(s8)
+  d0:	ac430000 	sw	v1,0(v0)
+  d4:	8fc20000 	lw	v0,0(s8)
+  d8:	24420001 	addiu	v0,v0,1
+  dc:	afc20000 	sw	v0,0(s8)
+  e0:	8fc30000 	lw	v1,0(s8)
+  e4:	8fc20020 	lw	v0,32(s8)
+  e8:	0043102a 	slt	v0,v0,v1
+  ec:	38420001 	xori	v0,v0,0x1
+  f0:	304200ff 	andi	v0,v0,0xff
+  f4:	1440ffd5 	bnez	v0,4c <_Z8colocar0Piii+0x4c>
+  f8:	00000000 	nop
+  fc:	8fc2001c 	lw	v0,28(s8)
+ 100:	00021080 	sll	v0,v0,0x2
+ 104:	8fc30018 	lw	v1,24(s8)
+ 108:	00621021 	addu	v0,v1,v0
+ 10c:	8c420000 	lw	v0,0(v0)
+ 110:	afc2000c 	sw	v0,12(s8)
+ 114:	8fc2001c 	lw	v0,28(s8)
+ 118:	00021080 	sll	v0,v0,0x2
+ 11c:	8fc30018 	lw	v1,24(s8)
+ 120:	00621021 	addu	v0,v1,v0
+ 124:	8fc30004 	lw	v1,4(s8)
+ 128:	00031880 	sll	v1,v1,0x2
+ 12c:	8fc40018 	lw	a0,24(s8)
+ 130:	00831821 	addu	v1,a0,v1
+ 134:	8c630000 	lw	v1,0(v1)
+ 138:	ac430000 	sw	v1,0(v0)
+ 13c:	8fc20004 	lw	v0,4(s8)
+ 140:	00021080 	sll	v0,v0,0x2
+ 144:	8fc30018 	lw	v1,24(s8)
+ 148:	00621021 	addu	v0,v1,v0
+ 14c:	8fc3000c 	lw	v1,12(s8)
+ 150:	ac430000 	sw	v1,0(v0)
+ 154:	8fc20004 	lw	v0,4(s8)
+ 158:	03c0e821 	move	sp,s8
+ 15c:	8fbe0014 	lw	s8,20(sp)
+ 160:	27bd0018 	addiu	sp,sp,24
+ 164:	03e00008 	jr	ra
+ 168:	00000000 	nop
 		\end{lstlisting}
 	\end{minipage} 
 	&
 	\begin{minipage}[t]{.4\textwidth}
-		\begin{lstlisting}[language={[mips]Assembler},caption=quick1, basicstyle=\ttfamily\tiny, tabsize=2]
-		\end{lstlisting}
-		\begin{lstlisting}[language={[mips]Assembler},caption=quick2, basicstyle=\ttfamily\tiny, tabsize=2]
-		\end{lstlisting}
-		\begin{lstlisting}[language={[mips]Assembler},caption=quick3, basicstyle=\ttfamily\tiny, tabsize=2]
+		\begin{lstlisting}[language={[mips]Assembler},caption=quicksort0, basicstyle=\ttfamily\tiny, tabsize=2]
+00000000 <_Z10quicksort0Piii>:
+   0:	27bdffe0 	addiu	sp,sp,-32
+   4:	afbf001c 	sw	ra,28(sp)
+   8:	afbe0018 	sw	s8,24(sp)
+   c:	03a0f021 	move	s8,sp
+  10:	afc40020 	sw	a0,32(s8)
+  14:	afc50024 	sw	a1,36(s8)
+  18:	afc60028 	sw	a2,40(s8)
+  1c:	8fc30024 	lw	v1,36(s8)
+  20:	8fc20028 	lw	v0,40(s8)
+  24:	0062102a 	slt	v0,v1,v0
+  28:	10400015 	beqz	v0,80 <_Z10quicksort0Piii+0x80>
+  2c:	00000000 	nop
+  30:	8fc40020 	lw	a0,32(s8)
+  34:	8fc50024 	lw	a1,36(s8)
+  38:	8fc60028 	lw	a2,40(s8)
+  3c:	0c000000 	jal	0 <_Z10quicksort0Piii>
+  40:	00000000 	nop
+  44:	afc20010 	sw	v0,16(s8)
+  48:	8fc20010 	lw	v0,16(s8)
+  4c:	2442ffff 	addiu	v0,v0,-1
+  50:	8fc40020 	lw	a0,32(s8)
+  54:	8fc50024 	lw	a1,36(s8)
+  58:	00403021 	move	a2,v0
+  5c:	0c000000 	jal	0 <_Z10quicksort0Piii>
+  60:	00000000 	nop
+  64:	8fc20010 	lw	v0,16(s8)
+  68:	24420001 	addiu	v0,v0,1
+  6c:	8fc40020 	lw	a0,32(s8)
+  70:	00402821 	move	a1,v0
+  74:	8fc60028 	lw	a2,40(s8)
+  78:	0c000000 	jal	0 <_Z10quicksort0Piii>
+  7c:	00000000 	nop
+  80:	03c0e821 	move	sp,s8
+  84:	8fbf001c 	lw	ra,28(sp)
+  88:	8fbe0018 	lw	s8,24(sp)
+  8c:	27bd0020 	addiu	sp,sp,32
+  90:	03e00008 	jr	ra
+  94:	00000000 	nop
 		\end{lstlisting}
 	\end{minipage} \\
 \end{tabular}
 \label{quick}
 \end{center}
-\caption{Implementaciones de `Quick Sort' en ensamblador}
+\caption{Implementación de Quicksort con nivel 0 de optimización}
 \end{figure}
 
