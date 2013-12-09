@@ -1,0 +1,75 @@
+Veamos la estructura y funcionamiento de nuestro `sketch'\protect\footnote{Archivo donde definimos las funciones \comando{setup()} y \comando{loop()}}.\\
+\lstinputlisting[firstline=1, lastline=3, breaklines=true]{codigo_fuente/sketch.cpp}
+Comenzamos incluyendo la biblioteca del Shield Ethernet, IO Shield y el archivo de cabecera \programa{funciones.h} que contiene la declaración de los diferentes algoritmos de ordenación que usaremos en los comandos expuestos anteriormente.\\
+
+\lstinputlisting[firstline=5, lastline=6]{codigo_fuente/sketch.cpp}
+Definimos el tamaño máximo del mensaje, esto es, la máxima longitud de la línea que el cliente puede envíar a nuestro programa, esto incluye el comando seguido por el array. También definimos el tamaño máximo del array que acepta el programa, siendo este la mitad que el mensaje. Esta longitud debería ser suficiente ya que, con números de un solo dígito (o carácter en este caso), no es posible superar este tamaño ya que por cada uno de estos numeros deberemos añadir un separador\protect\footnote{El caracter que separe los números puede ser tanto un espacio una coma o tabulador.}, lo que implica un mínimo de dos caracteres por dígito, sin contar el comando.
+
+\lstinputlisting[firstline=8, lastline=11]{codigo_fuente/sketch.cpp}
+Estos son los arrays que usaremos para guardar el mensaje recibido del cliente, el comando extraído de ese mensaje, el array de números que pueda haber en el mensaje y si es o no el primer mensaje que recibimos del cliente.\protect\footnote{El protocolo telnet suele enviar ciertos caracteres al iniciar una conexión que descartamos.}
+
+\lstinputlisting[firstline=15, lastline=33]{codigo_fuente/sketch.cpp}
+Creamos la estructura algoritmo con la que podremos asociar cómodamente el nombre en forma de cadena de caracteres de la función con su nombre. Justo después declaramos un array de estructuras algoritmo que contiene esta información. Se usará a la hora de mostrar los resultados de los algoritmos de ordenación.
+
+\lstinputlisting[firstline=36, lastline=37]{codigo_fuente/sketch.cpp}
+Aquí declaramos la dirección física que queramos que tenga nuestro dispositivo. Si la inicializamos a 0 la dirección física que se usará será la del propio dispositivo. En el caso de elegir un valor diferente será este el que se use\protect\footnote{En algunas aplicaciones puede ser interesante modificar este valor para enmascarar la identidad del dispositivo o para suplantar la de otro, pero esto se sale del objetivo de este proyecto.}.
+
+\lstinputlisting[firstline=40, lastline=41]{codigo_fuente/sketch.cpp}
+Ahora declaramos la dirección de red (IP) de nuestro dispositivo\protect\footnote{Se ha elegido esta en concreto (10.0.0.8) porque durante el desarrollo del programa el dispositivo se encontraba conectado a la red 10.0.0.0/24}. Es posible no declarar la dirección IP del dispositivo para usar DHCP.
+
+\lstinputlisting[firstline=52, lastline=54]{codigo_fuente/sketch.cpp}
+Creamos una instancia de la clase Server, con nombre \comando{server} en el puerto 23. Es posible elegir otros puertos, pero se ha elegido este por ser el que usa el servicio de terminal remoto Telnet.
+
+\lstinputlisting[firstline=56, lastline=60]{codigo_fuente/sketch.cpp}
+Declaramos funciones auxiliares que se utilizarán a lo largo del programa:
+\begin{description}
+	\item[\comando{print\_array}] es una función que imprime un array tanto por el puerto serie como al cliente.
+	\item[\comando{selecciona\_comando}] se encarga de llamar a la función \comando{ejecuta\_comando} pasándole como parámetro el númor de comando adecuado, el array a ordenar y la longitud de dicho array.
+	\item[\comando{array\_aleatorio}] genera un array de números aleatorio de longitud \comando{MAX\_LONG\_ARRAY}.
+	\item[\comando{ejecuta\_comando}] ejecuta el comando cuyo índice le pasemos como parámetro.
+	\item[\comando{compara}] llama a \comando{ejecuta\_comando} para cada función de ordenación que tengamos, pasándole como parámetro el mismo array de números aleatorios a todas.
+\end{description}
+
+\lstinputlisting[firstline=62, lastline=75]{codigo_fuente/sketch.cpp}
+Función \comando{setup()} en la que inicializamos el shield ethernet con la función \comando{Ethernet.begin(mac, ip)}\protect\footnote{Si quisiéramos usar DHCP en lugar de una IP fija podemos llamar a la función \comando{Ethernet.begin(mac)}.}, inicializamos el servidor para que comience a escuchar a la espera de nuevos clientes e inicializamos el puerto serie. Este último se usa principalmente para facilitar la depuración del programa, puesto que el acceso será via Telnet no por el puerto serie. Además inicializaremos la pantalla oled del IO Shield y mostraremos en ella el nombre del programa.
+
+\lstinputlisting[firstline=77, lastline=82]{codigo_fuente/sketch.cpp}
+Comienza la función \comando{loop()}. Lo primero que hace es inicializar la variable cliente, tomando el resultado de \comando{server.available()}. Declaramos e inicializamos las variables que necesitaremos a lo largo de \comando{loop()}.
+
+\lstinputlisting[firstline=84, lastline=90, breaklines=true]{codigo_fuente/sketch.cpp}
+Si \comando{cliente} no es nulo significa que un cliente se ha conectado. Si este es el primer mensaje del cliente lo descartamos, ya que Telnet envía caracteres al iniciar la conexión. Inicializamos a \comando{0} todos los arrays que usaremos para guardar el mensaje, comando y números una vez hayan sido convertidos.
+
+\lstinputlisting[firstline=92, lastline=111, breaklines=true]{codigo_fuente/sketch.cpp}
+El método \comando{client.available()} devuelve la cantidad de bytes que hay disponible en el buffer de recepción mientras que \comando{client.read()} nos permite leerlos uno a uno (cada vez que llamamos a este método sin argumentos lee el siguiente byte hasta terminar el buffer). Cuando ya hemos leído todo el buffer, que debido a su implementación está limitado a 1000 bytes, \comando{client.read()} devolverá \comando{-1}. Cuando esto ocurre nos aseguramos de no guardar este valor y mientras siga devolviendo esto, lo ignoramos. Cada vez que leemos un byte aumentamos la variable \comando{long\_mensaje} asegurándonos de no superar el tamaño máximo de mensaje. Seguimos leyendo hasta que recibamos el carácter \comando{\textbackslash n} (retorno de carro) que guardaremos en el mensaje y en este momento dejaremos de leer del buffer de recepción.
+
+\lstinputlisting[firstline=116, lastline=149, breaklines=true, resetmargins=true]{codigo_fuente/sketch.cpp}
+Una vez tenemos guardado el mensaje en el array \comando{message}, procedemos dividirlo en el comando y el array de números que ordenaremos más tarde. Para realizar la división buscamos en el array los separadores, esto lo hacemos en el primer \comando{if} que hay nada más comenzar una iteración. En este caso los separadores pueden ser espacios, comas, tabuladores y retorno de carro\protect\footnote{Están incluídos tanto \textbackslash r como \textbackslash n para que funcione con cualquier tipo de retorno de carro, ya sea CR o LF. De está forma podemos conectarnos mediante telnet, que finaliza las líneas con \textbackslash r\textbackslash n o directamente mediante TCP usando, por ejemplo \programa{netcat} o una función dentro de algún programa.}. Utilizamos la variable \comando{cantidad\_num} para identificar el comando y para conocer la cantidad de números que hay en el mensaje. Cada vez que encontremos uno de los separadores esta variable se incrementa. La primera vez que encontramos un separador y, por lo tanto, la variable \comando{cantidad\_num} es nula, sabemos que se trata del comando, ya que este debe ser el primer elemento del mensaje. En este momento y copiamos el contenido del mensaje hasta el índice actual a la variable comando (comprobando antes la longitud del array a copiar para evitar desbordamientos).\\
+A partir de aquí, todo lo que debe preceder al comando deben ser números. Antes de convertir los números a enteros, los extraemos, guardándolos en un array temporal llamado \comando{numero}. Para hacer esto usamos un nuevo índice (\comando{j}) que indicará la posición dentro del array \comando{numero}. Este índice se reinicia cada vez que encontramos un separador, mientras que aumenta en cada iteración cuando no lo encotremos. De está forma podemos copiar los números contenidos entre dos separadores al array \comando{numero}. Cada vez que encontremos un separador intaremos convertir \comando{numero} a un entero que guardaremos en el array de enteros \comando{array\_numeros}. En el caso de no ser válido, indicamos por el puerto serie que ha habido un error al convertir.\\
+En el caso de que el mensaje fuera correcto, al terminar este bucle tendremos el array \comando{array\_numeros} que contiene todos los números yla variable \comando{cantidad\_num} que indica la cantidad de números en dicho array\protect\footnote{Esta variable es necesaria puesto que generalmente no se llenará el array al completo.}. 
+
+\lstinputlisting[firstline=151, lastline=158, breaklines=true]{codigo_fuente/sketch.cpp}
+Si \comando{cantidad\_num} es mayor que 0, es decir, el mensaje no contenía solo el comando, guardamos la longitud de \comando{array\_numeros} en \comando{longitud} y envíamos por puerto serie tanto la longitud de este array como el comando que se ha extraído del mensaje.
+
+\lstinputlisting[firstline=160, lastline=168, breaklines=true]{codigo_fuente/sketch.cpp}
+Por si acaso, vacíamos el buffer de recepción con \comando{cliente.flush\(\)}. Llamamos a la función \comando{selecciona\_comando} que se encargará de obtener el número de comando a partir del array \comando{comando} y mostramos al cliente y por el puerto serie el contenido de \comando{array\_numeros} que debería estar ya ordenado.
+
+Veamos el resto de funciones que podemos encontrar en el archivo `sketch.cpp' y que hemos utilizado en la función \comando{loop()}.
+
+\lstinputlisting[firstline=173, lastline=182, breaklines=true]{codigo_fuente/sketch.cpp}
+Está función tiene como único objetivo envíar al cliente y por puerto serie el array que pasemos como parámetro, para poder visualizarlo.
+
+\lstinputlisting[firstline=188, lastline=215, breaklines=true]{codigo_fuente/sketch.cpp}
+\centerline{\raisebox{-1pt}[0pt][0pt]{$\vdots$}}
+\lstinputlisting[firstline=231, lastline=247, breaklines=true]{codigo_fuente/sketch.cpp}
+\comando{selecciona\_comando} recibe como parámetros el array \comando{comando} y la longitud de \comando{array\_numeros}. En base al contenido de \comando{comando} llamará a \comando{ejecuta\_comando} con el número de comando adecuado o realizará las operaciones necesarias. Para el caso del comando \comando{help} enviará al cliente una lista con los camndos disponibles.\footnote{Se ha omitido el contenido de \comando{help} para reducir el tamaño.} Si el comando es \comando{compara} llamará a la función del mismo nombre. Si el comando es \comando{exit} mostrará al cliente que se está desconectando, se desconectará indicándolo por el puerto serie y cambiará el valor de la variable \comando{primer\_mensaje} además de reiniciar la pantalla OLED del IO Shield. Si el contenido de \comando{comando} no coincide con ninguno de los comandos disponibles se le indicará al cliente.
+
+\lstinputlisting[firstline=249, lastline=283, breaklines=true]{codigo_fuente/sketch.cpp}
+\comando{ejecuta\_comando} se encarga, como su nombre indica, de ejecutar el comando cuyo índice se haya pasado como parámetro. A parte de ejecutar el algoritmo de ordenación adecuado, \comando{ejecuta\_comando} mide también el tiempo que tarda en ejecutarse dicho algoritmo, usando para ello las funciones \comando{millis\(\)} y \comando{micros\(\)} que nos permiten medir el tiempo en milisegundos y microsegundos respectivamente\footnote{Usamos ambas ya que si la duración de la ejecución del algoritmo es alta el contador que usa la funcion \comando{micros\(\)} desbordará, sin embargo, si la duración es muy baja, con \comando{millis\(\)} no tendremos suficiente precisión.}. Como alternativa esta función también se encarga de poner a nivel alto el pin 70 del ChipKIT MAX32, que corresponde al LED LD1 de IO Shield, justo antes de ejecutar el comando y luego cambia su nivel a bajo otra vez, lo que nos permite, por ejemplo, medir la duración con un osciloscopio y tener un cierto `feedback' cuando se está ejecutando un algoritmo.\footnote{El encendido y apagado del LED lo hacemos usando directamente los registros del microcontrolador, evitando la función que nos ofrece la biblioteca Core: \comando{digitalWrite\(\)}, de forma que es lo más rápido posible.} Una vez ha terminado la ejecución mostramos al cliente a través de la conexión Telnet y en la pantalla OLED del IO Shield el tiempo que ha tardado en ejecutarse.
+
+\lstinputlisting[firstline=288, lastline=292, breaklines=true]{codigo_fuente/sketch.cpp}
+\comando{array\_aleatorio} simplemente rellena \comando{array\_numeros} con números aleatorios entre 0 y \(2^{31}\). Genera un array de tamaño máximo, es decir, \comando{MAX\_LONG\_ARRAY}.
+
+\lstinputlisting[firstline=298, breaklines=true]{codigo_fuente/sketch.cpp}
+En \comando{compara} generamos un array con números aleatorios con la función \comando{array\_aleatorio} y ejecutamos todos los algoritmos de ordenación sobre el mismo array. Debido a que los comandos de ordenación modifican el array cuya dirección pasamos como parámetro, es necesario realizar una copia usando la función \comando{memcpy} a un array auxiliar para que todos ordenen el mismo array de números. De esta forma podemos compararlos con un solo comando.
+
+
