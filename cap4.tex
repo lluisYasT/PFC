@@ -253,43 +253,9 @@ void selection0(int *array, int len) {
 }
 \end{lstlisting}
 
-\subsection{Análisis estático de la optimización en los algoritmos de ordenación.}
+\section{Análisis estático de la optimización en los algoritmos de ordenación.}
 Una vez visto como están implementados los algoritmos de ordenación en C, podemos ver su aspecto una vez compilados y comparar entre los diferentes niveles de optimización y como afectan a estas funciones.
 
-Comenzando con el algoritmo `Bubble Sort', tenemos en la figura \ref{bubble} el código de sus cuatro versiones para compararlas entre ellas.
+En el apéndice \ref{chap:apendice4} se encuentran las distintas funciones en lenguaje ensamblador, obtenido a partir del fichero objeto \comando{funciones.o} que se genera durante la compilación del programa. Se ha obtenido mediante el comando \comando{pic32-objdump -d funciones.o}.
 
-\begin{figure}
-\begin{center}
-\begin{tabular}{c c}
-	\begin{minipage}[t]{.4\textwidth}
-		\lstinputlisting[language={[mips]Assembler},caption=bubble0,basicstyle=\ttfamily\tiny, tabsize=2, firstline=6, lastline=81]{codigo_fuente/funciones_objdump}
-	\end{minipage} 
-	&
-	\begin{minipage}[t]{.4\textwidth}
-		\lstinputlisting[language={[mips]Assembler},caption=bubble1,basicstyle=\ttfamily\tiny, tabsize=2, firstline=85, lastline=110]{codigo_fuente/funciones_objdump}
-		\lstinputlisting[language={[mips]Assembler},caption=bubble2,basicstyle=\ttfamily\tiny, tabsize=2, firstline=114, lastline=136]{codigo_fuente/funciones_objdump}
-		\lstinputlisting[language={[mips]Assembler},caption=bubble3,basicstyle=\ttfamily\tiny, tabsize=2, firstline=140, lastline=162]{codigo_fuente/funciones_objdump}
-	\end{minipage} \\
-\end{tabular}
-\label{bubble}
-\end{center}
-\end{figure}
-
-
-
-
-\begin{figure}
-\begin{center}
-\begin{tabular}{c c}
-	\begin{minipage}[t]{.4\textwidth}
-		\lstinputlisting[language={[mips]Assembler},caption=colocar0,basicstyle=\ttfamily\tiny, tabsize=2, firstline=166, lastline=257]{codigo_fuente/funciones_objdump}
-	\end{minipage} 
-	&
-	\begin{minipage}[t]{.4\textwidth}
-		\lstinputlisting[language={[mips]Assembler},caption=quicksort0,basicstyle=\ttfamily\tiny, tabsize=2, firstline=261, lastline=299]{codigo_fuente/funciones_objdump}
-	\end{minipage} \\
-\end{tabular}
-\label{quick}
-\end{center}
-\end{figure}
 
