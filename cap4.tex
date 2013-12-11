@@ -258,4 +258,123 @@ Una vez visto como están implementados los algoritmos de ordenación en C, pode
 
 En el apéndice \ref{chap:apendice4} se encuentran las distintas funciones en lenguaje ensamblador, obtenido a partir del fichero objeto \comando{funciones.o} que se genera durante la compilación del programa. Se ha obtenido mediante el comando \comando{pic32-objdump -d funciones.o}.
 
+\begin{table}[H]
+	\begin{center}
+	\begin{tabular}{|l|c|c|c|c|c|c|}
+\hline
+Función	&	
+Nº Ins.\tablefootnote{Número total de instrucciones que contiene la función.} & 
+Ins. Aritméticas\tablefootnote{addiu,addu,andi,sll,subu,xori} & 
+Ins. Ctrl. Flujo\tablefootnote{beq,beqz,blez,blezl,bne,bnez,j,jal,jr,slt} & 
+Ins. Memoria\tablefootnote{lw,sw} & 
+Otras\tablefootnote{li,move,movn} & 
+NOPs\\
+\hline
+\hline
+Bubble0 & 74 & 31.1\% & 12.2\% & 47.3\% & 2.7\% & 6.8\%\\
+Bubble1 & 22 & 18.2\% & 36.4\% & 18.2\% & 18.2\% & 9.1\%\\
+Bubble2 & 22 & 22.7\% & 36.4\% & 18.2\% & 13.6\% & 9.1\%\\
+Bubble3 & 22 & 22.7\% & 36.4\% & 18.2\% & 13.6\% & 9.1\%\\
+Colocar0 & 91 & 29.7\% & 6.6\% & 57.1\% & 2.2\% & 4.4\%\\
+Colocar1 & 28 & 35.7\% & 25.0\% & 32.1\% & 7.1\% & 0.0\%\\
+Colocar2 & 32 & 31.3\% & 25.0\% & 28.1\% & 15.6\% & 0.0\%\\
+Colocar3 & 32 & 31.3\% & 25.0\% & 28.1\% & 15.6\% & 0.0\%\\
+Quicksort0 & 38 & 10.5\% & 15.8\% & 50.0\% & 10.5\% & 13.2\%\\
+Quicksort1 & 29 & 13.8\% & 20.7\% & 34.5\% & 27.6\% & 3.4\%\\
+Quicksort2 & 28 & 14.3\% & 25.0\% & 28.6\% & 32.1\% & 0.0\%\\
+Quicksort3 & 28 & 14.3\% & 25.0\% & 28.6\% & 32.1\% & 0.0\%\\
+Selection0 & 74 & 24.3\% & 12.2\% & 52.7\% & 2.7\% & 8.1\%\\
+Selection1 & 32 & 25.0\% & 31.3\% & 21.9\% & 18.8\% & 3.1\%\\
+Selection2 & 28 & 21.4\% & 28.6\% & 14.3\% & 35.7\% & 0.0\%\\
+Selection3 & 33 & 24.2\% & 30.3\% & 12.1\% & 30.3\% & 3.0\%\\
+\hline
+	\end{tabular}
+\end{center}
+	\caption{Número de instrucciones}
+	\label{num_ins}
+\end{table}
 
+Observando la tabla \ref{num_ins} se pueden apreciar algunos patrones. El tamaño de la función, o el número de instrucciones\footnote{Son equivalentes ya que en MIPS todas las instrucciones son de longitud constante, no como, por ejemplo, en x86 donde puede variar su longitud.} decrece considerablemente cuando se aplica el primer nivel de optimización, llegando a reducirse hasta a un 30\% del tamaño inicial. En algunos casos el número de instrucciones aumenta cuando se usan el segundo o el tercer nivel ya que las optimizaciones que realiza el compilador no tienen como objetivo reducir el tamaño, solamente aumentar la velocidad de ejecución.
+
+\begin{figure}[ht]
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+xlabel=Nivel de optimización,
+ylabel=\% instrucciones de acceso a memoria,
+grid=major,
+xtick=data]
+\addplot coordinates {
+(0,47.3)
+(1,18.2)
+(2,18.2)
+(3,18.2)
+};
+\addplot coordinates {
+(0,57.1)
+(1,32.1)
+(2,28.1)
+(3,28.1)
+};
+\addplot coordinates {
+(0,50)
+(1,34.5)
+(2,28.6)
+(3,28.6)
+};
+\addplot coordinates {
+(0,52.7)
+(1,21.9)
+(2,14.3)
+(3,12.1)
+};
+\legend{bubble,colocar,quicksort,selection}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\caption{Comparación de instrucciones de acceso a memoria entre funciones y optimizaciones.}
+\label{graph:memoria}
+\end{figure}
+
+Si nos fijamos en la gráfica de la figura~\ref{graph:memoria}, vemos como en el nivel inicial de optimización el número de accesos a memoria supone alrededor de la mitad de las instrucciones totales de la funcion, reduciendose notablemente en los niveles superiores. Esta diferencia se debe, principalmente, al uso que se hace de los registros disponibles según el nivel de optimización. Por ejemplo, si vemos el código en ensamblador de \comando{bubble0} nos damos cuenta de que solamente hace uso de dos registros durante su ejecución: \comando{v0} y \comando{v1}. Por otro lado, en \comando{bubble1}, \comando{bubble2} y \comando{bubble3} se utilizan, no solo \comando{v0} y \comando{v1} sino también otros registros como \comando{a1}, \comando{a2} y \comando{a3}, aprovechando mejor los recursos disponibles en el procesador.
+
+\begin{figure}[hb]
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+xlabel=Nivel de optimización,
+ylabel=\% nops,
+grid=major,
+xtick=data]
+\addplot coordinates {
+(0,6.8)
+(1,9.1)
+(2,9.1)
+(3,9.1)
+};
+\addplot coordinates {
+(0,4.4)
+(1,0)
+(2,0)
+(3,0)
+};
+\addplot coordinates {
+(0,13.2)
+(1,3.4)
+(2,0)
+(3,0)
+};
+\addplot coordinates {
+(0,8.1)
+(1,3.1)
+(2,0)
+(3,3.0)
+};
+\legend{bubble,colocar,quicksort,selection}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\caption{Comparación de instrucciones \comando{nop} entre funciones y optimizaciones.}
+\label{graph:nops}
+\end{figure}
+El número de instrucciones \comando{nop}, como se aprecia en la figura~\ref{graph:nops}, supone un gran porcentaje en las funciones cuyo nivel de optimización es `0', pero se reduce en el resto de los niveles de optimización, con respecto al más bajo. En el caso del algoritmo `bubble sort' el porcentaje incrementa, esto quiere decir que el número de instrucciones \comando{nop} es superior en relación al número total de instrucciones en la función, sin embargo, este último número se reduce cuantiosamente (de 74 a 22 instrucciones). La cantidad de \comando{nop} en una función nos da una idea de la eficencia de la misma, ya que esta instrucción supone que el procesador no comienza una instrucción nueva en ese ciclo. El número es alto en el nivel inferior de optimización ya que el compilador no trata de reordenar las funciones para evitar dependencias entre ellas, lo que supone que el procesador deba esperar a que esté el dato disponible o a poder usar la unidad aritmético-lógica.
