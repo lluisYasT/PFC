@@ -296,7 +296,7 @@ Selection3 & 33 & 24.2\% & 30.3\% & 12.1\% & 30.3\% & 3.0\%\\
 
 Observando la tabla \ref{num_ins} se pueden apreciar algunos patrones. El tamaño de la función, o el número de instrucciones\footnote{Son equivalentes ya que en MIPS todas las instrucciones son de longitud constante, no como, por ejemplo, en x86 donde puede variar su longitud.} decrece considerablemente cuando se aplica el primer nivel de optimización, llegando a reducirse hasta a un 30\% del tamaño inicial. En algunos casos el número de instrucciones aumenta cuando se usan el segundo o el tercer nivel ya que las optimizaciones que realiza el compilador no tienen como objetivo reducir el tamaño, solamente aumentar la velocidad de ejecución.
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
 \begin{center}
 \begin{tikzpicture}
 \begin{axis}[
@@ -338,7 +338,7 @@ xtick=data]
 
 Si nos fijamos en la gráfica de la figura~\ref{graph:memoria}, vemos como en el nivel inicial de optimización el número de accesos a memoria supone alrededor de la mitad de las instrucciones totales de la funcion, reduciendose notablemente en los niveles superiores. Esta diferencia se debe, principalmente, al uso que se hace de los registros disponibles según el nivel de optimización. Por ejemplo, si vemos el código en ensamblador de \comando{bubble0} nos damos cuenta de que solamente hace uso de dos registros durante su ejecución: \comando{v0} y \comando{v1}. Por otro lado, en \comando{bubble1}, \comando{bubble2} y \comando{bubble3} se utilizan, no solo \comando{v0} y \comando{v1} sino también otros registros como \comando{a1}, \comando{a2} y \comando{a3}, aprovechando mejor los recursos disponibles en el procesador.
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
 \begin{center}
 \begin{tikzpicture}
 \begin{axis}[
@@ -381,5 +381,20 @@ El número de instrucciones \comando{nop}, como se aprecia en la figura~\ref{gra
 
 \subsection{Depuración y legibilidad del código.} % (fold)
 \label{sub:Depuración y legibilidad del código.}
-A partir del primer nivel de optimización el tamaño de la función y los tipos de instrucciones no varían mucho. Sin embargo si que se producen reordenamiento de las instrucciones por parte del compilador para aprovechar mejor las unidades funcionales del microprocesador. Esto tiene la desventaja de que, a la hora de depurar el código ensamblado, es más difícil relacionar las instrucciones en lenguaje MIPS con las correspondientes en C.
+A partir del primer nivel de optimización el tamaño de la función y los tipos de instrucciones en ensamblador que podemos encontrar, no varan mucho. Sin embargo si que se producen reordenamiento de las instrucciones por parte del compilador para aprovechar mejor las unidades funcionales del microprocesador. Esto tiene la desventaja de que, a la hora de depurar el código ensamblado, es más difícil relacionar las instrucciones en lenguaje MIPS con las correspondientes en C. Es por esto que durante la fase de desarrollo del programa se debe mantener el nivel de optimización más bajo posible para facilitar la tarea de depuración.
+
+Esto se puede observar en las funciones desensambladas del apéndice~\ref{chap:apendice4}. Por ejemplo, en las funciones que han sido compiladas usando el nivel de optimización `0', detrás de las instrucciónes de salto condicional siempre encontramos un \comando{nop}. Sin embargo, en el resto, debido a la opción \comando{-fdelayed-branch} encontramos en su lugar instrucciones que se ejecutarían antes sino se hubiese usado esta opción. Esto puede dar lugar a confusión cuando se revisa el código (sobretodo si no se está familiarizado con estas optimizaciones y el modelo de programación de MIPS).
+
+La desventaja de leer y depurar el código compilado sin optimizaciones es el exceso de movimientos entre el stack y los registros que se producen. Si acudimos otra vez al ejemplo de la función \comando{bubble0}, se puede ver como, durante toda la función, se guardan continuamente los valores de los registros \comando{v0} y \comando{v1} en el stack y, a continuación, se vuelven a leer. Esto no ocurre en el resto de funciones ya que en estás se hace más uso de los registros y menos del stack.
 % subsection Depuración y legibilidad del código. (end)
+
+\section{Análisis del tiempo de ejecución.} % (fold)
+\label{sec:Análisis del tiempo de ejecución.}
+Ya hemos visto el aspecto de las funciones en ensamblador, la cantidad de instrucciones en cada una de ellas y el tipo de instrucciones que las componen. Pero, ¿cómo se traducen estas diferencias en el rendimiento final de la aplicación?. ¿Hasta que punto merece la pena el aumento de la complejidad del código ensamblador?.
+
+\begin{mymdframed}{Nota}
+	Normalmente, el nivel de optimización con el que se compila un programa también afecta al propio tiempo de compilación del mismo. Debido al tamaño de programa que se trata aquí (el archivo que se carga a la placa de Sorted, el programa en el que se encuentran las funciones de ordenación, ocupa solamente 314kbytes y su compilación tarda 3 segundos en mi portátil), este hecho se obvia al no tener un gran impacto en el proceso de creación de un programa para chipKIT o Arduino.
+\end{mymdframed}
+
+Hay varias formas de determinar el rendimiento de un programa o función. Podemos, por ejemplo, medir cuantos cálculos realiza por unidad de tiempo, pero esta medida no es adecuada para el este tipo de aplicación. En este caso lo que se intenta conseguir (en términos de rendimiento y optimización) es reducir el retardo que se produce desde que el usuario envía el comando hasta que obtiene la respuesta. Por lo que para saber el rendimiento de cada función y nivel de optimización, se usará el tiempo que tarda en ejecutarse dicha función, que será el tiempo de respuesta de la aplicación.\footnote{Cuando se ejecuta un comando este debe ser procesado, al igual que el vector de números que se pasa como parámetro, pero este tiempo será constante en todas las funciones al ser su código común a todas ellas.}
+% section Análisis del tiempo de ejecución. (end)
