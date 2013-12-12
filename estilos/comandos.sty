@@ -142,4 +142,18 @@
                             \global\arrayrulewidth 3pt}%
                    \hline
                    \noalign{\global\arrayrulewidth\savedwidth}}
-% ---------------------------------------------------------------
+% --------------------------------------------------------------
+
+\global\mdfdefinestyle{exampledefault}{%
+linecolor=lightgray,linewidth=1pt,%
+leftmargin=1cm,rightmargin=1cm,
+}
+
+\newenvironment{mymdframed}[1]{%
+	\mdfsetup{%
+	frametitle={\colorbox{white}{\,#1\,}},
+	frametitleaboveskip=-\ht\strutbox,
+	frametitlealignment=\raggedright
+	}%
+	\begin{mdframed}[style=exampledefault]
+}{\end{mdframed}}
