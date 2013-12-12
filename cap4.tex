@@ -398,4 +398,38 @@ Ya hemos visto el aspecto de las funciones en ensamblador, la cantidad de instru
 \end{mymdframed}
 
 Hay varias formas de determinar el rendimiento de un programa o función. Podemos, por ejemplo, medir cuantos cálculos realiza por unidad de tiempo, pero esta medida no es adecuada para el este tipo de aplicación. En este caso lo que se intenta conseguir (en términos de rendimiento y optimización) es reducir el retardo que se produce desde que el usuario envía el comando hasta que obtiene la respuesta. Por lo que para saber el rendimiento de cada función y nivel de optimización, se usará el tiempo que tarda en ejecutarse dicha función, que será el tiempo de respuesta de la aplicación.\footnote{Cuando se ejecuta un comando este debe ser procesado, al igual que el vector de números que se pasa como parámetro, pero este tiempo será constante en todas las funciones al ser su código común a todas ellas.}
+
+\begin{figure}[htbp]
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+xlabel=Nivel de optimización,
+ylabel=Ciclos / 2,
+grid=major,
+xtick=data]
+\addplot coordinates {
+	(0,193490006)
+	(1,39335390)
+	(2,34581721)
+	(3,34372868)
+};
+\addplot coordinates {
+	(0,	14248406)
+	(1,	2982945)
+	(2,	2361030)
+	(3,	2082368)
+};
+\addplot coordinates {
+	(0,	122092276)
+	(1,	46284313)
+	(2,	37895014)
+	(3,	50483369)
+};
+\legend{Bubble,Quicksort,Selection}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\caption{Número de ciclos según función y optimización}
+\label{graph:ciclos}
+\end{figure}
 % section Análisis del tiempo de ejecución. (end)
