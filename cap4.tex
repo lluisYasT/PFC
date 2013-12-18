@@ -432,6 +432,10 @@ xtick=data]
 \caption{Número de ciclos según función y optimización}
 \label{graph:ciclos}
 \end{figure}
+
+En la figura~\ref{graph:ciclos} están representados la cantidad de ciclos de procesador que ha llevado ejecutar cada una de las funciones según el nivel de optimización. Se observa un patrón claro, al reducirse el tiempo de ejecución considerablemente cuando se utiliza el primer nivel de optimización, con respecto al inicial. Por ejemplo en el caso del algoritmo `Bubble Sort' esta reducción supone un 80\% menos de ciclos tan solo eligiendo el primer nivel de optimización. En los otros dos algoritmos se aprecia también un descenso del tiempo de ejecución, aunque en el caso de `Quicksort' es mucho más discreto que en los otros dos, sin embargo, ya en el nivel de optimización `0' ya es más rápido.
+
+Si nos fijamos en la ganancia de rendimiento para niveles de optimización más altos que el primero, se puede ver que es muy inferior a la que se obtiene con el primer nivel (en comparación al nivel `0'). Este resultado es de esperar debido a que las optimizaciones que se llevan a cabo en los niveles superiores son más específicas y en estos algoritmos no tienen gran efecto. En el caso del algoritmo de selección, además, vemos como, no solo no se reduce el tiempo de ejecución al usar el tercer nivel de optimización, sino que aumenta con respecto al primer y segundo nivel. Este comportamiento no lo vemos en las otras funciones que, aunque muy limitada, si presentan una ganancia en el rendimiento final.
 % section Análisis del tiempo de ejecución. (end)
 \section{Limitaciones de la biblioteca Arduino.} % (fold)
 \label{sec:Limitaciones de la biblioteca Arduino.}
