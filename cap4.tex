@@ -458,6 +458,11 @@ Si nos fijamos en la ganancia de rendimiento para niveles de optimización más 
 \section{Limitaciones de la biblioteca Arduino.} % (fold)
 \label{sec:Limitaciones de la biblioteca Arduino.}
 
+La plataforma Arduino, incluyendo ChipKIT, está pensada para poder crear programas sin tener que conocer el funcionamiento interno de cada microcontrolador. Es una capa de abstracción más, que permite usar las mismas funciones o incluso programas en microcontroladores diferentes. Por ejemplo, si ejecutamos la función \comando{digitalWrite(13, HIGH)} sabemos que se encenderá el LED de usuario que tienen instalado todas las placas convencionales compatibles con Arduino. No es necesario conocer a que puerto del microcontrolador está conectado dicho LED, que varía según el modelo de placa. Por ejemplo, en el chipKIT MAX32 este LED (LD4) se encuentra conectado al tercer pin del puerto A, sin embargo, en el chipKIT Uno32 lo encontramos el el sexto pin del puerto G.
+
+Cuando queremos leer un valor en una de las entradas analógicas ocurre algo similar: a la función \comando{analogRead()} solo hay que pasarle el pin de la placa, cuyo número se encuentra impreso al lado del mismo y la función se encarga de realizar toda la configuración necesaria para obtener el valor del ADC.
+
+Esta simplificación tiene un precio. Cada vez que se quiere leer o escribir en cada uno de estos puertos, la función encargada de hacerlo lleva a cabo la configuración y la posterior lectura o escritura. Esta sobrecarga hace que cualquiera de estas operaciones sea considerablemente más lenta que si se realizara con funciones de más bajo nivel o accediendo directamente a los registros.
 % section Limitaciones de la biblioteca Arduino. (end)
 \section{Ejemplo de aplicación relacionada con la carrera de telecomunicación.} % (fold)
 \label{sec:Ejemplo de aplicación relacionada con la carrera de telecomunicación.}
