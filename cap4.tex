@@ -465,6 +465,26 @@ Cuando queremos leer un valor en una de las entradas analógicas ocurre algo sim
 Esta simplificación tiene un precio. Cada vez que se quiere leer o escribir en cada uno de estos puertos, la función encargada de hacerlo lleva a cabo la configuración y la posterior lectura o escritura. Esta sobrecarga hace que cualquiera de estas operaciones sea considerablemente más lenta que si se realizara con funciones de más bajo nivel o accediendo directamente a los registros.
 
 Para ilustrar la diferencia he medido de dos formas distintas la frequencia a la que es capaz el chipKIT Max32 de cambiar el estado de un pin de salida. Usando la funcion de Arduino para escribir en una salida digital (\comando{digitalWrite()}) y accediendo a los registros directamente he generado dos ondas cuadradas de diferentes frecuencias. La primera forma de medir la diferencia ha sido usando un método similar al que usamos en el apartado anterior: guardando el valor del contador del microprocesador antes y después de la ejecución de lo que se desea medir. En este caso he optado por medir el tiempo que tarda en ejecutarse un bucle `for' en el que se pone a alto y bajo un pin del microcontrolador. El bucle se repite \(10^5\) veces.
+
+\begin{table}[htb]
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline
+			Método	&		Cuentas		&		Ciclos	&		Periodo		&		Frecuencia \\
+			\hline
+			\hline
+			Arduino	&		5763684		&		11527368&		1.44 us		&		694 kHz \\
+			\hline
+			Registros&	501040		&		1002080	&		125.26 ns	&		7.98 MHz \\
+			\hline
+
+		\end{tabular}
+	\end{center}
+	\caption{Resultados del primer método}
+	\label{ard_vs_reg:1}
+\end{table}
+
+
 % section Limitaciones de la biblioteca Arduino. (end)
 \section{Ejemplo de aplicación relacionada con la carrera de telecomunicación.} % (fold)
 \label{sec:Ejemplo de aplicación relacionada con la carrera de telecomunicación.}
