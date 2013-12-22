@@ -468,20 +468,39 @@ Para ilustrar la diferencia he medido de dos formas distintas la frequencia a la
 
 \begin{table}[htb]
 	\begin{center}
-		\begin{tabular}{|c|c|c|c|c|}
+		\begin{tabular}{|l|c|c|c|c|c|}
 			\hline
-			Método	&		Cuentas		&		Ciclos	&		Periodo		&		Frecuencia \\
+			Método		&		Cuentas		&		Ciclos		&		Ciclos/iteración	&		Periodo		&		Frecuencia \\
 			\hline
 			\hline
-			Arduino	&		5763684		&		11527368&		1.44 us		&		694 kHz \\
+			Arduino		&		5763684		&		11527368	&		115.27						&		1.44 us		&		694 kHz \\
 			\hline
-			Registros&	501040		&		1002080	&		125.26 ns	&		7.98 MHz \\
+			Registros	&		501040		&		1002080		&		10.02							&		125.26 ns	&		7.98 MHz \\
 			\hline
 
 		\end{tabular}
 	\end{center}
-	\caption{Resultados del primer método}
+	\caption{Diferencia entre \comando{digitalWrite()} y acceso directo al registro usando un bucle \comando{for} de $10^5$ iteraciones y midendo el tiempo que tarda en completarse este bucle.}
 	\label{ard_vs_reg:1}
+\end{table}
+
+En la figura~\ref{ard_vs_reg:1} se puede apreciar la diferencia de velocidad cuando se realiza la escritura digital en un puerto dependiendo del método empleado. Según estos datos el acceso directo a los registros del microcontrolador nos otorga la posibilidad de ejecutar esta operación a una frecuencia un orden de magnitud mayor que con la función \comando{digitalWrite()} de la biblioteca Arduino. Para contrastar los resultados también he obtado por realizar las mediciones con otro método. Usando un bucle infinito con \comando{while(1)} he medido la frecuencia de la onda cuadrada que se genera en el pin correspondiente y, como se puede ver en la figura~\ref{ard_vs_reg:2} los resultados son muy similares al primer método.
+
+\begin{table}[htb]
+	\begin{center}
+		\begin{tabular}{|l|c|}
+			\hline
+			Método		&		Frecuencia	\\
+			\hline
+			\hline
+			Arduino		&		700 kHz			\\
+			\hline
+			Registros	&		7.983	MHz		\\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{Frecuencia de conmutación según el método empleado. Medida usando un multímetro UNI-T UT61E}
+	\label{ard_vs_reg:2}
 \end{table}
 
 
