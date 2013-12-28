@@ -503,6 +503,7 @@ En la figura~\ref{ard_vs_reg:1} se puede apreciar la diferencia de velocidad cua
 	\label{ard_vs_reg:2}
 \end{table}
 
+Esta diferencia de velocidad dependiendo del método empleado es debida a que las funciones de la biblioteca Arduino no se encargan solo de, por ejemplo, escribir en un pin digital, también comprueban que el pin existe y en el caso de existir, a que puerto del microcontrolador pertenece. Como el objetivo de la biblioteca Arduino no es solo simplificar funciones comunes en microcontroladores, sino también generar código portable, es decir, código que pueda ser compilado en diferentes microcontroladores, las funciones deben ser capaces de ejecutarse teniendo en cuenta esto. Cuando usamos registros la velocidad aumenta, como ya he dicho, a expensas de reducir la legibilidad del código y su portabilidad.
 
 % section Limitaciones de la biblioteca Arduino. (end)
 \section{Ejemplo de aplicación relacionada con la carrera de telecomunicación.} % (fold)
