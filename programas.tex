@@ -6,51 +6,16 @@
 % fichero fdl-1.3.tex
 
 % Copyright (C) 2009 Pablo Recio Quijano 
-Es usual en un PFC referenciar que software has usado para la
-realización del mismo. Aprovecharé este apartado para que conozcas
-alguna herramienta que puede serte de ayuda para realizar tus
-documentos en \LaTeX{}
+Para la realización de esta memoria he utilizado diferentes programas.
 
-\section*{Emacs + Auc\TeX}
+\section*{Vim}
+\programa{Vim} es uno de los editores de texto más utilizado en entornos Unix, enfocado en programación. La ventaja de usar este editor es que está preinstalado en cualquier sistema Unix (puede estar instalado Vim o Vi) y es altamente personalizable mediante su archivo de configuración y con plugins.
 
-Emacs es uno de los programas de edición más usados por
-desarrolladores de software, ya que es bastante versatil admitiendo
-gran cantidad de ``plugins'' o extensiones que permiten ampliar aun
-más sus funcionalidades.\\
+\section*{Sublime Text + Latexing}
+Otro editor de textos que he utilizado para la creación de esta memoria es \programa{Sublime Text} que, a diferencia de \programa{Vim}, es de pago. Al igual que \programa{Vim} es posible ampliar su funcionalidad con plugins.
 
-Uno de estos plugins es Auc\TeX \cite{pdf:auctex}, el cual incluye
-rutas para ciertos comandos, resaltado de sintaxis, previsualización
-del documento, menú matemático en el cual podemos acceder e insertar
-la gran mayoria de los símbolos matemáticos, para no tener que
-memorizarlos. Podemos ver un ejemplo de Emacs + Auc\TeX en la figura
-\ref{auctex}
-
-%\figura{Auctex.png}{scale=0.6}{Emacs + Auc\TeX}{auctex}{h}
-
-Por ejemplo, para cerrar un entorno $\backslash$\texttt{begin()}, con su
-respectivo $\backslash$\texttt{end()}, utilizaremos el atajo
-\comando{C-c M-]}, para añadir un $\backslash$\texttt{item}, tenemos
-el atajo \comando{C-c C-j}, y así unos cuantos, que una vez que nos
-habituamos a ellos, son bastante cómodos.\\
-
-Además, es bastante configurable, con indentado automático, corrector
-ortográfico y demás. El fichero adjunto a este documento,
-\emph{conf\_emacs} incluye una configuración con varias de estas
-opciones.
-
-\section*{Doxygen}
-
-Realmente, \programa{Doxygen} \cite{website:doxygen} no es una herramienta
-que vayamos a utilizar para realizar documentos \LaTeX{}
-directmaente. Sin embargo, para la documentación de código si es
-bastante util.\\
-
-Esta herramienta realiza una documentación automática de código
-fuente. Es decir, para nuestro PFC, podemos utilizar para generar la
-documentación de las APIs de nuestras librerias y demás. Puede generar
-esta documentación en varios formatos, y entre ellos, \LaTeX, de forma
-que podemos utilizar ese código generado en nuestra memoria de forma
-automática.
+\section*{Git}
+Para mantener un control de versiones he optado por utilizar \programa{Git}. Con \programa{Git} puedo, no solo guardar las versiones, sino también crear diferentes ramas o utilizar un servicio como Github.com, que me permite almacenar tanto esta memoria como los programas que he creado para este trabajo.
 
 \section*{GNU Make}
 
@@ -60,16 +25,3 @@ software en diversos códigos, o como en el caso de este documento,
 para compilar documentos \LaTeX{} con diversas opciones.\\
 
 Para más información \cite{pdf:make}
-
-\section*{Dia}
-
-\programa{Dia} es un editor de gráficos vectoriales el cual incluye
-distintas plantillas para distintos tipos de gráficos, como pueden ser
-UML, ERe, diagramas de flujo, esquemas Cisco de red y un larguísimo
-etcétera. Podemos ver el interfaz en la figura \ref{dia}
-
-%\figura{dia.png}{scale=0.6}{Interfaz de Dia}{dia}{h}
-
-Estos diagramas podemos exportarlos a diversos formatos de imagen
-(\texttt{.png}, \texttt{.eps}, ...) o a formato \texttt{.tex}, como
-vimos anteriormente.
