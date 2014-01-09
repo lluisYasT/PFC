@@ -6,7 +6,7 @@
 #define MAX_LONG_ARRAY    MAX_LONG_MENSAJE / 2
 
 uint8_t mensaje[MAX_LONG_MENSAJE];
-char comando[16];
+char orden[16];
 int array_numeros[MAX_LONG_ARRAY];
 bool  primer_mensaje = true;
 
@@ -54,9 +54,9 @@ Server server(23);
 Client cliente; 
 
 void print_array(int *array, int len);
-void selecciona_comando(char *, int);
+void selecciona_orden(char *, int);
 void array_aleatorio(void);
-void ejecuta_comando(int indice_comando, int * array, int lon);
+void ejecuta_orden(int indice_orden, int * array, int lon);
 void compara(void);
 
 void setup() {
@@ -86,7 +86,7 @@ void loop() {
       cliente.flush();
     }
     mensaje = {0};
-    comando = {0};
+    orden = {0};
     array_numeros = {NULL};
 
     if(cliente.available()) {
@@ -124,7 +124,7 @@ void loop() {
               cantidad_num = 0;
               break;
             }
-            memcpy(comando, mensaje, i);
+            memcpy(orden, mensaje, i);
           } else {
             if (mensaje[i - 1] != '\r') {
               if(sscanf(numero, "%d", &array_numeros[n]) < 1) {
@@ -154,12 +154,12 @@ void loop() {
         Serial.println(longitud);
       }
 
-      Serial.println(comando);
+      Serial.println(orden);
     }
 
     cliente.flush();
 
-    selecciona_comando(comando, longitud);
+    selecciona_orden(orden, longitud);
     if(longitud) {
       print_array(array_numeros, longitud);
     }
@@ -182,37 +182,37 @@ void print_array(int *array, int len) {
 }
 
 /*
- * En funcion del comando llama a la funcion o realiza la operacion
- * correspondiente a dicho comando.
+ * En funcion del orden llama a la funcion o realiza la operacion
+ * correspondiente a dicho orden.
  */
-void selecciona_comando(char *comando, int longitud) {
-  if (!strcmp(comando, "bubble0")) {
-    ejecuta_comando(0, array_numeros, longitud);
-  } else if (!strcmp(comando, "bubble1")) {
-    ejecuta_comando(1, array_numeros, longitud);
-  } else if (!strcmp(comando, "bubble2")) {
-    ejecuta_comando(2, array_numeros, longitud);
-  } else if (!strcmp(comando, "bubble3")) {
-    ejecuta_comando(3, array_numeros, longitud);
-  } else if (!strcmp(comando, "quick0")) {
-    ejecuta_comando(4, array_numeros, longitud);
-  } else if (!strcmp(comando, "quick1")) {
-    ejecuta_comando(5, array_numeros, longitud);
-  } else if (!strcmp(comando, "quick2")) {
-    ejecuta_comando(6, array_numeros, longitud);
-  } else if (!strcmp(comando, "quick3")) {
-    ejecuta_comando(7, array_numeros, longitud);
-  } else if (!strcmp(comando, "sel0")) {
-    ejecuta_comando(8, array_numeros, longitud);
-  } else if (!strcmp(comando, "sel1")) {
-    ejecuta_comando(9, array_numeros, longitud);
-  } else if (!strcmp(comando, "sel2")) {
-    ejecuta_comando(10, array_numeros, longitud);
-  } else if (!strcmp(comando, "sel3")) {
-    ejecuta_comando(11, array_numeros, longitud);
-  } else if (!strcmp(comando, "help")) {
+void selecciona_orden(char *orden, int longitud) {
+  if (!strcmp(orden, "bubble0")) {
+    ejecuta_orden(0, array_numeros, longitud);
+  } else if (!strcmp(orden, "bubble1")) {
+    ejecuta_orden(1, array_numeros, longitud);
+  } else if (!strcmp(orden, "bubble2")) {
+    ejecuta_orden(2, array_numeros, longitud);
+  } else if (!strcmp(orden, "bubble3")) {
+    ejecuta_orden(3, array_numeros, longitud);
+  } else if (!strcmp(orden, "quick0")) {
+    ejecuta_orden(4, array_numeros, longitud);
+  } else if (!strcmp(orden, "quick1")) {
+    ejecuta_orden(5, array_numeros, longitud);
+  } else if (!strcmp(orden, "quick2")) {
+    ejecuta_orden(6, array_numeros, longitud);
+  } else if (!strcmp(orden, "quick3")) {
+    ejecuta_orden(7, array_numeros, longitud);
+  } else if (!strcmp(orden, "sel0")) {
+    ejecuta_orden(8, array_numeros, longitud);
+  } else if (!strcmp(orden, "sel1")) {
+    ejecuta_orden(9, array_numeros, longitud);
+  } else if (!strcmp(orden, "sel2")) {
+    ejecuta_orden(10, array_numeros, longitud);
+  } else if (!strcmp(orden, "sel3")) {
+    ejecuta_orden(11, array_numeros, longitud);
+  } else if (!strcmp(orden, "help")) {
     cliente.println("");
-    cliente.println("Comandos disponibles:\n");
+    cliente.println("ordens disponibles:\n");
     cliente.println("bubble0");
     cliente.println("bubble1");
     cliente.println("bubble2");
@@ -228,9 +228,9 @@ void selecciona_comando(char *comando, int longitud) {
     cliente.println("comparar");
     cliente.println("exit");
     cliente.println("");
-  } else if (!strcmp(comando, "comparar")) {
+  } else if (!strcmp(orden, "comparar")) {
     compara();
-  } else if (!strcmp(comando, "exit")) {
+  } else if (!strcmp(orden, "exit")) {
     cliente.println("Desconectando...");
     cliente.stop();
     Serial.println("Cliente desconectado");
@@ -241,15 +241,15 @@ void selecciona_comando(char *comando, int longitud) {
     IOShieldOled.putString("Sorted ChipKIT");
 
   } else {
-    if(!primer_mensaje) cliente.println("Comando invalido");
+    if(!primer_mensaje) cliente.println("orden invalido");
   }
 
 }
 
-void ejecuta_comando(int indice_comando, int * array, int lon) {
+void ejecuta_orden(int indice_orden, int * array, int lon) {
   uint16_t antes_micros, despues_micros, antes_millis, despues_millis;
   char tiempos[16];
-  bool comando_valido = true;
+  bool orden_valido = true;
 
   IOShieldOled.clear();
   IOShieldOled.setCursor(0,0);
@@ -261,13 +261,13 @@ void ejecuta_comando(int indice_comando, int * array, int lon) {
   antes_micros = micros();
   antes_millis = millis();
   LATAbits.LATA0 = 1;
-  funcion_ordenar[indice_comando].funcion(array, lon);
+  funcion_ordenar[indice_orden].funcion(array, lon);
   LATAbits.LATA0 = 0;
   despues_micros = micros();
   despues_millis = millis();
 
   // Envia los resultados al cliente
-  cliente.println(funcion_ordenar[indice_comando].nombre);
+  cliente.println(funcion_ordenar[indice_orden].nombre);
   cliente.print("Tiempo en microsegundos: ");
   cliente.println(despues_micros - antes_micros);
   cliente.print("Tiempo en milisegundos: ");
@@ -275,7 +275,7 @@ void ejecuta_comando(int indice_comando, int * array, int lon) {
   cliente.print("\n");
 
   // Muestra los resultados en la pantalla del ChipKIT I/O Shield
-  IOShieldOled.putString(funcion_ordenar[indice_comando].nombre);
+  IOShieldOled.putString(funcion_ordenar[indice_orden].nombre);
   IOShieldOled.putString(": ");
   IOShieldOled.setCursor(0,1);
   sprintf(tiempos,"%d ms - %d us", despues_millis - antes_millis, despues_micros - antes_micros);
@@ -301,6 +301,6 @@ void compara(void) {
 
   for (int i = 0; i < N_ORDENAR; i++) {
     memcpy(array_aux,array_numeros,MAX_LONG_ARRAY);
-    ejecuta_comando(i,array_aux,MAX_LONG_ARRAY);
+    ejecuta_orden(i,array_aux,MAX_LONG_ARRAY);
   }
 }

@@ -42,13 +42,13 @@ Buscamos todos los archivos de código fuente que forman parte de la biblioteca 
  Este es el primer objetivo que hay en nuestro Makefile y es el que se ejecutará por defecto cuando ejecutamos \programa{make} sin ningún argumento. Lo utilizamos para definir el objetivo por defecto sin tener que modificar nada más que esta línea del Makefile. En este caso indicamos que este objetivo depende del objetivo `link' que veremos más adelante.
  
  \lstinputlisting[language=make, firstline=70, lastline=81, breaklines=true]{codigo_fuente/Makefile.}
- Compilamos, enlazamos y empaquetamos la biblioteca Core, obteniendo como resultado el archivo \comando{core.a}.
+ Compilamos, enlazamos y empaquetamos la biblioteca Core, obteniendo como resultado el archivo \orden{core.a}.
  
  \lstinputlisting[language=make, firstline=83, lastline=91, breaklines=true]{codigo_fuente/Makefile.}
  Estas son las reglas que utilizamos para generar los ficheros con extensión `.o' a partir de su correspondiente archivo de código fuente.
  
  \lstinputlisting[language=make, firstline=95, lastline=107, breaklines=true]{codigo_fuente/Makefile.}
- Estas reglas las utilizaremos en el caso de querer generar archivos que hayan sido solo preprocesados o preprocesados y compilados sin ser ensamblados. Para usarlas habrá que indicar explícitamente que archivo queremos generar, por ejemplo \comando{make src/sketch.s} para obtener el archivo en ensamblador a partir de nuestro código C++ de `sketch.cpp'.
+ Estas reglas las utilizaremos en el caso de querer generar archivos que hayan sido solo preprocesados o preprocesados y compilados sin ser ensamblados. Para usarlas habrá que indicar explícitamente que archivo queremos generar, por ejemplo \orden{make src/sketch.s} para obtener el archivo en ensamblador a partir de nuestro código C++ de `sketch.cpp'.
  
  \lstinputlisting[language=make, firstline=109, lastline=111, breaklines=true]{codigo_fuente/Makefile.}
  Con este objetivo realizamos el enlazado de los archivos compilados para generear el ejecutable. En las dependencias se encuentran todos los archivos y reglas necesarias para llevar acabo el enlazado.
@@ -57,10 +57,10 @@ Buscamos todos los archivos de código fuente que forman parte de la biblioteca 
  Este objetivo tiene la finalidad de enlazar el programa usando un script de enlazado diferente, que no inserta un bootloader. De esta forma podremos crear un ejecutable que puede ser usado en \programa{MPLAB X} para depuración.
  
  \lstinputlisting[language=make, firstline=118, lastline=121, breaklines=true]{codigo_fuente/Makefile.}
- De la misma forma que lo hace \programa{MPIDE} creamos el archivo con extensión `.hex', que cargaremos mas tarde en el microcontrolador. Este objetivo depende del objetivo \comando{link}, ya que necesitamos el programa enlazado.
+ De la misma forma que lo hace \programa{MPIDE} creamos el archivo con extensión `.hex', que cargaremos mas tarde en el microcontrolador. Este objetivo depende del objetivo \orden{link}, ya que necesitamos el programa enlazado.
  
  \lstinputlisting[language=make, firstline=123, lastline=124, breaklines=true]{codigo_fuente/Makefile.}
  Este es el objetivo que hemos definido antes como el objetivo por defecto. Es el que se encarga de invocar a \programa{avrdude} que cargará nuestro programa en la placa.
  
  \lstinputlisting[language=make, firstline=127, breaklines=true]{codigo_fuente/Makefile.}
- Por último, el objetivo \comando{clean} nos permitirá eliminar todos los archivos creados durante el proceso de compilación, enlazado y carga.
+ Por último, el objetivo \orden{clean} nos permitirá eliminar todos los archivos creados durante el proceso de compilación, enlazado y carga.

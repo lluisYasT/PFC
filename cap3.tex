@@ -53,14 +53,14 @@ Si accedemos a la carpeta de instalación de Arduino veremos diferentes subcarpe
 \end{figure}
 
 \begin{description}
-    \item[\comando{examples}] El programa incluye algunos ejemplos que se pueden compilar y cargar sin modificarlos. 
-    \item[\comando{hardware}] En esta carpeta se guarda todo lo relacionado con el hardware, como su nombre indica. Aquí encontraremos la `toolchain' y las bibliotecas necesarias para la compilación y ensablado de los programas Arduino.
-    \item[\comando{lib}] Contiene bibliotecas Java para el funcionamiento del entorno de desarrollo.
-			\item[\comando{libraries}] El IDE incluye algunas bibliotecas de terceros que se pueden incluir en nuestros proyectos.
-			\item[\comando{reference}] Contiene toda la documentación.
+    \item[\orden{examples}] El programa incluye algunos ejemplos que se pueden compilar y cargar sin modificarlos. 
+    \item[\orden{hardware}] En esta carpeta se guarda todo lo relacionado con el hardware, como su nombre indica. Aquí encontraremos la `toolchain' y las bibliotecas necesarias para la compilación y ensablado de los programas Arduino.
+    \item[\orden{lib}] Contiene bibliotecas Java para el funcionamiento del entorno de desarrollo.
+			\item[\orden{libraries}] El IDE incluye algunas bibliotecas de terceros que se pueden incluir en nuestros proyectos.
+			\item[\orden{reference}] Contiene toda la documentación.
 \end{description}
 
-En la carpeta \comando{hardware} encontramos otras dos carpetas: \comando{arduino} y \comando{tools}.  La primera contiene bootloaders, firmwares, la biblioteca `core' y, en el directorio \comando{variants}, en la que están los archivos de cabecera de cada placa microcontroladora en el que se especifica la posición de cada periférico y pin según el microcontrolador.  En \comando{tools} está avrdude (utilidad para cargar los programas en la placa) y su archivo de configuración junto con la `toolchain' \programa{GCC} para realizar la compilación cruzada de los programas.
+En la carpeta \orden{hardware} encontramos otras dos carpetas: \orden{arduino} y \orden{tools}.  La primera contiene bootloaders, firmwares, la biblioteca `core' y, en el directorio \orden{variants}, en la que están los archivos de cabecera de cada placa microcontroladora en el que se especifica la posición de cada periférico y pin según el microcontrolador.  En \orden{tools} está avrdude (utilidad para cargar los programas en la placa) y su archivo de configuración junto con la `toolchain' \programa{GCC} para realizar la compilación cruzada de los programas.
 
 \section{\programa{MPIDE}}
 % Igual que arduino
@@ -69,7 +69,7 @@ En la carpeta \comando{hardware} encontramos otras dos carpetas: \comando{arduin
 
 \figura{mpide.jpg}{scale=0.6}{\programa{MPIDE}}{mpide}{H} 
 
-Si accedemos a la carpeta \comando{hardware} de este programa, encotramos otra carpeta además de \comando{arduino} y \comando{tools}: \comando{pic32}. La estructura es similar  que en la carpeta de Arduino. Aquí están todos las bibliotecas para la plataforma chipKIT. También podemos encontrar aquí la `toolchain' \programa{GCC} para pic32 en el directorio \comando{compiler}.
+Si accedemos a la carpeta \orden{hardware} de este programa, encotramos otra carpeta además de \orden{arduino} y \orden{tools}: \orden{pic32}. La estructura es similar  que en la carpeta de Arduino. Aquí están todos las bibliotecas para la plataforma chipKIT. También podemos encontrar aquí la `toolchain' \programa{GCC} para pic32 en el directorio \orden{compiler}.
 
 \begin{figure}
 \begin{center}
@@ -111,7 +111,7 @@ Si accedemos a la carpeta \comando{hardware} de este programa, encotramos otra c
 \label{mpide_carpetas}
 \end{figure}
 
-Estos entornos de desarrollo, tanto el de Arduino como el de chipKIT son sencillos de utilizar por su interfaz simple, pero carecen de muchas características de otros entornos como podrían ser Eclipse o incluso Vim con plugins. El editor no dispone de autocompletado ni de comando especiales para moverse por el archivo. Para configurar alguna opción, como la fuente empleada o su tamaño hay que recurrir a editar el archivo de configuración directamente.
+Estos entornos de desarrollo, tanto el de Arduino como el de chipKIT son sencillos de utilizar por su interfaz simple, pero carecen de muchas características de otros entornos como podrían ser Eclipse o incluso Vim con plugins. El editor no dispone de autocompletado ni de atajos u órdenes especiales para moverse por el archivo. Para configurar alguna opción, como la fuente empleada o su tamaño hay que recurrir a editar el archivo de configuración directamente.
 
 Al igual que el entorno de Arduino, no es posible depurar programas.  No se puede hacer una ejecución paso a paso, ver el código ensablador producido o ver el contenido de la memoria y su estado.  Si queremos depurar el programa de forma rudimentaria es necesario, por ejemplo, envíar por el puerto serie los valores de las variables que queramos controlar o mensajes cuando algo no funciona como debe. Tampoco muestra por defecto el proceso que sigue para compilar el programa.
 
@@ -132,7 +132,7 @@ En cualquier programa para Chipkit o Arduino podemos encontrar tres grupos princ
 \subsection{Core}
 Para empezar, tenemos los archivos que formarán parte de la biblioteca ``Core'' a la hora de la compilación. Estos archivos vienen incluidos con \programa{MPIDE} y los podemos encontrar en el directorio en el que tengamos instalado \programa{MPIDE}\protect\footnote{La carpeta de \programa{MPIDE} la podemos colocar donde queramos, pues no requiere de instalación}, en la subcarpeta:
 
-\comando{hardware/pic32/cores/pic32}
+\orden{hardware/pic32/cores/pic32}
 \begin{table}[H]
 \begin{center}
 \begin{tabular}{| c || c |}
@@ -177,7 +177,7 @@ int main(void) {
 \end{lstlisting}
 
 \subsection{Sketch}
-Los programas que escribimos usando \programa{MPIDE} (o el IDE de Arduino) se llaman sketches. En realidad, no escribimos un programa completo porque, como acabamos de ver, el programa en sí ya está escrito en la biblioteca Core. Nuestro objetivo es implementar dos funciones: \comando{setup()} y \comando{loop()}, que ya están declaradas en el archivo de cabecera wiring.h.
+Los programas que escribimos usando \programa{MPIDE} (o el IDE de Arduino) se llaman sketches. En realidad, no escribimos un programa completo porque, como acabamos de ver, el programa en sí ya está escrito en la biblioteca Core. Nuestro objetivo es implementar dos funciones: \orden{setup()} y \orden{loop()}, que ya están declaradas en el archivo de cabecera wiring.h.
 
 \begin{lstlisting}[caption=Sección de wiring.h]
 void setup(void);
@@ -187,26 +187,26 @@ void loop(void);
 Como se puede apreciar en la declaración de ambas funciones, estas no esperan ni devuelven ningún valor.
 
 \lstinputlisting[language=C++, caption=Sketch básico ("BareMinimum.pde")]{codigo_fuente/BareMinimum.pde}
-En \comando{setup()} colocaremos el código para la inicialización de nuestro programa. Es el lugar donde podemos configurar el puerto serie, por ejemplo, o definir como se comportarán los pines (entrada o salida), entre otras cosas. En definitiva, es el lugar donde debemos colocar el código que queramos que se ejecuta una vez al inicio del programa y que no vuelva a ejecutarse más.
+En \orden{setup()} colocaremos el código para la inicialización de nuestro programa. Es el lugar donde podemos configurar el puerto serie, por ejemplo, o definir como se comportarán los pines (entrada o salida), entre otras cosas. En definitiva, es el lugar donde debemos colocar el código que queramos que se ejecuta una vez al inicio del programa y que no vuelva a ejecutarse más.
 
-En \comando{loop()} pondremos el código que se ejecutara de forma cíclica indefinidamente ya que, como podemos observar en main.cpp, la función \comando{loop()} se encuentra dentro de un bucle infinito.
+En \orden{loop()} pondremos el código que se ejecutara de forma cíclica indefinidamente ya que, como podemos observar en main.cpp, la función \orden{loop()} se encuentra dentro de un bucle infinito.
 
 Veamos como ejemplo el sketch Blink:
 \lstinputlisting[language=C++, caption=Blink.pde, label=code:blink]{codigo_fuente/Blink.pde}
 
-En este sketch utilizamos las funciones de Arduino \comando{pinMode},\comando{digitalWrite} y \comando{delay}. En la función \comando{setup()} inicializamos el puerto al que está conectado el LED como una salida\protect\footnote{PIN\_LED1 está definido en el archivo de cabecera Board\_Defs.h que depende del modelo de microcontrolador que estemos usando. Generalmente este es el LED que se encuentra en la propia placa, conectado al pin 13.}, mientras que en \comando{loop()} encendemos y apagamos el LED con retardos de un segundo.
+En este sketch utilizamos las funciones de Arduino \orden{pinMode},\orden{digitalWrite} y \orden{delay}. En la función \orden{setup()} inicializamos el puerto al que está conectado el LED como una salida\protect\footnote{PIN\_LED1 está definido en el archivo de cabecera Board\_Defs.h que depende del modelo de microcontrolador que estemos usando. Generalmente este es el LED que se encuentra en la propia placa, conectado al pin 13.}, mientras que en \orden{loop()} encendemos y apagamos el LED con retardos de un segundo.
 
 \subsection{Bibliotecas de terceros}
 A parte del código de Arduino y del que creemos nosotros, también es posible añadir bibliotecas de terceros. Gracias a la amplia comunidad detrás de Arduino podemos encontrar cientos de ellas. A la hora de usar una biblioteca de Arduino en ChipKIT tendremos que asegurarnos de que no haga uso de funciones específicas de los procesadores Atmel que encontramos en las placas Arduino, ya que no funcionarán en PIC32.
 
-Cuando trabajamos con \programa{MPIDE} podemos encontrar las bibliotecas en dos sitios diferentes. \programa{MPIDE} tiene incluidas varias bibliotecas que podemos encontrar en el directorio ``libraries'' dentro de la carpeta en la que esté instalado \programa{MPIDE}. A parte de estas bibliotecas podemos instalar bibliotecas que descarguemos de Internet o que creemos nosotros dentro de la carpeta ``libraries'' en el directorio \comando{sketchbook}\protect\footnote{La carpeta ``libraries'' no existe. Es neciesario crearla dentro del directorio \comando{sketchbook}.} que \programa{MPIDE} habrá creado la primera vez que lo ejecutemos.
+Cuando trabajamos con \programa{MPIDE} podemos encontrar las bibliotecas en dos sitios diferentes. \programa{MPIDE} tiene incluidas varias bibliotecas que podemos encontrar en el directorio ``libraries'' dentro de la carpeta en la que esté instalado \programa{MPIDE}. A parte de estas bibliotecas podemos instalar bibliotecas que descarguemos de Internet o que creemos nosotros dentro de la carpeta ``libraries'' en el directorio \orden{sketchbook}\protect\footnote{La carpeta ``libraries'' no existe. Es neciesario crearla dentro del directorio \orden{sketchbook}.} que \programa{MPIDE} habrá creado la primera vez que lo ejecutemos.
 
-Con las bibliotecas instaladas en uno de los dos directorios podremos añadirlas a nuestro programa de dos formas diferentes. Podemos añadirlas usando el menú de MPIDE, pudiéndolas encontrar en \comando{Sketch > Import Library}. También es posible usar la directiva \comando{\#include <[Archivo De Cabezera].h>} como haríamos en cualquier programa escrito en C/C++. \programa{MPIDE} se encargará de compilar las bibliotecas y enlazarlas con nuestro programa.
+Con las bibliotecas instaladas en uno de los dos directorios podremos añadirlas a nuestro programa de dos formas diferentes. Podemos añadirlas usando el menú de MPIDE, pudiéndolas encontrar en \orden{Sketch > Import Library}. También es posible usar la directiva \orden{\#include <[Archivo De Cabezera].h>} como haríamos en cualquier programa escrito en C/C++. \programa{MPIDE} se encargará de compilar las bibliotecas y enlazarlas con nuestro programa.
 
 \section{Proceso de compilación de \programa{MPIDE}}
 En este apartado trataremos de describir el proceso que sigue \programa{MPIDE} para la compilación y posterior carga en el microcontrolador del programa creado en \programa{MPIDE}. Nuestro objetivo será saber que programas y opciones de compilación usa el IDE de ChipKIT.
 
-También es interesante conocer que archivos genera \programa{MPIDE} a lo largo de la compilación, pero estos archivos son borrados una vez termina la compilación del programa por lo que tendremos que cambiar este comportamiento. Para ello acudiremos al archivo de configuración \comando{preferences.txt} cuya localización varía según el sistema operativo empleado.
+También es interesante conocer que archivos genera \programa{MPIDE} a lo largo de la compilación, pero estos archivos son borrados una vez termina la compilación del programa por lo que tendremos que cambiar este comportamiento. Para ello acudiremos al archivo de configuración \orden{preferences.txt} cuya localización varía según el sistema operativo empleado.
 
 \begin{table}[H]
 \begin{center}
@@ -223,43 +223,43 @@ También es interesante conocer que archivos genera \programa{MPIDE} a lo largo 
     \hline
   \end{tabular}
 \end{center}
-\caption{Ruta del archivo \comando{preferences.txt}}
+\caption{Ruta del archivo \orden{preferences.txt}}
 \label{tab:preferences_path}
 \end{table}
 
-El archivo \comando{preferences.txt} contiene toda la configuración de MPIDE a excepción de la configuración del compilador, pero nosotros estamos interesados en la línea 75:
+El archivo \orden{preferences.txt} contiene toda la configuración de MPIDE a excepción de la configuración del compilador, pero nosotros estamos interesados en la línea 75:
 \begin{lstlisting}
 preproc.save_build_files=false
 \end{lstlisting}
 
-Cambiando el valor a \comando{true} \programa{MPIDE} guardará los archivos temporales de la compilación.
+Cambiando el valor a \orden{true} \programa{MPIDE} guardará los archivos temporales de la compilación.
 
 Para ver como funciona el proceso de compilación en \programa{MPIDE} usaremos el sketch Blink (\ref{code:blink}).
 
-Para poder observar las acciones que lleva acabo \programa{MPIDE} durante la compilación del programa podemos mantaner apretada la tecla \comando{Mayus} mientras pulsamos el botón de compilar. De esta forma \programa{MPIDE} nos mostrará todos los comandos que ejecute, en el terminal.
+Para poder observar las acciones que lleva acabo \programa{MPIDE} durante la compilación del programa podemos mantaner apretada la tecla \orden{Mayus} mientras pulsamos el botón de compilar. De esta forma \programa{MPIDE} nos mostrará todos las órdenes que ejecute, en el terminal.
 
 \figura{mpide_compilado.jpg}{scale=0.6}{MPIDE después de compilar}{mpide_compilado}{H}
 
 El proceso completo de compilación (lo que se muestra en el terminal) está en el Apéndice \ref{chap:apendice1}.
 
-\programa{MPIDE} comienza copiando nuestro sketch y las bibliotecas que hayamos incluído a una carpeta temporal en la que se realizará el proceso de compilación y ensamblado. Antes de comenzar la compilación, se cambia la extensión del sketch de `.pde'\footnote{En las últimas versiones de Arduino sería `.ino'.} a `.cpp'. Este archivo se escanea en busca de funciones y las que se encuentren (en \programa{MPIDE} se puede definir funciones sin declarlas) son declaradas al inicio del archivo de forma automática, incluyendo \comando{setup()} y \comando{loop()} a pesar de estar ya declaradas en el archivo \comando{main.cpp}, junto con \verb|#include<WProgram.h>|. Esta declaración automática de funciones puede ocasionar errores durante la compilación si usamos una función que reciba un parámetro cuyo tipo sea uno creado con una declaración \verb|typedef| al comienzo del archivo, ya que esta función se declarará antes que el parámetro y ocasionará un error de compilación.
+\programa{MPIDE} comienza copiando nuestro sketch y las bibliotecas que hayamos incluído a una carpeta temporal en la que se realizará el proceso de compilación y ensamblado. Antes de comenzar la compilación, se cambia la extensión del sketch de `.pde'\footnote{En las últimas versiones de Arduino sería `.ino'.} a `.cpp'. Este archivo se escanea en busca de funciones y las que se encuentren (en \programa{MPIDE} se puede definir funciones sin declarlas) son declaradas al inicio del archivo de forma automática, incluyendo \orden{setup()} y \orden{loop()} a pesar de estar ya declaradas en el archivo \orden{main.cpp}, junto con \verb|#include<WProgram.h>|. Esta declaración automática de funciones puede ocasionar errores durante la compilación si usamos una función que reciba un parámetro cuyo tipo sea uno creado con una declaración \verb|typedef| al comienzo del archivo, ya que esta función se declarará antes que el parámetro y ocasionará un error de compilación.
 
-Utilizando \comando{pic32-g++} se compila el sketch (con extensión `.cpp') a un archivo objeto `.o'. A continuación compila y, con \comando{pic32-ar} empaqueta en el archivo \comando{core.a} la biblioteca `Core', es decir, los archivos que se encuentran en la subcarpeta \verb|hardware/pic32/cores| en el direcotorio de instalación de \programa{MPIDE} de esta forma se facilita su manejo más adelante al ser muchos archivos. Si se han utilizado librerías de terceros se compilan. A continuación se enlazan todos los programas objeto produciendo un archivo ejecutable con extensión `.elf'. Para realizar el enlazado se pasa como parámetro al comando dos scripts de enlazado: uno cómun a todas las placas de la misma familia (\comando{chipKIT-application-common} y otroque depende de la placa microcontroladora a la que vaya destinado, en el caso de chipKIT Max32 es \comando{chipKIT-application-32MX795F512.ld}.
+Utilizando \orden{pic32-g++} se compila el sketch (con extensión `.cpp') a un archivo objeto `.o'. A continuación compila y, con \orden{pic32-ar} empaqueta en el archivo \orden{core.a} la biblioteca `Core', es decir, los archivos que se encuentran en la subcarpeta \verb|hardware/pic32/cores| en el direcotorio de instalación de \programa{MPIDE} de esta forma se facilita su manejo más adelante al ser muchos archivos. Si se han utilizado librerías de terceros se compilan. A continuación se enlazan todos los programas objeto produciendo un archivo ejecutable con extensión `.elf'. Para realizar el enlazado se pasa como parámetro a la órden dos scripts de enlazado: uno cómun a todas las placas de la misma familia (\orden{chipKIT-application-common} y otroque depende de la placa microcontroladora a la que vaya destinado, en el caso de chipKIT Max32 es \orden{chipKIT-application-32MX795F512.ld}.
 
 
 \programa{MPIDE} utiliza diferentes parámetros a la hora de la compilación y posterior enlazado, comunes a todos los archivos de código fuente, ya sean de la biblioteca `Core' o el sketch. Veamos cuales son:
 
 \begin{itemize}
     \item \negrita{-ON}. Nivel de optimización. El valor ``N'' varía entre 0 y 3 para optimizaciones generales. Si su valor es ``s'' optimizamos para reducir el espacio que ocupa el programa. Por defecto el nivel de optimización que utiliza \programa{MPIDE} es 2.
-    \item \negrita{-mno-smart-io}. Esta opción deshabilita el análisis estadístico de las cadenas con formato que son pasadas a \comando{printf} o \comando{scanf} y a las variaciones `f' y `v' de estas funciones.
+    \item \negrita{-mno-smart-io}. Esta opción deshabilita el análisis estadístico de las cadenas con formato que son pasadas a \orden{printf} o \orden{scanf} y a las variaciones `f' y `v' de estas funciones.
     \item \negrita{-w}. Esta opción deshabilitia todos los mensajes de advertencia.
     \item \negrita{-fno-exceptions}. Esta opción deshabilita el manejo de excepciones.
     \item \negrita{-ffunction-sections}. Con esta opción cada función se coloca en su propia sección en el archivo de salida.
     \item \negrita{-fdata-sections}.Con esta opción cada dato se coloca en su propia sección en el archivo de salida.
     \item \negrita{-g}. Produce información para la depuración.
     \item \negrita{-mdebugger}. Esta opción define el símbolo `\_DEBUGGER', lo que reservara espacio en una sección del archivo de salida (.DBG\_EXCPT) para los vectores de excepción de depuración.
-    \item \negrita{-Wcast-align}. Está opción hace que el compilador lance una advertencia cuando a un puntero se le ha hecho un cast, es decir, si cambia el tipo de dato al que estaba apuntando a uno que requiera un tamaño de alineamiento mayor. Por ejemplo, advierte si \comando{char *} se convierte en \comando{int *} en máquinas donde solo se puede acceder a datos de tipo\comando{int} cada dos o cuatro palabras.
-    \item \negrita{-fno-short-double}. Esta opción hace que el tipo de variable \comando{double} sea equivalente a \comando{long double} en vez de a \comando{float}, que es la opción por defecto.
+    \item \negrita{-Wcast-align}. Está opción hace que el compilador lance una advertencia cuando a un puntero se le ha hecho un cast, es decir, si cambia el tipo de dato al que estaba apuntando a uno que requiera un tamaño de alineamiento mayor. Por ejemplo, advierte si \orden{char *} se convierte en \orden{int *} en máquinas donde solo se puede acceder a datos de tipo\orden{int} cada dos o cuatro palabras.
+    \item \negrita{-fno-short-double}. Esta opción hace que el tipo de variable \orden{double} sea equivalente a \orden{long double} en vez de a \orden{float}, que es la opción por defecto.
     \item \negrita{-mprocessor=?}. Esta opción indica al compilador cual es el procesador objetivo. En nuestro caso particular se trata de ``32MX795F512L''.
     \item Definiciones de macros para el preprocesador.
     \begin{itemize}
@@ -276,7 +276,7 @@ Utilizando \comando{pic32-g++} se compila el sketch (con extensión `.cpp') a un
             \item \negrita{-mdebugger}. Misma opción que antes.
             \item \negrita{-mprocessor=?}. Misma opción que antes.
             \item \negrita{-lm}. Enlaza la biblioteca estándar \programa{math} que nos proporciona funciones matemáticas\protect\footnote{http://en.wikipedia.org/wiki/C\_mathematical\_functions}
-            \item \negrita{-T}. Con esta opción podemos especificar un script de enlazado. Se usa dos veces: Una para el script \comando{chipKIT-application-COMMON.ld} y otra para\\ \comando{chipKIT-application-32MX795F512.ld}.
+            \item \negrita{-T}. Con esta opción podemos especificar un script de enlazado. Se usa dos veces: Una para el script \orden{chipKIT-application-COMMON.ld} y otra para\\ \orden{chipKIT-application-32MX795F512.ld}.
         \end{itemize}
 \end{itemize}
 
@@ -286,7 +286,7 @@ pic32-objcopy -O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-cha
 pic32-bin2hex -a sketch.elf
 \end{lstlisting}
 
-El resultado de ejecutar estos dos comandos es el archivo \comando{sketch.hex} que ya podrá ser cargado al microcontrolador.
+El resultado de ejecutar estas dos órdenes es el archivo \orden{sketch.hex} que ya podrá ser cargado al microcontrolador.
 Para este último paso será necesario usar el programa \programa{avrdude}, bien el que viene incluido con \programa{MPIDE} o el que tengamos instalado en nuestro sistema.
 \begin{lstlisting}[breaklines=true]
 avrdude -C[Directorio MPIDE]/hardware/tools/avrdude.conf -c stk500v2 -p pic32 -P /dev/ttyUSB0 -b 115200 -v -U
@@ -294,9 +294,9 @@ avrdude -C[Directorio MPIDE]/hardware/tools/avrdude.conf -c stk500v2 -p pic32 -P
 
 \section{Alternativa a \programa{MPIDE}}
 
-Ya hemos visto como el IDE genera y carga el sketch. El problema de este método es que no es posible modificar el proceso de una manera sencilla para adaptarlo a un programa en particular. Es posible ejecutar cada uno de los comandos en un terminal y obtener el mismo resultado que con \programa{MPIDE} pero, aunque esto nos permitiría modificar cada parte del proceso, también lo haría largo y tedioso. Por suerte, hay un programa que nos permite automatizar todo el proceso, manteniendo la posibilidad de modificarlo dependiendo de las necesidades de cada proyecto. Se trata de \programa{GNU make}, un programa muy polivalente que nos permite automatizar multitud de tareas.\footnote{De hecho, con la ayuda de \programa{make} se genera esta memoria en formato PDF a partir de archivos escritos en \LaTeX.}
+Ya hemos visto como el IDE genera y carga el sketch. El problema de este método es que no es posible modificar el proceso de una manera sencilla para adaptarlo a un programa en particular. Es posible ejecutar cada uno de las órdenes en un terminal y obtener el mismo resultado que con \programa{MPIDE} pero, aunque esto nos permitiría modificar cada parte del proceso, también lo haría largo y tedioso. Por suerte, hay un programa que nos permite automatizar todo el proceso, manteniendo la posibilidad de modificarlo dependiendo de las necesidades de cada proyecto. Se trata de \programa{GNU make}, un programa muy polivalente que nos permite automatizar multitud de tareas.\footnote{De hecho, con la ayuda de \programa{make} se genera esta memoria en formato PDF a partir de archivos escritos en \LaTeX.}
 
-De esta forma es posible usar el editor de textos que queramos para generar nuestro código (por ejemplo \programa{VIM} o \programa{emacs}), modificar las opciones de compilación, enlazado y carga de una forma rápida y sencilla.Podemos cambiar las opciones de compilación y enlazado en \programa{MPIDE}, mediante la  modificación de un archivo de configuración del programa (\comando{platforms.txt}) pero estos cambios afectarían a todos los programas compilados con \programa{MPIDE} y es necesario reiniciar el programa para que tengan efecto. 
+De esta forma es posible usar el editor de textos que queramos para generar nuestro código (por ejemplo \programa{VIM} o \programa{emacs}), modificar las opciones de compilación, enlazado y carga de una forma rápida y sencilla.Podemos cambiar las opciones de compilación y enlazado en \programa{MPIDE}, mediante la  modificación de un archivo de configuración del programa (\orden{platforms.txt}) pero estos cambios afectarían a todos los programas compilados con \programa{MPIDE} y es necesario reiniciar el programa para que tengan efecto. 
 
 Para esto vamos a crear una carpeta a modo de plantilla para los proyectos que hagamos. Dentro de esta carpeta tendremos diferentes subdirectorios que serviran para almacenar diferentes tipos de archivos que necesita nuestro programa.
 
@@ -323,22 +323,22 @@ La estructura de la plantilla es la siguiente:
 
 Función de cada carpeta:
 \begin{description}
-	\item[src] Aquí estará el código fuente del programa que hayamos creado. Será el lugar en el que se encuentre el archivo de código fuente \programa{sketch.cpp} que contiene las definiciones de las funciones \comando{setup()} y \comando{loop()}. Además, si necesitamos crear nuestras propias bibliotecas (archivos .h junto con su correspondiente archivo .c o .cpp) podemos crearlos tanto en esta carpeta o en \programa{lib}.
+	\item[src] Aquí estará el código fuente del programa que hayamos creado. Será el lugar en el que se encuentre el archivo de código fuente \programa{sketch.cpp} que contiene las definiciones de las funciones \orden{setup()} y \orden{loop()}. Además, si necesitamos crear nuestras propias bibliotecas (archivos .h junto con su correspondiente archivo .c o .cpp) podemos crearlos tanto en esta carpeta o en \programa{lib}.
 	\item[lib] Las bibliotecas de terceros se deben copiar a esta carpeta. Usando el archivo Makefile compilaremos todas las bibliotecas y luego las enlazaremos con nuestro programa y la biblioteca core.
 	\item[bin] Una vez el programa es enlazado, el arhivo con extensión `.elf' se guardará en esta carpeta. También se generará ahí el archivo final `.hex' que será el que se cargue en la placa microcontroladora.
 \end{description}
 
-Para poder realizar todo el proceso con \programa{make} se necesita un archivo \comando{Makefile} en el que se describe como llevarlo acabo. Este archivo se escribe de la siguiente forma:
+Para poder realizar todo el proceso con \programa{make} se necesita un archivo \orden{Makefile} en el que se describe como llevarlo acabo. Este archivo se escribe de la siguiente forma:
 \begin{listing}[language=make]
 objetivo: dependencia_1 dependencia_2 ...
-	comandos
+	ordenes
 \end{listing}
-Esta estructura la podemos repetir para todos los objetivos que sean necesarios. El objetivo es lo que se quiere conseguir a través de los comandos, pero para poder ejecutarse es necesario que se cumplan las dependencias (que pueden ser archivos u otros objetivos). En el apéndice \ref{chap:apendice2} se encuentra el Makefile completo y su funcionamiento.
+Esta estructura la podemos repetir para todos los objetivos que sean necesarios. El objetivo es lo que se quiere conseguir a través de las órdenes, pero para poder ejecutarse es necesario que se cumplan las dependencias (que pueden ser archivos u otros objetivos). En el apéndice \ref{chap:apendice2} se encuentra el Makefile completo y su funcionamiento.
 
-\programa{make}, siguiendo las instrucciones que se encuentran en el \comando{Makefile} se encarga de compilar, enlazar y empaquetar la biblioteca core en el archivo \comando{core.a} y luego compila todos los archivos en la carpeta \comando{lib} y la carpeta{src}. Es decir, realiza las mismas operaciones que \programa{MPIDE} a excepción de la primera de ellas (Buscar funciones en el sketch).
+\programa{make}, siguiendo las instrucciones que se encuentran en el \orden{Makefile} se encarga de compilar, enlazar y empaquetar la biblioteca core en el archivo \orden{core.a} y luego compila todos los archivos en la carpeta \orden{lib} y la carpeta{src}. Es decir, realiza las mismas operaciones que \programa{MPIDE} a excepción de la primera de ellas (Buscar funciones en el sketch).
 
-En la plantilla también he incluido un script escrito en Perl que puede ser ejecutado de forma explícita por el usuario y que permite replicar este comportamiento. El script se puede ejecutar sobre el archivo \comando{src/sketch.pde} si existe y genera el fichero en código fuente \comando{src/sketch.cpp} siempre y cuando este último archivo, en caso de existir, esté vacío.
+En la plantilla también he incluido un script escrito en Perl que puede ser ejecutado de forma explícita por el usuario y que permite replicar este comportamiento. El script se puede ejecutar sobre el archivo \orden{src/sketch.pde} si existe y genera el fichero en código fuente \orden{src/sketch.cpp} siempre y cuando este último archivo, en caso de existir, esté vacío.
 
-Con el \comando{Makefile} incluido podemos ejecutar diversas acciones dependiendo del objetivo que elijamos. Si se ejecuta \comando{make src/sketch.S} (se puede hacer con cualquier archivo escrito en C o C++ que se encuentre en la carpeta) se compila pero no ensambla ni enlaza el archivo \comando{sketch.cpp}. Del mismo modo, si llamamos a la orden \comando{make src/sketch.o} se compila y ensambla \comando{sketch.cpp}. \comando{make link} compilará, ensamblará y enlazará el programa guardando el resultado en \comando{bin/main.elf}. Este último es el objetivo por defecto, por lo que si ejecutamos \comando{make} sin ningún argumento, el resultado será el mismo.
+Con el \orden{Makefile} incluido podemos ejecutar diversas acciones dependiendo del objetivo que elijamos. Si se ejecuta \orden{make src/sketch.S} (se puede hacer con cualquier archivo escrito en C o C++ que se encuentre en la carpeta) se compila pero no ensambla ni enlaza el archivo \orden{sketch.cpp}. Del mismo modo, si llamamos a la orden \orden{make src/sketch.o} se compila y ensambla \orden{sketch.cpp}. \orden{make link} compilará, ensamblará y enlazará el programa guardando el resultado en \orden{bin/main.elf}. Este último es el objetivo por defecto, por lo que si ejecutamos \orden{make} sin ningún argumento, el resultado será el mismo.
 
-Una vez enlazado podemos usar la orden \comando{make load} para cargar el programa en la placa conectada al puerto USB.\footnote{En el \comando{Makefile} ya hay dos puertos serie predefinidos según la plataforma. Solo hace falta modificar una variable para cambiar el puerto al que está conectada la placa.} Con esta orden se ejecuta \comando{avrdude} con los mismos parámetros que si fuese llamado a través de \programa{MPIDE}.
+Una vez enlazado podemos usar la orden \orden{make load} para cargar el programa en la placa conectada al puerto USB.\footnote{En el \orden{Makefile} ya hay dos puertos serie predefinidos según la plataforma. Solo hace falta modificar una variable para cambiar el puerto al que está conectada la placa.} Con esta orden se ejecuta \orden{avrdude} con los mismos parámetros que si fuese llamado a través de \programa{MPIDE}.
