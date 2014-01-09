@@ -1,65 +1,66 @@
-\lstinputlisting[language=make, caption=Makefile, label=code:Makefile, basicstyle=\small, breaklines=true]{codigo_fuente/Makefile}
+%mimateo: lo de Makefile. es para poder compilar en windows...
+\lstinputlisting[language=make, caption=Makefile, label=code:Makefile, basicstyle=\small]{codigo_fuente/Makefile.}
 
  Analicemos el funcionamiento de nuestro Makefile:\\
- \lstinputlisting[language=make, firstline=1, lastline=12, breaklines=true]{codigo_fuente/Makefile}
+\lstinputlisting[language=make, firstline=1, lastline=12, breaklines=true]{codigo_fuente/Makefile.}
  Comenzamos definiendo la localización de \programa{MPIDE}, \programa{avrdude} y el puerto serie. Esto lo hacemos de forma diferente dependiendo de si nos encontremos en Mac OS on en GNU/Linux\protect\footnote{En el caso de Windows el puerto serie suele tener un nombre de la forma COMx, cambiando x por el número de puerto.}. También definimos la localización en la que normalmente podremos encontrar el puerto serie del microcontrolador.
  
- \lstinputlisting[language=make, firstline=13, lastline=21, breaklines=true]{codigo_fuente/Makefile}
+\lstinputlisting[language=make, firstline=13, lastline=21, breaklines=true]{codigo_fuente/Makefile.}
  Continuamos declarando la localización la `toolchain' que viene incluida con \programa{MPIDE}. La localización de \programa{MPIDE} en este caso es la carpeta \$HOME de mi PC (Es necesario modificar este valor dependiendo de la localización de \programa{MPIDE}). Las utilidades de la `toolchain' que viene incluida con \programa{MPIDE} se encuentran siempre en la misma subcarpeta, que en el Makefile es la variable `TOOLCHAIN\_PREFIX', independientemente del sistema operativo empleado. También exportamos MPIDE de forma que podamos acceder a su valor desde el Makefile que se encuentra en la carpeta \programa{core} y así solo es necesario modificar su valor en este archivo, en caso de que el programa se encuentre en un lugar diferente.\\
- rc
- \lstinputlisting[language=make, firstline=23, lastline=23, breaklines=true]{codigo_fuente/Makefile}
+ 
+ \lstinputlisting[language=make, firstline=23, lastline=23, breaklines=true]{codigo_fuente/Makefile.}
  Definimos las opciones para \programa{avrdude}, que usaremos para cargar el programa en la placa y que viene incluido con \programa{MPIDE}.\\
  
- \lstinputlisting[language=make, firstline=25, lastline=27, breaklines=true]{codigo_fuente/Makefile}
+ \lstinputlisting[language=make, firstline=25, lastline=27, breaklines=true]{codigo_fuente/Makefile.}
  Definimos la CPU que lleva nuestra placa, que en este caso corresponde con el Modelo Microchip 32MX795F12L. También declaramos que placa es\protect\footnote{La placa podría ser cualquiera de los modelos compatibles con Arduino que vende Digilent}, para luego poder usar el archivo de cabecera correspondiente a dicha placa. Estas dos variables las exportamos para que sean accesibles también desde el Makefile que hay en la carpeta `core' y no sea necesario volverlas a definir ahí, de la misma forma que hemos hecho con la variable MPIDE.\\
  
- \lstinputlisting[language=make, firstline=29, lastline=30, breaklines=true]{codigo_fuente/Makefile}
+ \lstinputlisting[language=make, firstline=29, lastline=30, breaklines=true]{codigo_fuente/Makefile.}
  El enlazador utiliza dos scripts para el correcto enlazado del programa: uno común a todas las placas chipKIT (\programa{chipKIT\-application\-COMMON.ld}) y uno específico según el modelo que usemos (\programa{chipKIT\-application-32MX795F512.ld}).
  
- \lstinputlisting[language=make, firstline=32, lastline=37, breaklines=true]{codigo_fuente/Makefile}
+ \lstinputlisting[language=make, firstline=32, lastline=37, breaklines=true]{codigo_fuente/Makefile.}
  Guardamos las opciones de compilación y enlazado en las variables \$CFLAGS y \$LDFLAGS respectivamente.
  
- \lstinputlisting[language=make, firstline=39, lastline=41, breaklines=true]{codigo_fuente/Makefile}
+ \lstinputlisting[language=make, firstline=39, lastline=41, breaklines=true]{codigo_fuente/Makefile.}
  Añadimos al final de las opciones de compilación los directorios donde habrá que buscar los archivos de cabecera de las bibliotecas de terceros.
 
-\lstinputlisting[language=make, firstline=47, lastline=50, breaklines=true]{codigo_fuente/Makefile}
+\lstinputlisting[language=make, firstline=47, lastline=50, breaklines=true]{codigo_fuente/Makefile.}
 Buscamos todos los archivos de código fuente que forman parte de la biblioteca Core.
  
-\lstinputlisting[language=make, firstline=47, lastline=50, breaklines=true]{codigo_fuente/Makefile}
+\lstinputlisting[language=make, firstline=47, lastline=50, breaklines=true]{codigo_fuente/Makefile.}
  Definimos el directorio temporal en el que se copiaran los archivos compilados de la biblioteca Core y cuales son a partir de los archivos de código fuente.
  
- \lstinputlisting[language=make, firstline=52, lastline=54, breaklines=true]{codigo_fuente/Makefile}
+ \lstinputlisting[language=make, firstline=52, lastline=54, breaklines=true]{codigo_fuente/Makefile.}
  Buscamos en la carpeta `src' los ficheros con código fuente en C, C++ o ensamblador.
 
- \lstinputlisting[language=make, firstline=56, lastline=58, breaklines=true]{codigo_fuente/Makefile}
+ \lstinputlisting[language=make, firstline=56, lastline=58, breaklines=true]{codigo_fuente/Makefile.}
  Generamos los nombres de los archivos compilados y ensamblados sustituyendo la extensión de los archivos de código fuente de la carpeta `src'.
  
- \lstinputlisting[language=make, firstline=60, lastline=66, breaklines=true]{codigo_fuente/Makefile}
+ \lstinputlisting[language=make, firstline=60, lastline=66, breaklines=true]{codigo_fuente/Makefile.}
  Igual que antes, pero esta vez buscamos los archivos con código fuente dentro de la carpeta `lib' que contiene todas las librerías de terceros.
  
- \lstinputlisting[language=make, firstline=68, lastline=68, breaklines=true]{codigo_fuente/Makefile}
+ \lstinputlisting[language=make, firstline=68, lastline=68, breaklines=true]{codigo_fuente/Makefile.}
  Este es el primer objetivo que hay en nuestro Makefile y es el que se ejecutará por defecto cuando ejecutamos \programa{make} sin ningún argumento. Lo utilizamos para definir el objetivo por defecto sin tener que modificar nada más que esta línea del Makefile. En este caso indicamos que este objetivo depende del objetivo `link' que veremos más adelante.
  
- \lstinputlisting[language=make, firstline=70, lastline=81, breaklines=true]{codigo_fuente/Makefile}
+ \lstinputlisting[language=make, firstline=70, lastline=81, breaklines=true]{codigo_fuente/Makefile.}
  Compilamos, enlazamos y empaquetamos la biblioteca Core, obteniendo como resultado el archivo \comando{core.a}.
  
- \lstinputlisting[language=make, firstline=83, lastline=91, breaklines=true]{codigo_fuente/Makefile}
+ \lstinputlisting[language=make, firstline=83, lastline=91, breaklines=true]{codigo_fuente/Makefile.}
  Estas son las reglas que utilizamos para generar los ficheros con extensión `.o' a partir de su correspondiente archivo de código fuente.
  
- \lstinputlisting[language=make, firstline=95, lastline=107, breaklines=true]{codigo_fuente/Makefile}
+ \lstinputlisting[language=make, firstline=95, lastline=107, breaklines=true]{codigo_fuente/Makefile.}
  Estas reglas las utilizaremos en el caso de querer generar archivos que hayan sido solo preprocesados o preprocesados y compilados sin ser ensamblados. Para usarlas habrá que indicar explícitamente que archivo queremos generar, por ejemplo \comando{make src/sketch.s} para obtener el archivo en ensamblador a partir de nuestro código C++ de `sketch.cpp'.
  
- \lstinputlisting[language=make, firstline=109, lastline=111, breaklines=true]{codigo_fuente/Makefile}
+ \lstinputlisting[language=make, firstline=109, lastline=111, breaklines=true]{codigo_fuente/Makefile.}
  Con este objetivo realizamos el enlazado de los archivos compilados para generear el ejecutable. En las dependencias se encuentran todos los archivos y reglas necesarias para llevar acabo el enlazado.
  
- \lstinputlisting[language=make, firstline=113, lastline=116, breaklines=true]{codigo_fuente/Makefile}
+ \lstinputlisting[language=make, firstline=113, lastline=116, breaklines=true]{codigo_fuente/Makefile.}
  Este objetivo tiene la finalidad de enlazar el programa usando un script de enlazado diferente, que no inserta un bootloader. De esta forma podremos crear un ejecutable que puede ser usado en \programa{MPLAB X} para depuración.
  
- \lstinputlisting[language=make, firstline=118, lastline=121, breaklines=true]{codigo_fuente/Makefile}
+ \lstinputlisting[language=make, firstline=118, lastline=121, breaklines=true]{codigo_fuente/Makefile.}
  De la misma forma que lo hace \programa{MPIDE} creamos el archivo con extensión `.hex', que cargaremos mas tarde en el microcontrolador. Este objetivo depende del objetivo \comando{link}, ya que necesitamos el programa enlazado.
  
- \lstinputlisting[language=make, firstline=123, lastline=124, breaklines=true]{codigo_fuente/Makefile}
+ \lstinputlisting[language=make, firstline=123, lastline=124, breaklines=true]{codigo_fuente/Makefile.}
  Este es el objetivo que hemos definido antes como el objetivo por defecto. Es el que se encarga de invocar a \programa{avrdude} que cargará nuestro programa en la placa.
  
- \lstinputlisting[language=make, firstline=127, breaklines=true]{codigo_fuente/Makefile}
+ \lstinputlisting[language=make, firstline=127, breaklines=true]{codigo_fuente/Makefile.}
  Por último, el objetivo \comando{clean} nos permitirá eliminar todos los archivos creados durante el proceso de compilación, enlazado y carga.
