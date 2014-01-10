@@ -36,7 +36,7 @@ Buscamos todos los archivos de código fuente que forman parte de la biblioteca 
  Generamos los nombres de los archivos compilados y ensamblados sustituyendo la extensión de los archivos de código fuente de la carpeta `src'.
  
  \lstinputlisting[language=make, firstline=60, lastline=66, breaklines=true]{codigo_fuente/Makefile.}
- Igual que antes, pero esta vez buscamos los archivos con código fuente dentro de la carpeta `lib' que contiene todas las librerías de terceros.
+ Igual que antes, pero esta vez buscamos los archivos con código fuente dentro de la carpeta `lib' que contiene todas las bibliotecas de terceros.
  
  \lstinputlisting[language=make, firstline=68, lastline=68, breaklines=true]{codigo_fuente/Makefile.}
  Este es el primer objetivo que hay en nuestro Makefile y es el que se ejecutará por defecto cuando ejecutamos \programa{make} sin ningún argumento. Lo utilizamos para definir el objetivo por defecto sin tener que modificar nada más que esta línea del Makefile. En este caso indicamos que este objetivo depende del objetivo `link' que veremos más adelante.
