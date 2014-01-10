@@ -132,7 +132,7 @@ Usando esta plataforma tuve la posibilidad de programar un sistema donde el fluj
 	\node [
 		draw,
 		minimum width=2cm,
-		minimum height=3cm,
+		minimum height=3.5cm,
 	] (uc) {\(\mu\)  C};
 	\node [
 		draw,
@@ -181,7 +181,7 @@ Usando esta plataforma tuve la posibilidad de programar un sistema donde el fluj
 		xshift=5cm,
 		yshift=-3.5cm,
 		minimum width=2cm,
-		text width=5cm,
+		text width=3.5cm,
 	] (otros_analog) {Elementos analógicos: Altavoces, Buzzers, LEDs \dots};
 
 % Conexiones
@@ -193,14 +193,15 @@ Usando esta plataforma tuve la posibilidad de programar un sistema donde el fluj
 
 \draw[path] ([yshift=-0.5cm] uc.north east) -- ++(1,0)  |- node[above,pos=0.7]{digital}(otros.west);
 \draw[path] ([yshift=-1cm] uc.north east) -- ++(2,0)  |- node[above,pos=0.7]{digital}(mem_out.west);
-\draw[path] (uc.east) -- ++(2,0) |- node[above,pos=0.7]{digital} (hid_out.west);
-\draw[path] ([yshift=1cm] uc.south east) -- ++(2,0) |- node[below,pos=0.7]{digital} (net_out.west);
-\draw[path] ([yshift=0.5cm] uc.south east) -- ++(1,0) |- node[below,pos=0.7]{digital} (pwm.west);
+\draw[path] ([yshift=-1.5cm]uc.north east) -- ++(2,0) |- node[above,pos=0.7]{digital} (hid_out.west);
+\draw[path] ([yshift=1.5cm] uc.south east) -- ++(2.5,0) |- node[below,pos=0.7]{digital} (net_out.west);
+\draw[path] ([yshift=1cm] uc.south east) -- ++(2.25,0) |- node[below,pos=0.7]{digital} (pwm.west);
 \draw[path] (pwm.east) -- ++(1,0) node[above]{analógico} |-  (otros_analog.east);
+\draw[path] ([yshift=0.5cm] uc.south east) -- ++(1.75,0) node[below,pos=0.5]{analógico} |- (otros_analog.west);
 
 \end{tikzpicture}
 \end{center}
-\caption{Origen y Destino de los datos procesados en un Microcontrolador}
+\caption{Origen y Destino de los datos procesados en un Microcontrolador.}
 \label{io_uc}
 \end{figure}
 Esta plataforma tenía dos inconvenientes que hacían inviable su uso fuera de un entorno de aprendizaje o profesional.  Primero, era necesario programar todo en ensamblador, no pudiendo usar las abstracciones que nos otorga un lenguaje como C, o al menos no se podía hacer de una forma sencilla.  Además, el kit que se usaba en clase es difícil de encontrar y, en el caso de hacerlo, su precio es prohibitivo, superando los 1000\$\footnote{http://www.promaxprolink.com/training/tm683.htm}.  Ese mismo año también realicé prácticas de programación con VHDL en FPGAs que también tenían los mismos problemas que el Motorola 68000: alto precio y programación de muy bajo nivel.
