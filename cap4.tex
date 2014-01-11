@@ -513,6 +513,44 @@ Otra limitación de Arduino es la falta de funciones para controlar característ
 % section Ejemplo de aplicación relacionada con la carrera de telecomunicación. (end)
 
 Para finalizar, he decidido escribir una aplicación relacionada con el área de las telecumicaciones. He optado por recrear un programa que elaboré como trabajo final en la asignatura `Laboratorio de tratamiento digital de la señal'. Se trata de un detector de tonos mediante el uso del algoritmo de Goertzel. El programa que desarrollé durante la asignatura funcionaba en un DSP, más concretamente se trataba de un Analog Devices ADSP-2181~\footnote{www.analog.com/en/processors-dsp/adsp-21xx/adsp-2181/products/product.html}.
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}
+	\matrix[row sep=15mm, column sep=25mm]
+	{
+		\node[dspnodeopen,dsp/label=left]	(m00)	{$x[n]$};	&
+		\node[dspadder]						(m01)	{};			&
+		\node[dspnodeopen]					(m02)	{$v_k[n]$}; &
+		\node[dspadder]						(m03)	{};			&
+		\node[dspnodeopen,dsp/label=right]	(m04)	{$y[n]$}; 	\\
+
+		\node[coordinate]					(m10)	{};			&
+		\node[dspadder]						(m11)	{};			&
+		\node[coordinate]					(m12)	{};			&
+		\node[coordinate]					(m13)	{};			\\
+
+		\node[coordinate]					(m20)	{};			&
+		\node[coordinate]					(m21)	{};			&
+		\node[coordinate]					(m22)	{};			\\
+	};
+
+	\foreach \i [evaluate = \i as \j using int(\i+1)] in {0,1,2,3}
+		\draw[dspflow] (m0\i) -- (m0\j);
+
+	\draw[dspflow] (m11) -- (m01);
+	\draw[dspflow] (m02) -- node[midway,right] {$\z^{-1}$} (m12);
+	\draw[dspflow] (m12) -- node[midway,above] {$2cos(2\pi{}k/N)$} (m11);
+	\draw[dspflow] (m12) -- node[midway,below] {$-W_{n^{k}}$} (m13);
+	\draw[dspflow] (m13) -- (m03);
+	
+	\draw[dspflow] (m12) -- node[midway,right] {$\z^{-1}$} (m22);
+	\draw[dspflow] (m22) -- node[midway,above] {$-1$} (m21);
+	\draw[dspflow] (m21) -- (m11);
+
+\end{tikzpicture}
+\caption{Algoritmo de Goertzel.}
+\label{goertzel}
+\end{figure}
 
 El DSP tomaba muestras con una frecuencia de muestreo de 8 kHz, que es la misma que he usado en este programa. Normalmente un DSP toma una muestra y realiza el procesado que requiera el algoritmo en dicha muestra. Este programa hace uso de la posibilidad que tienen los ADC de este microcontrolador de realizar el muestreo automáticamente. De esta forma, una vez configurado, solo hay que escribir una función que se encargue de recoger la muestra cuando el ADC genera una interrupción y decidir cuando empieza y acaba el automuestreo. Las funciones que gestionan una interrupción deben ser lo más cortas posibles, por lo que en las primeras revisiones del programa, esta función se encargaba solomente de almacenar la muestra en un vector y aumentar el contador de muestras. Una vez estan todas las muestras almacenadas, se para el automuestreo y comienza el procesado de los datos en la función \orden{loop()}. Cabe mencionar que este muestreo automático y regular no es posible implementarlo usando tan solo las funciones de la biblioteca Arduino, por lo que es necesario recurrir al manual del microcontrolador y a sus registros para llevarlo a cabo.
 
