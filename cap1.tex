@@ -18,13 +18,13 @@ Un microcontrolador es un circuito integrado que se compone de varios bloques fu
 
 En 1971 Intel creó el primer microcontrolador de la histora: el intel 4004 de 4 bits. Desde entonces, los microcontroladores han ido evolucionando hasta los modelos de hoy en día. En la acutalidad existen multitud de modelos diferentes entre los que elegir. Su arquitectura puede ser diferente dependiendo del fabricante o, dentro de este, de la gama. Por ejemplo, Microchip utiliza una arquitectura para su gama de 32 bits diferente al resto de gamas más bajas.
 
-Para programar un microcontrolador, no solo hay que conocer el lenguaje de programación adecuado, normalmente C y en algunos casos ensamblador, sino que también hay que estar familiarizado con el funcionamiento del modelo concreto que se vaya a programar. No es lo mismo programar un microcontrolador ARM que un PIC32 o un Atmel AVR. A pesar de que en todos ellos se utiliza C, las instrucciones y registros en cada uno de ellos difiere.
+Para programar un microcontrolador, no solo hay que conocer el lenguaje de programación adecuado, normalmente C y en algunos casos ensamblador, sino que también hay que estar familiarizado con el funcionamiento del modelo concreto que se vaya a programar. No es lo mismo programar un microcontrolador ARM que un PIC32 o un Atmel AVR.\@ A pesar de que en todos ellos se utiliza C, las instrucciones y registros en cada uno de ellos difiere.
 
 En el año 2003, se comenzó a trabajar en la plataforma Wiring, en el instituto IVREA, en Italia. Con esta plataforma se pretendía lograr facilitar la programación de microcontroladores. Dos años más tarde, nació Arduino que, junto con Wiring, ofrecía una plataforma de hardware y software abierto con la que cualquier persona, con unos conocimientos básicos de programación, podía crear sus propios proyectos.
 % section Contexto (end)
 
 \section{Introducción}
-A lo largo de la carrera he aprendido a programar diferentes dispositivos y arquitecturas. Comencé usando el lenguaje C en ordenadores x86.  Más adelante cursé `Sistemas Electronicos Digitales', asignatura en la que trabajé con ensamblador.  El microprocesador en el que se ejecutaban los programas era el conocido Motorola 68000.
+Como alumno de la Escuela Técnica Superior de Ingenieros de Telecumunicación he tenido la oportunidad a lo largo de la carrera de aprender a programar diferentes dispositivos y arquitecturas. Comencé usando el lenguaje C en ordenadores x86.  Más adelante cursé `Sistemas Electronicos Digitales', asignatura en la que trabajé con ensamblador.  El microprocesador en el que se ejecutaban los programas era el conocido Motorola 68000.
 
 \begin{figure}[H]
 \begin{center}
@@ -217,18 +217,18 @@ En este trabajo emplearé una placa compatible con Arduino: ChipKIT MAX32.  A di
 \section{Objetivos}
 Podemos dividir los objetivos de la siguiente forma:
 
-\subsubsection{Proceso de compilación}
+\subsubsection{Analizar el proceso de compilación de \programa{MPIDE}}
 Lo primero que realizaré será un análisis del proceso que se sigue en el entorno de desarrollo de ChipKIT desde que escribimos el programa hasta que este esté funcionando en la placa microcontroladora.  Esto incluye todas las órdenes o programas que intervengan en este proceso y sus respectivas opciones, además de los ficheros involucrados.
 
 Para lograr flexibilidad en este proceso, propondré una alternativa al IDE, que hará uso de Makefiles y me permitirá realizar todo el proceso anterior con una sola orden. También podré generar resultados intermedios como, por ejemplo, el código compilado, pero no ensamblado, y podré modificar las opciones de cada una de las órdenes.
 
-\subsubsection{Niveles de optimización}
+\subsubsection{Comparar el efecto de los distintos niveles de optimización}
 El compilador ofrece diferentes niveles de optimización y según el nivel se llevan a cabo unas u otras optimizaciones. Uno de los objetivos será identificar estas optimizaciones y ver su efecto en el código. Usando una aplicación desarrollada para el microcontrolador pondré de manifiesto las diferencias entre los distintos niveles de optimización, qué ventajas y qué desventajas tienen cada uno de ellos.
 
-\subsubsection{Limitaciones de la biblioteca Arduino}
+\subsubsection{Poner de manifiesto las limitaciones de la biblioteca Arduino}
 La biblioteca Arduino nos ofrece una capa de abstracción sobre las funciones específicas del microcontrolador pero que tiene limitaciones. Comprobaré la diferencia entre usar esta biblioteca o acudir a las bibliotecas del fabricante; en este caso, Microchip.
 
-\subsubsection{Desarrollo de una aplicación enfocada en el ámbito de las telecomunicaciones}
+\subsubsection{Desarrollar una aplicación enfocada en el ámbito de las telecomunicaciones}
 Desarrollaré una aplicación en la que se pondrán en práctica conceptos relacionados con las telecomunicaciones, aprendidos durante la carrera. La función de la aplicación será detectar tonos mediante el uso del algoritmo de Goertzel.
 
 
