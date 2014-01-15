@@ -43,9 +43,9 @@ Si accedemos a la carpeta de instalación de Arduino veremos diferentes subcarpe
 		child [missing] {}
 		child [missing] {}
 		child [missing] {}
-		child { node {lib}}
-		child { node {libraries}}
-		child { node { reference}};
+	child { node {lib}}
+	child { node {libraries}}
+	child { node { reference}};
 \end{tikzpicture}
 \end{center}
 \caption{Estructura de directorios de Arduino}
@@ -53,11 +53,11 @@ Si accedemos a la carpeta de instalación de Arduino veremos diferentes subcarpe
 \end{figure}
 
 \begin{description}
-    \item[\orden{examples}] El programa incluye algunos ejemplos que se pueden compilar y cargar sin modificarlos. 
-    \item[\orden{hardware}] En esta carpeta se guarda todo lo relacionado con el hardware, como su nombre indica. Aquí encontraremos la `toolchain' y las bibliotecas necesarias para la compilación y ensablado de los programas Arduino.
-    \item[\orden{lib}] Contiene bibliotecas Java para el funcionamiento del entorno de desarrollo.
-			\item[\orden{libraries}] El IDE incluye algunas bibliotecas de terceros que se pueden incluir en nuestros proyectos.
-			\item[\orden{reference}] Contiene toda la documentación.
+	\item[\orden{examples}] El programa incluye algunos ejemplos que se pueden compilar y cargar sin modificarlos. 
+	\item[\orden{hardware}] En esta carpeta se guarda todo lo relacionado con el hardware, como su nombre indica. Aquí encontraremos la `toolchain' y las bibliotecas necesarias para la compilación y ensablado de los programas Arduino.
+	\item[\orden{lib}] Contiene bibliotecas Java para el funcionamiento del entorno de desarrollo.
+		\item[\orden{libraries}] El IDE incluye algunas bibliotecas de terceros que se pueden incluir en nuestros proyectos.
+		\item[\orden{reference}] Contiene toda la documentación.
 \end{description}
 
 En la carpeta \orden{hardware} encontramos otras dos carpetas: \orden{arduino} y \orden{tools}.  La primera contiene bootloaders, firmwares, la biblioteca `core' y, en el directorio \orden{variants}, están los archivos de cabecera de cada placa microcontroladora en los que se especifica la posición de cada periférico y pin según el microcontrolador.  En \orden{tools} está avrdude (utilidad para cargar los programas en la placa) y su archivo de configuración junto con la `toolchain' \programa{GCC} para realizar la compilación cruzada de los programas.
@@ -77,34 +77,34 @@ Si accedemos a la carpeta \orden{hardware} de este programa, encotramos otra car
 \tikzstyle{selected}=[draw=red,fill=red!30]
 \tikzstyle{optional}=[dashed,fill=gray!50]
 \begin{tikzpicture}[%
-  grow via three points={one child at (0.5,-0.7) and
-  two children at (0.5,-0.7) and (0.5,-1.4)},
-  edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
-	\node{hardware}
-		child { node {arduino}
-			child { node {bootloaders}}
-			child { node {cores}}
-			child { node {firmwares}}
-			child { node {variants}}
-		}
-		child [missing] {}
-		child [missing] {}
-		child [missing] {}
-		child [missing] {}
-		child { node {pic32}
-			child { node {compiler}}
-			child { node {cores}}
-			child { node {libraries}}
-			child { node {variants}}
-		}
-		child [missing] {}
-		child [missing] {}
-		child [missing] {}
-		child [missing] {}
-		child { node {tools}
-			child { node {avr}}
-		}
-		child [missing] {};
+grow via three points={one child at (0.5,-0.7) and
+two children at (0.5,-0.7) and (0.5,-1.4)},
+edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}]
+\node{hardware}
+	child { node {arduino}
+		child { node {bootloaders}}
+		child { node {cores}}
+		child { node {firmwares}}
+		child { node {variants}}
+	}
+	child [missing] {}
+	child [missing] {}
+	child [missing] {}
+	child [missing] {}
+	child { node {pic32}
+		child { node {compiler}}
+		child { node {cores}}
+		child { node {libraries}}
+		child { node {variants}}
+	}
+	child [missing] {}
+	child [missing] {}
+	child [missing] {}
+	child [missing] {}
+	child { node {tools}
+		child { node {avr}}
+	}
+	child [missing] {};
 \end{tikzpicture}
 \end{center}
 \caption{Estructura de directorios de hardware en la carpeta de instalación de MPIDE}
@@ -136,43 +136,44 @@ Para empezar, tenemos los archivos que formarán parte de la biblioteca ``Core''
 \begin{table}[H]
 \begin{center}
 \begin{tabular}{| c || c |}
-    \hline
-    Sistema Operativo & Ruta\\
-    \hline
-    \hline
-    Linux & /home/lluis/mpide/hardware/pic32/cores/pic32\\
-    \hline
-    Mac OSX & /Applications/Mpide.app/Contents/Resources/Java/hardware/pic32/cores/pic32\\
-    \hline
-    Windows & C:\textbackslash Archivos de Programa\textbackslash \programa{MPIDE}\textbackslash hardware\textbackslash pic32\textbackslash cores\textbackslash pic32\\
-    \hline
-  \end{tabular}
+	\hline
+	Sistema Operativo & Ruta\\
+	\hline
+	\hline
+	Linux & /home/lluis/mpide/hardware/pic32/cores/pic32\\
+	\hline
+	Mac OSX & /Applications/Mpide.app/Contents/Resources/Java/hardware/pic32/cores/pic32\\
+	\hline
+	Windows & C:\textbackslash Archivos de Programa\textbackslash \programa{MPIDE}\textbackslash hardware\textbackslash pic32\textbackslash cores\textbackslash pic32\\
+	\hline
+\end{tabular}
 \end{center}
 \caption{Ruta de la biblioteca Core}
 \label{tab:core_path}
 \end{table}
-En esta biblioteca tenemos ya definidas las funciones que necesitamos para interactuar con los dispositivos que están integrados en la placa (en nuestro caso Chipkit Max32). Para más información acerca de estas funciones y como utilizarlas podemos acudir a la página de referencia de Arduino\cite{website:arduino_funcs}.
-Además, en esta biblioteca está ya definida la función main de nuestro programa y tiene el siguiente aspecto:
+
+En esta biblioteca tenemos ya definidas las funciones que necesitamos para interactuar con los dispositivos que están integrados en la placa (en nuestro caso, Chipkit Max32). Para más información acerca de estas funciones y cómo utilizarlas podemos acudir a la página de referencia de Arduino~\cite{website:arduino_funcs}. Además, en esta biblioteca está ya definida la función main de nuestro programa y tiene el siguiente aspecto:
+
 \lstset{language=C++}
 \begin{lstlisting}[caption=main.cpp]
 #define OPT_SYSTEM_INTERNAL
 #include <System_Defs.h>
 
 #if (ARDUINO >= 100)
-	#include <Arduino.h>
+#include <Arduino.h>
 #else
-	#include <WProgram.h>
+#include <WProgram.h>
 #endif
 
 int main(void) {
-	init();
-	setup();
-	
-	while(1) {
-		_scheduleTask();
-		loop();
-	}
-	return 0;
+init();
+setup();
+
+while(1) {
+	_scheduleTask();
+	loop();
+}
+return 0;
 }
 \end{lstlisting}
 
@@ -187,24 +188,24 @@ void loop(void);
 Como se puede apreciar en la declaración de ambas funciones, estas no esperan ni devuelven ningún valor.
 
 \lstinputlisting[language=C++, caption=Sketch básico ("BareMinimum.pde")]{codigo_fuente/BareMinimum.pde}
-En \orden{setup()} colocaremos el código para la inicialización de nuestro programa. Es el lugar donde podemos configurar el puerto serie, por ejemplo, o definir como se comportarán los pines (entrada o salida), entre otras cosas. En definitiva, es el lugar donde debemos colocar el código que queramos que se ejecuta una vez al inicio del programa y que no vuelva a ejecutarse más.
+En \orden{setup()} colocaremos el código para la inicialización de nuestro programa. Es el lugar donde podemos configurar el puerto serie, por ejemplo, o definir cómo se comportarán los pines (entrada o salida), entre otras cosas. En definitiva, es el lugar donde debemos colocar el código que queramos que se ejecute una vez al inicio del programa y que no vuelva a ejecutarse más.
 
-En \orden{loop()} pondremos el código que se ejecutara de forma cíclica indefinidamente ya que, como podemos observar en main.cpp, la función \orden{loop()} se encuentra dentro de un bucle infinito.
+En \orden{loop()} pondremos el código que se ejecutará de forma cíclica indefinidamente ya que, como podemos observar en \orden{main.cpp}, la función \orden{loop()} se encuentra dentro de un bucle infinito.
 
 Veamos como ejemplo el sketch Blink:
 \lstinputlisting[language=C++, caption=Blink.pde, label=code:blink]{codigo_fuente/Blink.pde}
 
-En este sketch utilizamos las funciones de Arduino \orden{pinMode},\orden{digitalWrite} y \orden{delay}. En la función \orden{setup()} inicializamos el puerto al que está conectado el LED como una salida\protect\footnote{PIN\_LED1 está definido en el archivo de cabecera Board\_Defs.h que depende del modelo de microcontrolador que estemos usando. Generalmente este es el LED que se encuentra en la propia placa, conectado al pin 13.}, mientras que en \orden{loop()} encendemos y apagamos el LED con retardos de un segundo.
+En este sketch utilizamos las funciones de Arduino \orden{pinMode},\orden{digitalWrite} y \orden{delay}. En la función \orden{setup()} inicializamos el puerto al que está conectado el LED como una salida~\protect\footnote{PIN\_LED1 está definido en el archivo de cabecera Board\_Defs.h que depende del modelo de microcontrolador que estemos usando. Generalmente, este es el LED que se encuentra en la propia placa, conectado al pin 13.}, mientras que en \orden{loop()} encendemos y apagamos el LED con retardos de 1 segundo.
 
 \subsection{Bibliotecas de terceros}
-A parte del código de Arduino y del que creemos nosotros, también es posible añadir bibliotecas de terceros. Gracias a la amplia comunidad detrás de Arduino podemos encontrar cientos de ellas. A la hora de usar una biblioteca de Arduino en Chipkit tendremos que asegurarnos de que no haga uso de funciones específicas de los procesadores Atmel que encontramos en las placas Arduino, ya que no funcionarán en PIC32.
+Aparte del código de Arduino y del que creemos nosotros, también es posible añadir bibliotecas de terceros. Gracias a la amplia comunidad que hay detrás de Arduino podemos encontrar cientos de ellas. A la hora de usar una biblioteca de Arduino en Chipkit tendremos que asegurarnos de que no haga uso de funciones específicas de los procesadores Atmel que encontramos en las placas Arduino, ya que no funcionarán en PIC32.
 
-Cuando trabajamos con \programa{MPIDE} podemos encontrar las bibliotecas en dos sitios diferentes. \programa{MPIDE} tiene incluidas varias bibliotecas que podemos encontrar en el directorio ``libraries'' dentro de la carpeta en la que esté instalado \programa{MPIDE}. A parte de estas bibliotecas podemos instalar bibliotecas que descarguemos de Internet o que creemos nosotros dentro de la carpeta ``libraries'' en el directorio \orden{sketchbook}\protect\footnote{La carpeta ``libraries'' no existe. Es neciesario crearla dentro del directorio \orden{sketchbook}.} que \programa{MPIDE} habrá creado la primera vez que lo ejecutemos.
+Cuando trabajamos con \programa{MPIDE} podemos encontrar las bibliotecas en dos sitios diferentes. \programa{MPIDE} tiene incluidas varias bibliotecas que podemos encontrar en el directorio ``libraries'' dentro de la carpeta en la que esté instalado \programa{MPIDE}. Aparte de estas bibliotecas, podemos instalar bibliotecas que descarguemos de Internet o que creemos nosotros dentro de la carpeta ``libraries'' en el directorio \orden{sketchbook}~\protect\footnote{La carpeta ``libraries'' no existe. Es neciesario crearla dentro del directorio \orden{sketchbook}.} que \programa{MPIDE} habrá creado la primera vez que lo ejecutemos.
 
 Con las bibliotecas instaladas en uno de los dos directorios podremos añadirlas a nuestro programa de dos formas diferentes. Podemos añadirlas usando el menú de MPIDE, pudiéndolas encontrar en \orden{Sketch > Import Library}. También es posible usar la directiva \orden{\#include <[Archivo De Cabezera].h>} como haríamos en cualquier programa escrito en C/C++. \programa{MPIDE} se encargará de compilar las bibliotecas y enlazarlas con nuestro programa.
 
 \section{Proceso de compilación de \programa{MPIDE}}
-En este apartado trataremos de describir el proceso que sigue \programa{MPIDE} para la compilación y posterior carga en el microcontrolador del programa creado en \programa{MPIDE}. Nuestro objetivo será saber que programas y opciones de compilación usa el IDE de Chipkit.
+En este apartado trataré de describir el proceso que sigue \programa{MPIDE} para la compilación y posterior carga en el microcontrolador del programa creado en \programa{MPIDE}. Nuestro objetivo será saber que programas y opciones de compilación usa el IDE de Chipkit.
 
 También es interesante conocer que archivos genera \programa{MPIDE} a lo largo de la compilación, pero estos archivos son borrados una vez termina la compilación del programa por lo que tendremos que cambiar este comportamiento. Para ello acudiremos al archivo de configuración \orden{preferences.txt} cuya localización varía según el sistema operativo empleado.
 
@@ -232,35 +233,35 @@ El archivo \orden{preferences.txt} contiene toda la configuración de MPIDE a ex
 preproc.save_build_files=false
 \end{lstlisting}
 
-Cambiando el valor a \orden{true} \programa{MPIDE} guardará los archivos temporales de la compilación.
+Cambiando el valor a \orden{true}, \programa{MPIDE} guardará los archivos temporales de la compilación.
 
-Para ver como funciona el proceso de compilación en \programa{MPIDE} usaremos el sketch Blink (\ref{code:blink}).
+Para ver cómo funciona el proceso de compilación en \programa{MPIDE} usaremos el sketch Blink (\ref{code:blink}).
 
-Para poder observar las acciones que lleva acabo \programa{MPIDE} durante la compilación del programa podemos mantaner apretada la tecla \orden{Mayus} mientras pulsamos el botón de compilar. De esta forma \programa{MPIDE} nos mostrará todos las órdenes que ejecute, en el terminal.
+Para poder observar las acciones que lleva acabo \programa{MPIDE} durante la compilación del programa podemos mantaner apretada la tecla \orden{Mayus} mientras pulsamos el botón de compilar. De esta forma \programa{MPIDE} nos mostrará en el terminal todas las órdenes que ejecute.
 
 \figura{mpide_compilado.jpg}{scale=0.6}{MPIDE después de compilar}{mpide_compilado}{H}
 
 El proceso completo de compilación (lo que se muestra en el terminal) está en el Apéndice \ref{chap:apendice1}.
 
-\programa{MPIDE} comienza copiando nuestro sketch y las bibliotecas que hayamos incluído a una carpeta temporal en la que se realizará el proceso de compilación y ensamblado. Antes de comenzar la compilación, se cambia la extensión del sketch de `.pde'\footnote{En las últimas versiones de Arduino sería `.ino'.} a `.cpp'. Este archivo se escanea en busca de funciones y las que se encuentren (en \programa{MPIDE} se puede definir funciones sin declarlas) son declaradas al inicio del archivo de forma automática, incluyendo \orden{setup()} y \orden{loop()} a pesar de estar ya declaradas en el archivo \orden{main.cpp}, junto con \verb|#include<WProgram.h>|. Esta declaración automática de funciones puede ocasionar errores durante la compilación si usamos una función que reciba un parámetro cuyo tipo sea uno creado con una declaración \verb|typedef| al comienzo del archivo, ya que esta función se declarará antes que el parámetro y ocasionará un error de compilación.
+\programa{MPIDE} comienza copiando nuestro sketch y las bibliotecas que hayamos incluido a una carpeta temporal en la que se realizará el proceso de compilación y ensamblado. Antes de comenzar la compilación, se cambia la extensión del sketch de `.pde'~\footnote{En las últimas versiones de Arduino sería `.ino'.} a `.cpp'. Este archivo se escanea en busca de funciones y las que se encuentren (en \programa{MPIDE} se pueden definir funciones sin declararlas) son declaradas al inicio del archivo de forma automática, incluyendo \orden{setup()} y \orden{loop()} a pesar de estar ya declaradas en el archivo \orden{main.cpp}, junto con \verb|#include<WProgram.h>|. Esta declaración automática de funciones puede ocasionar errores durante la compilación si usamos una función que reciba un parámetro cuyo tipo sea uno creado con una declaración \verb|typedef| al comienzo del archivo, ya que esta función se declarará antes que el parámetro y ocasionará un error de compilación.
 
-Utilizando \orden{pic32-g++} se compila el sketch (con extensión `.cpp') a un archivo objeto `.o'. A continuación compila y, con \orden{pic32-ar} empaqueta en el archivo \orden{core.a} la biblioteca `Core', es decir, los archivos que se encuentran en la subcarpeta \verb|hardware/pic32/cores| en el direcotorio de instalación de \programa{MPIDE} de esta forma se facilita su manejo más adelante al ser muchos archivos. Si se han utilizado bibliotecas de terceros se compilan. A continuación se enlazan todos los programas objeto produciendo un archivo ejecutable con extensión `.elf'. Para realizar el enlazado se pasa como parámetro a la órden dos scripts de enlazado: uno cómun a todas las placas de la misma familia (\orden{Chipkit-application-common} y otroque depende de la placa microcontroladora a la que vaya destinado, en el caso de Chipkit Max32 es \orden{Chipkit-application-32MX795F512.ld}.
+Utilizando \orden{pic32-g++} se compila el sketch (con extensión `.cpp') a un archivo objeto `.o'. A continuación compila y, con \orden{pic32-ar}, empaqueta en el archivo \orden{core.a} la biblioteca `Core', es decir, los archivos que se encuentran en la subcarpeta \verb|hardware/pic32/cores| en el direcotorio de instalación de \programa{MPIDE}; de esta forma se facilita su manejo más adelante al ser muchos archivos. Si se han utilizado bibliotecas de terceros se compilan. A continuación se enlazan todos los programas objeto produciendo un archivo ejecutable con extensión `.elf'. Para realizar el enlazado se pasa a la orden, como parámetro, dos scripts de enlazado: uno, común a todas las placas de la misma familia (\orden{Chipkit-application-common}); y otro, que depende de la placa microcontroladora a la que vaya destinado; en el caso de Chipkit Max32 es \orden{Chipkit-application-32MX795F512.ld}.
 
 
-\programa{MPIDE} utiliza diferentes parámetros a la hora de la compilación y posterior enlazado, comunes a todos los archivos de código fuente, ya sean de la biblioteca `Core' o el sketch. Veamos cuales son:
+\programa{MPIDE} utiliza diferentes parámetros a la hora de la compilación y posterior enlazado, comunes a todos los archivos de código fuente, ya sean de la biblioteca `Core' o el sketch. Veamos cuáles son:
 
 \begin{itemize}
-    \item \negrita{-ON}. Nivel de optimización. El valor ``N'' varía entre 0 y 3 para optimizaciones generales. Si su valor es ``s'' optimizamos para reducir el espacio que ocupa el programa. Por defecto el nivel de optimización que utiliza \programa{MPIDE} es 2.
-    \item \negrita{-mno-smart-io}. Esta opción deshabilita el análisis estadístico de las cadenas con formato que son pasadas a \orden{printf} o \orden{scanf} y a las variaciones `f' y `v' de estas funciones.
-    \item \negrita{-w}. Esta opción deshabilitia todos los mensajes de advertencia.
+    \item \negrita{-ON}. Nivel de optimización. El valor ``N'' varía entre 0 y 3 para optimizaciones generales. Si su valor es ``s'' optimizamos para reducir el espacio que ocupa el programa. Por defecto, el nivel de optimización que utiliza \programa{MPIDE} es 2.
+    \item \negrita{-mno-smart-io}. Esta opción deshabilita el análisis estadístico de las cadenas con formato, que son pasadas a \orden{printf} o \orden{scanf} y a las variaciones `f' y `v' de estas funciones.
+    \item \negrita{-w}. Esta opción deshabilita todos los mensajes de advertencia.
     \item \negrita{-fno-exceptions}. Esta opción deshabilita el manejo de excepciones.
     \item \negrita{-ffunction-sections}. Con esta opción cada función se coloca en su propia sección en el archivo de salida.
     \item \negrita{-fdata-sections}.Con esta opción cada dato se coloca en su propia sección en el archivo de salida.
     \item \negrita{-g}. Produce información para la depuración.
-    \item \negrita{-mdebugger}. Esta opción define el símbolo `\_DEBUGGER', lo que reservara espacio en una sección del archivo de salida (.DBG\_EXCPT) para los vectores de excepción de depuración.
+    \item \negrita{-mdebugger}. Esta opción define el símbolo `\_DEBUGGER', lo que reservará espacio en una sección del archivo de salida (.DBG\_EXCPT) para los vectores de excepción de depuración.
     \item \negrita{-Wcast-align}. Está opción hace que el compilador lance una advertencia cuando a un puntero se le ha hecho un cast, es decir, si cambia el tipo de dato al que estaba apuntando a uno que requiera un tamaño de alineamiento mayor. Por ejemplo, advierte si \orden{char *} se convierte en \orden{int *} en máquinas donde solo se puede acceder a datos de tipo\orden{int} cada dos o cuatro palabras.
     \item \negrita{-fno-short-double}. Esta opción hace que el tipo de variable \orden{double} sea equivalente a \orden{long double} en vez de a \orden{float}, que es la opción por defecto.
-    \item \negrita{-mprocessor=?}. Esta opción indica al compilador cual es el procesador objetivo. En nuestro caso particular se trata de ``32MX795F512L''.
+    \item \negrita{-mprocessor=?}. Esta opción indica al compilador cuál es el procesador objetivo. En nuestro caso particular se trata de ``32MX795F512L''.
     \item Definiciones de macros para el preprocesador.
     \begin{itemize}
         \item \negrita{-DF\_CPU=?}. Este macro define la frecuencia a la que funciona el procesador. En este caso ``80000000L''.
@@ -272,11 +273,11 @@ Utilizando \orden{pic32-g++} se compila el sketch (con extensión `.cpp') a un a
     \item Parámetros de enlazado:
         \begin{itemize}
             \item \negrita{-Os}. Optimizamos para espacio.
-            \item \negrita{-Wl,--gc-sections}. Usando ``-Wl'' pasamos opciones al enlazador, separadas por comas. En este caso pasamos la opción ``--gc-sections'' que sirve para eliminar todo el código y datos que no vayan a ser usados por el programa final y, que por lo tanto no es necesario que se encuentren en él. De esta forma se reduce el tamaño del programa final.
+            \item \negrita{-Wl,--gc-sections}. Usando ``-Wl'' pasamos opciones al enlazador, separadas por comas. En este caso pasamos la opción ``--gc-sections'' que sirve para eliminar todo el código y datos que no vayan a ser usados por el programa final y que, por lo tanto, no es necesario que se encuentren en él. De esta forma se reduce el tamaño del programa final.
             \item \negrita{-mdebugger}. Misma opción que antes.
             \item \negrita{-mprocessor=?}. Misma opción que antes.
             \item \negrita{-lm}. Enlaza la biblioteca estándar \programa{math} que nos proporciona funciones matemáticas\protect\footnote{http://en.wikipedia.org/wiki/C\_mathematical\_functions}
-            \item \negrita{-T}. Con esta opción podemos especificar un script de enlazado. Se usa dos veces: Una para el script \orden{Chipkit-application-COMMON.ld} y otra para\\ \orden{Chipkit-application-32MX795F512.ld}.
+            \item \negrita{-T}. Con esta opción podemos especificar un script de enlazado. Se usa dos veces: una, para el script \orden{Chipkit-application-COMMON.ld};\\  y otra para \orden{Chipkit-application-32MX795F512.ld}.
         \end{itemize}
 \end{itemize}
 
