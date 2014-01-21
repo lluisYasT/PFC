@@ -2,7 +2,7 @@ En este capítulo hablaré sobre los diferentes niveles de optimización que se 
 \section{Niveles de optimización}
 Durante la compilación es posible especificar, mediante la opción \orden{-O} diferentes niveles de optimización. Estos niveles agrupan una serie de optimizaciones.
 
-\begin{table}[H]
+\begin{table}[htb]
 \begin{center}
 \begin{tabularx}{\textwidth}{|l|X|}
     \hline
@@ -13,7 +13,7 @@ Durante la compilación es posible especificar, mediante la opción \orden{-O} d
     \hline
     \orden{-O1} & Optimiza, pero aumenta el tiempo de compilación y la memoria empleada.\\
     \hline
-    \orden{-O2} & Optimiza más todavía. \programa{GCC} realiza casi todas la optimizaciones que no impliquen aumento de la velocidad a costa de un mayor tamaño del programa.\\
+    \orden{-O2} & Optimiza más todavía. \programa{GCC} realiza casi todas la optimizaciones que no impliquen aumento del tamaño del programa.\\
     \hline
     \orden{-O3} & Optimiza todavía más que \orden{-O2}, incluyendo las optimizaciones que aumenten el tamaño del ejecutable.\\
     \hline
@@ -27,9 +27,9 @@ Durante la compilación es posible especificar, mediante la opción \orden{-O} d
 
 Cada uno de estos niveles (a excepción de \orden{-Os}) añade una serie de optimizaciones sobre el nivel inicial \orden{-O0}.
 
-Para poder averiguar que optimizaciones lleva acabo el compilador dependiendo del nivel podemos emplear la órden \orden{pic32-gcc -Ox -Q --help=optimizers | grep enabled} sustituyendo \orden{x} por el nivel que queramos. Esta orden muestra todos las posibles optimizaciones, indicando si están habilitadas o no y para ver solo las habilitadas pasamos el resultado a \orden{grep} para filtrarlas.
+Para poder averiguar qué optimizaciones lleva acabo el compilador dependiendo del nivel podemos emplear la órden \orden{pic32-gcc -Ox -Q --help=optimizers | grep enabled}, sustituyendo \orden{x} por el nivel que queramos. Esta orden muestra todas las posibles optimizaciones, indicando si están habilitadas o no; y para ver solo las habilitadas pasamos el resultado a \orden{grep}, para filtrarlas.
 
-\begin{table}[H]
+\begin{table}[htb]
 \begin{center}
 	\begin{tabular}{|ll|}
 		\hline
@@ -62,9 +62,9 @@ Para poder averiguar que optimizaciones lleva acabo el compilador dependiendo de
 \label{opt0}
 \end{table}
 
-En el nivel más bajo, \programa{gcc} ya realiza optimizaciones. Todas las optimizaciones que comienzan con \orden{-ftree} afectan al árbol sintáctico que utiliza \programa{gcc} como representación interna del programa. También se puede observar como una de las optimizaciones que incluye este nivel es \orden{-fdata-sections} y a pesar de esto \programa{MPIDE} la incluye explícitamente cuando ejecuta la compilación. Otro grupo de optimizaciones que ya aparecen en este nivel son las que comienzan \orden{-fsched} que afectan a la reordenación de instrucciones (en ensamblador) para aprovechar lo mejor posible la segmentación de instrucciones del procesador evitando ciclos de espera. En este nivel, si el programa tiene una función que solo es llamada una vez, su llamada será sustituida por el contenido de la función, directamente, gracias a la opción \orden{-finline-functions-called-once}.
+Como se puede apreciar en la figura~\ref{opt0}, en el nivel más bajo, \programa{gcc} ya realiza optimizaciones. Todas las optimizaciones que comienzan con \orden{-ftree} afectan al árbol sintáctico que utiliza \programa{gcc} como representación interna del programa. También se puede observar cómo una de las optimizaciones que incluye este nivel es \orden{-fdata-sections} y, a pesar de esto, \programa{MPIDE} la incluye explícitamente cuando ejecuta la compilación. Otro grupo de optimizaciones que ya aparecen en este nivel son las que comienzan \orden{-fsched}, que afectan a la reordenación de instrucciones (en ensamblador) para aprovechar lo mejor posible la segmentación de instrucciones del procesador evitando ciclos de espera. En este nivel, si el programa tiene una función que solo es llamada una vez, su llamada será sustituida por el contenido de la función, directamente, gracias a la opción \orden{-finline-functions-called-once}.
 
-\begin{table}[H]
+\begin{table}[htb]
 \begin{center}
 	\begin{tabular}{|ll|}
 		\hline
@@ -84,12 +84,12 @@ En el nivel más bajo, \programa{gcc} ya realiza optimizaciones. Todas las optim
 	\end{tabular}
 \end{center}
 \caption{Optimizaciones que añade el nivel `O1' al nivel `O0'.}
-\label{optimizaciones1}
+\label{opt1}
 \end{table}
 
-En el nivel 1 se añaden más optimizaciones que afectan al arbol sintáctico, suponiendo estas casi la mitad de las nuevas optimizaciones. \orden{-fif-conversion} y \orden{-fif-conversion2} tienen como obejtivo tratar de transformar secciones de código donde se usan saltos condicionales para que no los requieran, reduciendo de esta forma el número de instrucciones. También encontramos aquí \orden{-fdelayed-branch} que intentará reordenar las instrucciones para aprovechar el tiempo que se pierde durante saltos condicionales. Si se produce una instrucción de salto condicional, no es posible saber cual es la instrucción que se debe ejecutar después hasta que acabe, por lo que normalmente la siguiente instrucción suele ser un \orden{nop}. Si el procesador lo soporta, se mueve una de las instrucciones anteriores a la instrucción de salto que no tenga ninguna dependencia con esta, para aprovechar el hueco libre. En lugar de colocar después del salto, una instrucción anterior, \programa{gcc} también trata de predecir, con la opción \orden{-fguess-branch-probability}, que se ejecutará despues por lo que este lugar lo ocupará la primera instrucción de uno de los destinos. Si la predicción resulta erronea, se descartará esta instrucción.
+En el nivel 1 se añaden más optimizaciones que afectan al arbol sintáctico (Tabla~\ref{opt1}), suponiendo estas casi la mitad de las nuevas optimizaciones. \orden{-fif-conversion} y \orden{-fif-conversion2} tienen como obejtivo tratar de transformar secciones de código donde se usan saltos condicionales para que no los requieran, reduciendo de esta forma el número de instrucciones. También encontramos aquí \orden{-fdelayed-branch}, que intentará reordenar las instrucciones para aprovechar el tiempo que se pierde durante saltos condicionales. Si se produce una instrucción de salto condicional, no es posible saber cúal es la instrucción que se debe ejecutar después, hasta que acabe; por lo que, normalmente, la siguiente instrucción suele ser un \orden{nop}. Si el procesador lo soporta, se mueve una de las instrucciones anteriores a la instrucción de salto que no tenga ninguna dependencia con esta, para aprovechar el hueco libre. En lugar de colocar después del salto una instrucción anterior, \programa{gcc} también trata de predecir, con la opción \orden{-fguess-branch-probability}, que se ejecutará después, por lo que este lugar lo ocupará la primera instrucción de uno de los destinos. Si la predicción resulta errónea, se descartará esta instrucción.
 
-\begin{table}[H]
+\begin{table}[htb]
 \begin{center}
 	\begin{tabular}{|ll|}
 		\hline
@@ -111,12 +111,12 @@ En el nivel 1 se añaden más optimizaciones que afectan al arbol sintáctico, s
 	\end{tabular}
 \end{center}
 \caption{Optimizaciones que añade el nivel `O2' al nivel `O1'.}
-\label{optimizaciones2}
+\label{opt2}
 \end{table}
 
-El nivel 2 incluye muchas más optimizaciones. En este nivel encontramos las optimizaciones \orden{-falign} que se encargan de alinear el comienzo de funciones, saltos y etiquetas (\orden{-falign-functions}, \orden{-falign-jumps} y \orden{-falign-labels}) en memoria. Su alineamiento en memoria supone una carga más rápida en detrimento del tamaño de la aplicación final, ya que se necesita añadir \orden{nop}s para que las funciones comiencen en bloques de N bytes, donde N depende del procesador.Con la opción \orden{-finline-small-functions} el contenido de las funciones pequeñas se copia en el lugar del código donde son llamadas. El requisito que deben cumplir estas funciones es que el espacio que ocupen al copiarse sea inferior al que sería ocupado si fuesen llamadas. De este modo, si usamos este nivel de optimización podemos escribir funciones triviales que nos ayuden a que el programa sea mas legible sin perder rendimiento ni espacio.
+El nivel 2 incluye muchas más optimizaciones (Tabla~\ref{opt2}). En este nivel encontramos las optimizaciones \orden{-falign} que se encargan de alinear el comienzo de funciones, saltos y etiquetas (\orden{-falign-functions}, \orden{-falign-jumps} y \orden{-falign-labels}) en memoria. Su alineamiento en memoria supone una carga más rápida en detrimento del tamaño de la aplicación final, ya que se necesita añadir \orden{nop}s para que las funciones comiencen en bloques de N bytes, donde N depende del procesador.Con la opción \orden{-finline-small-functions} el contenido de las funciones pequeñas se copia en el lugar del código donde son llamadas. El requisito que deben cumplir estas funciones es que el espacio que ocupen al copiarse sea inferior al que sería ocupado si fuesen llamadas. De este modo, si usamos este nivel de optimización podemos escribir funciones triviales que nos ayuden a que el programa sea mas legible sin perder rendimiento ni espacio.
 
-\begin{table}[H]
+\begin{table}[htb]
 \begin{center}
 	\begin{tabular}{|ll|}
 		\hline
@@ -128,12 +128,12 @@ El nivel 2 incluye muchas más optimizaciones. En este nivel encontramos las opt
 	\end{tabular}
 \end{center}
 \caption{Optimizaciones que añade el nivel `O3' al nivel `O2'.}
-\label{optimizaciones3}
+\label{opt3}
 \end{table}
 
-En el nivel más alto \programa{gcc} considera todas las funciones para que su contenido sustituya a las llamadas a las mismas, gracias a la opción \orden{-finline-functions}. Es decir, ya no se sustituyen solo las funciones cuyo contenido sea menor que la sobrecarga que supone la llamada a la función. La consecuencia directa de está optimización es un aumento considerable del programa final y aumento del rendimiento al eliminar el código de llamada y retorno de una función. 
+En el nivel más alto (Tabla~\ref{opt3}), \programa{gcc} considera todas las funciones para que su contenido sustituya a las llamadas a las mismas, gracias a la opción \orden{-finline-functions}. Es decir, ya no se sustituyen solo las funciones cuyo contenido sea menor que la sobrecarga que supone la llamada a la función. La consecuencia directa de está optimización es un aumento considerable del programa final y del rendimiento al eliminar el código de llamada y retorno de una función. 
 
-\begin{table}[H]
+\begin{table}[htb]
 \begin{center}
 	\begin{tabular}{|ll|}
 		\hline
@@ -145,43 +145,58 @@ En el nivel más alto \programa{gcc} considera todas las funciones para que su c
 \end{tabular}
 \end{center}
 \caption{Optimizaciones del nivel `O2' que no se realizan en el nivel `Os'.}
-\label{optimizaciones_s}
+\label{opt_s}
 \end{table}
 
-Las optimizaciones que lleva acabo el compilador cuando se activa la opción \orden{-Os} (Optimizar para el tamaño) son las mismas que cuando se usa \orden{-O2} a excepción de las que se encuentran en la tabla~\ref{optimizaciones_s}. Estas optimizaciones son las que, aumentando el rendimiento, mas aumentan el tamaño de la aplicación final.
+Las optimizaciones que lleva acabo el compilador cuando se activa la opción \orden{-Os} (Optimizar para el tamaño) son las mismas que cuando se usa \orden{-O2} a excepción de las que se encuentran en la tabla~\ref{opt_s}. Estas optimizaciones son las que, aumentando el rendimiento, más aumentan el tamaño de la aplicación final.
 
-Cada nivel ofrece diferentes optimizaciones, aumentando el rendimiento con forme se aumenta el nivel. Es necesario valorar que nivel es el más adecuado para la aplicación. Por ejemplo, en un entorno empotrado (embedded) como sería el de un microcontrolador, debemos tener en cuenta la cantidad de memoria que tiene disponible al elegir la optimización del programa. Es posible elegir un nivel alto de optimización si el programa es pequeño y, por lo tanto, la memoria es suficiente. Si por el contrario la memoria es escasa se tendrá que elegir una optimización que no aumente el tamaño del programa. En el caso de depuración del código, el nivel más adecuado suele ser el más bajo ya que en este nivel, el compilador no modifica la estructura del programa, ni reordena instrucciones, haciendo más fácil la lectura del mismo en ensamblador.
+Cada nivel ofrece diferentes optimizaciones, aumentando el rendimiento conforme se aumenta el nivel. Es necesario valorar qué nivel es el más adecuado para la aplicación. Por ejemplo, en un entorno empotrado (embedded), como sería el de un microcontrolador, debemos tener en cuenta la cantidad de memoria que tiene disponible, al elegir la optimización del programa. Es posible elegir un nivel alto de optimización si el programa es pequeño y, por lo tanto, la memoria es suficiente. Si, por el contrario, la memoria es escasa, se tendrá que elegir una optimización que no aumente el tamaño del programa. En el caso de depuración del código, el nivel más adecuado suele ser el más bajo ya que, en este nivel, el compilador no modifica la estructura del programa ni reordena instrucciones, haciendo más fácil la lectura del mismo en ensamblador.
 
-Por último, es importante mencionar que se puede elegir un nivel de los cuatro disponibles y añadir más optimizaciones o quitarlas en la línea de órdenes. Por ejemplo, sería posible elegir el nivel 3 de optimización, sin usar \orden{-finline-functions} añadiendo como argumento \orden{-fno-inline-functions}. Todas las opciones mencionadas antes se pueden negar añadiendo `no' a la opción. También podemos añadir optimizaciones que no se encuentran en ninguno de estos niveles, como \orden{-funroll-loops}~\footnote{Esta opción `desenrolla' bucles, repitiendo el bloque de ejecución y reduciendo las veces que se ejecuta.} en la línea de órdenes.
+Por último, es importante mencionar que se puede elegir un nivel de los cuatro disponibles y añadir más optimizaciones o quitarlas en la línea de órdenes. Por ejemplo, sería posible elegir el nivel 3 de optimización, sin usar \orden{-finline-functions} añadiendo como argumento \orden{-fno-inline-functions}. Todas las opciones mencionadas antes se pueden negar añadiendo `no' a la opción. También podemos añadir optimizaciones que no se encuentren en ninguno de estos niveles, como \orden{-funroll-loops}~\footnote{Esta opción `desenrolla' bucles, repitiendo el bloque de ejecución y reduciendo las veces que se ejecuta.}, en la línea de órdenes.
 
 \section{Aplicación para Chipkit}
 
-Para ver los efectos de las optimizaciones que \programa{gcc} pueda efectuar, he creado una aplicación para Chipkit. Se trata de un terminal al que podemos acceder de forma remota. Conectándonos a la placa a través de la red de área local tendremos acceso a un terminal básico en el que se pueden ejecutar varias órdenes. La conexión se realiza utilizando el protocolo TCP en el puerto 23. He elegido este puerto al ser el estándar de Telnet aunque hubiese sido posible elegir cualquier otro. Para conectarse a la placa solo es necesario un programa que pueda establecer esta conexión, por lo que se puede usar el propio \programa{telnet} o \programa{netcat}. Con este último trabajamos directamente en la capa de transporte del modelo OSI, obviando todas las convenciones, procedimientos y órdenes de la capa de aplicación.
+Para ver los efectos de las optimizaciones que \programa{gcc} pueda efectuar, he creado una aplicación para Chipkit. Se trata de un terminal al que podemos acceder de forma remota. Conectándonos a la placa a través de la red de área local tendremos acceso a un terminal básico en el que se pueden ejecutar varias órdenes. La conexión se realiza utilizando el protocolo TCP en el puerto 23. He elegido este puerto al ser el estándar de Telnet aunque hubiese sido posible elegir cualquier otro. Para conectarse a la placa solo es necesario un programa que pueda establecer esta conexión, por lo que se puede usar el propio \programa{telnet} o \programa{netcat}. Con este último trabajamos directamente en la capa de transporte del modelo OSI, soslayando todas las convenciones, procedimientos y órdenes de la capa de aplicación.
 
-Una vez establecida la conexión con la aplicación hay disponibles varias órdenes que se pueden ejecutar. Se trata de funciones de ordenación en su mayoría, que permiten ordenar un array de números que se pasa como argumento de la órden. Los elementos del array pueden estar separados por espacios, tabulaciones o comas. Dependiendo del nombre de la órden, el array se ordena con un algoritmo determinado.
+Una vez establecida la conexión con la aplicación, hay disponibles varias órdenes (Fig~\ref{sorted_ordenes}) que se pueden ejecutar. Se trata de funciones de ordenación en su mayoría, que permiten ordenar un array de números que se pasa como argumento a la órden. Los elementos del array pueden estar separados por espacios, tabulaciones o comas. Dependiendo del nombre de la órden, el array se ordena con un algoritmo determinado.
+
+\begin{figure}[htb]
 \begin{description}
-	\item[\orden{bubble0}, \orden{bubble1}, \orden{bubble2}, \orden{bubble3}] Ordenan los números usando el algoritmo `Bubble Sort'.
-	\item[\orden{quick0}, \orden{quick1}, \orden{quick2}, \orden{quick3}] Ordenan los números usando el algoritmo `Quick Sort'.
-	\item[\orden{sel0}, \orden{sel1}, \orden{sel2}, \orden{sel3}] Ordenan los números usando el algoritmo `Selection Sort'.
-	\item[\orden{comparar}] Reordena un array de números aleatorios usando todos los algoritmos anteriores.
-	\item[\orden{help}] Muestra las órdenes disponibles.
-	\item[\orden{exit}] Cierra la conexión.
+	\item[\orden{bubble0}, \orden{bubble1}, \orden{bubble2}, \orden{bubble3}] \hfill \\
+	 Ordenan los números usando el algoritmo `Bubble Sort'.
+	\item[\orden{quick0}, \orden{quick1}, \orden{quick2}, \orden{quick3}] \hfill \\
+	 Ordenan los números usando el algoritmo `Quick Sort'.
+	\item[\orden{sel0}, \orden{sel1}, \orden{sel2}, \orden{sel3}] \hfill \\
+	 Ordenan los números usando el algoritmo `Selection Sort'.
+	\item[\orden{comparar}] \hfill \\
+	 Reordena un array de números aleatorios usando todos los algoritmos anteriores.
+	\item[\orden{help}] \hfill \\
+	 Muestra las órdenes disponibles.
+	\item[\orden{exit}] \hfill \\
+	 Cierra la conexión.
 \end{description}
+\caption{Órdenes disponibles en el programa.}
+\label{sorted_ordenes}
+\end{figure}
 
 Por ejemplo, si quisieramos ordenar el vector [9 8 7 6 5 4 3 2 1] usando el algoritmo `Bubble Sort' escribiríamos lo siguiente~\footnote{Este vector representa el peor caso para este algoritmo (para esta longitud de vector), al estar los números ordenados de mayor a menor.}:
 \begin{lstlisting}
 bubble0 9 8 7 6 5 4 3 2 1
 \end{lstlisting}
 
-El número que acompaña a cada una de las órdenes indica el nivel de optimización con el que han sido compilados, de este modo es posible probar el efecto de los distintos niveles sin tener que recompilar y volver a cargar el programa. Antes de llamar a la función de ordenación correspondiente, el programa llama a \orden{ReadCoreTimer()}. Está función devuelve el valor del registro \orden{COUNT} del coprocesador. El valor de este registro se incrementa cada dos ciclos de procesador, independientemente de lo que se esté ejecutando, por lo que se incrementa con una frecuencia de 40MHz. Cuando finaliza la ejecución de la función se vuelve a llamar a \orden{ReadCoreTimer()} y así obtenemos los ciclos que le ha llevado al procesador la ejecución de la función de ordenación. El traslado de este dato a unidades de tiempo en lugar de ciclos es inmediato, puesto que solo hay que multiplicarlo por la mitad del periodo del reloj principal, es decir, \(2.5*10^{-8}sec\).
-El número de ciclos obtenido se envía al cliente y se muestra en la pantalla OLED del Chipkit I/O Shield. Además, durante la ejecución de una órden, el pin 70 de la placa microcontroladora (que corresponde al LED LD1 en el I/O Shield) se pone a nivel alto, lo que permite, no solo mostrar que se está ejecutando una órden, sino también medir el tiempo que permanece a nivel alto con un osciloscopio cuya sonda este conectada a este pin. 
+El número que acompaña a cada una de las órdenes indica el nivel de optimización con el que han sido compilados, de este modo es posible probar el efecto de los distintos niveles sin tener que recompilar y volver a cargar el programa. 
+
+Antes de llamar a la función de ordenación correspondiente, el programa llama a \orden{ReadCoreTimer()}. Está función devuelve el valor del registro \orden{COUNT} del coprocesador. El valor de este registro se incrementa cada dos ciclos de procesador, independientemente de lo que se esté ejecutando, por lo que se incrementa con una frecuencia de 40MHz. Cuando finaliza la ejecución de la función se vuelve a llamar a \orden{ReadCoreTimer()} y así obtenemos los ciclos que le ha llevado al procesador la ejecución de la función de ordenación. El traslado de este dato a unidades de tiempo en lugar de ciclos es inmediato, puesto que solo hay que multiplicarlo por la mitad del periodo del reloj principal, es decir, \(2.5*10^{-8}sec\).
+El número de ciclos obtenido se envía al cliente y se muestra en la pantalla OLED del Chipkit I/O Shield.
+
+Además, durante la ejecución de una órden, el pin 70 de la placa microcontroladora (que corresponde al LED LD1 en el I/O Shield) se pone a nivel alto, lo que permite, no solo mostrar que se está ejecutando una órden, sino también medir el tiempo que permanece a nivel alto con un osciloscopio cuya sonda este conectada a este pin. 
 
 Para automatizar el proceso de comparación entre los diferentes algoritmos y niveles de optimización, he incluido en el programa la órden \orden{comparar}. Esta órden genera un array aleatorio de máxima longitud y lo ordena con cada uno de las órdenes de ordenación disponibles, mostrando los resultados en pantalla.
 
 En el apéndice~\ref{chap:apendice3} se encuentra una descripción detallada del funcionamiento interno del programa.
 
 \subsection{Funciones de ordenación}
-Las funciones de ordenación que hemos comentado anteriormente, las que usa el programa par ordenar el array que le envíamos, se encuentran declaradas en el archivo \programa{funciones.h} y definidas en \programa{funciones.c}.
+Las funciones de ordenación que he comentado anteriormente, las que usa el programa para ordenar el array que le envíamos, se encuentran declaradas en el archivo \programa{funciones.h} y definidas en \programa{funciones.c}.
 
 \subsubsection{Bubble Sort}
 Este es el algoritmo más sencillo de los tres implementados. Se recorre el array comparando un elemento con el siguiente e intercambiándolos en el caso de que el primero sea mayor que el segundo. Para completar el ordenamiento es necesario recorrer el array varias veces.
@@ -202,7 +217,7 @@ void bubble0(int * array, int len) {
 \end{lstlisting}\label{Implementación de Bubble Sort en nuestro programa}
 
 \subsubsection{Quick Sort}
-En el algoritmo de ordenamiento rápido, se elige un elemento del array que denominaremos pivote. A la izquierda del pivote se colocan los elementos menores a él, mientras que a la derecha colocaremos los elementos mayores. De esta forma el elemnto `pivote' ocupará su posición final de la misma. Se repite el procedimiento de forma recursiva con los sub-arrays que quedan a la izquierda y a la derecha del pivote, hasta que todo el array esté ordenado. En el programa se ha optado por elegir como elemento `pivote' el primero del array.
+En el algoritmo de ordenamiento rápido se elige un elemento del array que denominaremos pivote. A la izquierda del pivote se colocan los elementos menores a él, mientras que a la derecha colocaremos los elementos mayores. Se repite el procedimiento de forma recursiva con los sub-arrays que quedan a la izquierda y a la derecha del pivote, hasta que todo el array esté ordenado. En el programa se ha optado por elegir como elemento `pivote' el primero del array.
 \begin{lstlisting}[caption=Implementación de Quick Sort]
 void quicksort0(int *v, int b, int t) {
   if(b < t) {
@@ -255,7 +270,7 @@ void selection0(int *array, int len) {
 \end{lstlisting}
 
 \section{Análisis estático de la optimización en los algoritmos de ordenación.}
-Una vez visto como están implementados los algoritmos de ordenación en C, podemos ver su aspecto una vez compilados y comparar entre los diferentes niveles de optimización y como afectan a estas funciones.
+Una vez visto cómo están implementados los algoritmos de ordenación en C, podemos ver su aspecto una vez compilados y comparar entre los diferentes niveles de optimización y cómo afectan a estas funciones.
 
 En el apéndice~\ref{chap:apendice4} se encuentran las distintas funciones en lenguaje ensamblador, obtenido a partir del fichero objeto \orden{funciones.o} que se genera durante la compilación del programa. Se ha obtenido mediante la órden \orden{pic32-objdump -d funciones.o}.
 
