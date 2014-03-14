@@ -134,6 +134,26 @@ Para la depuración de los programas con MPLAB usaré el programador chipKIT PGM
 
 \figura{chipKIT-PGM.png}{scale=0.3}{ChipKIT PGM}{pgm}{H}
 
+\subsection{ChipKIT Basic I/O Shield}
+El otro shield que usaré será el ChipKIT Basic I/O Shield que nos servirá para interactuar físicamente con el microcontrolador ya que este shield nos proporciona diferentes métodos de entrada y salida de información.
+
+\figura{chipKIT-BasicIOShield.jpg}{scale=0.5}{ChipKIT Basic I/O Shield}{ioshield}{H}
+
+El ChipKIT Basic I/O shield dispone de los siguientes dispositivos:
+\begin{itemize}
+	\item EEPROM de 256~Kbits con interfaz I2C
+	\item Pantalla OLED de 128$\times$32 píxeles
+	\item Sensor de temperatura con interfaz I2C
+	\item Conector para cadena margarita (daisy chain) I2C
+	\item 4 drivers FET de colector abierto
+	\item Potenciometro analógico
+	\item 4 pulsadores y cuatro interuptores
+	\item 8 LEDs
+\end{itemize}
+
+Este shield está inicialmente pensado para ser usado en un chipKIT Uno32, pero podemos conectarlo al Max32 sin ningún problema ya que comparten el mismo esquema de pines (aunque el Max32 tiene 83 pines frente a los 42 del Uno32). También es posible conectarlo al Network Shield y este a su vez al Max32, teniendo en cuenta la posibilidad de que algunas funciones en los dos shields puedan compartir pines.
+
+Igual que el Network Shield, el Basic I/O Shield también dispone de una página web~\cite{website:io_shield} en la que podemos encontrar su manual, esquemáticos y las bibliotecas necesarias para usar en el entorno ChipKIT.\@
 \subsection{ChipKIT Network Shield}
 
 El ChipKIT Network Shield es, como su nombre indica, un shield para el ChipKIT MAX32.\@ Cabe destacar que este shield no sirve para el ChipKIT Uno32 puesto que el microcontrolador que está montado en ella no dispone de las características de las que hace uso esta placa, como Ethernet y host USB.\@ Se coloca encima del microcontrolador tal y como lo hace cualquier shield de Arduino.
@@ -155,23 +175,4 @@ Características del ChipKIT Network Shield:
 	\item Oscilador a 32~768~KHz
 \end{itemize}
 
-\subsection{ChipKIT Basic I/O Shield}
-El otro shield que usaré será el ChipKIT Basic I/O Shield que nos servirá para interactuar físicamente con el microcontrolador ya que este shield nos proporciona diferentes métodos de entrada y salida de información.
 
-\figura{chipKIT-BasicIOShield.jpg}{scale=0.5}{ChipKIT Basic I/O Shield}{ioshield}{H}
-
-El ChipKIT Basic I/O shield dispone de los siguientes dispositivos:
-\begin{itemize}
-	\item EEPROM de 256~Kbits con interfaz I2C
-	\item Pantalla OLED de 128$\times$32 píxeles
-	\item Sensor de temperatura con interfaz I2C
-	\item Conector para cadena margarita (daisy chain) I2C
-	\item 4 drivers FET de colector abierto
-	\item Potenciometro analógico
-	\item 4 pulsadores y cuatro interuptores
-	\item 8 LEDs
-\end{itemize}
-
-Este shield está inicialmente pensado para ser usado en un chipKIT Uno32, pero podemos conectarlo al Max32 sin ningún problema ya que comparten el mismo esquema de pines (aunque el Max32 tiene 83 pines frente a los 42 del Uno32). También es posible conectarlo al Network Shield y este a su vez al Max32, teniendo en cuenta la posibilidad de que algunas funciones en los dos shields puedan compartir pines.
-
-Igual que el Network Shield, el Basic I/O Shield también dispone de una página web~\cite{website:io_shield} en la que podemos encontrar su manual, esquemáticos y las bibliotecas necesarias para usar en el entorno ChipKIT.\@
