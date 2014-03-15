@@ -10,9 +10,14 @@
 
 En este capitulo analizaré las características del Arduino Mega 2560\footnote{En la introducción menciono el Arduino Mega ADK, pero la única diferencia entre ambos es que este último puede hacer de Host USB para poder conectar un teléfono móvil Android.} y del ChipKIT MAX32, que es el equivalente en chipKIT, tanto en formato y dimensiones como en precio.
 
+
 Cuando se usa el término Arduino normalmente se hace refierencia a la plataforma en general. Con este nombre también se conoce a las placas microcontroladoras oficiales de la plataforma, que se fabrican en Italia.
 
 La familia de placas Arduino se compone de multitud de placas microcontroladoras con características diferentes pero hay dos que se pueden destacar sobre las demas debido a que son las más utilizadas.  Estas dos placas son la Arduino Uno y Arduino Mega 2560. La placa Arduino Uno es la más básica y económica, con un formato reducido, mientras que la segunda tiene un precio superior y mejores características.
+
+%% MUY importante: pon aquí la definición de shield. También sería interesante que destacaras las ventajas que tiene la amplia colección de shield existentes y lo fácil que es su conexión a placas que sean 100% compatibles con Arduino
+% Revisa las comillas de pincharlas... no sabía como se hacía exactamente
+Tan importantes como las placas que contienen el procesados son las placas de expansión disponibles para Arduino. Estas placas de expansión o \textit{shields} están diseñadas para que su integración con Arduino sea tan sencillo como \textquotedblleft pincharlas\textquotedblright{}  en una placa Arduino y enlazar la biblioteca de funciones correspondiente.
 
 \section{Arduino Mega 2560}
 La placa Arduino Mega 2560 es el modelo avanzado de la familia Arduino, aspecto que se aprecia en las características y en el precio, cuando lo comparamos con su hermana menor: la placa Arduino Uno.
@@ -162,6 +167,7 @@ El ChipKIT Network Shield es, como su nombre indica, un shield para el ChipKIT M
 
 Este shield nos proporciona las conexiones necesarias para poder hacer uso del controlador Ethernet y USB que lleva el Max32 integrado y a los buses CAN.\@ Además de esto también tiene integrado un oscilador de 32~768 KHz que nos permite hacer uso del RTC que también tiene integrado el Max32 y una memoria EEPROM de 256~Kb a la que podemos acceder mediante I2C. En la página web del Network Shield~\cite{website:network_shield} podemos encontrar las bibliotecas que nos sirven para hacer uso de sus características, en el entorno ChipKIT.\@
 
+% yo comentaría un poco más cada una de las características: un parrafo resumen de su posible aplicación. 
 Características del ChipKIT Network Shield:
 \begin{itemize}
 	\item Puede ser usado con el Max32
