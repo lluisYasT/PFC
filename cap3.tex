@@ -21,13 +21,17 @@ El IDE dispone de muchas más herramientas para la depuración de programas. Dur
 
 Con este entorno de desarrollo veremos más adelante los diferentes efectos que los distintos niveles de optimización tienen en nuestro programa y podremos usarla para hacer profiling.
 
-\section{Arduino}
+\section{Arduino IDE}
 % Wiring y processing
 % gcc
 % bibliotecas incluidas
 % Otros programas
 % Multiplataforma
-Para realizar proyectos en la plataforma Arduino es necesario disponer del entorno de desarrollo `Arduino IDE' que es posible encontrar en la página web de Arduino. Este programa está basado en Wiring\footnote{\url{http://wiring.org.co/}}, que a su vez nació a partir de Processing\footnote{\url{http://processing.org/}} por lo que el aspecto del mismo es prácticamente idéntico en todos ellos. Las diferencias radican en el funcionamiento interno. Arduino IDE tiene incluido todo lo necesario para poder escribir, compilar, ensamblar, enlazar y cargar los programas a la placa Arduino, por lo que el usuario solo debe abrir el IDE, escribir su programa y darle al botón de ejecución; el IDE se encargará de todo.
+Para realizar proyectos en la plataforma Arduino es necesario disponer del entorno de desarrollo `Arduino IDE' que es posible encontrar en la página web de Arduino. Este programa está basado en Wiring\footnote{\url{http://wiring.org.co/}}, que a su vez nació a partir de Processing\footnote{\url{http://processing.org/}} por lo que el aspecto del mismo es prácticamente idéntico en todos ellos. 
+
+Processing se creó como una plataforma para facilitar la creación de programas sencillos, que muestren resultados de forma visual en un monitor. Usando esta plataforma como base, nació Wiring, que tenía un objetivo similar pero centrado en los microcontroladores.
+
+Las diferencias entre \programa{Wiring} y el IDE de Arduino radican en el funcionamiento interno. Arduino IDE tiene incluido todo lo necesario para poder escribir, compilar, ensamblar, enlazar y cargar los programas a la placa Arduino, por lo que el usuario solo debe abrir el IDE, escribir su programa y darle al botón de ejecución; el IDE se encargará de compilar, enlazar y cargar el programa en la placa microcontroladora. Este proceso lo describiré con más detalle en su propio apartado.
 
 Si accedemos a la carpeta de instalación de Arduino veremos diferentes subcarpetas, donde se guardan diferentes componentes necesarios para su funcionamiento.
 \begin{figure}[H]
