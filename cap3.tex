@@ -9,13 +9,15 @@ Por otro lado, también están los entornos de desarrollo integrados o IDE (Inte
 \section{MPLAB X} 
 \programa{MPLAB X}~\cite{website:mplab} es la última versión del entorno de desarrollo integrado que proporciona Microchip para poder programar sus microcontroladores. Este IDE, basado en el entorno de código abierto Netbeans, nos permite escribir nuestro programa, compilarlo, programar el microcontrolador y, con la ayuda de un depurador como los mencionados en el capítulo anterior, depurar el programa.
 
-En este IDE dispone de resaltado de sintaxis, autocompletado, fácil gestión de proyectos con múltiples archivos y muchas más características que podemos ver en su página web~\footnote{url{http://www.microchip.com/pagehandler/en-us/family/mplabx/}}. Usando este entorno se pueden crear aplicaciones para los microcontroladores de Microchip sin tener que usar ninguna otra herramienta.
+Un IDE es mucho más que un editor de texto. El editor que incorpora \programa{MPLAB X} indenta las líneas de código automáticamente, identifica las parejas de corchetes, comillas, etc.\@ y enfatiza el texto con colores de forma tanto sintáctica como semántica. También dispone de plantillas de código y consejos.
 
-% A diferencia de
-% \programa{MPIDE}, este programa es un IDE completo, basado en Netbeans.  Está pensado para ser utilizado con toda su gama de microcontroladores; y con la ayuda de un depurador/programador como el Chipkit PGM podremos depurar nuestros programas.  Si queremos, también podemos usar los productos Chipkit como cualquier otro microcontrolador de Microchip, escribiendo los programas en este IDE y compilándolos con el compilador que tiene disponible Microchip en su página web, C32~\cite{website:c32}.  Otra alternativa es compilar el programa usando MPIDE y cargarlo a través de \programa{MPLAB X} con la ayuda del Chipkit PGM o Microchip Pickit.
+\programa{MPLAB X} ofrece también una fácil gestión de proyectos y de archivos dentro de un mismo proyecto. En la parte izquierda del IDE podemos encontrar una sección en la que se encuentran los proyectos y sus archivos, ordenados de forma jerárquica, lo que ayuda en la gestión de diferentes proyectos en un mismo entorno.
+
 \figura{mplab.jpg}{scale=0.35}{MPLABX Depurando el programa Blink}{mplab}{H}
 
-Como se aprecia en la Figura~\ref{mplab}, \programa{MPLAB X} nos ofrece mucha más información y posibilidades que \programa{MPIDE}.  En esta figura vemos a \programa{MPLAB X} en mitad de la depuración del programa Blink, que fue compilado usando \programa{MPIDE} y luego se importó el archivo ejecutable a MPLAB.\@
+Como se aprecia en la Figura~\ref{mplab}, \programa{MPLAB X} nos ofrece mucha información. En esta figura vemos a \programa{MPLAB X} en mitad de la depuración del programa Blink~\footnote{Esteprograma es el equivalente en microcontroladores al `Hola Mundo', su única función es hacer parpadear un LED.}. En la parte izquierda se puede apreciar una sección que aporta información acerca del estado actual del microcontrolador, como la cantidad de memoria RAM y flash que requiere la aplicación para funcionar comparado con la cantidad total de la que dispone el microcontrolador.
+
+El IDE dispone de muchas más herramientas para la depuración de programas. Durante la ejecución del mismo en modo depuración se pueden establecer puntos en el el código fuente donde el programa debe detener su ejecución. Podemos usarlos, por ejemplo, para ver el estado de la memoria y registros del procesador en ese momento. También tenemos la posibilidad de ejecutar el programa línea a línea del código fuento o, incluso, instrucción a instrucción en el código ensamblador.
 
 Con este entorno de desarrollo veremos más adelante los diferentes efectos que los distintos niveles de optimización tienen en nuestro programa y podremos usarla para hacer profiling.
 
