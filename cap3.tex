@@ -1,4 +1,4 @@
-Cuando hablamos de entorno de desarrollo normalmente nos referimos al conjunto de procedimientos y herramientas para desarrollar, probar y depurar aplicaciones o programas. 
+Cuando hablamos de entorno de desarrollo normalmente nos referimos al conjunto de procedimientos y herramientas para desarrollar, probar y depurar aplicaciones o programas.
 
 En un entorno de desarrollo es común encontrar ciertas herramientas básicas: un editor de texto para escribir el programa, un compilador o intérprete (en el caso de programas desarrollados con un lenguaje interpretado, como pueden ser Python o Perl), un depurador y, por último, un programador en el caso de microcontroladores.
 
@@ -6,7 +6,7 @@ Podemos diferenciar dos tipos de entorno de desarrollo. La forma clásica de ent
 
 Por otro lado, también están los entornos de desarrollo integrados o IDE (Integrated Development Environment) que aúnan todas las herramientas en un mismo programa, del que no es necesario salir en todo el proceso de desarrollo del programa. Hay multitud de ejemplos de IDEs, como \programa{Eclipse}~\footnote{\url{http://www.eclipse.org/}} o \programa{Netbeans}~\footnote{\url{https://netbeans.org/}}, por citar algunos.
 
-\section{MPLAB X} 
+\section{MPLAB X}
 \programa{MPLAB X}~\cite{website:mplab} es la última versión del entorno de desarrollo integrado que proporciona Microchip para poder programar sus microcontroladores. Este IDE, basado en el entorno de código abierto Netbeans, nos permite escribir nuestro programa, compilarlo, programar el microcontrolador y, con la ayuda de un depurador como los mencionados en el capítulo anterior, depurar el programa.
 
 Un IDE es mucho más que un editor de texto. El editor que incorpora \programa{MPLAB X} indenta las líneas de código automáticamente, identifica las parejas de corchetes, comillas, etc.\@ y enfatiza el texto con colores de forma tanto sintáctica como semántica. También dispone de plantillas de código y consejos.
@@ -27,7 +27,7 @@ Con este entorno de desarrollo veremos más adelante los diferentes efectos que 
 % bibliotecas incluidas
 % Otros programas
 % Multiplataforma
-Para realizar proyectos en la plataforma Arduino es necesario disponer del entorno de desarrollo `Arduino IDE' que es posible encontrar en la página web de Arduino. Este programa está basado en Wiring\footnote{\url{http://wiring.org.co/}}, que a su vez nació a partir de Processing\footnote{\url{http://processing.org/}} por lo que el aspecto del mismo es prácticamente idéntico en todos ellos. 
+Para realizar proyectos en la plataforma Arduino es necesario disponer del entorno de desarrollo `Arduino IDE' que es posible encontrar en la página web de Arduino. Este programa está basado en Wiring\footnote{\url{http://wiring.org.co/}}, que a su vez nació a partir de Processing\footnote{\url{http://processing.org/}} por lo que el aspecto del mismo es prácticamente idéntico en todos ellos.
 
 Processing se creó como una plataforma para facilitar la creación de programas sencillos, que muestren resultados de forma visual en un monitor. Usando esta plataforma como base, nació Wiring, que tenía un objetivo similar pero centrado en los microcontroladores.
 
@@ -78,7 +78,7 @@ Si accedemos a la carpeta de instalación de Arduino veremos diferentes subcarpe
 \end{figure}
 
 \begin{description}
-	\item[\orden{examples}] El programa incluye algunos ejemplos que se pueden compilar y cargar sin modificarlos. 
+	\item[\orden{examples}] El programa incluye algunos ejemplos que se pueden compilar y cargar sin modificarlos.
 	\item[\orden{hardware}] En esta carpeta se guarda todo lo relacionado con el hardware, como su nombre indica. Aquí encontraremos la `toolchain' y las bibliotecas necesarias para la compilación y ensablado de los programas Arduino.
 	\item[\orden{lib}] Contiene bibliotecas Java para el funcionamiento del entorno de desarrollo.
 		\item[\orden{libraries}] El IDE incluye algunas bibliotecas de terceros que se pueden incluir en nuestros proyectos.
@@ -92,7 +92,7 @@ En la carpeta \orden{hardware} encontramos otras dos carpetas: \orden{arduino} y
 % Gcc pic32
 \programa{MPIDE}\cite{website:mpide} es el IDE creado por Digilent para el entorno Chipkit. Su diseño es idéntico al IDE de Arduino, variando solamente el color y el compilador usado.
 
-\figura{mpide.jpg}{scale=0.6}{\programa{MPIDE}}{mpide}{H} 
+\figura{mpide.jpg}{scale=0.6}{\programa{MPIDE}}{mpide}{H}
 
 Si accedemos a la carpeta \orden{hardware} de este programa, encotramos otra carpeta además de \orden{arduino} y \orden{tools}: \orden{pic32}. La estructura es similar  a la de la carpeta de Arduino. Aquí están todas las bibliotecas para la plataforma Chipkit. También podemos encontrar aquí la `toolchain' \programa{GCC} para pic32 en el directorio \orden{compiler}.
 
@@ -150,17 +150,17 @@ Para empezar, tenemos los archivos que formarán parte de la biblioteca ``Core''
 
 \begin{table}[H]
 \begin{center}
-\begin{tabular}{| c || c |}
-	\hline
+\begin{tabular}{cc}
+	\toprule
 	Sistema Operativo & Ruta\\
-	\hline
-	\hline
+	\midrule
+	\midrule
 	Linux & /home/lluis/mpide/hardware/pic32/cores/pic32\\
-	\hline
+	\midrule
 	Mac OSX & /Applications/Mpide.app/Contents/Resources/Java/hardware/pic32/cores/pic32\\
-	\hline
-	Windows & C:\textbackslash Archivos de Programa\textbackslash \programa{MPIDE}\textbackslash hardware\textbackslash pic32\textbackslash cores\textbackslash pic32\\
-	\hline
+	\midrule
+	Windows & C:\textbackslash{}Archivos de Programa\textbackslash{}\programa{MPIDE}\textbackslash{}hardware\textbackslash{}pic32\textbackslash{}cores\textbackslash{}pic32\\
+	\bottomrule
 \end{tabular}
 \end{center}
 \caption{Ruta de la biblioteca Core}
@@ -312,7 +312,7 @@ avrdude -C[Directorio MPIDE]/hardware/tools/avrdude.conf -c stk500v2 -p pic32 -P
 
 Ya hemos visto cómo el IDE genera y carga el sketch. El problema de este método es que no es posible modificar el proceso de una manera sencilla para adaptarlo a un programa en particular. Es posible ejecutar cada uno de las órdenes en un terminal y obtener el mismo resultado que con \programa{MPIDE} pero, aunque esto nos permitiría modificar cada parte del proceso, también lo haría largo y tedioso. Por suerte, hay un programa que nos permite automatizar todo el proceso, manteniendo la posibilidad de modificarlo dependiendo de las necesidades de cada proyecto. Se trata de \programa{GNU make}, un programa muy polivalente que nos permite automatizar multitud de tareas~\footnote{De hecho, con la ayuda de \programa{make} se genera esta memoria en formato PDF a partir de archivos escritos en \LaTeX.}.
 
-De esta forma es posible usar el editor de textos que queramos para generar nuestro código (por ejemplo \programa{VIM} o \programa{emacs}), modificar las opciones de compilación, enlazado y carga de una forma rápida y sencilla. Podemos cambiar las opciones de compilación y enlazado en \programa{MPIDE} mediante la modificación de un archivo de configuración del programa (\orden{platforms.txt}); pero estos cambios afectarían a todos los programas compilados con \programa{MPIDE} y es necesario reiniciar el programa para que tengan efecto. 
+De esta forma es posible usar el editor de textos que queramos para generar nuestro código (por ejemplo \programa{VIM} o \programa{emacs}), modificar las opciones de compilación, enlazado y carga de una forma rápida y sencilla. Podemos cambiar las opciones de compilación y enlazado en \programa{MPIDE} mediante la modificación de un archivo de configuración del programa (\orden{platforms.txt}); pero estos cambios afectarían a todos los programas compilados con \programa{MPIDE} y es necesario reiniciar el programa para que tengan efecto.
 
 Para esto vamos a crear una carpeta a modo de plantilla, para los proyectos que hagamos. Dentro de esta carpeta tendremos diferentes subdirectorios que serviran para almacenar los diferentes tipos de archivos que necesita nuestro programa. En la figura~\ref{plantilla_carpeta} se puede ver la estructura de esta plantilla.
 
