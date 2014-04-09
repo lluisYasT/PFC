@@ -200,8 +200,10 @@ Las funciones de ordenación que he comentado anteriormente, las que usa el prog
 
 \subsubsection{Bubble Sort}
 Este es el algoritmo más sencillo de los tres implementados. Se recorre el array comparando un elemento con el siguiente e intercambiándolos en el caso de que el primero sea mayor que el segundo. Para completar el ordenamiento es necesario recorrer el array varias veces.
-\begin{lstlisting}[caption=Implementación de Bubble Sort]
-void bubble0(int * array, int len) {
+\begin{figure}[hb]
+	\noindent\begin{minipage}{.45\textwidth}
+		\begin{lstlisting}[caption=Código fuente,basicstyle=\ttfamily\scriptsize]
+void bubble1(int * array, int len) {
   int c, d, swap;
 
   for (c = 0; c < len; c++) {
@@ -214,20 +216,28 @@ void bubble0(int * array, int len) {
     }
   }
 }  
-\end{lstlisting}\label{Implementación de Bubble Sort en nuestro programa}
+		\end{lstlisting}\label{Implementación de Bubble Sort en nuestro programa}
+	\end{minipage}\hfill
+	\begin{minipage}{.45\textwidth}
+		\lstinputlisting[language={[mips]Assembler},caption=Código ensamblador,basicstyle=\ttfamily\scriptsize, tabsize=2, firstline=85, lastline=110]{codigo_fuente/funciones_objdump.}
+	\end{minipage}
+	\caption{Bubble Sort (Nivel 1 de optimización)}
+\end{figure}
 
 \subsubsection{Quick Sort}
 En el algoritmo de ordenamiento rápido se elige un elemento del array que denominaremos pivote. A la izquierda del pivote se colocan los elementos menores a él, mientras que a la derecha colocaremos los elementos mayores. Se repite el procedimiento de forma recursiva con los sub-arrays que quedan a la izquierda y a la derecha del pivote, hasta que todo el array esté ordenado. En el programa se ha optado por elegir como elemento `pivote' el primero del array.
-\begin{lstlisting}[caption=Implementación de Quick Sort]
-void quicksort0(int *v, int b, int t) {
+\begin{figure}
+	\noindent\begin{minipage}{.45\textwidth}
+		\begin{lstlisting}[caption=Código fuente,basicstyle=\ttfamily\scriptsize]
+void quicksort1(int *v, int b, int t) {
   if(b < t) {
-    int pivote = colocar0(v, b, t);
-    quicksort0(v, b, pivote - 1);
-    quicksort0(v, pivote + 1, t);
+    int pivote = colocar1(v, b, t);
+    quicksort1(v, b, pivote - 1);
+    quicksort1(v, pivote + 1, t);
   }
 }
 
-int colocar0(int *v, int b, int t) {
+int colocar1(int *v, int b, int t) {
   int i;
   int pivote, valor_pivote;
   int temp;
@@ -248,12 +258,20 @@ int colocar0(int *v, int b, int t) {
 
   return pivote;
 }
-\end{lstlisting}
+	\end{lstlisting}
+\end{minipage}\hfill
+\begin{minipage}{.45\textwidth}
+		\lstinputlisting[language={[mips]Assembler},caption=quicksort1,basicstyle=\ttfamily\scriptsize, tabsize=2, firstline=335, lastline=364]{codigo_fuente/funciones_objdump.}
+\end{minipage}
+\caption{Quick Sort (Nivel 1 de optimización)}
+\end{figure}
 
 \subsubsection{Selection Sort}
 El tercer algoritmo implementado en el programa es Selection Sort. Su funcionamiento consiste en recorrer el array, almacenándose el elemento de menor valor. Este elemento se extrae del array y se coloca al principio para, a continuación, volver a hacer lo mismo con el resto del array, hasta que esté ordenado.
 
-\begin{lstlisting}[caption=Implementación de Selection Sort]
+\begin{figure}
+	\noindent\begin{minipage}{.45\textwidth}
+		\begin{lstlisting}[caption=Implementación de Selection Sort,basicstyle=\ttfamily\scriptsize]
 void selection0(int *array, int len) {
   for (int i = 0; i < len; ++i) {
     int index_of_min = i;
@@ -267,7 +285,13 @@ void selection0(int *array, int len) {
     array[index_of_min] = temp;
   }
 }
-\end{lstlisting}
+		\end{lstlisting}
+	\end{minipage}\hfill
+	\begin{minipage}{.45\textwidth}
+		\lstinputlisting[language={[mips]Assembler},caption=selection1,basicstyle=\ttfamily\scriptsize, tabsize=2, firstline=610, lastline=642]{codigo_fuente/funciones_objdump.}
+	\end{minipage}
+	\caption{Selection Sort (Nivel 1 de optimización)}
+\end{figure}
 
 \section{Análisis estático de la optimización en los algoritmos de ordenación.}
 Una vez visto cómo están implementados los algoritmos de ordenación en C, podemos ver su aspecto una vez compilados y comparar entre los diferentes niveles de optimización y cómo afectan a estas funciones.
