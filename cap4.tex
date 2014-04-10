@@ -200,7 +200,7 @@ Las funciones de ordenación que he comentado anteriormente, las que usa el prog
 
 \subsubsection{Bubble Sort}
 Este es el algoritmo más sencillo de los tres implementados. Se recorre el array comparando un elemento con el siguiente e intercambiándolos en el caso de que el primero sea mayor que el segundo. Para completar el ordenamiento es necesario recorrer el array varias veces.
-\begin{figure}[hb]
+\begin{figure}[hbp]
 	\noindent\begin{minipage}{.45\textwidth}
 		\begin{lstlisting}[caption=Código fuente,basicstyle=\ttfamily\scriptsize]
 void bubble1(int * array, int len) {
@@ -272,7 +272,7 @@ El tercer algoritmo implementado en el programa es Selection Sort. Su funcionami
 \begin{figure}
 	\noindent\begin{minipage}{.45\textwidth}
 		\begin{lstlisting}[caption=Implementación de Selection Sort,basicstyle=\ttfamily\scriptsize]
-void selection0(int *array, int len) {
+void selection1(int *array, int len) {
   for (int i = 0; i < len; ++i) {
     int index_of_min = i;
     for (int j = i; j < len; ++j) {
