@@ -424,26 +424,26 @@ Hay varias formas de determinar el rendimiento de un programa o función. Podemo
 \begin{tikzpicture}
 \begin{axis}[
 xlabel=Nivel de optimización,
-ylabel=Ciclos / 2,
+ylabel=Ciclos,
 grid=major,
 xtick=data]
 \addplot coordinates {
-	(0,193490006)
-	(1,39335390)
-	(2,34581721)
-	(3,34372868)
+	(0,352390396)
+	(1,79200250)
+	(2,70509212)
+	(3,70225162)
 };
 \addplot coordinates {
-	(0,	14248406)
-	(1,	2982945)
-	(2,	2361030)
-	(3,	2082368)
+	(0,	52175666)
+	(1,	10090462)
+	(2,	6713156)
+	(3,	7025934)
 };
 \addplot coordinates {
-	(0,	122092276)
-	(1,	46284313)
-	(2,	37895014)
-	(3,	50483369)
+	(0,	244191650)
+	(1,	92569958)
+	(2,	75805786)
+	(3,	100967950)
 };
 \legend{Bubble,Quicksort,Selection}
 \end{axis}
@@ -453,22 +453,17 @@ xtick=data]
 \label{graph:ciclos}
 \end{figure}
 
-En la figura~\ref{graph:ciclos} están representados la cantidad de ciclos de procesador que ha llevado ejecutar cada una de las funciones según el nivel de optimización. Se observa un patrón claro, al reducirse el tiempo de ejecución considerablemente cuando se utiliza el primer nivel de optimización, con respecto al inicial. Por ejemplo en el caso del algoritmo `Bubble Sort' esta reducción supone un 80\% menos de ciclos tan solo eligiendo el primer nivel de optimización. En los otros dos algoritmos se aprecia también un descenso del tiempo de ejecución, aunque en el caso de `Quicksort' es mucho más discreto que en los otros dos, sin embargo, ya en el nivel de optimización `0' ya es más rápido.
+En la figura~\ref{graph:ciclos} están representados la cantidad de ciclos de procesador que ha llevado ejecutar cada una de las funciones según el nivel de optimización. Se observa un patrón claro, al reducirse el tiempo de ejecución considerablemente cuando se utiliza el primer nivel de optimización, con respecto al inicial. Por ejemplo en el caso del algoritmo `Quick Sort' esta reducción supone un 80\% menos de ciclos tan solo eligiendo el primer nivel de optimización, siendo menor en los otros dos. Incluso en el nivel de optimización `0', este algoritmo ya es más rápido que cualquiera de los otros dos en el tercer nivel de optimización.
 
 Si nos fijamos en la ganancia de rendimiento para niveles de optimización más altos que el primero, se puede ver que es muy inferior a la que se obtiene con el primer nivel (en comparación al nivel `0'). Este resultado es de esperar debido a que las optimizaciones que se llevan a cabo en los niveles superiores son más específicas y en estos algoritmos no tienen gran efecto. En el caso del algoritmo de selección, además, vemos como, no solo no se reduce el tiempo de ejecución al usar el tercer nivel de optimización, sino que aumenta con respecto al primer y segundo nivel. Este comportamiento no lo vemos en las otras funciones que, aunque muy limitada, si presentan una ganancia en el rendimiento final.
 \begin{table}[htb]
 	\begin{center}
-		\begin{tabular}{|l|c|c|c|c|}
-			\hline
-			Algoritmo & Nivel 0 & Nivel 1 & Nivel 2 & Nivel 3 \\
-			\hline
-			\hline
-			Bubble		&	386980012	&	78670780 (80\%)	&	69163442 (12\%)	&	68745736 (0.6\%) \\
-			\hline
-			QuickSort	&	28496812	&	5965890	(79\%)	&	4722060 (21\%)	&	4164736 (12\%) \\
-			\hline
-			Selection &	244184552	&	92568626 (62\%)	&	75790028 (18\%)	&	100966738 (-33\%) \\
-			\hline
+		\begin{tabular}{lllll}
+      \textbf{Algoritmo} & \textbf{Nivel 0} & \textbf{Nivel 1} & \textbf{Nivel 2} & \textbf{Nivel 3} \\
+      \hline
+      \textit{Bubble		}&	352390396	&	79200250 (77.52\%)	&	70509212 (10.97\%)	&	70225162 (0.4\%) \\
+			\textit{QuickSort	}	&	52175666	&	10090462	(80.66\%)	&	6713156 (33.47\%)	&	7025934 (-4.66\%) \\
+			\textit{Selection	} &	244191650	&	92569958 (62.09\%)	&	75805786 (18.11\%)	&	1009679 (-33.19\%) \\
 		\end{tabular}
 	\end{center}
 \caption{Algoritmos y ciclos de ejecución. Ganancia con respecto al nivel anterior entre paréntesis.}
@@ -488,15 +483,11 @@ Para ilustrar la diferencia he medido de dos formas distintas la frequencia a la
 
 \begin{table}[htb]
 	\begin{center}
-		\begin{tabular}{|l|c|c|c|c|c|}
+		\begin{tabular}{llllll}
+      \textbf{Método}		&		\textbf{Cuentas}		&		\textbf{Ciclos}		&		\textbf{Ciclos/iteración}	&		\textbf{Periodo}		&		\textbf{Frecuencia} \\
 			\hline
-			Método		&		Cuentas		&		Ciclos		&		Ciclos/iteración	&		Periodo		&		Frecuencia \\
-			\hline
-			\hline
-			Arduino		&		5763684		&		11527368	&		115.27						&		1.44 us		&		694 kHz \\
-			\hline
-			Registros	&		501040		&		1002080		&		10.02							&		125.26 ns	&		7.98 MHz \\
-			\hline
+      \textit{Arduino}		&		5763684		&		11527368	&		115.27						&		1.44 us		&		694 kHz \\
+      \textit{Registros}	&		501040		&		1002080		&		10.02							&		125.26 ns	&		7.98 MHz \\
 
 		\end{tabular}
 	\end{center}
