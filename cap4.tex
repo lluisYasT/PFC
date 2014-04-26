@@ -293,41 +293,33 @@ void selection1(int *array, int len) {
 	\caption{Selection Sort (Nivel 1 de optimización)}
 \end{figure}
 
-\section{Análisis estático de la optimización en los algoritmos de ordenación.}
+\section{Análisis del tipo y cantidad de instrucciones en los algoritmos de ordenación.}
 Una vez visto cómo están implementados los algoritmos de ordenación en C, podemos ver su aspecto una vez compilados y comparar entre los diferentes niveles de optimización y cómo afectan a estas funciones.
 
-En el apéndice~\ref{chap:apendice4} se encuentran las distintas funciones en lenguaje ensamblador, obtenido a partir del fichero objeto \orden{funciones.o} que se genera durante la compilación del programa. Se ha obtenido mediante la órden \orden{pic32-objdump -d funciones.o}.
+En el apéndice~\ref{chap:apendice4} se encuentran todas las funciones de ordenación en lenguaje ensamblador, obtenido a partir del fichero objeto \orden{funciones.o} que se genera durante la compilación del programa. Se ha obtenido mediante la órden \orden{pic32-objdump -d funciones.o}.
 
 \begin{table}[htb]
 	\begin{center}
-	\begin{tabular}{|l|c|c|c|c|c|c|}
+	\begin{tabular}{lllllll}
+    \textbf{Función}	&	
+    \textbf{Ins. Memoria}\tablefootnote{lw,sw} & 
+    \textbf{Ins. Aritméticas}\tablefootnote{addiu,addu,andi,sll,subu,xori,li,move,movn} & 
+    \textbf{Ins. Ctrl. Flujo}\tablefootnote{beq,beqz,blez,blezl,bne,bnez,j,jal,jr,slt} & 
+    \textbf{NOPs} &
+    \textbf{Nº Ins.}\tablefootnote{Número total de instrucciones que contiene la función.} \\
 \hline
-Función	&	
-Nº Ins.\tablefootnote{Número total de instrucciones que contiene la función.} & 
-Ins. Aritméticas\tablefootnote{addiu,addu,andi,sll,subu,xori} & 
-Ins. Ctrl. Flujo\tablefootnote{beq,beqz,blez,blezl,bne,bnez,j,jal,jr,slt} & 
-Ins. Memoria\tablefootnote{lw,sw} & 
-Otras\tablefootnote{li,move,movn} & 
-NOPs\\
-\hline
-\hline
-Bubble0 & 74 & 31.1\% & 12.2\% & 47.3\% & 2.7\% & 6.8\%\\
-Bubble1 & 22 & 18.2\% & 36.4\% & 18.2\% & 18.2\% & 9.1\%\\
-Bubble2 & 22 & 22.7\% & 36.4\% & 18.2\% & 13.6\% & 9.1\%\\
-Bubble3 & 22 & 22.7\% & 36.4\% & 18.2\% & 13.6\% & 9.1\%\\
-Colocar0 & 91 & 29.7\% & 6.6\% & 57.1\% & 2.2\% & 4.4\%\\
-Colocar1 & 28 & 35.7\% & 25.0\% & 32.1\% & 7.1\% & 0.0\%\\
-Colocar2 & 32 & 31.3\% & 25.0\% & 28.1\% & 15.6\% & 0.0\%\\
-Colocar3 & 32 & 31.3\% & 25.0\% & 28.1\% & 15.6\% & 0.0\%\\
-Quicksort0 & 38 & 10.5\% & 15.8\% & 50.0\% & 10.5\% & 13.2\%\\
-Quicksort1 & 29 & 13.8\% & 20.7\% & 34.5\% & 27.6\% & 3.4\%\\
-Quicksort2 & 28 & 14.3\% & 25.0\% & 28.6\% & 32.1\% & 0.0\%\\
-Quicksort3 & 28 & 14.3\% & 25.0\% & 28.6\% & 32.1\% & 0.0\%\\
-Selection0 & 74 & 24.3\% & 12.2\% & 52.7\% & 2.7\% & 8.1\%\\
-Selection1 & 32 & 25.0\% & 31.3\% & 21.9\% & 18.8\% & 3.1\%\\
-Selection2 & 28 & 21.4\% & 28.6\% & 14.3\% & 35.7\% & 0.0\%\\
-Selection3 & 33 & 24.2\% & 30.3\% & 12.1\% & 30.3\% & 3.0\%\\
-\hline
+\textit{Bubble0} & 118828473 & 94459194 & 33566724 & 16785411 & 263639802 \\
+\textit{Bubble1} & 20281490 & 16789504 & 33558530 & 4097 & 70633621 \\
+\textit{Bubble2} & 19997926 & 16789503 & 57330 & 4097 & 36848856 \\
+\textit{Bubble3} & 19714362 & 16789503 & 57338 & 4097 & 36565300 \\
+\textit{Quick0} & 19815975 & 11695245 & 8533049 & 2278408 & 42322677 \\
+\textit{Quick1} & 2595927 & 3298274 & 7561208 & 3403 & 13458812 \\
+\textit{Quick2} & 1897211 & 2394977 & 2626842 & 0 & 6919030 \\
+\textit{Quick3} & 1986973 & 2506843 & 2599746 & 0 & 7093562 \\
+\textit{Selection0} & 84049617 & 50388997 & 33583108 & 16793603 & 184815325 \\
+\textit{Selection1} & 16797696 & 41981954 & 25184259 & 1 & 83963910 \\
+\textit{Selection2} & 8398848 & 33658354 & 33570818 & 1 & 75628021 \\
+\textit{Selection3} & 8402944 & 33570818 & 33570818 & 1 & 100732933 \\
 	\end{tabular}
 \end{center}
 	\caption{Número de instrucciones}
