@@ -4,21 +4,14 @@ Durante la compilación es posible especificar, mediante la opción \orden{-O} d
 
 \begin{table}[htb]
 \begin{center}
-\begin{tabularx}{\textwidth}{|l|X|}
-    \hline
-    Nivel de optimización & Descripción\\
-    \hline
+\begin{tabularx}{\textwidth}{lX}
+    \textbf{Nivel de optimización} & \textbf{Descripción}\\
     \hline
    	\orden{-O0} & Opción por defecto. Reduce el tiempo de compilación y facilita la depuración.\\
-    \hline
     \orden{-O1} & Optimiza, pero aumenta el tiempo de compilación y la memoria empleada.\\
-    \hline
     \orden{-O2} & Optimiza más todavía. \programa{GCC} realiza casi todas la optimizaciones que no impliquen aumento del tamaño del programa.\\
-    \hline
     \orden{-O3} & Optimiza todavía más que \orden{-O2}, incluyendo las optimizaciones que aumenten el tamaño del ejecutable.\\
-    \hline
     \orden{-Os} & Optimiza el tamaño del programa. Habilita todas las optimizaciones de \orden{-O2} que normalmente no aumenten el tamaño del código y realiza más optimizaciones destinadas a reducir el tamaño del programa.\\
-    \hline
   \end{tabularx}
 \end{center}
 \caption{Niveles de optimización}
@@ -31,8 +24,7 @@ Para poder averiguar qué optimizaciones lleva acabo el compilador dependiendo d
 
 \begin{table}[htb]
 \begin{center}
-	\begin{tabular}{|ll|}
-		\hline
+	\begin{tabular}{ll}
 		-falign-loops & -fargument-alias\\
 		-fbranch-count-reg & -fcommon\\
 		-fdata-sections & -fdce\\
@@ -55,7 +47,6 @@ Para poder averiguar qué optimizaciones lleva acabo el compilador dependiendo d
 		-ftree-slp-vectorize & -ftree-vect-loop-version\\
 		-funit-at-a-time & -fvar-tracking\\
 		-fvar-tracking-assignments & -fweb\\
-		\hline
 	\end{tabular}
 \end{center}
 \caption{Optimizaciones del nivel 0.}
@@ -66,8 +57,7 @@ Como se puede apreciar en la figura~\ref{opt0}, en el nivel más bajo, \programa
 
 \begin{table}[htb]
 \begin{center}
-	\begin{tabular}{|ll|}
-		\hline
+	\begin{tabular}{ll}
 		-fcprop-registers & -fdefer-pop\\
 		-fdelayed-branch & -fforward-propagate\\
 		-fguess-branch-probability &-fif-conversion\\
@@ -80,7 +70,6 @@ Como se puede apreciar en la figura~\ref{opt0}, en el nivel más bajo, \programa
 		-ftree-dse & -ftree-fre\\
 		-ftree-sink & -ftree-sra\\
 		-ftree-ter & \\
-		\hline
 	\end{tabular}
 \end{center}
 \caption{Optimizaciones que añade el nivel `O1' al nivel `O0'.}
@@ -91,8 +80,7 @@ En el nivel 1 se añaden más optimizaciones que afectan al arbol sintáctico (T
 
 \begin{table}[htb]
 \begin{center}
-	\begin{tabular}{|ll|}
-		\hline
+	\begin{tabular}{ll}
 		-falign-functions & -falign-jumps\\
 		-falign-labels & -fcaller-saves\\
 		-fcrossjumping & -fcse-follow-jumps\\
@@ -107,7 +95,6 @@ En el nivel 1 se añaden más optimizaciones que afectan al arbol sintáctico (T
 		-fthread-jumps & -ftree-builtin-call-dce\\
 		-ftree-pre & -ftree-switch-conversion\\
 		-ftree-vrp & \\
-		\hline
 	\end{tabular}
 \end{center}
 \caption{Optimizaciones que añade el nivel `O2' al nivel `O1'.}
@@ -118,13 +105,11 @@ El nivel 2 incluye muchas más optimizaciones (Tabla~\ref{opt2}). En este nivel 
 
 \begin{table}[htb]
 \begin{center}
-	\begin{tabular}{|ll|}
-		\hline
+	\begin{tabular}{ll}
 		-fgcse-after-reload & -finline-functions\\
 		-fipa-cp-clone & -fpredictive-commoning\\
 		-ftree-pre-partial-partial & -ftree-vectorize\\
 		-funswitch-loops & \\
-		\hline
 	\end{tabular}
 \end{center}
 \caption{Optimizaciones que añade el nivel `O3' al nivel `O2'.}
@@ -135,13 +120,11 @@ En el nivel más alto (Tabla~\ref{opt3}), \programa{gcc} considera todas las fun
 
 \begin{table}[htb]
 \begin{center}
-	\begin{tabular}{|ll|}
-		\hline
+	\begin{tabular}{ll}
 		-falign-functions & -falign-jumps\\
 		-falign-loops & -falign-labels\\
 		-freorder-blocks & -freorder-blocks-and-partition\\
 		-fprefetch-loop-arrays & -ftree-vect-loop-version\\
-		\hline
 \end{tabular}
 \end{center}
 \caption{Optimizaciones del nivel `O2' que no se realizan en el nivel `Os'.}
@@ -499,15 +482,11 @@ En la figura~\ref{ard_vs_reg:1} se puede apreciar la diferencia de velocidad cua
 
 \begin{table}[htb]
 	\begin{center}
-		\begin{tabular}{|l|c|}
+		\begin{tabular}{ll}
+      \textbf{Método}		&		\textbf{Frecuencia}	\\
 			\hline
-			Método		&		Frecuencia	\\
-			\hline
-			\hline
-			Arduino		&		700 kHz			\\
-			\hline
-			Registros	&		7.983	MHz		\\
-			\hline
+      \textit{Arduino}		&		700 kHz			\\
+      \textit{Registros}	&		7.983	MHz		\\
 		\end{tabular}
 	\end{center}
 	\caption{Frecuencia de conmutación según el método empleado. Medida usando un multímetro UNI-T UT61E}
