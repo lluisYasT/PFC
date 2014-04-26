@@ -298,6 +298,7 @@ Una vez visto cómo están implementados los algoritmos de ordenación en C, pod
 
 En el apéndice~\ref{chap:apendice4} se encuentran todas las funciones de ordenación en lenguaje ensamblador, obtenido a partir del fichero objeto \orden{funciones.o} que se genera durante la compilación del programa. Se ha obtenido mediante la órden \orden{pic32-objdump -d funciones.o}.
 
+Usando un vector generado aleatoriamente de 4096 números, he ejecutado todas las funciones de ordenación midiendo en tiempo de ejecución la cantidad de instrucciones y el tipo de instrucciones. Para ello, una vez generado el código ensamblador de las funciones, he introducido instrucciones que incrementaban el valor de un registro que quedara libre en el microcontrolador cada vez que se ejecutara una instrucción del grupo que se estuviese midiendo. Después usando el depurador y \programa{MPLAB X} he ido leyendo el valor de dicho registro al acabar cada función de ordenación. Ha sido necesario, a la hora de introducir la instrucción de cuenta, que no siempre era posible ejecutarla después de la instrucción a medir. Este sería el caso de las instrucciones que se ejecutan después de una instrucción de salto cuando se está usando la optimización fdelayed-branch ya que solo se ejecuta la instrucción que inmediatamente sigue al salto, por lo que era necesario incrementar la cuenta antes del propio salto, para tampoco modificar el funcionamiento de la función.
 \begin{table}[htb]
 	\begin{center}
 	\begin{tabular}{lllllll}
