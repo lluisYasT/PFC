@@ -554,3 +554,8 @@ Para aumentar la velocidad del programa, decidí usar coma fija. Debido a la nat
 % Muestreo
 % Procesamiento de cada muestra y procesamiento final
 
+\subsubsection{Análisis de rendimiento}
+
+A grandes rasgos, podemos dividir el funcionamiento del programa en dos partes: la recursiva y una parte final. En este caso la parte recursiva del programa es el procesamiento que se realiza de cada muestra recogida y convertida por el ADC del microcontrolador. La frecuencia de muestreo se verá principalmente limitada por este procesamiento de cada muestra, ya que he elegido realizarlo nada más obtenerla para imitar lo mas fielmente posible el funcionamiento de un DSP\@. Como alternativa, se pueden guardar todas las muestras en un vector y, una vez llenado, iterar sobre este realizando el procesado de todas las muestras.
+
+Cada uno de los dos métodos tiene sus ventajas. Si obtamos por usar el primero, de forma similar a un DSP, el tiempo en el que se obtiene un resultado al finalizar el muestreo será menor, suponiendo que la frecuencia de muestreo sea tal que permita el correcto procesamiento de cada muestra entre muestreos. La ventaja del segundo método es que, al no tener que realizar el procesamiento entre muestreos podemos reducir el tiempo entre ellos y por lo tanto aumentar su frecuencia, lo que en este caso nos permitiría, por ejemplo, detectar frecuencias mayores al primer método.
