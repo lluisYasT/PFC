@@ -558,4 +558,53 @@ Para aumentar la velocidad del programa, decidí usar coma fija. Debido a la nat
 
 A grandes rasgos, podemos dividir el funcionamiento del programa en dos partes: la recursiva y una parte final. En este caso la parte recursiva del programa es el procesamiento que se realiza de cada muestra recogida y convertida por el ADC del microcontrolador. La frecuencia de muestreo se verá principalmente limitada por este procesamiento de cada muestra, ya que he elegido realizarlo nada más obtenerla para imitar lo mas fielmente posible el funcionamiento de un DSP\@. Como alternativa, se pueden guardar todas las muestras en un vector y, una vez llenado, iterar sobre este realizando el procesado de todas las muestras.
 
-Cada uno de los dos métodos tiene sus ventajas. Si obtamos por usar el primero, de forma similar a un DSP, el tiempo en el que se obtiene un resultado al finalizar el muestreo será menor, suponiendo que la frecuencia de muestreo sea tal que permita el correcto procesamiento de cada muestra entre muestreos. La ventaja del segundo método es que, al no tener que realizar el procesamiento entre muestreos podemos reducir el tiempo entre ellos y por lo tanto aumentar su frecuencia, lo que en este caso nos permitiría, por ejemplo, detectar frecuencias mayores al primer método.
+Cada uno de los dos métodos tiene sus ventajas. Si optamos por usar el primero, de forma similar a un DSP, el tiempo en el que se obtiene un resultado al finalizar el muestreo será menor, suponiendo que la frecuencia de muestreo sea tal que permita el correcto procesamiento de cada muestra entre muestreos. La ventaja del segundo método es que, al no tener que realizar el procesamiento entre muestreos podemos reducir el tiempo entre ellos y por lo tanto aumentar su frecuencia, lo que en este caso nos permitiría, por ejemplo, detectar frecuencias mayores al primer método.
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}
+extern "C"
+{
+  void __ISR(_ADC_VECTOR, ipl6) ADCInterruptHandler()
+  {
+    IFS1CLR = 2;
+    /* Normaliza la muestra y la atenua para evitar la saturacion
+       al final del filtro. */
+    int muestra = ADC1BUF0;
+    muestra = muestra - 512;
+    muestra = muestra << (GAIN_BITS - 9);
+    muestra *= ATENUADOR;
+    muestra >>= GAIN_BITS;
+    
+    /* Guardamos el valor maximo de las muestras */
+    if(abs(muestra) > abs(max)) {
+      max = muestra;
+    }
+
+    /* Parte recursiva de Goertzel */
+    q0 = (COSENO * q1);
+    q0 -= (MITAD * q2);
+    q0 += (COSENO * q1);
+    q0 -= (MITAD * q2);
+    q0 >>= GAIN_BITS;
+    q0 += muestra;
+    q2 = q1;
+    q1 = q0;
+
+    /* Aumentamos el valor del contador de muestras */
+    contador_muestras++;
+
+    /* Si tenemos todas las muestras, cancelamos el
+       automuestreo para llevar a cabo la parte 
+       final del algoritmo */
+    if(contador_muestras >= N_MUESTRAS)
+    {
+      contador_muestras = 0;
+      muestras_listas = true;
+      AD1CON1bits.ASAM = 0; // Paramos el automuestreo
+    }
+  }
+}
+\end{lstlisting}
+\end{minipage}
+
+Este código es el que se ejecuta cada vez que el ADC ha terminado de convertir una muestra~\footnote{El microcontrolador está configurado para que realize el muestreo y la conversión de forma automática con una frecuencia de 8kHz, interrumpiendo cuando se haya completado.}, por lo que es la parte que más interesa analizar para conocer el rendimiento final.
