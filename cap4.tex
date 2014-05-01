@@ -608,3 +608,93 @@ extern "C"
 \end{minipage}
 
 Este código es el que se ejecuta cada vez que el ADC ha terminado de convertir una muestra~\footnote{El microcontrolador está configurado para que realice el muestreo y la conversión de forma automática con una frecuencia de 8kHz, interrumpiendo cuando se haya completado.}, por lo que es la parte que más interesa analizar para conocer el rendimiento final. Se puede dividir en aproximadamente tres partes. En la primera se obtiene el valor guardado en el registro del ADC, se normaliza, se le aplica una atenuación para evitar saturar el filtro y se guarda el valor máximo para compararlo al final con el valor que devuelve el algoritmo. En la segunda parte se realiza la parte recursiva del algoritmo sobre la muestra actual. Por último, se controla la cantidad de muestras que se han procesado y, en el caso de estar todas, se para el automuestreo para comenzar el procesamiento final en la parte principal del programa.
+
+\begin{figure}[htb]
+  \begin{minipage}{.45\textwidth}
+\begin{lstlisting}[language={[mips]Assembler},basicstyle=\ttfamily\scriptsize]
+   0:	24030002  li	v1,2
+   4:	3c020000  lui	v0,0x0
+   8:	ac430000  sw	v1,0(v0)
+   c:	3c020000  lui	v0,0x0
+  10:	8c420000  lw	v0,0(v0)
+  14:	8f840000  lw	a0,0(gp)
+  18:	2442fe00  addiu	v0,v0,-512
+  1c:	00021a40  sll	v1,v0,0x9
+  20:	00022b00  sll	a1,v0,0xc
+  24:	00a31823  subu	v1,a1,v1
+  28:	00021180  sll	v0,v0,0x6
+  2c:	00621821  addu	v1,v1,v0
+  30:	00031bc3  sra	v1,v1,0xf
+  34:	0083102a  slt	v0,a0,v1
+  38:	54400001  bnezl	v0,40
+  3c:	af830000  sw	v1,0(gp)
+  40:	8f820000  lw	v0,0(gp)
+  44:	00022980  sll	a1,v0,0x6
+  48:	00022200  sll	a0,v0,0x8
+  4c:	00a42021  addu	a0,a1,a0
+  50:	00822021  addu	a0,a0,v0
+  54:	00042900  sll	a1,a0,0x4
+  58:	00a42023  subu	a0,a1,a0
+  5c:	00042080  sll	a0,a0,0x2
+  60:	00821021  addu	v0,a0,v0
+  64:	af820000  sw	v0,0(gp)
+  68:	8f820000  lw	v0,0(gp)
+  6c:	8f840000  lw	a0,0(gp)
+  70:	00021380  sll	v0,v0,0xe
+  74:	00821023  subu	v0,a0,v0
+  78:	af820000  sw	v0,0(gp)
+  7c:	8f820000  lw	v0,0(gp)
+  80:	8f850000  lw	a1,0(gp)
+  84:	00023180  sll	a2,v0,0x6
+  88:	00022200  sll	a0,v0,0x8
+  8c:	00c42021  addu	a0,a2,a0
+  90:	00822021  addu	a0,a0,v0
+  94:	00043100  sll	a2,a0,0x4
+\end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}{.45\textwidth}
+\begin{lstlisting}[language={[mips]Assembler},basicstyle=\ttfamily\scriptsize]
+  98:	00c42023  subu	a0,a2,a0
+  9c:	00042080  sll	a0,a0,0x2
+  a0:	00821021  addu	v0,a0,v0
+  a4:	00451021  addu	v0,v0,a1
+  a8:	af820000  sw	v0,0(gp)
+  ac:	8f820000  lw	v0,0(gp)
+  b0:	8f840000  lw	a0,0(gp)
+  b4:	00021380  sll	v0,v0,0xe
+  b8:	00821023  subu	v0,a0,v0
+  bc:	af820000  sw	v0,0(gp)
+  c0:	8f820000  lw	v0,0(gp)
+  c4:	000213c3  sra	v0,v0,0xf
+  c8:	af820000  sw	v0,0(gp)
+  cc:	8f820000  lw	v0,0(gp)
+  d0:	00621821  addu	v1,v1,v0
+  d4:	af830000  sw	v1,0(gp)
+  d8:	8f820000  lw	v0,0(gp)
+  dc:	af820000  sw	v0,0(gp)
+  e0:	8f820000  lw	v0,0(gp)
+  e4:	af820000  sw	v0,0(gp)
+  e8:	97820000  lhu	v0,0(gp)
+  ec:	24420001  addiu	v0,v0,1
+  f0:	3042ffff  andi	v0,v0,0xffff
+  f4:	a7820000  sh	v0,0(gp)
+  f8:	97820000  lhu	v0,0(gp)
+  fc:	3042ffff  andi	v0,v0,0xffff
+ 100:	2c420320  sltiu	v0,v0,800
+ 104:	14400007  bnez	v0,124
+ 108:	24030001  li	v1,1
+ 10c:	a7800000  sh	zero,0(gp)
+ 110:	3c020000  lui	v0,0x0
+ 114:	a3830000  sb	v1,0(gp)
+ 118:	8c430000  lw	v1,0(v0)
+ 11c:	7c031084  ins	v1,zero,0x2,0x1
+ 120:	ac430000  sw	v1,0(v0)
+ 124:	03e00008  jr	ra
+ 128:	00000000  nop
+ \end{lstlisting}
+ \end{minipage}
+ \label{goertzel_recursivo_ensamblador}
+ \caption{Parte recursiva de Goertzel desensamblada (Segundo nivel de optimización)}
+ \end{figure}
+
