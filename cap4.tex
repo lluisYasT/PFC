@@ -612,86 +612,65 @@ Este código es el que se ejecuta cada vez que el ADC ha terminado de convertir 
 \begin{figure}[htb]
   \begin{minipage}{.45\textwidth}
 \begin{lstlisting}[language={[mips]Assembler},basicstyle=\ttfamily\scriptsize]
-   0:	24030002  li	v1,2
-   4:	3c020000  lui	v0,0x0
-   8:	ac430000  sw	v1,0(v0)
-   c:	3c020000  lui	v0,0x0
-  10:	8c420000  lw	v0,0(v0)
-  14:	8f840000  lw	a0,0(gp)
-  18:	2442fe00  addiu	v0,v0,-512
-  1c:	00021a40  sll	v1,v0,0x9
-  20:	00022b00  sll	a1,v0,0xc
-  24:	00a31823  subu	v1,a1,v1
-  28:	00021180  sll	v0,v0,0x6
-  2c:	00621821  addu	v1,v1,v0
-  30:	00031bc3  sra	v1,v1,0xf
-  34:	0083102a  slt	v0,a0,v1
-  38:	54400001  bnezl	v0,40
-  3c:	af830000  sw	v1,0(gp)
-  40:	8f820000  lw	v0,0(gp)
-  44:	00022980  sll	a1,v0,0x6
-  48:	00022200  sll	a0,v0,0x8
-  4c:	00a42021  addu	a0,a1,a0
-  50:	00822021  addu	a0,a0,v0
-  54:	00042900  sll	a1,a0,0x4
-  58:	00a42023  subu	a0,a1,a0
-  5c:	00042080  sll	a0,a0,0x2
-  60:	00821021  addu	v0,a0,v0
-  64:	af820000  sw	v0,0(gp)
-  68:	8f820000  lw	v0,0(gp)
-  6c:	8f840000  lw	a0,0(gp)
-  70:	00021380  sll	v0,v0,0xe
-  74:	00821023  subu	v0,a0,v0
-  78:	af820000  sw	v0,0(gp)
-  7c:	8f820000  lw	v0,0(gp)
-  80:	8f850000  lw	a1,0(gp)
-  84:	00023180  sll	a2,v0,0x6
-  88:	00022200  sll	a0,v0,0x8
-  8c:	00c42021  addu	a0,a2,a0
-  90:	00822021  addu	a0,a0,v0
-  94:	00043100  sll	a2,a0,0x4
+ 0:	415de800  rdpgpr	sp,sp
+ 4:	401a7000  mfc0	k0,c0_epc
+ 8:	401b6000  mfc0	k1,c0_status
+ c:	27bdffe8  addiu	sp,sp,-24
+10:	afbb0010  sw	k1,16(sp)
+14:	7c1b7844  ins	k1,zero,0x1,0xf
+18:	377b1800  ori	k1,k1,0x1800
+1c:	afba0014  sw	k0,20(sp)
+20:	409b6000  mtc0	k1,c0_status
+24:	afa30008  sw	v1,8(sp)
+28:	afa20004  sw	v0,4(sp)
+2c:	24030002  li	v1,2
+30:	3c020000  lui	v0,0x0
+34:	ac430000  sw	v1,0(v0)
+38:	97820000  lhu	v0,0(gp)
+3c:	3c030000  lui	v1,0x0
+40:	8c630000  lw	v1,0(v1)
+44:	afa4000c  sw	a0,12(sp)
+48:	3042ffff  andi	v0,v0,0xffff
+4c:	3c040000  lui	a0,0x0
+50:	00021080  sll	v0,v0,0x2
+54:	24840000  addiu	a0,a0,0
+58:	00441021  addu	v0,v0,a0
+5c:	ac430000  sw	v1,0(v0)
+60:	3c020000  lui	v0,0x0
+64:	24030004  li	v1,4
+68:	ac430000  sw	v1,0(v0)
 \end{lstlisting}
 \end{minipage}
 \hfill
 \begin{minipage}{.45\textwidth}
 \begin{lstlisting}[language={[mips]Assembler},basicstyle=\ttfamily\scriptsize]
-  98:	00c42023  subu	a0,a2,a0
-  9c:	00042080  sll	a0,a0,0x2
-  a0:	00821021  addu	v0,a0,v0
-  a4:	00451021  addu	v0,v0,a1
-  a8:	af820000  sw	v0,0(gp)
-  ac:	8f820000  lw	v0,0(gp)
-  b0:	8f840000  lw	a0,0(gp)
-  b4:	00021380  sll	v0,v0,0xe
-  b8:	00821023  subu	v0,a0,v0
-  bc:	af820000  sw	v0,0(gp)
-  c0:	8f820000  lw	v0,0(gp)
-  c4:	000213c3  sra	v0,v0,0xf
-  c8:	af820000  sw	v0,0(gp)
-  cc:	8f820000  lw	v0,0(gp)
-  d0:	00621821  addu	v1,v1,v0
-  d4:	af830000  sw	v1,0(gp)
-  d8:	8f820000  lw	v0,0(gp)
-  dc:	af820000  sw	v0,0(gp)
-  e0:	8f820000  lw	v0,0(gp)
-  e4:	af820000  sw	v0,0(gp)
-  e8:	97820000  lhu	v0,0(gp)
-  ec:	24420001  addiu	v0,v0,1
-  f0:	3042ffff  andi	v0,v0,0xffff
-  f4:	a7820000  sh	v0,0(gp)
-  f8:	97820000  lhu	v0,0(gp)
-  fc:	3042ffff  andi	v0,v0,0xffff
- 100:	2c420320  sltiu	v0,v0,800
- 104:	14400007  bnez	v0,124
- 108:	24030001  li	v1,1
- 10c:	a7800000  sh	zero,0(gp)
- 110:	3c020000  lui	v0,0x0
- 114:	a3830000  sb	v1,0(gp)
- 118:	8c430000  lw	v1,0(v0)
- 11c:	7c031084  ins	v1,zero,0x2,0x1
- 120:	ac430000  sw	v1,0(v0)
- 124:	03e00008  jr	ra
- 128:	00000000  nop
+6c:	97820000  lhu	v0,0(gp)
+70:	24420001  addiu	v0,v0,1
+74:	3042ffff  andi	v0,v0,0xffff
+78:	a7820000  sh	v0,0(gp)
+7c:	97820000  lhu	v0,0(gp)
+80:	3042ffff  andi	v0,v0,0xffff
+84:	2c4212ca  sltiu	v0,v0,4810
+88:	14400007  bnez	v0,a8
+8c:	24030001  li	v1,1
+90:	a7800000  sh	zero,0(gp)
+94:	3c020000  lui	v0,0x0
+98:	a3830000  sb	v1,0(gp)
+9c:	8c430000  lw	v1,0(v0)
+a0:	7c031084  ins	v1,zero,0x2,0x1
+a4:	ac430000  sw	v1,0(v0)
+a8:	8fa4000c  lw	a0,12(sp)
+ac:	8fa30008  lw	v1,8(sp)
+b0:	8fa20004  lw	v0,4(sp)
+b4:	41606000  di
+b8:	000000c0  ehb
+bc:	8fba0014  lw	k0,20(sp)
+c0:	8fbb0010  lw	k1,16(sp)
+c4:	409a7000  mtc0	k0,c0_epc
+c8:	27bd0018  addiu	sp,sp,24
+cc:	41dde800  wrpgpr	sp,sp
+d0:	409b6000  mtc0	k1,c0_status
+d4:	42000018  eret
  \end{lstlisting}
  \end{minipage}
  \label{goertzel_recursivo_ensamblador}
