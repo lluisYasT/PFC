@@ -673,7 +673,7 @@ d0:	409b6000  mtc0	k1,c0_status
 d4:	42000018  eret
  \end{lstlisting}
  \end{minipage}
- \label{goertzel_recursivo_ensamblador}
  \caption{Parte recursiva de Goertzel desensamblada (Segundo nivel de optimización)}
+ \label{goertzel_recursivo_ensamblador}
  \end{figure}
-
+  En la figura~\ref{goertzel_recursivo_ensamblador} se encuentra el código que se muestra antes desensambado usando \programa{pic32-objdump} de la misma forma que he hecho con el código del otro programa. Al igual que en el apartado anterior, he contado el número de instrucciones según el tipo y optimización. Debido a la diferente naturaleza de este programa, en vez de contar el número de instrucciones al finalizar la ejecución, he contado el número en la última iteración de esta parte, es decir, cuando la última parte se evalúa como cierta y se ejecuta. En la siguiente tabla se puede observar el número de instrucciones obtenido.
