@@ -676,4 +676,23 @@ d4:	42000018  eret
  \caption{Parte recursiva de Goertzel desensamblada (Segundo nivel de optimización)}
  \label{goertzel_recursivo_ensamblador}
  \end{figure}
-  En la figura~\ref{goertzel_recursivo_ensamblador} se encuentra el código que se muestra antes desensambado usando \programa{pic32-objdump} de la misma forma que he hecho con el código del otro programa. Al igual que en el apartado anterior, he contado el número de instrucciones según el tipo y optimización. Debido a la diferente naturaleza de este programa, en vez de contar el número de instrucciones al finalizar la ejecución, he contado el número en la última iteración de esta parte, es decir, cuando la última parte se evalúa como cierta y se ejecuta. En la siguiente tabla se puede observar el número de instrucciones obtenido.
+ En la figura~\ref{goertzel_recursivo_ensamblador} se encuentra el código que se muestra antes desensambado usando \programa{pic32-objdump} de la misma forma que he hecho con el código del otro programa. Al igual que en el apartado anterior, he contado el número de instrucciones según el tipo y optimización. Debido a la diferente naturaleza de este programa, en vez de contar el número de instrucciones al finalizar la ejecución, he contado el número en una de las iteraciones intermedias de esta parte, es decir, cuando la última parte se evalúa como falsa y no se ejecuta. En la tabla~\ref{tabla:tiempos_goertzel} se puede observar el número de instrucciones obtenido junto con el tiempo que ha llevado ejecutarlas.
+
+\begin{table}[htb]
+	\begin{center}
+		\begin{tabular}{llll}
+			\textbf{Nivel} & \textbf{Ciclos} & \textbf{Tiempo} & \textbf{Instrucciones} \\
+			\hline
+			\textit{O0} & 114 & \(1.43\mu s\) & 128 \\
+			\textit{O1} & 82 & \(1.03\mu s\) & 101 \\
+			\textit{O2} & 82 & \(1.03\mu s\) & 100 \\
+			\textit{O3} & 82 & \(1.03\mu s\) & 100 \\
+		\end{tabular}
+		\caption{Tiempos de ejecución de la parte recursiva del programa}
+		\label{tabla:tiempos_goertzel}
+	\end{center}
+\end{table}
+
+La diferencia entre los distintos niveles de optimización es prácticamente despreciable en este caso. Debido a la frecuencia de muestreo de 8kHz que he usado en el programa para simular el DSP usado en clase, el tiempo que hay disponible entre muestras para realizar procesamiento es suficientemente largo como para que no importe el nivel de optimización elegido, para esta aplicación en particular. Con esta frecuencia disponemos de alrededor de \(125\mu s\) entre muestras, mientras que en el peor de los casos (sin optimización) el procesamiento de la muestra solo tarda \(1.43\mu s\).
+
+De hecho, sería posible ejecutar este algoritmo 8 veces de forma simultánea, es decir, realizar ocho procesados distintos de muestra entre muestreos, de forma que podemos, por ejemplo, calcular el dígito marcado en un teléfono analógico (si conectáramos la salida del teléfono a la entrada analógica del microcontrolador) o de cualquier otro dispositivo que generase código de marcación por tonos. 
