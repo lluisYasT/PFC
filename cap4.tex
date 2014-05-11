@@ -682,9 +682,9 @@ d4:	42000018  eret
 	\begin{center}
 		\begin{tabular}{llll}
 			\textbf{Nivel} & \textbf{Ciclos} & \textbf{Tiempo} & \textbf{Instrucciones} \\
-			\hline
+			\toprule
 			\textit{O0} & 114 & \(1.43\mu s\) & 128 \\
-			\textit{O1} & 82 & \(1.03\mu s\) & 101 \\
+			\textit{O1} & 82 & \(1.03\mu s\) & 100 \\
 			\textit{O2} & 82 & \(1.03\mu s\) & 100 \\
 			\textit{O3} & 82 & \(1.03\mu s\) & 100 \\
 		\end{tabular}
@@ -695,4 +695,22 @@ d4:	42000018  eret
 
 La diferencia entre los distintos niveles de optimización es prácticamente despreciable en este caso. Debido a la frecuencia de muestreo de 8kHz que he usado en el programa para simular el DSP usado en clase, el tiempo que hay disponible entre muestras para realizar procesamiento es suficientemente largo como para que no importe el nivel de optimización elegido, para esta aplicación en particular. Con esta frecuencia disponemos de alrededor de \(125\mu s\) entre muestras, mientras que en el peor de los casos (sin optimización) el procesamiento de la muestra solo tarda \(1.43\mu s\).
 
-De hecho, sería posible ejecutar este algoritmo 8 veces de forma simultánea, es decir, realizar ocho procesados distintos de muestra entre muestreos, de forma que podemos, por ejemplo, calcular el dígito marcado en un teléfono analógico (si conectáramos la salida del teléfono a la entrada analógica del microcontrolador) o de cualquier otro dispositivo que generase código de marcación por tonos. 
+De hecho, sería posible ejecutar este algoritmo 8 veces de forma simultánea, es decir, realizar ocho procesados distintos de muestra entre muestreos, de forma que podemos, por ejemplo, calcular el dígito marcado en un teléfono analógico (si conectáramos la salida del teléfono a la entrada analógica del microcontrolador) o de cualquier otro dispositivo que generase código de marcación por tonos. Para la obtención del dígito marcado se envían dos tonos que, dependiendo de su frecuencia, corresponden a un dígito de acuerdo a la tabla~\ref{tabla:DTMF}. 
+
+\begin{table}[htb]
+	\begin{center}
+		\begin{tabular}{c|c|c|c|c}
+			\textbf{Frecuencia} & \textbf{1209 Hz} & \textbf{1336 Hz} & \textbf{1477 Hz} & \textbf{1633 Hz} \\
+			\hline
+			\textbf{697 Hz} & 1 & 2 & 3 & A \\
+			\hline
+			\textbf{770 Hz} & 4 & 5 & 6 & B \\
+			\hline
+			\textbf{852 Hz} & 7 & 8 & 9 & C \\
+			\hline
+			\textbf{941 Hz} & * & 0 & \# & D \\
+		\end{tabular}
+	\end{center}
+	\caption{Código DTMF de marcación por tonos}
+	\label{tabla:DTMF}
+\end{table}
