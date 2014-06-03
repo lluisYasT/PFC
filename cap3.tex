@@ -1,23 +1,23 @@
 Cuando hablamos de entorno de desarrollo normalmente nos referimos al conjunto de procedimientos y herramientas para desarrollar, probar y depurar aplicaciones o programas.
 
-En un entorno de desarrollo es común encontrar ciertas herramientas básicas: un editor de texto para escribir el programa, un compilador o intérprete (en el caso de programas desarrollados con un lenguaje interpretado, como pueden ser Python o Perl), un depurador y, por último, un programador en el caso de microcontroladores.
+En un entorno de desarrollo es común encontrar ciertas herramientas básicas: un editor de texto más o menos avanzado, una suite de compilación, un entorno de depuración y, para el caso de los microcontroladores, un programador.
 
-Podemos diferenciar dos tipos de entorno de desarrollo. La forma clásica de entorno de desarrollo es usar herramientas independientes. Por ejemplo, si queremos desarrollar un programa escrito en C, podemos escribirlo usando \programa{Vim} o \programa{Emacs}, compilarlo usando \programa{gcc} y por último, depurarlo con herramientas como \programa{gdb} o \programa{valgrind}.
+Podemos diferenciar dos tipos de entorno de desarrollo: los entornos clásicos y los entornos de desarrollo integrados. En la forma clásica de entorno de desarrollo se utilizan de forma explicita herramientas independientes. Por ejemplo, si queremos desarrollar un programa escrito en C, podemos escribirlo usando \programa{Vim} o \programa{Emacs}, compilarlo usando \programa{gcc} y por último, depurarlo con herramientas como \programa{gdb} o \programa{valgrind}.
 
-Por otro lado, también están los entornos de desarrollo integrados o IDE (Integrated Development Environment) que aúnan todas las herramientas en un mismo programa, del que no es necesario salir en todo el proceso de desarrollo del programa. Hay multitud de ejemplos de IDEs, como \programa{Eclipse}~\footnote{\url{http://www.eclipse.org/}} o \programa{Netbeans}~\footnote{\url{https://netbeans.org/}}, por citar algunos.
+Por otro lado, en los entornos de desarrollo integrados o IDE (Integrated Development Environment)  aúnan todas las herramientas en un mismo interfaz de usuario, del que no es necesario salir en todo el proceso de desarrollo del programa. En algunos casos las herramientas son las mismas que en los entornos clásicos pero el IDE las oculta. Hay multitud de ejemplos de IDEs, como \programa{Eclipse}~\footnote{\url{http://www.eclipse.org/}} o \programa{Netbeans}~\footnote{\url{https://netbeans.org/}}, por citar algunos.
 
 \section{MPLAB X}
-\programa{MPLAB X}~\cite{website:mplab} es la última versión del entorno de desarrollo integrado que proporciona Microchip para poder programar sus microcontroladores. Este IDE, basado en el entorno de código abierto Netbeans, nos permite escribir nuestro programa, compilarlo, programar el microcontrolador y, con la ayuda de un depurador como los mencionados en el capítulo anterior, depurar el programa.
+\programa{MPLAB X}~\cite{website:mplab} es la última versión del entorno de desarrollo integrado que proporciona Microchip para programar sus microcontroladores. Este IDE, basado en el entorno de código abierto Netbeans, nos permite escribir nuestro programa, compilarlo, programar el microcontrolador y, con la ayuda de un depurador como los mencionados en el capítulo anterior, depurar el programa.
 
-Un IDE es mucho más que un editor de texto. El editor que incorpora \programa{MPLAB X} indenta las líneas de código automáticamente, identifica las parejas de corchetes, comillas, etc.\@ y enfatiza el texto con colores de forma tanto sintáctica como semántica. También dispone de plantillas de código y consejos.
+Aunque lo IDEs son mucho más que un editor de texto, el entorno de edición suele ser la herramienta más utilizada. El editor que incorpora \programa{MPLAB X} indenta las líneas de código automáticamente, identifica las parejas de corchetes, comillas, etc.\@ y enfatiza el texto con colores de forma tanto sintáctica como semántica. También dispone de plantillas de código y consejos.
 
 \programa{MPLAB X} ofrece también una fácil gestión de proyectos y de archivos dentro de un mismo proyecto. En la parte izquierda del IDE podemos encontrar una sección en la que se encuentran los proyectos y sus archivos, ordenados de forma jerárquica, lo que ayuda en la gestión de diferentes proyectos en un mismo entorno.
 
 \figura{mplab.jpg}{scale=0.35}{MPLABX Depurando el programa Blink}{mplab}{H}
 
-Como se aprecia en la Figura~\ref{mplab}, \programa{MPLAB X} nos ofrece mucha información. En esta figura vemos a \programa{MPLAB X} en mitad de la depuración del programa Blink~\footnote{Esteprograma es el equivalente en microcontroladores al `Hola Mundo', su única función es hacer parpadear un LED.}. En la parte izquierda se puede apreciar una sección que aporta información acerca del estado actual del microcontrolador, como la cantidad de memoria RAM y flash que requiere la aplicación para funcionar comparado con la cantidad total de la que dispone el microcontrolador.
+Como se aprecia en la Figura~\ref{mplab}, \programa{MPLAB X} nos ofrece mucha información. En esta figura vemos a \programa{MPLAB X} en mitad de la depuración del programa Blink~\footnote{Este programa es el equivalente en microcontroladores al `Hola Mundo', su única función es hacer parpadear un LED.}. En la parte izquierda se puede apreciar una sección que aporta información acerca del estado actual del microcontrolador, como la cantidad de memoria RAM y flash que requiere la aplicación para funcionar comparado con la cantidad total de la que dispone el microcontrolador.
 
-El IDE dispone de muchas más herramientas para la depuración de programas. Durante la ejecución del mismo en modo depuración se pueden establecer puntos en el el código fuente donde el programa debe detener su ejecución. Podemos usarlos, por ejemplo, para ver el estado de la memoria y registros del procesador en ese momento. También tenemos la posibilidad de ejecutar el programa línea a línea del código fuento o, incluso, instrucción a instrucción en el código ensamblador.
+El IDE dispone de muchas más herramientas para la depuración de programas. Durante la ejecución del mismo en modo depuración se pueden establecer puntos en el el código fuente donde el programa debe detener su ejecución, conocidos pos su nombre en inglés breakpoints. Se utilizan para detener la ejecución y así poder ver o modificar el estado de la memoria y registros del procesador en ese momento, ejecutar el programa línea a línea del código fuente o instrucción a instrucción en el código ensamblador, comprobar la traducción a ensamblador hecha por el compilador, etc.
 
 Con este entorno de desarrollo veremos más adelante los diferentes efectos que los distintos niveles de optimización tienen en nuestro programa y podremos usarla para hacer profiling.
 
@@ -73,7 +73,7 @@ Si accedemos a la carpeta de instalación de Arduino veremos diferentes subcarpe
 	child { node { reference}};
 \end{tikzpicture}
 \end{center}
-\caption{Estructura de directorios de Arduino}
+\caption{Estructura de directorios del entorno de programación de Arduino}
 \label{arduino_carpetas}
 \end{figure}
 
