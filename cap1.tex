@@ -19,7 +19,7 @@ Un microcontrolador es un circuito integrado programable que se compone de vario
 %mimateo: ¡¡Cuidado!!
 %mimateo: El 4004 fue el primer microporcesador pero no el primer microcontrolador... Buscando en Google dan ese honor al TMS 1000 de Texas Instruments
 
-En 1974 Gary W. Bone, en Texas Instruments, creó el primer microcontrolador de la histora: el TMS 1000 de 4 bits, después de varias disputas legales con Intel~\footnote{http://www.datamath.org/Story/Intel.htm}. Desde entonces, los microcontroladores han ido evolucionando y en la actualidad existen multitud de modelos diferentes entre los que elegir basados en diversas arquitecturas como pueden ser AVR, ARM-M o MIPS. 
+En 1974 Gary W. Bone, en Texas Instruments, creó el primer microcontrolador de la histora: el TMS 1000 de 4 bits, después de varias disputas legales con Intel~\footnote{http://www.datamath.org/Story/Intel.htm}. Desde entonces, los microcontroladores han ido evolucionando y en la actualidad existen multitud de modelos diferentes entre los que elegir basados en diversas arquitecturas como pueden ser AVR, ARM-M o MIPS.\@
 
 Un microcontrolador ejecuta las instrucciones del programa que se ha grabado en su memoria. Estos programas estaban elaborados originalmente en código ensamblador, aunque en la actualidad la mayoría se programa usando el lenguaje C. Para programar un microcontrolador hay que estar familiarizado con el funcionamiento del modelo concreto que se vaya a programar. No es lo mismo programar un microcontrolador ARM que un PIC32 o un Atmel AVR.\@ A pesar de que en todos ellos se utiliza C como principal lenguaje de programación, la velocidad de ejecución, las estructuras de traducción y los dispositivos internos difieren, en muchos casos sustancialmente. Por ejemplo, para escribir en un pin de un GPIO puede ser necesario configurar diferentes registros dependiendo del microcontrolador.
 
@@ -45,40 +45,40 @@ Como alumno de la Escuela Técnica Superior de Ingenieros de Telecomunicación h
 %		every node/.style={font=\sffamily}
 	]
 	% Boxes
-	\node [
+	\node[
 		draw,
 		xshift=-6cm,
 		minimum width=2cm,
 	] (hid_in) {HID};
-	\node [
+	\node[
 		draw,
 		minimum width=2cm,
 		minimum height=2cm,
 	] (pc) {PC};
-	\node [
+	\node[
 		draw,
 		xshift=6cm,
 		minimum width=2cm,
 	] (hid_out) {HID};
-	\node [
+	\node[
 		draw,
 		xshift=-6cm,
 		yshift=1cm,
 		minimum width=2cm,
 ] (mem_in) {Memoria};
-	\node [
+	\node[
 		draw,
 		xshift=6cm,
 		yshift=1cm,
 		minimum width=2cm,
 ] (mem_out) {Memoria};
-	\node [
+	\node[
 		draw,
 		xshift=-6cm,
 		yshift=-1cm,
 		minimum width=2cm,
 ] (net_in) {Red};
-	\node [
+	\node[
 		draw,
 		xshift=6cm,
 		yshift=-1cm,
@@ -118,39 +118,39 @@ Con el M68000 tuve la oportunidad de programar al más bajo nivel, al no dispone
 %		every node/.style={font=\sffamily}
 	]
 	% Boxes
-	\node [
+	\node[
 		draw,
 		xshift=-6cm,
 		minimum width=2cm,
 	] (hid_in) {HID};
-	\node [
+	\node[
 		draw,
 		xshift=-6cm,
 		yshift=2.5cm,
 		minimum width=2cm,
 		text width = 3.5cm,
 	] (sensores) {Sensores: audio, temperatura, humedad, luz \dots};
-	\node [
+	\node[
 		draw,
 		xshift=-6cm,
 		yshift=-2.5cm,
 		minimum width=2cm,
 		text width = 3.5cm,
 	] (conexiones) {Conexiones Serie/paralelo: SPI, UART, Wire, CAN \dots};
-	\node [
+	\node[
 		draw,
 		xshift=-0.5cm,
 		minimum width=2cm,
 		minimum height=3.5cm,
 	] (uc) {\(\mu\)C};
-	\node [
+	\node[
 		draw,
 		xshift=5cm,
 		yshift=2.5cm,
 		minimum width=2cm,
 		text width=3.5cm,
 	] (otros) {Otros elementos digitales: LEDs, Relés \dots};
-	\node [
+	\node[
 		draw,
 		xshift=5cm,
 		minimum width=2cm,
@@ -167,25 +167,25 @@ Con el M68000 tuve la oportunidad de programar al más bajo nivel, al no dispone
 		yshift=1cm,
 		minimum width=2cm,
 	] (mem_out) {Memoria};
-	\node [
+	\node[
 		draw,
 		xshift=-6cm,
 		yshift=-1cm,
 		minimum width=2cm,
 	] (net_in) {Red};
-	\node [
+	\node[
 		draw,
 		xshift=5cm,
 		yshift=-1cm,
 		minimum width=2cm,
 	] (net_out) {Red};
-	\node [
+	\node[
 		draw,
 		xshift=5cm,
 		yshift=-2cm,
 		minimum width=2cm,
 	] (pwm) {PWM};
-	\node [
+	\node[
 		draw,
 		xshift=4.5cm,
 		yshift=-3.5cm,
@@ -218,7 +218,7 @@ Esta plataforma tenía dos inconvenientes que hacían inviable su uso fuera de u
 % sería interesante que dijeras el año exacto o la edición de las Google IO a las que te refieres
 Un año más tarde conocí la plataforma Arduino, a raíz del lanzamiento del Arduino ADK durante la Google I/O del 2011.\@ La plataforma presentada se componía de una placa con un microcontrolador Atmel2560 de 8 bits y era de un tamaño mucho menor que los kits que había usado a lo largo de la carrera.  El precio era de 60~\euro{} para ese modelo, que era el más caro en ese momento. Aún así, era mucho más asequible que las plataformas de prototipado que había utilizado hasta ese momento.  
 
-Uno de los aspectos más importantes de esta plataforma es que no es necesario conocer el microcontrolador para llevar a cabo proyectos en Arduino.  Por ejemplo, para programar el parpadeo de un LED todo lo que hay que averiguar es a qué pin (numerados en la placa) está conectado el diodo LED. Se puede programar usando C o C++ y cuenta con un entorno de desarrollo que permite la utilización de múltiples funciones que hacen posible programar a un nivel más alto que al que se haría si usáramos las herramientas que proporciona Atmel para sus microcontroladores.  
+Uno de los aspectos más importantes de esta plataforma es que no es necesario conocer el microcontrolador para llevar a cabo proyectos en Arduino.  Por ejemplo, para programar el parpadeo de un LED todo lo que hay que averiguar es a qué pin (numerados en la placa) está conectado el diodo LED.\@ Se puede programar usando C o C++ y cuenta con un entorno de desarrollo que permite la utilización de múltiples funciones que hacen posible programar a un nivel más alto que al que se haría si usáramos las herramientas que proporciona Atmel para sus microcontroladores.  
 
 El hardware y el software de Arduino son abiertos.  Es posible obtener los esquemáticos de cualquier placa Arduino desde su página web y la biblioteca principal (en la que se basa cualquier proyecto Arduino) viene incluida con el entorno de programación como código fuente.  Esto significa que existe la posibilidad de comprar una placa oficial a través de la tienda de Arduino o algún distribuidor, pero también es posible construirla uno mismo o encontrar placas personalizadas a través de Internet que lleven caracterísiticas no incluidas en las oficiales o que sean más baratas.
 
@@ -227,7 +227,7 @@ A esto se suma la posibilidad de utilizar el entorno Arduino y muchas de sus bib
 Un ejemplo de este tipo de placas es la que he empleado en este trabajo: ChipKIT MAX32.  A diferencia de las placas Arduino convencionales, la gama ChipKIT de Digilent tiene como microcontrolador un PIC de 32 bits en vez de un Atmega de 8 bits.  Está placa ofrece más potencia y más prestaciones como, por ejemplo, la posibilidad de depurar nuestro programa gracias al conector JTAG que lleva incorporado. Las diferencias están comentadas más a fondo en el siguiente capítulo.
 
 \section{Objetivos}
-La utilización de una placa de la gama chipKit implica la utilización de una nueva herramienta de programación, mucho más potente que la original de Arduino. En esta plataforma disponemos de un control casi completo de la forma en la que se generarán los archivos compilados y es en este tipo de control en los que hemos centrado este PFC.
+La utilización de una placa de la gama chipKit implica la utilización de una nueva herramienta de programación, mucho más potente que la original de Arduino. En esta plataforma disponemos de un control casi completo de la forma en la que se generarán los archivos compilados y es en este tipo de control en los que hemos centrado este PFC.\@
 
 Teniendo en cuenta esta orientación al estudio a bajo nivel de los programas gnerados con el entorno Arduino, podemos dividir los objetivos de la siguiente forma:
 
