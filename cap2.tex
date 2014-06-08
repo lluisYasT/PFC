@@ -100,13 +100,83 @@ Por otro lado, el MAX32 puede recibir señales con un nivel lógico de 5~V en su
 
 Podemos encontrar más información, además de esquemáticos y manuales en la página de información del ChipKIT Max32 en la web de Digilent.\cite{website:max32}
 
-El microcontrolador que utiliza la placa Max32, el PIC32MX795F512L~\footnote{http://www.microchip.com/wwwproducts/Devices.aspx?dDocName=en545660}, es el modelo más avanzado de la familia PIC32MX de Microchip. Como su nombre indica, se trata de un procesador de 32~bits, frente a los 8 del Atmel. Su arquitectura, aunque también basada en Harvard, es completamente diferente de la del Atmega. Se trata de la arquitectura MIPS32~\footnote{http://www.imgtec.com/mips/architectures/mips32.asp}, en su versión M4K~\cite{website:m4k_analysis}. Este núcleo consta de 32 registros de propósito general de 32~bits. También cuenta con otro juego de 32 registros (shadow registers) que usa durante interrupciones. De esta forma, cuando se produce alguna interrupción no es necesario guardar los registros principales por lo que la transición de un estado a otro es más rápida.
+El microcontrolador que utiliza la placa Max32, el PIC32MX795F512L~\cite{website:pic32mx}, es el modelo más avanzado de la familia PIC32MX de Microchip. Como su nombre indica, se trata de un procesador de 32~bits, frente a los 8 del Atmel. Su arquitectura, aunque también basada en Harvard, es completamente diferente de la del Atmega. Se trata de la arquitectura MIPS32~\footnote{\url{http://www.imgtec.com/mips/architectures/mips32.asp}}, en su versión M4K~\cite{website:m4k_analysis}. Este núcleo consta de 32 registros de propósito general de 32~bits. También cuenta con otro juego de 32 registros (shadow registers) que usa durante interrupciones. De esta forma, cuando se produce alguna interrupción no es necesario guardar los registros principales por lo que la transición de un estado a otro es más rápida.
 
-Como se puede apreciar en la figura~\ref{m4kdiagrama} este chip cuenta con una MDU (unidad de multiplicación y división), un coprocesador y una unidad de administración de memoria (MMU). Ninguno de estas unidades podemos encontrarlas en el chip de Atmel. El MDU nos permite realizar multiplicaciónes entre operandos de 16~bits (o uno de 16 y otro de 32~bits) en un solo ciclo y entre dos operandos de 32~bits en dos o tres ciclos frente al ciclo que tarda la multiplicación de dos operandos de 8 bits en el núcleo AVR.\@ Además, con esta unidad se pueden realizar divisiones mediante hardware sin tener usar bibliotecas (como pasa con el Atmega), y el tiempo de estas operaciones es de 35 ciclos de reloj en el peor de los casos.
+Como se puede apreciar en la figura~\ref{m4kdiagrama} este chip cuenta con una MDU (unidad de multiplicación y división), un coprocesador y una unidad de administración de memoria (MMU). Ninguno de estas unidades podemos encontrarlas en el chip de Atmel.
+
+La unidad de administración de memoria utiliza un mecanismo FMT (Fixed Mapping Tranlation) que es más simple y pequeño que el mecanismo TLB (Tranlation Lookaside Buffer) que puede se puede encontrar en otros núcleos MIPS. Al igual que hace el TLB, FMT realiza la conversión entre direcciones virtuales y direcciones físicas y proporciona atributos para los diferentes segmentos de memoria.
+
+\begin{figure}[H]
+\begin{center}
+\begin{tikzpicture}[
+		decoration={
+			markings,
+			mark=at position 1 with {\arrow[ultra thick]{latex}},
+		},
+		path/.style={
+			postaction=decorate,
+		},
+%		every node/.style={font=\sffamily}
+	]
+	% Boxes
+	\node[
+		draw,
+		xshift=-6cm,
+		yshift=1.5cm,
+		minimum width=2cm,
+		text width= 2.5cm,
+	] (Instr_addr_calc) {Calculador de direcciones de instrucción};
+	\node[
+		draw,
+		xshift=-6cm,
+		yshift=-1.5cm,
+		minimum width=2cm,
+		text width= 2.5cm,
+	] (Data_addr_calc) {Calculador de direcciones de datos};
+	\node[
+		draw,
+		xshift=-2cm,
+		minimum width=2cm,
+		minimum height=5cm,
+	] (FMT) {FMT};
+	\node[
+		draw,
+		xshift=2cm,
+		minimum width=2cm,
+		minimum height=5cm,
+		text width=2cm,
+] (SRAM_inter) {Interfaz SRAM};
+	\node[
+		draw,
+		xshift=6cm,
+		yshift=1.5cm,
+		minimum width=2cm,
+] (SRAM_instn) {SRAM Instrucciones};
+	\node[
+		draw,
+		xshift=6cm,
+		yshift=-1.5cm,
+		minimum width=2cm,
+] (SRAM_data) {SRAM Datos};
+
+% Conexiones
+\draw[path] (Instr_addr_calc.east) -- ++(1,0) node[above,text width=2cm]{Dirección Virtual} |- ([yshift=-1cm] FMT.north west);
+\draw[path] (Data_addr_calc.east) -- ++(1,0) node[below,text width=2cm]{Dirección Virtual} |- ([yshift=1cm]FMT.south west);
+\draw[path] ([yshift=-1cm]FMT.north east) -- ++(1,0) node[above,text width=2cm]{Dirección Física} |- ([yshift=-1cm] SRAM_inter.north west);
+\draw[path] ([yshift=1cm]FMT.south east) -- ++(1,0) node[below,text width=2cm]{Dirección Física} |- ([yshift=1cm] SRAM_inter.south west);
+\draw[path] ([yshift=-1cm]SRAM_inter.north east) |- (SRAM_instn.west);
+\draw[path] ([yshift=1cm]SRAM_inter.south east) |- (SRAM_data.west);
+
+\end{tikzpicture}
+\end{center}
+\caption{Traducción de direcciones en M4K}
+\label{mmu_m4k}
+\end{figure}
+El MDU nos permite realizar multiplicaciónes entre operandos de 16~bits (o uno de 16 y otro de 32~bits) en un solo ciclo y entre dos operandos de 32~bits en dos o tres ciclos frente al ciclo que tarda la multiplicación de dos operandos de 8 bits en el núcleo AVR.\@ Además, con esta unidad se pueden realizar divisiones mediante hardware sin tener usar bibliotecas (como pasa con el Atmega) gracias a su divisor, y el tiempo de estas operaciones es de 35 ciclos de reloj en el peor de los casos. La MDU implementa un divisor sin restauración~\footnote{url{http://stackoverflow.com/questions/12133810/non-restoring-division-algorithm}}.
 
 \figura{m4k_diagram.jpg}{scale=0.7}{Diagrama del Núcleo M4K}{m4kdiagrama}{H}
 
-El coprocesador es una interfaz de registros que sirve para comunicar información de control y estado entre el programa y la CPU.\@ A través del coprocesador tenemos acceso al `core timer', al control de interrupciones y excepciones, a la configuración de la memoria virtual, al control de los registros `shadow', a la identificación del procesador y al control de depuración.
+El coprocesador es una interfaz de registros que sirve para comunicar información de control y estado entre el programa y la CPU.\@ A través del coprocesador tenemos acceso al `core timer', al control de interrupciones y excepciones, a la configuración del espacio virtual de memoria, al control de los registros `shadow', a la identificación del procesador y al control de depuración.
 
 \figura{m4k_pipeline.jpg}{scale=0.7}{Segmentación (simplificada) en MIPS}{mipspipeline}{H}
 
