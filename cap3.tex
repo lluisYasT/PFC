@@ -29,7 +29,7 @@ Con este entorno de desarrollo veremos más adelante los diferentes efectos que 
 % Multiplataforma
 Para realizar proyectos en la plataforma Arduino es necesario disponer del entorno de desarrollo `Arduino IDE' que es posible encontrar en la página web de Arduino. Este programa está basado en Wiring\footnote{\url{http://wiring.org.co/}}, que a su vez nació a partir de Processing\footnote{\url{http://processing.org/}} por lo que el aspecto del mismo es prácticamente idéntico en todos ellos.
 
-Processing se creó como una plataforma para facilitar la creación de programas sencillos, que muestren resultados de forma visual en un monitor. Usando esta plataforma como base, nació Wiring, que tenía un objetivo similar pero centrado en los microcontroladores.
+Processing se creó como una plataforma para facilitar la creación de programas sencillos, que muestren resultados de forma visual en un monitor. Usando esta plataforma como base, nació Wiring, que tenía un objetivo similar pero centrado en los microcontroladores.~\footnote{En el blog de Marlon J. Manrique podemos encontrar un buen artículo sobre Wiring: \url{http://www.marlonj.com/blog/2011/06/ques-es-wiring/}.}
 
 Las diferencias entre \programa{Wiring} y el IDE de Arduino radican en el funcionamiento interno. Arduino IDE tiene incluido todo lo necesario para poder escribir, compilar, ensamblar, enlazar y cargar los programas a la placa Arduino, por lo que el usuario solo debe abrir el IDE, escribir su programa y darle al botón de ejecución; el IDE se encargará de compilar, enlazar y cargar el programa en la placa microcontroladora. Este proceso lo describiré con más detalle en su propio apartado.
 
@@ -186,6 +186,8 @@ while(1) {
 return 0;
 }
 \end{lstlisting}
+
+La funcion \orden{\_scheduleTask()} forma parte del módulo de administración de tareas de la biblioteca de Arduino y se encarga de ejecutar las tareas periódicas del procesador. Podemos encontrar su definición y una breve descripción de su funcionamiento en el archivo `task\_manager.c' junto con el resto de funciones de este módulo.
 
 \subsection{Sketch}
 Los programas que escribimos usando \programa{MPIDE} (o el IDE de Arduino) se llaman sketches. En realidad, no escribimos un programa completo porque, como acabamos de ver, el programa en sí ya está escrito en la biblioteca Core. Nuestro objetivo es implementar dos funciones: \orden{setup()} y \orden{loop()}, que ya están declaradas en el archivo de cabecera wiring.h.
