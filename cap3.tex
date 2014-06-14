@@ -13,9 +13,9 @@ Aunque lo IDEs son mucho más que un editor de texto, el entorno de edición sue
 
 \programa{MPLAB X} ofrece también una fácil gestión de proyectos y de archivos dentro de un mismo proyecto. En la parte izquierda del IDE podemos encontrar una sección en la que se encuentran los proyectos y sus archivos, ordenados de forma jerárquica, lo que ayuda en la gestión de diferentes proyectos en un mismo entorno.
 
-\figura{mplab.jpg}{scale=0.35}{MPLABX Depurando el programa Blink}{mplab}{H}
+\figura{mplab_descr.png}{scale=0.30}{MPLABX Depurando el programa Blink}{mplab}{H}
 
-Como se aprecia en la Figura~\ref{mplab}, \programa{MPLAB X} nos ofrece mucha información. En esta figura vemos a \programa{MPLAB X} en mitad de la depuración del programa Blink~\footnote{Este programa es el equivalente en microcontroladores al `Hola Mundo', su única función es hacer parpadear un LED.}. En la parte izquierda se puede apreciar una sección que aporta información acerca del estado actual del microcontrolador, como la cantidad de memoria RAM y flash que requiere la aplicación para funcionar comparado con la cantidad total de la que dispone el microcontrolador.
+Como se aprecia en la Figura~\ref{mplab}, \programa{MPLAB X} nos ofrece mucha información. En esta figura vemos a \programa{MPLAB X} en mitad de la depuración del programa Blink~\footnote{Este programa es el equivalente en microcontroladores al `Hola Mundo', su única función es hacer parpadear un LED.}. En la zona superior del programa se encuentra el menú principal, que contiene los botones para crear un nuevo proyecto, abrirlo o guardarlo. También incluye todos los botones dedicados a la depuración: empezar o parar la depuración, ir a la siguiente instrucción, etc. En la parte izquierda se puede apreciar dos secciones diferentes. La superior muestra la organización del proyecto y la lista de proyectos en caso de que hubiese más de uno. Debajo de esto se encuentra toda la información acerca del estado actual del dispositivo seleccionado durante la creación del proyecto, en este caso un PIC32MX795F512L, como por ejemplo la cantidad de memoria RAM y flash que requiere la aplicación para funcionar comparado con la cantidad total de la que dispone el microcontrolador. En la parte central, y ocupando la mayor parte de la ventana, observamos el editor con el que se puede modificar los archivos de código fuente del proyecto. Por último, en la zona inferior, se encuentra el área de mensajes, consola e información del estado del proyecto. En este caso en particular está mostrando el estado del depurador. En esta zona también se puede mostrar el valor de variables del proyecto en tiempo real y el estado de los registros del procesador, entre otros.
 
 El IDE dispone de muchas más herramientas para la depuración de programas. Durante la ejecución del mismo en modo depuración se pueden establecer puntos en el el código fuente donde el programa debe detener su ejecución, conocidos pos su nombre en inglés breakpoints. Se utilizan para detener la ejecución y así poder ver o modificar el estado de la memoria y registros del procesador en ese momento, ejecutar el programa línea a línea del código fuente o instrucción a instrucción en el código ensamblador, comprobar la traducción a ensamblador hecha por el compilador, etc.
 
@@ -29,7 +29,7 @@ Con este entorno de desarrollo veremos más adelante los diferentes efectos que 
 % Multiplataforma
 Para realizar proyectos en la plataforma Arduino es necesario disponer del entorno de desarrollo `Arduino IDE' que es posible encontrar en la página web de Arduino. Este programa está basado en Wiring\footnote{\url{http://wiring.org.co/}}, que a su vez nació a partir de Processing\footnote{\url{http://processing.org/}} por lo que el aspecto del mismo es prácticamente idéntico en todos ellos.
 
-Processing se creó como una plataforma para facilitar la creación de programas sencillos, que muestren resultados de forma visual en un monitor. Usando esta plataforma como base, nació Wiring, que tenía un objetivo similar pero centrado en los microcontroladores.
+Processing se creó como una plataforma para facilitar la creación de programas sencillos, que muestren resultados de forma visual en un monitor. Usando esta plataforma como base, nació Wiring, que tenía un objetivo similar pero centrado en los microcontroladores.~\footnote{En el blog de Marlon J. Manrique podemos encontrar un buen artículo sobre Wiring: \url{http://www.marlonj.com/blog/2011/06/ques-es-wiring/}.}
 
 Las diferencias entre \programa{Wiring} y el IDE de Arduino radican en el funcionamiento interno. Arduino IDE tiene incluido todo lo necesario para poder escribir, compilar, ensamblar, enlazar y cargar los programas a la placa Arduino, por lo que el usuario solo debe abrir el IDE, escribir su programa y darle al botón de ejecución; el IDE se encargará de compilar, enlazar y cargar el programa en la placa microcontroladora. Este proceso lo describiré con más detalle en su propio apartado.
 
@@ -186,6 +186,8 @@ while(1) {
 return 0;
 }
 \end{lstlisting}
+
+La funcion \orden{\_scheduleTask()} forma parte del módulo de administración de tareas de la biblioteca de Arduino y se encarga de ejecutar las tareas periódicas del procesador. Podemos encontrar su definición y una breve descripción de su funcionamiento en el archivo `task\_manager.c' junto con el resto de funciones de este módulo.
 
 \subsection{Sketch}
 Los programas que escribimos usando \programa{MPIDE} (o el IDE de Arduino) se llaman sketches. En realidad, no escribimos un programa completo porque, como acabamos de ver, el programa en sí ya está escrito en la biblioteca Core. Nuestro objetivo es implementar dos funciones: \orden{setup()} y \orden{loop()}, que ya están declaradas en el archivo de cabecera wiring.h.
