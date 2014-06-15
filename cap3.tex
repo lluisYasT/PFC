@@ -228,7 +228,7 @@ En este apartado trataré de describir el proceso que sigue \programa{MPIDE} par
     %\path[use as bounding box] (-1,0) rectangle (10,-2);
     \path[->]node[](start){};
     \path[->]node[format,below of=start] (preproc) {Preprocesador}
-    (start) edge node {.c,.cpp} (preproc);
+    (start) edge node {.c .cpp} (preproc);
     \path[->]node[format, right of=preproc] (comp) {Compilador}
     (preproc) edge node {.i} (comp);
     \path[->]node[format, right of=comp] (ensam) {Ensamblador}
@@ -316,11 +316,28 @@ pic32-objcopy -O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-cha
 pic32-bin2hex -a sketch.elf
 \end{lstlisting}
 
+\begin{itemize}
+  \item \negrita{-O ihex} Crea un archivo con formato hexadecimal.
+  \item \negrita{-j .eeprom} Solo copia la sección especificada en la salida, en este caso, la sección .eeprom.
+  \item \negrita{--set-section-flags=.eeprom=alloc,load} Establece las propiedades de una sección.
+  \item \negrita{--no-change-warnings} Avisa si la sección no existe.
+  \item \negrita{--change-section-lma .eeprom=0} Cambia el LMA (Load Memory Address) de la sección.
+\end{itemize}
+
 El resultado de ejecutar estas dos órdenes es el archivo \orden{sketch.hex}, que ya podrá ser cargado al microcontrolador.
 Para este último paso será necesario usar el programa \programa{avrdude}, bien el que viene incluido con \programa{MPIDE} o el que tengamos instalado en nuestro sistema.
 \begin{lstlisting}[breaklines=true]
-avrdude -C[Directorio MPIDE]/hardware/tools/avrdude.conf -c stk500v2 -p pic32 -P /dev/ttyUSB0 -b 115200 -v -U
+avrdude -C[Directorio MPIDE]/hardware/tools/avrdude.conf -c stk500v2 -p pic32 -P /dev/ttyUSB0 -b 115200 -v
 \end{lstlisting}
+
+\begin{itemize}
+  \item \negrita{-C[Directorio MPIDE]/hardware/tools/avrdude.conf} Carga la configuración personalizada de \programa{avrdude}.
+  \item \negrita{-c stk500v2} Indica el modelo de progamador.
+  \item \negrita{-p pic32} Especifica el modelo de microcontrolador.
+  \item \negrita{-P /dev/ttyUSB0} El puerto serie en el que se encuentra conectado el microcontrolador.
+  \item \negrita{-b 115200} La velocidad de transmisión en bps del puerto serie.
+  \item \negrita{-v} Muestra más información de lo que está sucediendo.
+\end{itemize}
 
 \section{Alternativa a \programa{MPIDE}}
 
@@ -346,7 +363,7 @@ Para esto vamos a crear una carpeta a modo de plantilla, para los proyectos que 
 \end{tikzpicture}
 \end{center}
 \caption{Estructura de directorios de la plantilla}
-\label{plantilla_carpetas}
+\label{plantilla_carpeta}
 \end{figure}
 
 Función de cada carpeta:
