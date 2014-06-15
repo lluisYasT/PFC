@@ -31,7 +31,7 @@ Para realizar proyectos en la plataforma Arduino es necesario disponer del entor
 
 Processing se creó como una plataforma para facilitar la creación de programas sencillos, que muestren resultados de forma visual en un monitor. Usando esta plataforma como base, nació Wiring, que tenía un objetivo similar pero centrado en los microcontroladores.~\footnote{En el blog de Marlon J. Manrique podemos encontrar un buen artículo sobre Wiring: \url{http://www.marlonj.com/blog/2011/06/ques-es-wiring/}.}
 
-Las diferencias entre \programa{Wiring} y el IDE de Arduino radican en el funcionamiento interno. Arduino IDE tiene incluido todo lo necesario para poder escribir, compilar, ensamblar, enlazar y cargar los programas a la placa Arduino, por lo que el usuario solo debe abrir el IDE, escribir su programa y darle al botón de ejecución; el IDE se encargará de compilar, enlazar y cargar el programa en la placa microcontroladora. Este proceso lo describiré con más detalle en su propio apartado.
+Las diferencias entre \programa{Wiring} y el IDE de Arduino radican en el funcionamiento interno. Arduino IDE tiene incluido todo lo necesario para poder escribir, compilar, ensamblar, enlazar y cargar los programas a la placa Arduino, por lo que el usuario solo debe abrir el IDE, escribir su programa y darle al botón de ejecución; el IDE se encargará de compilar, enlazar y cargar el programa en la placa microcontroladora. Este proceso lo he descrito con más detalle en su propio apartado.
 
 Si accedemos a la carpeta de instalación de Arduino veremos diferentes subcarpetas, donde se guardan diferentes componentes necesarios para su funcionamiento.
 \begin{figure}[H]
@@ -217,7 +217,7 @@ Cuando trabajamos con \programa{MPIDE} podemos encontrar las bibliotecas en dos 
 Con las bibliotecas instaladas en uno de los dos directorios podremos añadirlas a nuestro programa de dos formas diferentes. Podemos añadirlas usando el menú de MPIDE, pudiéndolas encontrar en \orden{Sketch > Import Library}. También es posible usar la directiva \orden{\#include <[Archivo De Cabezera].h>} como haríamos en cualquier programa escrito en C/C++. \programa{MPIDE} se encargará de compilar las bibliotecas y enlazarlas con nuestro programa.
 
 \section{Proceso de compilación de \programa{MPIDE}}
-En este apartado trataré de describir el proceso que sigue \programa{MPIDE} para la compilación y posterior carga en el microcontrolador del programa creado en \programa{MPIDE}. Nuestro objetivo será saber que programas y opciones de compilación usa el IDE de Chipkit.
+En este apartado he tratado de describir el proceso que sigue \programa{MPIDE} para la compilación y posterior carga en el microcontrolador del programa creado en \programa{MPIDE}. Nuestro objetivo será saber que programas y opciones de compilación usa el IDE de Chipkit.
 
 \tikzstyle{format} = [draw, thin, fill=blue!20]
 \tikzstyle{medium} = [ellipse, draw, thin, fill=green!20, minimum height=2.5em]
