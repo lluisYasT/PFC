@@ -219,6 +219,28 @@ Con las bibliotecas instaladas en uno de los dos directorios podremos añadirlas
 \section{Proceso de compilación de \programa{MPIDE}}
 En este apartado trataré de describir el proceso que sigue \programa{MPIDE} para la compilación y posterior carga en el microcontrolador del programa creado en \programa{MPIDE}. Nuestro objetivo será saber que programas y opciones de compilación usa el IDE de Chipkit.
 
+\tikzstyle{format} = [draw, thin, fill=blue!20]
+\tikzstyle{medium} = [ellipse, draw, thin, fill=green!20, minimum height=2.5em]
+\begin{figure}[htb]
+  \begin{tikzpicture}[node distance=3cm, auto,>=latex', thick]
+    % We need to set at bounding box first. Otherwise the diagram
+    % will change position for each frame.
+    %\path[use as bounding box] (-1,0) rectangle (10,-2);
+    \path[->]node[](start){};
+    \path[->]node[format,below of=start] (preproc) {Preprocesador}
+    (start) edge node {.c,.cpp} (preproc);
+    \path[->]node[format, right of=preproc] (comp) {Compilador}
+    (preproc) edge node {.i} (comp);
+    \path[->]node[format, right of=comp] (ensam) {Ensamblador}
+    (comp) edge node {.S} (ensam);
+    \path[->]node[format, right of=ensam] (enlaz) {Enlazador}
+    (ensam) edge node {.o} (enlaz);
+    \path[->]node[format, right of=enlaz] (carga) {Carga en Placa}
+    (enlaz) edge node {.elf} (carga);
+    %\path[->, draw](preproc) -- +(0,1) -| node[near start] {ensam\TeX} (ensam);
+  \end{tikzpicture}
+  \caption{Proceso de compilación}
+\end{figure}
 También es interesante conocer que archivos genera \programa{MPIDE} a lo largo de la compilación, pero estos archivos son borrados una vez termina la compilación del programa por lo que tendremos que cambiar este comportamiento. Para ello acudiremos al archivo de configuración \orden{preferences.txt} cuya localización varía según el sistema operativo empleado.
 
 \begin{table}[H]
