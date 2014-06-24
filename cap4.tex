@@ -76,7 +76,7 @@ Como se puede apreciar en la figura~\ref{opt0}, en el nivel más bajo, \programa
 \label{opt1}
 \end{table}
 
-En el nivel 1 se añaden más optimizaciones que afectan al arbol sintáctico (Tabla~\ref{opt1}), suponiendo estas casi la mitad de las nuevas optimizaciones. \orden{-fif-conversion} y \orden{-fif-conversion2} tienen como obejtivo tratar de transformar secciones de código donde se usan saltos condicionales para que no los requieran, reduciendo de esta forma el número de instrucciones. También encontramos aquí \orden{-fdelayed-branch}, que intentará reordenar las instrucciones para aprovechar el tiempo que se pierde durante saltos condicionales. Si se produce una instrucción de salto condicional, no es posible saber cúal es la instrucción que se debe ejecutar después, hasta que acabe; por lo que, normalmente, la siguiente instrucción suele ser un \orden{nop}. Si el procesador lo soporta, se mueve una de las instrucciones anteriores a la instrucción de salto que no tenga ninguna dependencia con esta, para aprovechar el hueco libre. En lugar de colocar después del salto una instrucción anterior, \programa{gcc} también trata de predecir, con la opción \orden{-fguess-branch-probability}, que se ejecutará después, por lo que este lugar lo ocupará la primera instrucción de uno de los destinos. Si la predicción resulta errónea, se descartará esta instrucción.
+En el nivel 1 se añaden más optimizaciones que afectan al arbol sintáctico (Tabla~\ref{opt1}), suponiendo estas casi la mitad de las nuevas optimizaciones. \orden{-fif-conversion} y \orden{-fif-conversion2} tienen como obejtivo tratar de transformar secciones de código donde se usan saltos condicionales para que no los requieran, reduciendo de esta forma el número de instrucciones. También encontramos aquí \orden{-fdelayed-branch}, que intentará reordenar las instrucciones para aprovechar el tiempo que se pierde durante saltos condicionales. Si se produce una instrucción de salto condicional, no es posible saber cúal es la instrucción que se debe ejecutar después, hasta que acabe; por lo que, normalmente, la siguiente instrucción suele ser un \orden{nop}. Si el procesador lo soporta, se mueve una de las instrucciones anteriores a la instrucción de salto que no tenga ninguna dependencia con esta, para aprovechar el hueco libre~\footnote{url{https://www.cs.umd.edu/class/fall2001/cmsc411/projects/branches/delay.html}}. En lugar de colocar después del salto una instrucción anterior, \programa{gcc} también trata de predecir, con la opción \orden{-fguess-branch-probability}, que se ejecutará después, por lo que este lugar lo ocupará la primera instrucción de uno de los destinos. Si la predicción resulta errónea, se descartará esta instrucción.
 
 \begin{table}[htb]
 \begin{center}
@@ -162,10 +162,26 @@ Una vez establecida la conexión con la aplicación, hay disponibles varias órd
 \label{sorted_ordenes}
 \end{figure}
 
-Por ejemplo, si quisieramos ordenar el vector [9 8 7 6 5 4 3 2 1] usando el algoritmo `Bubble Sort' escribiríamos lo siguiente~\footnote{Este vector representa el peor caso para este algoritmo (para esta longitud de vector), al estar los números ordenados de mayor a menor.}:
+Por ejemplo, si quisieramos ordenar el vector [9 8 7 6 5 4 3 2 1] usando el algoritmo `Bubble Sort' escribiríamos lo siguiente:
 \begin{lstlisting}
 bubble0 9 8 7 6 5 4 3 2 1
 \end{lstlisting}
+
+Este vector representa el peor caso para este algoritmo (para esta longitud de vector), al estar los números ordenados de mayor a menor.
+\begin{table}[htb]
+\begin{minipage}{\textwidth}
+\begin{center}
+\begin{tabular}{lcccc}
+Algoritmo & Mejor caso & Caso medio & Peor caso & Memoria \\
+Bubble    & \(n\) & \(n^2\) & \(n^2\) & \(1\) \\
+Quick     & \(nlog(n)\) & \(nlog(n)\) & \(n^2\) & \(log(n)\)\footnote{Este es el caso medio. En el peor de los casos el consumo de memoria es \(n\).} \\
+Selection & \(n^2\) & \(n^2\) & \(n^2\) & \(1\) \\
+\end{tabular}
+\end{center}
+\caption{Número de iteraciones según el algoritmo.}
+\label{table:algoritmos}
+\end{minipage}
+\end{table}
 
 El número que acompaña a cada una de las órdenes indica el nivel de optimización con el que han sido compilados, de este modo es posible probar el efecto de los distintos niveles sin tener que recompilar y volver a cargar el programa. 
 
@@ -208,7 +224,7 @@ void bubble1(int * array, int len) {
 \end{figure}
 
 \subsubsection{Quick Sort}
-En el algoritmo de ordenamiento rápido se elige un elemento del array que denominaremos pivote. A la izquierda del pivote se colocan los elementos menores a él, mientras que a la derecha colocaremos los elementos mayores. Se repite el procedimiento de forma recursiva con los sub-arrays que quedan a la izquierda y a la derecha del pivote, hasta que todo el array esté ordenado. En el programa se ha optado por elegir como elemento `pivote' el primero del array.
+En el algoritmo de ordenamiento rápido se elige un elemento del array que denominaremos pivote. A la izquierda del pivote se colocan los elementos menores a él, mientras que a la derecha colocaremos los elementos mayores. Se repite el procedimiento de forma recursiva con los sub-arrays que quedan a la izquierda y a la derecha del pivote, hasta que todo el array esté ordenado. En el programa se ha optado por elegir como elemento `pivote' el primero del array. Al ser un algoritmo recursivo el uso de la memoria es mucho mayor que en los otros dos algoritmos, como se puede apreciare en la tabla~\ref{table:algoritmos}.
 \begin{figure}
 	\noindent\begin{minipage}{.45\textwidth}
 		\begin{lstlisting}[caption=Código fuente,basicstyle=\ttfamily\scriptsize]
