@@ -197,7 +197,7 @@ En el apéndice~\ref{chap:apendice3} se encuentra una descripción detallada del
 \subsection{Funciones de ordenación}
 Las funciones de ordenación que he comentado anteriormente, las que usa el programa para ordenar el array que le envíamos, se encuentran declaradas en el archivo \programa{funciones.h} y definidas en \programa{funciones.c}.
 
-\subsubsection{Bubble Sort}
+\subsubsection{Bubble Sort~\cite{website:bubblesort}}
 Este es el algoritmo más sencillo de los tres implementados. Se recorre el array comparando un elemento con el siguiente e intercambiándolos en el caso de que el primero sea mayor que el segundo. Para completar el ordenamiento es necesario recorrer el array varias veces.
 \begin{figure}[hbp]
 	\noindent\begin{minipage}{.45\textwidth}
@@ -223,7 +223,7 @@ void bubble1(int * array, int len) {
 	\caption{Bubble Sort (Nivel 1 de optimización)}
 \end{figure}
 
-\subsubsection{Quick Sort}
+\subsubsection{Quick Sort~\cite{website:quicksort}}
 En el algoritmo de ordenamiento rápido se elige un elemento del array que denominaremos pivote. A la izquierda del pivote se colocan los elementos menores a él, mientras que a la derecha colocaremos los elementos mayores. Se repite el procedimiento de forma recursiva con los sub-arrays que quedan a la izquierda y a la derecha del pivote, hasta que todo el array esté ordenado. En el programa se ha optado por elegir como elemento `pivote' el primero del array. Al ser un algoritmo recursivo el uso de la memoria es mucho mayor que en los otros dos algoritmos, como se puede apreciare en la tabla~\ref{table:algoritmos}.
 \begin{figure}
 	\noindent\begin{minipage}{.45\textwidth}
@@ -265,7 +265,7 @@ int colocar1(int *v, int b, int t) {
 \caption{Quick Sort (Nivel 1 de optimización)}
 \end{figure}
 
-\subsubsection{Selection Sort}
+\subsubsection{Selection Sort~\cite{website:selectionsort}}
 El tercer algoritmo implementado en el programa es Selection Sort. Su funcionamiento consiste en recorrer el array, almacenándose el elemento de menor valor. Este elemento se extrae del array y se coloca al principio para, a continuación, volver a hacer lo mismo con el resto del array, hasta que esté ordenado.
 
 \begin{figure}
