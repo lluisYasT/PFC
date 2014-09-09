@@ -26,11 +26,13 @@ Los objetivos planteados al inicio de este trabajo eran los siguientes:
     \item Desarrollo de una aplicación en el ámbito de las telecomunicaciones.
 \end{enumerate}
 
-En la sección~\ref{sec:compilacion} se desarrolla el primero de los objetivos alcanzados de este trabajo, que consistía en analizar el proceso que lleva a cabo el programa \programa{MPIDE} para compilar, ensamblar, enlazar y cargar los programas.
+%mimateo 9/9/2014: fíjate como lo hago yo. Digo que el objetivo de ha cumplido y donde se puede ver como... ahora falta la conclusión de verdad.
 
-El segundo objetivo llevó más trabajo al necesitar crear un programa específico con el que se pudiesen realizar las mediciones. Una vez hecho esto, se realizaron las mediciones y se completó el segundo de los objetivos. Todo el proceso está descrito a lo largo de las primeras secciones del capítulo~\ref{cap5}.
+El primero estos objetivos se ha alcanzado plenamente. En la sección~\ref{sec:compilacion} se describe el análisis realizado sobre el proceso que lleva a cabo el programa \programa{MPIDE} para compilar, ensamblar, enlazar y cargar los programas en la placa ChipKit.
 
-Una vez hecho esto se llevó a cabo el tercer objetivo: demostrar las limitaciones de la biblioteca Arduino. Esto se consiguió compoarando las funciones que implementa esta biblioteca con el uso de los registros del microcontrolador directamente y se pudo comprobar la pérdida de rendimiento al usar la biblioteca con respecto a los registros. La ventaja de la biblioteca es la sencillez de uso y la portabilidad. Se describe este objetivo en la sección~\ref{sec:Limitaciones de la biblioteca Arduino.}.
+Alcanzar el segundo objetivo llevó más trabajo al necesitar crear un programa específico con el que se pudiesen realizar las mediciones. Una vez hecho esto, se realizaron las mediciones y se completó el segundo de los objetivos. Todo el proceso está descrito a lo largo de las primeras secciones del capítulo~\ref{cap5}.
+
+Una vez hecho esto se llevó a cabo el tercer objetivo: demostrar las limitaciones de la biblioteca Arduino. Las principales ventajas de la biblioteca son la sencillez de uso y la portabilidad, pero se ha demostrado que estas ventajas tienen como precio que las aplicaciones son más lentas. Esto se consiguió comparando las funciones que implementa esta biblioteca con el uso de los registros del microcontrolador directamente y se pudo comprobar la pérdida de rendimiento al usar la biblioteca con respecto a los registros.  Se describe este objetivo en la sección~\ref{sec:Limitaciones de la biblioteca Arduino.}.
 
 Por último, se proponía la creación de un programa relacionado con el ámbito de las telecomunicaciones. Para la realización de este objetivo se optó por un programa típico de un DSP. Se creó un programa que permitiera al microcontrolador detectar tonos mediante el algoritmo de Goertzel, como se puede ver en la sección~\ref{sec:Ejemplo de aplicación relacionada con la carrera de telecomunicación.}.
 
