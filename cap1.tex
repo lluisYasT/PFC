@@ -19,7 +19,7 @@ Un microcontrolador es un circuito integrado programable que se compone de vario
 %mimateo: ¡¡Cuidado!!
 %mimateo: El 4004 fue el primer microporcesador pero no el primer microcontrolador... Buscando en Google dan ese honor al TMS 1000 de Texas Instruments
 
-En 1974 Gary W. Bone, en Texas Instruments, creó el primer microcontrolador de la histora: el TMS 1000 de 4 bits, después de varias disputas legales con Intel~\footnote{http://www.datamath.org/Story/Intel.htm}. Desde entonces, los microcontroladores han ido evolucionando y en la actualidad existen multitud de modelos diferentes entre los que elegir basados en diversas arquitecturas como pueden ser AVR, ARM-M o MIPS.\@
+En 1974 Gary W. Bone, en Texas Instruments, creó el primer microcontrolador de la historia: el TMS 1000 de 4 bits, después de varias disputas legales con Intel~\footnote{http://www.datamath.org/Story/Intel.htm}. Desde entonces, los microcontroladores han ido evolucionando y en la actualidad existen multitud de modelos diferentes entre los que elegir basados en diversas arquitecturas como pueden ser AVR, ARM-M o MIPS.\@
 
 Un microcontrolador ejecuta las instrucciones del programa que se ha grabado en su memoria. Estos programas estaban elaborados originalmente en código ensamblador, aunque en la actualidad la mayoría se programa usando el lenguaje C. Para programar un microcontrolador hay que estar familiarizado con el funcionamiento del modelo concreto que se vaya a programar. No es lo mismo programar un microcontrolador ARM que un PIC32 o un Atmel AVR.\@ A pesar de que en todos ellos se utiliza C como principal lenguaje de programación, la velocidad de ejecución, las estructuras de traducción y los dispositivos internos difieren, en muchos casos sustancialmente. Por ejemplo, para escribir en un pin de un GPIO puede ser necesario configurar diferentes registros dependiendo del microcontrolador.
 
@@ -220,7 +220,7 @@ Un año más tarde conocí la plataforma Arduino, a raíz del lanzamiento del Ar
 
 Uno de los aspectos más importantes de esta plataforma es que no es necesario conocer el microcontrolador para llevar a cabo proyectos en Arduino.  Por ejemplo, para programar el parpadeo de un LED todo lo que hay que averiguar es a qué pin (numerados en la placa) está conectado el diodo LED.\@ Se puede programar usando C o C++ y cuenta con un entorno de desarrollo que permite la utilización de múltiples funciones que hacen posible programar a un nivel más alto que al que se haría si usáramos las herramientas que proporciona Atmel para sus microcontroladores.  
 
-El hardware y el software de Arduino son abiertos.  Es posible obtener los esquemáticos de cualquier placa Arduino desde su página web y la biblioteca principal (en la que se basa cualquier proyecto Arduino) viene incluida con el entorno de programación como código fuente.  Esto significa que existe la posibilidad de comprar una placa oficial a través de la tienda de Arduino o algún distribuidor, pero también es posible construirla uno mismo o encontrar placas personalizadas a través de Internet que lleven caracterísiticas no incluidas en las oficiales o que sean más baratas.
+El hardware y el software de Arduino son abiertos.  Es posible obtener los esquemáticos de cualquier placa Arduino desde su página web y la biblioteca principal (en la que se basa cualquier proyecto Arduino) viene incluida con el entorno de programación como código fuente.  Esto significa que existe la posibilidad de comprar una placa oficial a través de la tienda de Arduino o algún distribuidor, pero también es posible construirla uno mismo o encontrar placas personalizadas a través de Internet que lleven características no incluidas en las oficiales o que sean más baratas.
 
 A esto se suma la posibilidad de utilizar el entorno Arduino y muchas de sus bibliotecas de funciones incluso con placas que no estén basadas en los mismos procesadores que las oficiales. En este tipo de placas se debe distribuir algún compilador específico para las mismas así como una implementación de las bibliotecas básicas de funcionamiento de Arduino.
 
@@ -229,7 +229,7 @@ Un ejemplo de este tipo de placas es la que he empleado en este trabajo: ChipKIT
 \section{Objetivos}
 La utilización de una placa de la gama chipKit implica la utilización de una nueva herramienta de programación, mucho más potente que la original de Arduino. En esta plataforma disponemos de un control casi completo de la forma en la que se generarán los archivos compilados y es en este tipo de control en los que hemos centrado este PFC.\@
 
-Teniendo en cuenta esta orientación al estudio a bajo nivel de los programas gnerados con el entorno Arduino, podemos dividir los objetivos de la siguiente forma:
+Teniendo en cuenta esta orientación al estudio a bajo nivel de los programas generados con el entorno Arduino, podemos dividir los objetivos de la siguiente forma:
 
 \subsubsection{Analizar el proceso de compilación de \programa{MPIDE}}
 Lo primero que realizaré será un análisis del proceso que se sigue en el entorno de desarrollo de ChipKIT desde que escribimos el programa hasta que este esté funcionando en la placa microcontroladora.  Esto incluye todas las órdenes o programas que intervengan en este proceso y sus respectivas opciones, además de los ficheros involucrados.
