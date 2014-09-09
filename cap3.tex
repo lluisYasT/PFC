@@ -9,7 +9,7 @@ Por otro lado, en los entornos de desarrollo integrados o IDE (Integrated Develo
 \section{MPLAB X}
 \programa{MPLAB X}~\cite{website:mplab} es la última versión del entorno de desarrollo integrado que proporciona Microchip para programar sus microcontroladores. Este IDE, basado en el entorno de código abierto Netbeans, nos permite escribir nuestro programa, compilarlo, programar el microcontrolador y, con la ayuda de un depurador como los mencionados en el capítulo anterior, depurar el programa.
 
-Aunque lo IDEs son mucho más que un editor de texto, el entorno de edición suele ser la herramienta más utilizada. El editor que incorpora \programa{MPLAB X} indenta las líneas de código automáticamente, identifica las parejas de corchetes, comillas, etc.\@ y enfatiza el texto con colores de forma tanto sintáctica como semántica. También dispone de plantillas de código y consejos.
+Aunque lo IDEs son mucho más que un editor de texto, el entorno de edición suele ser la herramienta más utilizada. El editor que incorpora \programa{MPLAB X} realiza el sangrado de las líneas de código automáticamente, identifica las parejas de corchetes, comillas, etc.\@ y enfatiza el texto con colores de forma tanto sintáctica como semántica. También dispone de plantillas de código y consejos.
 
 \programa{MPLAB X} ofrece también una fácil gestión de proyectos y de archivos dentro de un mismo proyecto. En la parte izquierda del IDE podemos encontrar una sección en la que se encuentran los proyectos y sus archivos, ordenados de forma jerárquica, lo que ayuda en la gestión de diferentes proyectos en un mismo entorno.
 
@@ -79,7 +79,7 @@ Si accedemos a la carpeta de instalación de Arduino veremos diferentes subcarpe
 
 \begin{description}
 	\item[\orden{examples}] El programa incluye algunos ejemplos que se pueden compilar y cargar sin modificarlos.
-	\item[\orden{hardware}] En esta carpeta se guarda todo lo relacionado con el hardware, como su nombre indica. Aquí encontraremos la `toolchain' y las bibliotecas necesarias para la compilación y ensablado de los programas Arduino.
+	\item[\orden{hardware}] En esta carpeta se guarda todo lo relacionado con el hardware, como su nombre indica. Aquí encontraremos la `toolchain' y las bibliotecas necesarias para la compilación y ensamblado de los programas Arduino.
 	\item[\orden{lib}] Contiene bibliotecas Java para el funcionamiento del entorno de desarrollo.
 		\item[\orden{libraries}] El IDE incluye algunas bibliotecas de terceros que se pueden incluir en nuestros proyectos.
 		\item[\orden{reference}] Contiene toda la documentación.
@@ -94,7 +94,7 @@ En la carpeta \orden{hardware} encontramos otras dos carpetas: \orden{arduino} y
 
 \figura{mpide.jpg}{scale=0.6}{\programa{MPIDE}}{mpide}{H}
 
-Si accedemos a la carpeta \orden{hardware} de este programa, encotramos otra carpeta además de \orden{arduino} y \orden{tools}: \orden{pic32}. La estructura es similar  a la de la carpeta de Arduino. Aquí están todas las bibliotecas para la plataforma Chipkit. También podemos encontrar aquí la `toolchain' \programa{GCC} para pic32 en el directorio \orden{compiler}.
+Si accedemos a la carpeta \orden{hardware} de este programa, encontramos otra carpeta además de \orden{arduino} y \orden{tools}: \orden{pic32}. La estructura es similar  a la de la carpeta de Arduino. Aquí están todas las bibliotecas para la plataforma Chipkit. También podemos encontrar aquí la `toolchain' \programa{GCC} para pic32 en el directorio \orden{compiler}.
 
 \begin{figure}
 \begin{center}
@@ -187,7 +187,7 @@ return 0;
 }
 \end{lstlisting}
 
-La funcion \orden{\_scheduleTask()} forma parte del módulo de administración de tareas de la biblioteca de Arduino y se encarga de ejecutar las tareas periódicas del procesador. Podemos encontrar su definición y una breve descripción de su funcionamiento en el archivo `task\_manager.c' junto con el resto de funciones de este módulo.
+La función \orden{\_scheduleTask()} forma parte del módulo de administración de tareas de la biblioteca de Arduino y se encarga de ejecutar las tareas periódicas del procesador. Podemos encontrar su definición y una breve descripción de su funcionamiento en el archivo `task\_manager.c' junto con el resto de funciones de este módulo.
 
 \subsection{Sketch}
 Los programas que escribimos usando \programa{MPIDE} (o el IDE de Arduino) se llaman sketches. En realidad, no escribimos un programa completo porque, como acabamos de ver, el programa en sí ya está escrito en la biblioteca Core. Nuestro objetivo es implementar dos funciones: \orden{setup()} y \orden{loop()}, que ya están declaradas en el archivo de cabecera wiring.h.
@@ -212,7 +212,7 @@ En este sketch utilizamos las funciones de Arduino \orden{pinMode},\orden{digita
 \subsection{Bibliotecas de terceros}
 Aparte del código de Arduino y del que creemos nosotros, también es posible añadir bibliotecas de terceros. Gracias a la amplia comunidad que hay detrás de Arduino podemos encontrar cientos de ellas. A la hora de usar una biblioteca de Arduino en Chipkit tendremos que asegurarnos de que no haga uso de funciones específicas de los procesadores Atmel que encontramos en las placas Arduino, ya que no funcionarán en PIC32.
 
-Cuando trabajamos con \programa{MPIDE} podemos encontrar las bibliotecas en dos sitios diferentes. \programa{MPIDE} tiene incluidas varias bibliotecas que podemos encontrar en el directorio ``libraries'' dentro de la carpeta en la que esté instalado \programa{MPIDE}. Aparte de estas bibliotecas, podemos instalar bibliotecas que descarguemos de Internet o que creemos nosotros dentro de la carpeta ``libraries'' en el directorio \orden{sketchbook}~\protect\footnote{La carpeta ``libraries'' no existe. Es neciesario crearla dentro del directorio \orden{sketchbook}.} que \programa{MPIDE} habrá creado la primera vez que lo ejecutemos.
+Cuando trabajamos con \programa{MPIDE} podemos encontrar las bibliotecas en dos sitios diferentes. \programa{MPIDE} tiene incluidas varias bibliotecas que podemos encontrar en el directorio ``libraries'' dentro de la carpeta en la que esté instalado \programa{MPIDE}. Aparte de estas bibliotecas, podemos instalar bibliotecas que descarguemos de Internet o que creemos nosotros dentro de la carpeta ``libraries'' en el directorio \orden{sketchbook}~\protect\footnote{La carpeta ``libraries'' no existe. Es necesario crearla dentro del directorio \orden{sketchbook}.} que \programa{MPIDE} habrá creado la primera vez que lo ejecutemos.
 
 Con las bibliotecas instaladas en uno de los dos directorios podremos añadirlas a nuestro programa de dos formas diferentes. Podemos añadirlas usando el menú de MPIDE, pudiéndolas encontrar en \orden{Sketch > Import Library}. También es posible usar la directiva \orden{\#include <[Archivo De Cabezera].h>} como haríamos en cualquier programa escrito en C/C++. \programa{MPIDE} se encargará de compilar las bibliotecas y enlazarlas con nuestro programa.
 
@@ -267,7 +267,7 @@ Cambiando el valor a \orden{true}, \programa{MPIDE} guardará los archivos tempo
 
 Para ver cómo funciona el proceso de compilación en \programa{MPIDE} usaremos el sketch Blink (\ref{code:blink}).
 
-Para poder observar las acciones que lleva acabo \programa{MPIDE} durante la compilación del programa podemos mantaner apretada la tecla \orden{Mayus} mientras pulsamos el botón de compilar. De esta forma \programa{MPIDE} nos mostrará en el terminal todas las órdenes que ejecute.
+Para poder observar las acciones que lleva acabo \programa{MPIDE} durante la compilación del programa podemos mantener apretada la tecla \orden{Mayus} mientras pulsamos el botón de compilar. De esta forma \programa{MPIDE} nos mostrará en el terminal todas las órdenes que ejecute.
 
 \figura{mpide_compilado.jpg}{scale=0.6}{MPIDE después de compilar}{mpide_compilado}{H}
 
@@ -346,7 +346,7 @@ Ya hemos visto cómo el IDE genera y carga el sketch. El problema de este métod
 
 De esta forma es posible usar el editor de textos que queramos para generar nuestro código (por ejemplo \programa{VIM} o \programa{emacs}), modificar las opciones de compilación, enlazado y carga de una forma rápida y sencilla. Podemos cambiar las opciones de compilación y enlazado en \programa{MPIDE} mediante la modificación de un archivo de configuración del programa (\orden{platforms.txt}); pero estos cambios afectarían a todos los programas compilados con \programa{MPIDE} y es necesario reiniciar el programa para que tengan efecto.
 
-Para esto vamos a crear una carpeta a modo de plantilla, para los proyectos que hagamos. Dentro de esta carpeta tendremos diferentes subdirectorios que serviran para almacenar los diferentes tipos de archivos que necesita nuestro programa. En la figura~\ref{plantilla_carpeta} se puede ver la estructura de esta plantilla.
+Para esto vamos a crear una carpeta a modo de plantilla, para los proyectos que hagamos. Dentro de esta carpeta tendremos diferentes subdirectorios que servirán para almacenar los diferentes tipos de archivos que necesita nuestro programa. En la figura~\ref{plantilla_carpeta} se puede ver la estructura de esta plantilla.
 
 \begin{figure}[H]
 \begin{center}
@@ -389,4 +389,4 @@ Con el \orden{Makefile} incluido podemos ejecutar diversas acciones dependiendo 
 
 Una vez enlazado podemos usar la orden \orden{make load} para cargar el programa en la placa conectada al puerto USB\@. Con esta orden se ejecuta \orden{avrdude} con los mismos parámetros que si fuese llamado a través de \programa{MPIDE}.
 
-En el \orden{Makefile} ya hay dos puertos serie predefinidos según la plataforma: uno para GNU Linux y otro para Mac OS. Son los dos puertos en los que podremos encontrar el microntrolador por defecto. Solo hace falta modificar una variable para cambiar el puerto al que está conectada la placa en caso de que sea necesario.
+En el \orden{Makefile} ya hay dos puertos serie predefinidos según la plataforma: uno para GNU Linux y otro para Mac OS\@. Son los dos puertos en los que podremos encontrar el microntrolador por defecto. Solo hace falta modificar una variable para cambiar el puerto al que está conectada la placa en caso de que sea necesario.
