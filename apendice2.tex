@@ -15,7 +15,7 @@
  Definimos la CPU que lleva nuestra placa, que en este caso corresponde con el Modelo Microchip 32MX795F12L. También declaramos que placa es\protect\footnote{La placa podría ser cualquiera de los modelos compatibles con Arduino que vende Digilent}, para luego poder usar el archivo de cabecera correspondiente a dicha placa. Estas dos variables las exportamos para que sean accesibles también desde el Makefile que hay en la carpeta `core' y no sea necesario volverlas a definir ahí, de la misma forma que hemos hecho con la variable MPIDE.\\
  
  \lstinputlisting[language=make, firstline=29, lastline=30, breaklines=true]{codigo_fuente/Makefile.}
- El enlazador utiliza dos scripts para el correcto enlazado del programa: uno común a todas las placas chipKIT (\programa{chipKIT\-application\-COMMON.ld}) y uno específico según el modelo que usemos (\programa{chipKIT\-application-32MX795F512.ld}).
+ El enlazador utiliza dos scripts para el correcto enlazado del programa: uno común a todas las placas ChipKIT (\programa{ChipKIT\-application\-COMMON.ld}) y uno específico según el modelo que usemos (\programa{ChipKIT\-application-32MX795F512.ld}).
  
  \lstinputlisting[language=make, firstline=32, lastline=37, breaklines=true]{codigo_fuente/Makefile.}
  Guardamos las opciones de compilación y enlazado en las variables \$CFLAGS y \$LDFLAGS respectivamente.

@@ -13,7 +13,7 @@
 %Tampoco me gusta lo de las placas... creo que sería mejor hablar de productos comerciales
 % Y FALTAN REFRENCIAS a los models, sobre todo a MIPS y a MIPS4K
 
-En este capitulo he analizado las características del Arduino Mega y del ChipKIT MAX32, que es el equivalente en chipKIT, tanto en formato y dimensiones como en precio.
+En este capitulo he analizado las características del Arduino Mega y del ChipKIT MAX32, que es el equivalente en ChipKIT, tanto en formato y dimensiones como en precio.
 
 \begin{table}[hb]
 \begin{center}
@@ -77,7 +77,7 @@ Este microcontrolador incluye varios periféricos. Posee un total de 6 temporiza
 \section{ChipKIT Max32}
 La placa microcontroladora elegida para el trabajo es una ChipKIT Max32 de DigilentINC.\@ Es el modelo más avanzado de la familia ChipKIT, que se compone además del Uno32, uC32 y DP32.
 
-\figura{chipKIT-Max32.jpg}{scale=0.6}{Chipkit Max32}{max32}{H}
+\figura{ChipKIT-Max32.jpg}{scale=0.6}{ChipKIT Max32}{max32}{H}
 
 En el centro del Max32 encontramos como microcontrolador un Microchip PIC32MX795F12L que funciona a 80~MHz y con el que disponemos de 512~KB de memoria flash y 128~KB de memoria RAM.\@ Sin embargo, a diferencia del Arduino Mega, no incluye memoria EEPROM en el chip por lo que no podemos almacenar datos de forma no volátil, al menos de una forma tan sencilla como en la placa Arduino. 
 
@@ -88,7 +88,7 @@ El Max32 tiene 83 puertos de entrada/salida además de otros dispositivos como U
  \item 2 controladores CAN 
  \end{itemize} 
  
-Para hacer uso de estos dispositivos necesitaremos realizar el cableado apropiado, poner nuestros propios conectores o utilizar la placa ChipKIT Network Shield que ya incluye estos conectores y se puede "pinchar" directamente en los conectores presentes en la ChipKit Max32. 
+Para hacer uso de estos dispositivos necesitaremos realizar el cableado apropiado, poner nuestros propios conectores o utilizar la placa ChipKIT Network Shield que ya incluye estos conectores y se puede "pinchar" directamente en los conectores presentes en la ChipKIT Max32. 
 
 Al igual que el Arduino Mega, el microcontrolador de esta placa también tiene un RTC (Real Time Clock) que nos permita mantener la hora actual siempre que esté conectado a alguna fuente de alimentación. Para poder usar esta característica es necesario conectar un cristal de cuarzo que funcione a 32~768~kHz al pin correspondiente. En este caso, a diferencia del Arduino Mega, el pin del oscilador se encuentra asignado a uno de los pines de entrada/salida en los conectores de la placa por lo que podremos hacer uso de este periférico.\footnote{En el ChipKIT Uno32 podemos encontrar dos agujeros en la placa donde es posible soldar directamente un cristal para el RTC.}
 
@@ -172,7 +172,7 @@ La unidad de administración de memoria utiliza un mecanismo FMT (Fixed Mapping 
 \caption{Traducción de direcciones en M4K}
 \label{mmu_m4k}
 \end{figure}
-El MDU nos permite realizar multiplicaciones entre operandos de 16~bits (o uno de 16 y otro de 32~bits) en un solo ciclo y entre dos operandos de 32~bits en dos o tres ciclos frente al ciclo que tarda la multiplicación de dos operandos de 8 bits en el núcleo AVR.\@ Además, con esta unidad se pueden realizar divisiones mediante hardware sin tener usar bibliotecas (como pasa con el Atmega) gracias a su divisor, y el tiempo de estas operaciones es de 35 ciclos de reloj en el peor de los casos. La MDU implementa un divisor sin restauración~\footnote{url{http://stackoverflow.com/questions/12133810/non-restoring-division-algorithm}}.
+El MDU nos permite realizar multiplicaciones entre operandos de 16~bits (o uno de 16 y otro de 32~bits) en un solo ciclo y entre dos operandos de 32~bits en dos o tres ciclos frente al ciclo que tarda la multiplicación de dos operandos de 8 bits en el núcleo AVR.\@ Además, con esta unidad se pueden realizar divisiones mediante hardware sin tener usar bibliotecas (como pasa con el Atmega) gracias a su divisor, y el tiempo de estas operaciones es de 35 ciclos de reloj en el peor de los casos. La MDU implementa un divisor sin restauración~\footnote{\url{http://stackoverflow.com/questions/12133810/non-restoring-division-algorithm}}.
 
 \figura{m4k_diagram.jpg}{scale=0.7}{Diagrama del Núcleo M4K}{m4kdiagrama}{H}
 
@@ -186,15 +186,15 @@ Desde el punto de vista académico, usar este microcontrolador con arquitectura 
 
 \section{Accesorios}
 Durante el desarrollo de esta trabajo se ha utilizado varios accesorios junto con el ChipKIT MAX32 que facilitaron tareas como depurar programas, conectar la placa a la red Ethernet o proporcionar elementos de entrada-salida como LEDs, botones o una pantalla OLED.\@
-\subsection{Chipkit PGM}
-Para la depuración de los programas con MPLAB se ha utilizado el programador chipKIT PGM\cite{website:pgm}, con el que he podido usar el puerto JTAG del Max32. Este programador está diseñado por Digilent (Fabricante de las placas ChipKIT) para ser usado con la familia de dispositivos chipKIT.\@ Microchip también dispone de su propio programador, el picKIT3~\cite{website:pickit}, con el que se podría también programar estos microcontroladores. Las principales diferencias entre el ChipKIT PGM y el picKIT es que el primero esta diseñado solamente para ser usado con microcontroladores que funcionen con un voltaje de 3.3 V mientras que el programador de Microchip puede ser usado también con dispositivos que funcionen a 5~V. El precio del ChipKIT PGM es inferior al del PicKIT, lo que lo hace la opción adecuada para este trabajo, al utilizar exclusivamente una placa microcontroladora ChipKIT.
+\subsection{ChipKIT PGM}
+Para la depuración de los programas con MPLAB se ha utilizado el programador ChipKIT PGM\cite{website:pgm}, con el que he podido usar el puerto JTAG del Max32. Este programador está diseñado por Digilent (Fabricante de las placas ChipKIT) para ser usado con la familia de dispositivos ChipKIT.\@ Microchip también dispone de su propio programador, el picKIT3~\cite{website:pickit}, con el que se podría también programar estos microcontroladores. Las principales diferencias entre el ChipKIT PGM y el picKIT es que el primero esta diseñado solamente para ser usado con microcontroladores que funcionen con un voltaje de 3.3 V mientras que el programador de Microchip puede ser usado también con dispositivos que funcionen a 5~V. El precio del ChipKIT PGM es inferior al del PicKIT, lo que lo hace la opción adecuada para este trabajo, al utilizar exclusivamente una placa microcontroladora ChipKIT.
 
-\figura{chipKIT-PGM.png}{scale=0.3}{ChipKIT PGM}{pgm}{H}
+\figura{ChipKIT-PGM.png}{scale=0.3}{ChipKIT PGM}{pgm}{H}
 
 \subsection{ChipKIT Basic I/O Shield}
 El otro shield que he usado será el ChipKIT Basic I/O Shield que nos servirá para interactuar físicamente con el microcontrolador ya que este shield nos proporciona diferentes métodos de entrada y salida de información así como conectores de utilización más sencilla y robusta.
 
-\figura{chipKIT-BasicIOShield.jpg}{scale=0.5}{ChipKIT Basic I/O Shield}{ioshield}{H}
+\figura{ChipKIT-BasicIOShield.jpg}{scale=0.5}{ChipKIT Basic I/O Shield}{ioshield}{H}
 
 El ChipKIT Basic I/O shield dispone de los siguientes dispositivos:
 \begin{itemize}
@@ -208,14 +208,14 @@ El ChipKIT Basic I/O shield dispone de los siguientes dispositivos:
 	\item 8 LEDs
 \end{itemize}
 
-Este shield está inicialmente pensado para ser usado en un chipKIT Uno32, pero podemos conectarlo al Max32 sin ningún problema ya que comparten el mismo esquema de pines (aunque el Max32 tiene 83 pines frente a los 42 del Uno32). También es posible conectarlo al Network Shield y este a su vez al Max32, teniendo en cuenta la posibilidad de que algunas funciones en los dos shields sean incompatibles al utilizar los mismos pines del PIC32 para funciones diferentes. Este hecho se conoce como multiplexación de funciones.
+Este shield está inicialmente pensado para ser usado en un ChipKIT Uno32, pero podemos conectarlo al Max32 sin ningún problema ya que comparten el mismo esquema de pines (aunque el Max32 tiene 83 pines frente a los 42 del Uno32). También es posible conectarlo al Network Shield y este a su vez al Max32, teniendo en cuenta la posibilidad de que algunas funciones en los dos shields sean incompatibles al utilizar los mismos pines del PIC32 para funciones diferentes. Este hecho se conoce como multiplexación de funciones.
 
 Igual que el Network Shield, el Basic I/O Shield también dispone de una página web~\cite{website:io_shield} en la que podemos encontrar su manual, esquemáticos y las bibliotecas necesarias para usar en el entorno ChipKIT.\@
 \subsection{ChipKIT Network Shield}
 
 El ChipKIT Network Shield es, como su nombre indica, un shield para el ChipKIT MAX32.\@ Cabe destacar que este shield no sirve para el ChipKIT Uno32 puesto que el microcontrolador que está montado en ella no dispone de las características de las que hace uso esta placa, como Ethernet y host USB.\@ Se coloca encima del microcontrolador tal y como lo hace cualquier shield de Arduino.
 
-\figura{chipKIT-NetworkShield.jpg}{scale=0.5}{Chipkit Network Shield}{networkshield}{H}
+\figura{ChipKIT-NetworkShield.jpg}{scale=0.5}{ChipKIT Network Shield}{networkshield}{H}
 
 Este shield nos proporciona las conexiones necesarias para poder hacer uso del controlador Ethernet y USB que lleva el Max32 integrado y a los buses CAN.\@ Además de esto también tiene integrado un oscilador de 32~768 KHz que nos permite hacer uso del RTC que también tiene integrado el Max32 y una memoria EEPROM de 256~Kb a la que podemos acceder mediante I2C. En la página web del Network Shield~\cite{website:network_shield} podemos encontrar las bibliotecas que nos sirven para hacer uso de sus características, en el entorno ChipKIT.\@
 
