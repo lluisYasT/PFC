@@ -27,7 +27,7 @@ En este capitulo he analizado las características del Arduino Mega y del ChipKI
   \textbf{Pines Entrada/Salida digitales}                 & 54 (15 salidas PWM) & 83 (14 salidas PWM)\\
   \textbf{Pines de entrada analógicos}                    & 16                  & 16\\
   \textbf{Corriente máxima por cada pin entrada/salida}   & 40~mA               & 18~mA\\
-  \textbf{Corriente máxima en el pin de 3,3~V}            & 50~mA               & N/A\\
+  \textbf{Corriente máxima en el pin de 3.3~V}            & 50~mA               & N/A\\
   \textbf{Memoria Flash}                                  & 256~kB              & 512~kB\\
   \textbf{SRAM}                                           & 8~kB                & 128~kB\\
   \textbf{EEPROM}                                         & 4~kB                & No tiene\\
@@ -92,7 +92,7 @@ Para hacer uso de estos dispositivos necesitaremos realizar el cableado apropiad
 
 Al igual que el Arduino Mega, el microcontrolador de esta placa también tiene un RTC (Real Time Clock) que nos permita mantener la hora actual siempre que esté conectado a alguna fuente de alimentación. Para poder usar esta característica es necesario conectar un cristal de cuarzo que funcione a 32~768~kHz al pin correspondiente. En este caso, a diferencia del Arduino Mega, el pin del oscilador se encuentra asignado a uno de los pines de entrada/salida en los conectores de la placa por lo que podremos hacer uso de este periférico.\footnote{En el ChipKIT Uno32 podemos encontrar dos agujeros en la placa donde es posible soldar directamente un cristal para el RTC.}
 
-Este dispositivo, al igual que el resto de microcontroladores de la familia ChipKIT, funciona con un voltaje lógico de 3,3~V frente a los microcontroladores Arduino como el Uno o el Mega que usan un voltaje de 5~V. Esto quiere decir que el nivel lógico alto en el MAX32 es 3.3~V, por lo tanto, al igual que pasaba en el caso de accesorios cuyo voltaje lógico fuese 3.3~V con el Arduino, es necesario tenerlo en cuenta al conectar, por ejemplo, \textit{Shields} Arduino al ChipKIT.
+Este dispositivo, al igual que el resto de microcontroladores de la familia ChipKIT, funciona con un voltaje lógico de 3.3~V frente a los microcontroladores Arduino como el Uno o el Mega que usan un voltaje de 5~V. Esto quiere decir que el nivel lógico alto en el MAX32 es 3.3~V, por lo tanto, al igual que pasaba en el caso de accesorios cuyo voltaje lógico fuese 3.3~V con el Arduino, es necesario tenerlo en cuenta al conectar, por ejemplo, \textit{Shields} Arduino al ChipKIT.
 
 En el caso del Arduino con accesorios que funcionaban a 3.3~V no había problema cuando era el Arduino el que recibía señales con este voltaje porque su umbral de detección lógico está muy por debajo de este valor. Sin embargo es posible que esto no ocurra con otros dispositivos con un nivel lógico de 5~V, por ejemplo dispositivos basados en tecnología CMOS (AC-HC ó AHC-C) cuyo umral de detección (nivel alto) es generalmente de 3.7~V~\footnote{http://www.interfacebus.com/voltage\_threshold.html}.
 
