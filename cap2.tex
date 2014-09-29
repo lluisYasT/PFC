@@ -210,14 +210,14 @@ El ChipKIT Basic I/O shield dispone de los siguientes dispositivos:
 
 Este shield está inicialmente pensado para ser usado en un ChipKIT Uno32, pero podemos conectarlo al Max32 sin ningún problema ya que comparten el mismo esquema de pines (aunque el Max32 tiene 83 pines frente a los 42 del Uno32). También es posible conectarlo al Network Shield y este a su vez al Max32, teniendo en cuenta la posibilidad de que algunas funciones en los dos shields sean incompatibles al utilizar los mismos pines del PIC32 para funciones diferentes. Este hecho se conoce como multiplexación de funciones.
 
-Igual que el Network Shield, el Basic I/O Shield también dispone de una página web~\cite{website:io_shield} en la que podemos encontrar su manual, esquemáticos y las bibliotecas necesarias para usar en el entorno ChipKIT.\@
+El Basic I/O Shield también dispone de una página web~\cite{website:io_shield} en la que podemos encontrar su manual, esquemáticos y las bibliotecas necesarias para usar en el entorno ChipKIT.\@
 \subsection{ChipKIT Network Shield}
 
 El ChipKIT Network Shield es, como su nombre indica, un shield para el ChipKIT MAX32.\@ Cabe destacar que este shield no sirve para el ChipKIT Uno32 puesto que el microcontrolador que está montado en ella no dispone de las características de las que hace uso esta placa, como Ethernet y host USB.\@ Se coloca encima del microcontrolador tal y como lo hace cualquier shield de Arduino.
 
 \figura{ChipKIT-NetworkShield.jpg}{scale=0.5}{ChipKIT Network Shield}{networkshield}{H}
 
-Este shield nos proporciona las conexiones necesarias para poder hacer uso del controlador Ethernet y USB que lleva el Max32 integrado y a los buses CAN.\@ Además de esto también tiene integrado un oscilador de 32~768 KHz que nos permite hacer uso del RTC que también tiene integrado el Max32 y una memoria EEPROM de 256~Kb a la que podemos acceder mediante I2C. En la página web del Network Shield~\cite{website:network_shield} podemos encontrar las bibliotecas que nos sirven para hacer uso de sus características, en el entorno ChipKIT.\@
+Este shield nos proporciona las conexiones necesarias para poder hacer uso del controlador Ethernet y USB que lleva el Max32 integrado y a los buses CAN.\@ Además de esto también tiene integrado un oscilador de 32.768 KHz que nos permite hacer uso del RTC que también tiene integrado el Max32 y una memoria EEPROM de 256~Kb a la que podemos acceder mediante I2C. En la página web del Network Shield~\cite{website:network_shield} podemos encontrar las bibliotecas que nos sirven para hacer uso de sus características, en el entorno ChipKIT.\@
 
 % yo comentaría un poco más cada una de las características: un parrafo resumen de su posible aplicación. 
 Características del ChipKIT Network Shield:
@@ -230,7 +230,7 @@ Características del ChipKIT Network Shield:
 	\item 2 conectores de 12 pines para los buses CAN
 	\item 2 conectores para cadena margarita (daisy chain) I2C
 	\item EEPROM de 256~Kbits con interfaz I2~C
-	\item Oscilador a 32~768~KHz
+	\item Oscilador a 32.768~KHz
 \end{itemize}
 
 
