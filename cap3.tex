@@ -9,7 +9,7 @@ Por otro lado, en los entornos de desarrollo integrados o IDE (Integrated Develo
 \section{MPLAB X}
 \programa{MPLAB X}~\cite{website:mplab} es la última versión del entorno de desarrollo integrado que proporciona Microchip para programar sus microcontroladores. Este IDE, basado en el entorno de código abierto Netbeans, nos permite escribir nuestro programa, compilarlo, programar el microcontrolador y, con la ayuda de un depurador como los mencionados en el capítulo anterior, depurar el programa.
 
-Aunque lo IDEs son mucho más que un editor de texto, el entorno de edición suele ser la herramienta más utilizada. El editor que incorpora \programa{MPLAB X} realiza el sangrado de las líneas de código automáticamente, identifica las parejas de corchetes, comillas, etc.\@ y enfatiza el texto con colores de forma tanto sintáctica como semántica. También dispone de plantillas de código y consejos.
+Aunque un IDE es mucho más que un editor de texto, el entorno de edición suele ser la herramienta más utilizada. El editor que incorpora \programa{MPLAB X} realiza el sangrado de las líneas de código automáticamente, identifica las parejas de corchetes, comillas, etc.\@ y enfatiza el texto con colores de forma tanto sintáctica como semántica. También dispone de plantillas de código y consejos.
 
 \programa{MPLAB X} ofrece también una fácil gestión de proyectos y de archivos dentro de un mismo proyecto. En la parte izquierda del IDE podemos encontrar una sección en la que se encuentran los proyectos y sus archivos, ordenados de forma jerárquica, lo que ayuda en la gestión de diferentes proyectos en un mismo entorno.
 
@@ -17,7 +17,7 @@ Aunque lo IDEs son mucho más que un editor de texto, el entorno de edición sue
 
 Como se aprecia en la Figura~\ref{mplab}, \programa{MPLAB X} nos ofrece mucha información. En esta figura vemos a \programa{MPLAB X} en mitad de la depuración del programa Blink~\footnote{Este programa es el equivalente en microcontroladores al `Hola Mundo', su única función es hacer parpadear un LED.}. En la zona superior del programa se encuentra el menú principal, que contiene los botones para crear un nuevo proyecto, abrirlo o guardarlo. También incluye todos los botones dedicados a la depuración: empezar o parar la depuración, ir a la siguiente instrucción, etc. En la parte izquierda se puede apreciar dos secciones diferentes. La superior muestra la organización del proyecto y la lista de proyectos en caso de que hubiese más de uno. Debajo de esto se encuentra toda la información acerca del estado actual del dispositivo seleccionado durante la creación del proyecto, en este caso un PIC32MX795F512L, como por ejemplo la cantidad de memoria RAM y flash que requiere la aplicación para funcionar comparado con la cantidad total de la que dispone el microcontrolador. En la parte central, y ocupando la mayor parte de la ventana, observamos el editor con el que se puede modificar los archivos de código fuente del proyecto. Por último, en la zona inferior, se encuentra el área de mensajes, consola e información del estado del proyecto. En este caso en particular está mostrando el estado del depurador. En esta zona también se puede mostrar el valor de variables del proyecto en tiempo real y el estado de los registros del procesador, entre otros.
 
-El IDE dispone de muchas más herramientas para la depuración de programas. Durante la ejecución del mismo en modo depuración se pueden establecer puntos en el el código fuente donde el programa debe detener su ejecución, conocidos pos su nombre en inglés breakpoints. Se utilizan para detener la ejecución y así poder ver o modificar el estado de la memoria y registros del procesador en ese momento, ejecutar el programa línea a línea del código fuente o instrucción a instrucción en el código ensamblador, comprobar la traducción a ensamblador hecha por el compilador, etc.
+El IDE dispone de muchas más herramientas para la depuración de programas. Durante la ejecución del mismo en modo depuración se pueden establecer puntos en el el código fuente donde el programa debe detener su ejecución, conocidos por su nombre en inglés: breakpoints. Se utilizan para detener la ejecución y así poder ver o modificar el estado de la memoria y registros del procesador en ese momento, ejecutar el programa línea a línea del código fuente o instrucción a instrucción en el código ensamblador, comprobar la traducción a ensamblador hecha por el compilador, etc.
 
 Con este entorno de desarrollo veremos más adelante los diferentes efectos que los distintos niveles de optimización tienen en nuestro programa y podremos usarla para hacer profiling.
 
@@ -85,7 +85,7 @@ Si accedemos a la carpeta de instalación de Arduino veremos diferentes subcarpe
 		\item[\orden{reference}] Contiene toda la documentación.
 \end{description}
 
-En la carpeta \orden{hardware} encontramos otras dos carpetas: \orden{arduino} y \orden{tools}.  La primera contiene bootloaders, firmwares, la biblioteca `core' y, en el directorio \orden{variants}, están los archivos de cabecera de cada placa microcontroladora en los que se especifica la posición de cada periférico y pin según el microcontrolador.  En \orden{tools} está avrdude (utilidad para cargar los programas en la placa) y su archivo de configuración junto con la `toolchain' \programa{GCC} para realizar la compilación cruzada de los programas.
+En la carpeta \orden{hardware} encontramos otras dos carpetas: \orden{arduino} y \orden{tools}.  La primera contiene bootloaders, firmwares, la biblioteca `core' y en el directorio \orden{variants} están los archivos de cabecera de cada placa microcontroladora en los que se especifica la posición de cada periférico y pin según el microcontrolador.  En \orden{tools} está avrdude (utilidad para cargar los programas en la placa) y su archivo de configuración junto con la `toolchain' \programa{GCC} para realizar la compilación cruzada de los programas.
 
 \section{\programa{MPIDE}}
 % Igual que arduino
@@ -207,7 +207,7 @@ En \orden{loop()} pondremos el código que se ejecutará de forma cíclica indef
 Veamos como ejemplo el sketch Blink:
 \lstinputlisting[language=C++, caption=Blink.pde, label=code:blink]{codigo_fuente/Blink.pde}
 
-En este sketch utilizamos las funciones de Arduino \orden{pinMode},\orden{digitalWrite} y \orden{delay}. En la función \orden{setup()} inicializamos el puerto al que está conectado el LED como una salida~\protect\footnote{PIN\_LED1 está definido en el archivo de cabecera Board\_Defs.h que depende del modelo de microcontrolador que estemos usando. Generalmente, este es el LED que se encuentra en la propia placa, conectado al pin 13.}, mientras que en \orden{loop()} encendemos y apagamos el LED con retardos de 1 segundo.
+En este sketch utilizamos las funciones de Arduino \orden{pinMode}, \orden{digitalWrite} y \orden{delay}. En la función \orden{setup()} inicializamos el puerto al que está conectado el LED como una salida~\protect\footnote{PIN\_LED1 está definido en el archivo de cabecera Board\_Defs.h que depende del modelo de microcontrolador que estemos usando. Generalmente, este es el LED que se encuentra en la propia placa, conectado al pin 13.}, mientras que en \orden{loop()} encendemos y apagamos el LED con retardos de 1 segundo.
 
 \subsection{Bibliotecas de terceros}
 Aparte del código de Arduino y del que creemos nosotros, también es posible añadir bibliotecas de terceros. Gracias a la amplia comunidad que hay detrás de Arduino podemos encontrar cientos de ellas. A la hora de usar una biblioteca de Arduino en ChipKIT tendremos que asegurarnos de que no haga uso de funciones específicas de los procesadores Atmel que encontramos en las placas Arduino, ya que no funcionarán en PIC32.
@@ -218,7 +218,7 @@ Con las bibliotecas instaladas en uno de los dos directorios podremos añadirlas
 
 \section{Proceso de compilación de \programa{MPIDE}}
 \label{sec:compilacion}
-En este apartado he tratado de describir el proceso que sigue \programa{MPIDE} para la compilación y posterior carga en el microcontrolador del programa creado en \programa{MPIDE}. Nuestro objetivo será saber que programas y opciones de compilación usa el IDE de ChipKIT.
+En este apartado he tratado de describir el proceso que sigue \programa{MPIDE} para la compilación y posterior carga en el microcontrolador del programa creado en \programa{MPIDE}\@. Nuestro objetivo será saber que programas y opciones de compilación usa el IDE de ChipKIT\@.
 
 \tikzstyle{format} = [draw, thin, fill=blue!20]
 \tikzstyle{medium} = [ellipse, draw, thin, fill=green!20, minimum height=2.5em]
@@ -267,7 +267,7 @@ Cambiando el valor a \orden{true}, \programa{MPIDE} guardará los archivos tempo
 
 Para ver cómo funciona el proceso de compilación en \programa{MPIDE} usaremos el sketch Blink (\ref{code:blink}).
 
-Para poder observar las acciones que lleva acabo \programa{MPIDE} durante la compilación del programa podemos mantener apretada la tecla \orden{Mayus} mientras pulsamos el botón de compilar. De esta forma \programa{MPIDE} nos mostrará en el terminal todas las órdenes que ejecute.
+Para poder observar las acciones que lleva a cabo \programa{MPIDE} durante la compilación del programa podemos mantener apretada la tecla \orden{Mayus} mientras pulsamos el botón de compilar. De esta forma \programa{MPIDE} nos mostrará en el terminal todas las órdenes que ejecute.
 
 \figura{mpide_compilado.jpg}{scale=0.6}{MPIDE después de compilar}{mpide_compilado}{H}
 
@@ -289,7 +289,7 @@ Utilizando \orden{pic32-g++} se compila el sketch (con extensión `.cpp') a un a
     \item \negrita{-fdata-sections}.Con esta opción cada dato se coloca en su propia sección en el archivo de salida.
     \item \negrita{-g}. Produce información para la depuración.
     \item \negrita{-mdebugger}. Esta opción define el símbolo `\_DEBUGGER', lo que reservará espacio en una sección del archivo de salida (.DBG\_EXCPT) para los vectores de excepción de depuración.
-    \item \negrita{-Wcast-align}. Está opción hace que el compilador lance una advertencia cuando a un puntero se le ha hecho un cast, es decir, si cambia el tipo de dato al que estaba apuntando a uno que requiera un tamaño de alineamiento mayor. Por ejemplo, advierte si \orden{char *} se convierte en \orden{int *} en máquinas donde solo se puede acceder a datos de tipo\orden{int} cada dos o cuatro palabras.
+    \item \negrita{-Wcast-align}. Está opción hace que el compilador lance una advertencia cuando a un puntero se le ha hecho un cast, es decir, si cambia el tipo de dato al que estaba apuntando a uno que requiera un tamaño de alineamiento mayor. Por ejemplo, advierte si \orden{char *} se convierte en \orden{int *} en máquinas donde solo se puede acceder a datos de tipo \orden{int} cada dos o cuatro palabras.
     \item \negrita{-fno-short-double}. Esta opción hace que el tipo de variable \orden{double} sea equivalente a \orden{long double} en vez de a \orden{float}, que es la opción por defecto.
     \item \negrita{-mprocessor=?}. Esta opción indica al compilador cuál es el procesador objetivo. En nuestro caso particular se trata de ``32MX795F512L''.
     \item Definiciones de macros para el preprocesador.
@@ -346,7 +346,7 @@ Ya hemos visto cómo el IDE genera y carga el sketch. El problema de este métod
 
 De esta forma es posible usar el editor de textos que queramos para generar nuestro código (por ejemplo \programa{VIM} o \programa{emacs}), modificar las opciones de compilación, enlazado y carga de una forma rápida y sencilla. Podemos cambiar las opciones de compilación y enlazado en \programa{MPIDE} mediante la modificación de un archivo de configuración del programa (\orden{platforms.txt}); pero estos cambios afectarían a todos los programas compilados con \programa{MPIDE} y es necesario reiniciar el programa para que tengan efecto.
 
-Para esto vamos a crear una carpeta a modo de plantilla, para los proyectos que hagamos. Dentro de esta carpeta tendremos diferentes subdirectorios que servirán para almacenar los diferentes tipos de archivos que necesita nuestro programa. En la figura~\ref{plantilla_carpeta} se puede ver la estructura de esta plantilla.
+Para esto he creado una estructura de carpetas a modo de plantilla, para las distintas aplicaciones. Dentro de esta carpeta tenemos diferentes subdirectorios que sirven para almacenar los diferentes tipos de archivos que necesita nuestro programa. En la figura~\ref{plantilla_carpeta} se puede ver la estructura de esta plantilla.
 
 \begin{figure}[H]
 \begin{center}
@@ -369,7 +369,7 @@ Para esto vamos a crear una carpeta a modo de plantilla, para los proyectos que 
 
 Función de cada carpeta:
 \begin{description}
-	\item[src] Aquí estará el código fuente del programa que hayamos creado. Será el lugar en el que se encuentre el archivo de código fuente \orden{sketch.cpp} que contiene las definiciones de las funciones \orden{setup()} y \orden{loop()}. Además, si necesitamos crear nuestras propias bibliotecas (archivos .h junto con su correspondiente archivo .c o .cpp) podemos crearlos tanto en esta carpeta como en \orden{lib}.
+	\item[src] Aquí estrá el código fuente del programa que hayamos creado. Es el lugar en el que se encuentra el archivo de código fuente \orden{sketch.cpp} que contiene las definiciones de las funciones \orden{setup()} y \orden{loop()}. Además, si necesitamos crear nuestras propias bibliotecas (archivos .h junto con su correspondiente archivo .c o .cpp) podemos crearlos tanto en esta carpeta como en \orden{lib}.
 	\item[lib] Las bibliotecas de terceros se deben copiar a esta carpeta. Usando el archivo Makefile compilaremos todas las bibliotecas y luego las enlazaremos con nuestro programa y la biblioteca core.
 	\item[bin] Una vez el programa es enlazado, el arhivo con extensión `.elf' se guardará en esta carpeta. También se generará ahí el archivo final `.hex' que será el que se cargue en la placa microcontroladora.
 \end{description}
