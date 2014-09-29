@@ -227,12 +227,12 @@ A esto se suma la posibilidad de utilizar el entorno Arduino y muchas de sus bib
 Un ejemplo de este tipo de placas es la que he empleado en este trabajo: ChipKIT MAX32.  A diferencia de las placas Arduino convencionales, la gama ChipKIT de Digilent tiene como microcontrolador un PIC de 32 bits en vez de un Atmega de 8 bits.  Está placa ofrece más potencia y más prestaciones como, por ejemplo, la posibilidad de depurar nuestro programa gracias al conector JTAG que lleva incorporado. Las diferencias están comentadas más a fondo en el siguiente capítulo.
 
 \section{Objetivos}
-La utilización de una placa de la gama ChipKIT implica la utilización de una nueva herramienta de programación, mucho más potente que la original de Arduino. En esta plataforma disponemos de un control casi completo de la forma en la que se generarán los archivos compilados y es en este tipo de control en los que hemos centrado este PFC.\@
+La utilización de una placa de la gama ChipKIT implica la utilización de una nueva herramienta de programación, mucho más potente que la original de Arduino. En esta plataforma disponemos de un control casi completo de la forma en la que se generarán los archivos compilados y es en este tipo de control en los que he centrado este PFC.\@
 
 Teniendo en cuenta esta orientación al estudio a bajo nivel de los programas generados con el entorno Arduino, podemos dividir los objetivos de la siguiente forma:
 
 \subsubsection{Analizar el proceso de compilación de \programa{MPIDE}}
-Lo primero que realizaré será un análisis del proceso que se sigue en el entorno de desarrollo de ChipKIT desde que escribimos el programa hasta que este esté funcionando en la placa microcontroladora.  Esto incluye todas las órdenes o programas que intervengan en este proceso y sus respectivas opciones, además de los ficheros involucrados.
+Lo primero que realizaré será un análisis del proceso que se sigue en el entorno de desarrollo de ChipKIT desde que se escribe el programa hasta que este esté funcionando en la placa microcontroladora.  Esto incluye todas las órdenes o programas que intervengan en este proceso y sus respectivas opciones, además de los ficheros involucrados.
 
 Para lograr flexibilidad en este proceso, propondré una alternativa al IDE, que hará uso de Makefiles y me permitirá realizar todo el proceso anterior con una sola orden. También podré generar resultados intermedios como, por ejemplo, el código compilado, pero no ensamblado, y podré modificar las opciones de cada una de las órdenes.
 
